@@ -1,5 +1,7 @@
 set_property(DIRECTORY . PROPERTY FOLDER "PurCFetcher")
 
+add_definitions(-Wno-conversion)
+
 include(GlobalCommon)
 include(MyMacros.cmake)
 
@@ -10,6 +12,7 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
     "${PURCFETCHER_DIR}"
     "${PURCFETCHER_DIR}/include"
+    "${PURCFETCHER_DIR}/IPC"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
     "${FORWARDING_HEADERS_DIR}"
     "${CMAKE_BINARY_DIR}/src/purc_fetcher"

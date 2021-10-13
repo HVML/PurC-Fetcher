@@ -1,6 +1,8 @@
 set(PurCFetcher_OUTPUT_NAME purc_fetcher)
 
 list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
+    "${PURCFETCHER_DIR}/IPC/glib"
+    "${PURCFETCHER_DIR}/IPC/unix"
 )
 
 list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES

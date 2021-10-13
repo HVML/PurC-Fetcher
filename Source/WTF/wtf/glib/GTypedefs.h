@@ -100,7 +100,7 @@ typedef struct _GdkWindow GdkWindow;
 typedef struct _GtkStyleContext GtkStyleContext;
 #endif
 
-#if PLATFORM(HBD)
+#if PLATFORM(Linux)
 /*
 typedef struct _GtkAction GtkAction;
 typedef struct _GtkAdjustment GtkAdjustment;

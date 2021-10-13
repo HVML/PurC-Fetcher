@@ -23,8 +23,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  *
  * This file handles shared library symbol export decorations. It is recommended
- * that all xGUI projects use these definitions so that symbol exports work
- * properly on all platforms and compilers that xGUI builds under.
+ * that all PurCFetcher projects use these definitions so that symbol exports work
+ * properly on all platforms and compilers that PurCFetcher builds under.
  */
 
 #pragma once

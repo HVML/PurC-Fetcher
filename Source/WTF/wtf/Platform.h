@@ -58,7 +58,7 @@
 /* USE() - use a particular third-party library or optional OS service */
 #include <wtf/PlatformUse.h>
 
-/* ENABLE() - turn on a specific feature of xGUI */
+/* ENABLE() - turn on a specific feature of PurCFetcher */
 #include <wtf/PlatformEnable.h>
 
 
@@ -67,6 +67,12 @@
 /* Macros for specifing specific calling conventions. */
 #include <wtf/PlatformCallingConventions.h>
 
+
+/* ==== Platform additions: additions to Platform.h from outside the main repository ==== */
+
+#if USE(APPLE_INTERNAL_SDK) && __has_include(<PurCFetcherAdditions/AdditionalPlatform.h>)
+#include <PurCFetcherAdditions/AdditionalPlatform.h>
+#endif
 
 /* IWYU pragma: end_exports */
 #undef WTF_PLATFORM_GUARD_AGAINST_INDIRECT_INCLUSION
@@ -103,7 +109,7 @@
 #endif
 
 /* FIXME: This does not belong in Platform.h and should instead be included in another mechanism (compiler option, prefix header, config.h, etc) */
-/* ICU configuration. Some of these match ICU defaults on some platforms, but we would like them consistently set everywhere we build xGUI. */
+/* ICU configuration. Some of these match ICU defaults on some platforms, but we would like them consistently set everywhere we build PurCFetcher. */
 #define U_HIDE_DEPRECATED_API 1
 #define U_SHOW_CPLUSPLUS_API 0
 #ifdef __cplusplus
@@ -133,8 +139,72 @@
 #pragma strict_gs_check(on)
 #endif
 
+/* FIXME: This does not belong in Platform.h and should instead be included in another mechanism (prefix header, config.h, etc) */
+#if USE(GLIB)
+#include <wtf/glib/GTypedefs.h>
+#endif
+
 /* FIXME: The availability of RSA_PSS should not depend on the policy decision to USE(GCRYPT). */
 #if PLATFORM(MAC) || PLATFORM(IOS) || PLATFORM(MACCATALYST) || USE(GCRYPT)
 #define HAVE_RSA_PSS 1
+#endif
+
+/* FIXME: Remove dependence on ENABLE(WEB_RTC). */
+#if PLATFORM(COCOA) && ENABLE(WEB_RTC)
+#define USE_LIBWEBRTC 1
+#endif
+
+
+#if PLATFORM(COCOA)
+#if ENABLE(WEBGL)
+
+/* USE_ANGLE=1 uses ANGLE for the WebGL backend.
+   It replaces USE_OPENGL, USE_OPENGL_ES and USE_EGL. */
+#if PLATFORM(MAC) || (PLATFORM(MACCATALYST) && __has_include(<OpenGL/OpenGL.h>))
+#define USE_OPENGL 0
+#define USE_OPENGL_ES 0
+#define USE_ANGLE 1
+#else
+#define USE_OPENGL 0
+#define USE_OPENGL_ES 0
+#define USE_ANGLE 1
+#endif
+#ifndef GL_SILENCE_DEPRECATION
+#define GL_SILENCE_DEPRECATION 1
+#endif
+
+#if USE(OPENGL) && !defined(HAVE_OPENGL_4)
+#define HAVE_OPENGL_4 1
+#endif
+
+#if USE(OPENGL_ES) && !defined(HAVE_OPENGL_ES_3)
+#define HAVE_OPENGL_ES_3 1
+#endif
+
+#if USE_ANGLE && (USE_OPENGL || USE_OPENGL_ES)
+#error USE_ANGLE is incompatible with USE_OPENGL and USE_OPENGL_ES
+#endif
+
+#endif /* ENABLE(WEBGL) */
+#endif /* PLATFORM(COCOA) */
+
+#if ENABLE(WEBGL)
+#if !defined(USE_ANGLE)
+#define USE_ANGLE 0
+#endif
+
+#if (USE_ANGLE && (USE_OPENGL || USE_OPENGL_ES || (defined(USE_EGL) && USE_EGL))) && !USE(TEXTURE_MAPPER)
+#error USE_ANGLE is incompatible with USE_OPENGL, USE_OPENGL_ES and USE_EGL
+#endif
+
+#endif
+
+#if USE(TEXTURE_MAPPER) && ENABLE(GRAPHICS_CONTEXT_GL) && !defined(USE_TEXTURE_MAPPER_GL)
+#define USE_TEXTURE_MAPPER_GL 1
+#endif
+
+/* FIXME: This is used to "turn on a specific feature of PurCFetcher", so should be converted to an ENABLE macro. */
+#if PLATFORM(COCOA) && ENABLE(ACCESSIBILITY)
+#define USE_ACCESSIBILITY_CONTEXT_MENUS 1
 #endif
 

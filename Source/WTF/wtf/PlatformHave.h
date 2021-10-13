@@ -362,7 +362,7 @@
 #endif
 
 #if PLATFORM(IOS)
-/* FIXME: SafariServices.framework exists on macOS. It is only used by xGUI on iOS, so the behavior is correct, but the name is misleading. */
+/* FIXME: SafariServices.framework exists on macOS. It is only used by PurCFetcher on iOS, so the behavior is correct, but the name is misleading. */
 #define HAVE_SAFARI_SERVICES_FRAMEWORK 1
 #endif
 

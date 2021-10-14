@@ -24,16 +24,25 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #include <wtf/EnumTraits.h>
 
 namespace IPC {
 
 enum class ReceiverName : uint8_t {
     WebPage = 1
+    , IPC = 2
+    , AsyncReply = 3
+    , Invalid = 4
 };
 
 enum class MessageName : uint16_t {
     WebPage_LoadURL = 1
+    , WrappedAsyncMessageForTesting = 2
+    , SyncMessageReply = 3
+    , InitializeConnection = 4
+    , LegacySessionState = 5
 };
 
 ReceiverName receiverName(MessageName);

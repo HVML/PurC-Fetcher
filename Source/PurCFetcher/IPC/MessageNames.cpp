@@ -24,6 +24,7 @@
 
 #include "config.h"
 #include "MessageNames.h"
+#include <wtf/Assertions.h>
 
 namespace IPC {
 
@@ -32,6 +33,14 @@ const char* description(MessageName name)
     switch (name) {
     case MessageName::WebPage_LoadURL:
         return "WebPage::LoadURL";
+    case MessageName::WrappedAsyncMessageForTesting:
+        return "IPC::WrappedAsyncMessageForTesting";
+    case MessageName::SyncMessageReply:
+        return "IPC::SyncMessageReply";
+    case MessageName::InitializeConnection:
+        return "IPC::InitializeConnection";
+    case MessageName::LegacySessionState:
+        return "IPC::LegacySessionState";
     }
     ASSERT_NOT_REACHED();
     return "<invalid message name>";
@@ -42,6 +51,11 @@ ReceiverName receiverName(MessageName messageName)
     switch (messageName) {
     case MessageName::WebPage_LoadURL:
         return ReceiverName::WebPage;
+    case MessageName::WrappedAsyncMessageForTesting:
+    case MessageName::SyncMessageReply:
+    case MessageName::InitializeConnection:
+    case MessageName::LegacySessionState:
+        return ReceiverName::IPC;
     }
     ASSERT_NOT_REACHED();
     return ReceiverName::Invalid;
@@ -50,6 +64,14 @@ ReceiverName receiverName(MessageName messageName)
 bool isValidMessageName(MessageName messageName)
 {
     if (messageName == IPC::MessageName::WebPage_LoadURL)
+        return true;
+    if (messageName == IPC::MessageName::WrappedAsyncMessageForTesting)
+        return true;
+    if (messageName == IPC::MessageName::SyncMessageReply)
+        return true;
+    if (messageName == IPC::MessageName::InitializeConnection)
+        return true;
+    if (messageName == IPC::MessageName::LegacySessionState)
         return true;
     return false;
 };

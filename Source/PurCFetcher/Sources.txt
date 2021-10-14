@@ -1,8 +1,11 @@
 IPC/ArgumentCoders.cpp @no-unify
 IPC/Attachment.cpp @no-unify
+IPC/Connection.cpp @no-unify
 IPC/DataReference.cpp @no-unify
 IPC/Decoder.cpp @no-unify
 IPC/Encoder.cpp @no-unify
 IPC/MessageReceiverMap.cpp @no-unify
 IPC/MessageSender.cpp @no-unify
 IPC/StringReference.cpp @no-unify
+
+IPC/MessageNames.cpp @no-unify

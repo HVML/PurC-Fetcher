@@ -1,8 +1,5 @@
 set_property(DIRECTORY . PROPERTY FOLDER "WTF")
 
-add_definitions(-Wno-conversion)
-add_definitions(-Wno-unused-parameter)
-
 include(GlobalCommon)
 include(MyMacros.cmake)
 

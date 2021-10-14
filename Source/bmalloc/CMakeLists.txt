@@ -1,7 +1,5 @@
 set_property(DIRECTORY . PROPERTY FOLDER "bmalloc")
 
-add_definitions(-Wno-conversion)
-
 set(bmalloc_PRIVATE_INCLUDE_DIRECTORIES
     "${BMALLOC_DIR}"
 )

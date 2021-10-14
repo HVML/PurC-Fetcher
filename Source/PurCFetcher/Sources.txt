@@ -9,3 +9,4 @@ IPC/MessageSender.cpp @no-unify
 IPC/StringReference.cpp @no-unify
 
 IPC/MessageNames.cpp @no-unify
+IPC/SharedMemory.cpp @no-unify

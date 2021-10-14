@@ -6,6 +6,7 @@ list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
 )
 
 list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES
+    "SourcesLinux.txt"
 )
 
 list(APPEND PurCFetcher_SOURCES

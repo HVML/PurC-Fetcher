@@ -13,7 +13,7 @@ IPC/SharedMemory.cpp @no-unify
 
 
 //NetworkProcess/AdClickAttributionManager.cpp
-//NetworkProcess/NetworkActivityTracker.cpp
+NetworkProcess/NetworkActivityTracker.cpp
 //NetworkProcess/NetworkCORSPreflightChecker.cpp
 //NetworkProcess/NetworkConnectionToWebProcess.cpp
 //NetworkProcess/NetworkContentRuleListManager.cpp
@@ -34,30 +34,30 @@ IPC/SharedMemory.cpp @no-unify
 //NetworkProcess/NetworkSocketChannel.cpp
 //NetworkProcess/NetworkSocketStream.cpp
 //NetworkProcess/PingLoad.cpp
-//NetworkProcess/PreconnectTask.cpp
-//
-//NetworkProcess/Classifier/ResourceLoadStatisticsDatabaseStore.cpp
-//NetworkProcess/Classifier/ResourceLoadStatisticsMemoryStore.cpp
-//NetworkProcess/Classifier/ResourceLoadStatisticsPersistentStorage.cpp
-//NetworkProcess/Classifier/ResourceLoadStatisticsStore.cpp
-//
+NetworkProcess/PreconnectTask.cpp
+
+NetworkProcess/Classifier/ResourceLoadStatisticsDatabaseStore.cpp
+NetworkProcess/Classifier/ResourceLoadStatisticsMemoryStore.cpp
+NetworkProcess/Classifier/ResourceLoadStatisticsPersistentStorage.cpp
+NetworkProcess/Classifier/ResourceLoadStatisticsStore.cpp
+
 //NetworkProcess/Cookies/WebCookieManager.cpp
-//
+
 //NetworkProcess/Downloads/Download.cpp
 //NetworkProcess/Downloads/DownloadManager.cpp
-//NetworkProcess/Downloads/DownloadMap.cpp
+NetworkProcess/Downloads/DownloadMap.cpp
 //NetworkProcess/Downloads/DownloadMonitor.cpp
 //NetworkProcess/Downloads/PendingDownload.cpp
-//
+
 //NetworkProcess/IndexedDB/WebIDBConnectionToClient.cpp
 //NetworkProcess/IndexedDB/WebIDBServer.cpp
-//
+
 //NetworkProcess/ServiceWorker/ServiceWorkerFetchTask.cpp @no-unify
 //NetworkProcess/ServiceWorker/ServiceWorkerSoftUpdateLoader.cpp
 //NetworkProcess/ServiceWorker/WebSWOriginStore.cpp @no-unify
 //NetworkProcess/ServiceWorker/WebSWServerConnection.cpp @no-unify
 //NetworkProcess/ServiceWorker/WebSWServerToContextConnection.cpp @no-unify
-//
+
 //NetworkProcess/WebStorage/LocalStorageDatabase.cpp
 //NetworkProcess/WebStorage/LocalStorageDatabaseTracker.cpp
 //NetworkProcess/WebStorage/LocalStorageNamespace.cpp
@@ -66,7 +66,7 @@ IPC/SharedMemory.cpp @no-unify
 //NetworkProcess/WebStorage/StorageManager.cpp
 //NetworkProcess/WebStorage/StorageManagerSet.cpp
 //NetworkProcess/WebStorage/TransientLocalStorageNamespace.cpp
-//
+
 //NetworkProcess/cache/CacheStorageEngine.cpp
 //NetworkProcess/cache/CacheStorageEngineCache.cpp
 //NetworkProcess/cache/CacheStorageEngineCaches.cpp
@@ -77,12 +77,12 @@ IPC/SharedMemory.cpp @no-unify
 //NetworkProcess/cache/NetworkCacheCoders.cpp
 //NetworkProcess/cache/NetworkCacheData.cpp
 //NetworkProcess/cache/NetworkCacheEntry.cpp
-//NetworkProcess/cache/NetworkCacheFileSystem.cpp
+NetworkProcess/cache/NetworkCacheFileSystem.cpp
 //NetworkProcess/cache/NetworkCacheKey.cpp
-//NetworkProcess/cache/NetworkCacheSpeculativeLoad.cpp
-//NetworkProcess/cache/NetworkCacheSpeculativeLoadManager.cpp
+NetworkProcess/cache/NetworkCacheSpeculativeLoad.cpp
+NetworkProcess/cache/NetworkCacheSpeculativeLoadManager.cpp
 //NetworkProcess/cache/NetworkCacheStorage.cpp
-//NetworkProcess/cache/NetworkCacheSubresourcesEntry.cpp
+NetworkProcess/cache/NetworkCacheSubresourcesEntry.cpp
 //NetworkProcess/cache/PrefetchCache.cpp
-//
-//NetworkProcess/webrtc/NetworkMDNSRegister.cpp
+
+NetworkProcess/webrtc/NetworkMDNSRegister.cpp

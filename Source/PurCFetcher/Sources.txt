@@ -16,7 +16,7 @@ IPC/SharedMemory.cpp @no-unify
 NetworkProcess/NetworkActivityTracker.cpp
 //NetworkProcess/NetworkCORSPreflightChecker.cpp
 //NetworkProcess/NetworkConnectionToWebProcess.cpp
-//NetworkProcess/NetworkContentRuleListManager.cpp
+NetworkProcess/NetworkContentRuleListManager.cpp
 //NetworkProcess/NetworkDataTask.cpp
 //NetworkProcess/NetworkDataTaskBlob.cpp
 //NetworkProcess/NetworkHTTPSUpgradeChecker.cpp
@@ -28,7 +28,7 @@ NetworkProcess/NetworkActivityTracker.cpp
 //NetworkProcess/NetworkResourceLoadParameters.cpp
 //NetworkProcess/NetworkResourceLoadMap.cpp
 //NetworkProcess/NetworkResourceLoader.cpp
-//NetworkProcess/NetworkSchemeRegistry.cpp
+NetworkProcess/NetworkSchemeRegistry.cpp
 //NetworkProcess/NetworkSession.cpp
 //NetworkProcess/NetworkSessionCreationParameters.cpp
 //NetworkProcess/NetworkSocketChannel.cpp

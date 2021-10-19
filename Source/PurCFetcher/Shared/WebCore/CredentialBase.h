@@ -41,20 +41,20 @@ enum CredentialPersistence {
 class CredentialBase {
 
 public:
-    WEBCORE_EXPORT bool isEmpty() const;
+    WTF_EXPORT_DECLARATION bool isEmpty() const;
     
-    WEBCORE_EXPORT const String& user() const;
-    WEBCORE_EXPORT const String& password() const;
-    WEBCORE_EXPORT bool hasPassword() const;
-    WEBCORE_EXPORT CredentialPersistence persistence() const;
+    WTF_EXPORT_DECLARATION const String& user() const;
+    WTF_EXPORT_DECLARATION const String& password() const;
+    WTF_EXPORT_DECLARATION bool hasPassword() const;
+    WTF_EXPORT_DECLARATION CredentialPersistence persistence() const;
 
     bool encodingRequiresPlatformData() const { return false; }
 
-    WEBCORE_EXPORT static bool compare(const Credential&, const Credential&);
+    WTF_EXPORT_DECLARATION static bool compare(const Credential&, const Credential&);
 
 protected:
-    WEBCORE_EXPORT CredentialBase();
-    WEBCORE_EXPORT CredentialBase(const String& user, const String& password, CredentialPersistence);
+    WTF_EXPORT_DECLARATION CredentialBase();
+    WTF_EXPORT_DECLARATION CredentialBase(const String& user, const String& password, CredentialPersistence);
     CredentialBase(const Credential& original, CredentialPersistence);
 
     static bool platformCompare(const Credential&, const Credential&) { return true; }

@@ -27,12 +27,12 @@
 
 #include "CacheStorageEngineCache.h"
 #include "NetworkCacheStorage.h"
-#include <WebCore/ClientOrigin.h>
 #include <wtf/CompletionHandler.h>
 #include <wtf/Deque.h>
 
 namespace WebCore {
 class StorageQuotaManager;
+class ClientOrigin;
 }
 
 namespace WebKit {

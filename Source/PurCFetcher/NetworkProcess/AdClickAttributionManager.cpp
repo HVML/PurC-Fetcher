@@ -26,8 +26,8 @@
 #include "config.h"
 #include "AdClickAttributionManager.h"
 
-#include "Logging.h"
-#include <JavaScriptCore/ConsoleTypes.h>
+//#include "Logging.h"
+//#include <JavaScriptCore/ConsoleTypes.h>
 #include <WebCore/FetchOptions.h>
 #include <WebCore/FormData.h>
 #include <WebCore/ResourceError.h>

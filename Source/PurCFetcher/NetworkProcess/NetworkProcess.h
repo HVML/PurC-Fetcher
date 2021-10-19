@@ -37,7 +37,7 @@
 #include "WebPageProxyIdentifier.h"
 #include "WebResourceLoadStatisticsStore.h"
 #include "WebsiteData.h"
-#include <JavaScriptCore/ConsoleTypes.h>
+//#include <JavaScriptCore/ConsoleTypes.h>
 #include <WebCore/AdClickAttribution.h>
 #include <WebCore/ClientOrigin.h>
 #include <WebCore/CrossSiteNavigationDataTransfer.h>

@@ -60,7 +60,7 @@ public:
     virtual size_t bufferedAmount() = 0;
 
 protected:
-    WEBCORE_EXPORT SocketStreamHandle(const URL&, SocketStreamHandleClient&);
+    WTF_EXPORT_DECLARATION SocketStreamHandle(const URL&, SocketStreamHandleClient&);
 
     virtual void platformSend(const uint8_t* data, size_t length, Function<void(bool)>&&) = 0;
     virtual void platformSendHandshake(const uint8_t* data, size_t length, const Optional<CookieRequestHeaderFieldProxy>&, Function<void(bool, bool)>&&) = 0;

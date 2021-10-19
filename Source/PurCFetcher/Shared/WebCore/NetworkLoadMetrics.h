@@ -179,7 +179,7 @@ public:
 };
 
 #if PLATFORM(COCOA)
-WEBCORE_EXPORT Box<NetworkLoadMetrics> copyTimingData(NSDictionary *timingData);
+WTF_EXPORT_DECLARATION Box<NetworkLoadMetrics> copyTimingData(NSDictionary *timingData);
 #endif
 
 template<class Encoder>

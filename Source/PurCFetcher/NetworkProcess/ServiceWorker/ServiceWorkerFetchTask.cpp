@@ -31,17 +31,12 @@
 #include "Connection.h"
 #include "DataReference.h"
 #include "FormDataReference.h"
-#include "Logging.h"
 #include "NetworkProcess.h"
 #include "NetworkResourceLoader.h"
 #include "SharedBufferDataReference.h"
-#include "WebCoreArgumentCoders.h"
-#include "WebResourceLoaderMessages.h"
-#include "WebSWContextManagerConnectionMessages.h"
 #include "WebSWServerConnection.h"
 #include "WebSWServerToContextConnection.h"
 #include <WebCore/CrossOriginAccessControl.h>
-#include <WebCore/SWServerRegistration.h>
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_loader.sessionID().isAlwaysOnLoggingAllowed(), ServiceWorker, "%p - [fetchIdentifier=%" PRIu64 "] ServiceWorkerFetchTask::" fmt, this, m_fetchIdentifier.toUInt64(), ##__VA_ARGS__)
 #define RELEASE_LOG_ERROR_IF_ALLOWED(fmt, ...) RELEASE_LOG_ERROR_IF(m_loader.sessionID().isAlwaysOnLoggingAllowed(), ServiceWorker, "%p - [fetchIdentifier=%" PRIu64 "] ServiceWorkerFetchTask::" fmt, this, m_fetchIdentifier.toUInt64(), ##__VA_ARGS__)

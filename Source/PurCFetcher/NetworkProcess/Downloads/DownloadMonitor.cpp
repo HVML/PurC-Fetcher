@@ -27,7 +27,6 @@
 #include "DownloadMonitor.h"
 
 #include "Download.h"
-#include "Logging.h"
 
 #undef RELEASE_LOG_IF_ALLOWED
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_download.isAlwaysOnLoggingAllowed(), Network, "%p - DownloadMonitor::" fmt, this, ##__VA_ARGS__)

@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include "WebCoreArgumentCoders.h"
 #include <WebCore/SharedBuffer.h>
 
 namespace IPC {

@@ -28,10 +28,8 @@
 
 #include "DataReference.h"
 #include "Download.h"
-#include "DownloadProxyMessages.h"
 #include "NetworkLoad.h"
 #include "NetworkProcess.h"
-#include "WebCoreArgumentCoders.h"
 
 namespace WebKit {
 using namespace WebCore;

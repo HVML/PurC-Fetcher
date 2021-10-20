@@ -28,11 +28,9 @@
 
 #if ENABLE(SERVICE_WORKER)
 
-#include "Logging.h"
 #include "NetworkCache.h"
 #include "NetworkLoad.h"
 #include "NetworkSession.h"
-#include <WebCore/ServiceWorkerFetchResult.h>
 #include <WebCore/ServiceWorkerJob.h>
 #include <WebCore/TextResourceDecoder.h>
 #include <WebCore/WorkerScriptLoader.h>

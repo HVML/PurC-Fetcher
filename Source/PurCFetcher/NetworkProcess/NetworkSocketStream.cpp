@@ -28,12 +28,15 @@
 
 #include "DataReference.h"
 #include "NetworkStorageSessionProvider.h"
-#include "WebSocketStreamMessages.h"
-#include <WebCore/CookieRequestHeaderFieldProxy.h>
-#include <WebCore/SocketStreamError.h>
+//#include "WebSocketStreamMessages.h"
+//#include <WebCore/CookieRequestHeaderFieldProxy.h>
+//#include <WebCore/SocketStreamError.h>
 
 namespace WebKit {
 using namespace WebCore;
+
+class WebCore::CookieRequestHeaderFieldProxy;
+class WebCore::SocketStreamError;
 
 Ref<NetworkSocketStream> NetworkSocketStream::create(NetworkProcess& networkProcess, URL&& url, PAL::SessionID sessionID, const String& credentialPartition, WebSocketIdentifier identifier, IPC::Connection& connection, SourceApplicationAuditToken&& auditData)
 {

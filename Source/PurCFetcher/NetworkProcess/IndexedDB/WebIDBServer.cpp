@@ -27,7 +27,6 @@
 #include "WebIDBServer.h"
 
 #include "WebIDBConnectionToClient.h"
-#include "WebIDBServerMessages.h"
 #include <WebCore/SQLiteDatabaseTracker.h>
 #include <WebCore/StorageQuotaManager.h>
 #include <wtf/threads/BinarySemaphore.h>

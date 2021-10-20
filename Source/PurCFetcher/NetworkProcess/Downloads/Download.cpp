@@ -32,13 +32,13 @@
 #include "DataReference.h"
 #include "DownloadManager.h"
 #include "DownloadMonitor.h"
-#include "DownloadProxyMessages.h"
-#include "Logging.h"
+//#include "DownloadProxyMessages.h"
+//#include "Logging.h"
 #include "NetworkDataTask.h"
 #include "NetworkProcess.h"
 #include "NetworkSession.h"
 #include "SandboxExtension.h"
-#include "WebCoreArgumentCoders.h"
+//#include "WebCoreArgumentCoders.h"
 #include <WebCore/NotImplemented.h>
 
 #if PLATFORM(COCOA)

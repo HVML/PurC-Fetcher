@@ -32,7 +32,7 @@
 #include "CachedRawResourceClient.h"
 #include "CachedResourceHandle.h"
 #include "ContentFilterClient.h"
-#include "ContentSecurityPolicyClient.h"
+//#include "ContentSecurityPolicyClient.h"
 #include "DeviceOrientationOrMotionPermissionState.h"
 #include "DocumentIdentifier.h"
 #include "DocumentWriter.h"
@@ -44,7 +44,7 @@
 #include "ResourceLoaderOptions.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
-#include "SecurityPolicyViolationEvent.h"
+//#include "SecurityPolicyViolationEvent.h"
 #include "ServiceWorkerRegistrationData.h"
 #include "StringWithDirection.h"
 //#include "StyleSheetContents.h"
@@ -151,7 +151,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(DocumentLoader);
 class DocumentLoader
     : public RefCounted<DocumentLoader>
     , public FrameDestructionObserver
-    , public ContentSecurityPolicyClient
+//    , public ContentSecurityPolicyClient
 #if ENABLE(CONTENT_FILTERING)
     , public ContentFilterClient
 #endif
@@ -516,7 +516,7 @@ private:
     // ContentSecurityPolicyClient
     WTF_EXPORT_DECLARATION void addConsoleMessage(MessageSource, MessageLevel, const String&, unsigned long requestIdentifier) final;
     WTF_EXPORT_DECLARATION void sendCSPViolationReport(URL&&, Ref<FormData>&&) final;
-    WTF_EXPORT_DECLARATION void enqueueSecurityPolicyViolationEvent(SecurityPolicyViolationEvent::Init&&) final;
+//    WTF_EXPORT_DECLARATION void enqueueSecurityPolicyViolationEvent(SecurityPolicyViolationEvent::Init&&) final;
 
     bool disallowWebArchive() const;
     bool disallowDataRequest() const;

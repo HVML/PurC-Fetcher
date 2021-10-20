@@ -1030,7 +1030,7 @@ void Storage::setCapacity(size_t capacity)
     if (m_capacity == capacity)
         return;
 
-#if ASSERT_ENABLED
+#if ENABLE_ASSERTS
     const size_t assumedAverageRecordSize = 50 << 10;
     size_t maximumRecordCount = capacity / assumedAverageRecordSize;
     // ~10 bits per element are required for <1% false positive rate.

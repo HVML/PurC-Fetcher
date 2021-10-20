@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2014 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,32 +25,63 @@
 
 #pragma once
 
-#include "SecurityPolicyViolationEvent.h"
-#include <wtf/text/WTFString.h>
+#include <wtf/URL.h>
 
 namespace WebCore {
 
-class FormData;
+class BlobPart {
+public:
+    enum Type {
+        Data,
+        Blob
+    };
 
-struct CSPInfo {
-    String documentURI;
-    String sourceFile;
-    int lineNumber { 0 };
-    int columnNumber { 0 };
+    BlobPart()
+        : m_type(Data)
+    {
+    }
+
+    BlobPart(Vector<uint8_t>&& data)
+        : m_type(Data)
+        , m_data(WTFMove(data))
+    {
+    }
+
+    BlobPart(const URL& url)
+        : m_type(Blob)
+        , m_url(url)
+    {
+    }
+
+    Type type() const { return m_type; }
+
+    const Vector<uint8_t>& data() const
+    {
+        ASSERT(m_type == Data);
+        return m_data;
+    }
+
+    Vector<uint8_t> moveData()
+    {
+        ASSERT(m_type == Data);
+        return WTFMove(m_data);
+    }
+
+    const URL& url() const
+    {
+        ASSERT(m_type == Blob);
+        return m_url;
+    }
+
+    void detachFromCurrentThread()
+    {
+        m_url = m_url.isolatedCopy();
+    }
+
+private:
+    Type m_type;
+    Vector<uint8_t> m_data;
+    URL m_url;
 };
 
-struct WTF_EXPORT_DECLARATION ContentSecurityPolicyClient {
-    // An inline function cannot be the first non-abstract virtual function declared
-    // in the class as it results in the vtable being generated as a weak symbol.
-    // This hurts performance (in Mac OS X at least, when loading frameworks), so we
-    // don't want to do it in WebKit.
-    virtual void willSendCSPViolationReport(CSPInfo&);
-
-    virtual ~ContentSecurityPolicyClient() = default;
-
-    virtual void addConsoleMessage(MessageSource, MessageLevel, const String&, unsigned long requestIdentifier = 0) = 0;
-    virtual void sendCSPViolationReport(URL&&, Ref<FormData>&&) = 0;
-    virtual void enqueueSecurityPolicyViolationEvent(SecurityPolicyViolationEvent::Init&&) = 0;
-};
-
-} // namespace WebCore
+}

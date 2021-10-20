@@ -35,10 +35,10 @@
 #include "NetworkResourceLoadIdentifier.h"
 #include "NetworkResourceLoadParameters.h"
 #include <WebCore/AdClickAttribution.h>
-#include <WebCore/ContentSecurityPolicyClient.h>
+//#include <WebCore/ContentSecurityPolicyClient.h>
 #include <WebCore/CrossOriginAccessControl.h>
 #include <WebCore/ResourceResponse.h>
-#include <WebCore/SecurityPolicyViolationEvent.h>
+//#include <WebCore/SecurityPolicyViolationEvent.h>
 #include <WebCore/Timer.h>
 #include <wtf/WeakPtr.h>
 
@@ -69,7 +69,7 @@ class NetworkResourceLoader final
     : public RefCounted<NetworkResourceLoader>
     , public NetworkLoadClient
     , public IPC::MessageSender
-    , public WebCore::ContentSecurityPolicyClient
+//    , public WebCore::ContentSecurityPolicyClient
     , public WebCore::CrossOriginAccessControlCheckDisabler
     , public CanMakeWeakPtr<NetworkResourceLoader> {
 public:
@@ -199,7 +199,7 @@ private:
     // ContentSecurityPolicyClient
     void addConsoleMessage(MessageSource, MessageLevel, const String&, unsigned long requestIdentifier = 0) final;
     void sendCSPViolationReport(URL&&, Ref<WebCore::FormData>&&) final;
-    void enqueueSecurityPolicyViolationEvent(WebCore::SecurityPolicyViolationEvent::Init&&) final;
+//    void enqueueSecurityPolicyViolationEvent(WebCore::SecurityPolicyViolationEvent::Init&&) final;
 
     void logSlowCacheRetrieveIfNeeded(const NetworkCache::Cache::RetrieveInfo&);
 

@@ -166,7 +166,7 @@ void NetworkSession::invalidateAndCancel()
     if (m_resourceLoadStatistics)
         m_resourceLoadStatistics->invalidateAndCancel();
 #endif
-#if ASSERT_ENABLED
+#if ENABLE_ASSERTS
     m_isInvalidated = true;
 #endif
 }

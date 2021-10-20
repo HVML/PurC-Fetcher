@@ -174,7 +174,7 @@ protected:
 
     PrefetchCache m_prefetchCache;
 
-#if ASSERT_ENABLED
+#if ENABLE_ASSERTS
     bool m_isInvalidated { false };
 #endif
     RefPtr<NetworkCache::Cache> m_cache;

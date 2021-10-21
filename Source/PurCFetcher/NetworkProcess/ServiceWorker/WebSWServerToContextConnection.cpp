@@ -29,7 +29,6 @@
 #if ENABLE(SERVICE_WORKER)
 
 #include "FormDataReference.h"
-#include "Logging.h"
 #include "NetworkConnectionToWebProcess.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessProxyMessages.h"

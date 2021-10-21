@@ -523,7 +523,7 @@
 #endif
 
 #if !defined(ENABLE_SERVICE_WORKER)
-#define ENABLE_SERVICE_WORKER 1
+#define ENABLE_SERVICE_WORKER 0
 #endif
 
 #if !defined(ENABLE_MONOSPACE_FONT_EXCEPTION)

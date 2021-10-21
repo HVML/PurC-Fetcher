@@ -28,7 +28,6 @@
 #include "NetworkCache.h"
 
 #include "AsyncRevalidation.h"
-#include "Logging.h"
 #include "NetworkCacheSpeculativeLoad.h"
 #include "NetworkCacheSpeculativeLoadManager.h"
 #include "NetworkCacheStorage.h"

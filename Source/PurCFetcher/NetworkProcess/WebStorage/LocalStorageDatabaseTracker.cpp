@@ -26,7 +26,6 @@
 #include "config.h"
 #include "LocalStorageDatabaseTracker.h"
 
-#include "Logging.h"
 #include <WebCore/SQLiteFileSystem.h>
 #include <WebCore/SQLiteStatement.h>
 #include <WebCore/TextEncoding.h>

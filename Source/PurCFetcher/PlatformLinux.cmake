@@ -1,10 +1,7 @@
 set(PurCFetcher_OUTPUT_NAME purc_fetcher)
 
 list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
-    "${PURCFETCHER_DIR}/IPC/glib"
-    "${PURCFETCHER_DIR}/IPC/unix"
-    "${PURCFETCHER_DIR}/Shared/soup"
-    "${PURCFETCHER_DIR}/NetworkProcess/soup"
+    "${PURCFETCHER_DIR}/ipc/unix"
 )
 
 list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES

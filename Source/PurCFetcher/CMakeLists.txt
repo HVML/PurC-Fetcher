@@ -14,6 +14,7 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/include"
     "${PURCFETCHER_DIR}/ipc"
     "${PURCFETCHER_DIR}/auxiliary"
+    "${PURCFETCHER_DIR}/auxiliary/crypto"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
     "${FORWARDING_HEADERS_DIR}"
     "${CMAKE_BINARY_DIR}/src/purc_fetcher"

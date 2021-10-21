@@ -14,3 +14,12 @@ ipc/SharedMemory.cpp @no-unify
 auxiliary/ProcessIdentifier.cpp
 auxiliary/UserActivity.cpp
 
+database/DatabaseAuthorizer.cpp
+database/SQLiteAuthorizer.cpp
+database/SQLiteDatabase.cpp
+database/SQLiteDatabaseTracker.cpp
+database/SQLiteFileSystem.cpp
+database/SQLiteStatement.cpp
+database/SQLiteStatementAutoResetScope.cpp
+database/SQLiteTransaction.cpp
+

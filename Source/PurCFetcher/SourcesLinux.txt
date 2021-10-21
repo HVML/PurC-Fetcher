@@ -3,3 +3,4 @@ ipc/unix/SharedMemoryUnix.cpp
 ipc/unix/ConnectionUnix.cpp
 
 auxiliary/unix/AuxiliaryProcessMain.cpp
+auxiliary/crypto/gcrypt/CryptoDigestGCrypt.cpp

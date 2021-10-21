@@ -62,6 +62,8 @@ if (ENABLE_XML)
     list(APPEND PurCFetcher_LIBRARIES LibXml2::LibXml2)
 endif ()
 
+list(APPEND PurCFetcher_LIBRARIES PurCFetcher::WTF)
+
 set(PurCFetcher_INTERFACE_LIBRARIES PurCFetcher)
 set(PurCFetcher_INTERFACE_INCLUDE_DIRECTORIES ${PurCFetcher_PRIVATE_FRAMEWORK_HEADERS_DIR})
 

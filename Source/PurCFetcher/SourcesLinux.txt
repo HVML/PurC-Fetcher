@@ -2,3 +2,4 @@ ipc/unix/AttachmentUnix.cpp
 ipc/unix/SharedMemoryUnix.cpp
 ipc/unix/ConnectionUnix.cpp
 
+auxiliary/unix/AuxiliaryProcessMain.cpp

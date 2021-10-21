@@ -13,6 +13,7 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}"
     "${PURCFETCHER_DIR}/include"
     "${PURCFETCHER_DIR}/ipc"
+    "${PURCFETCHER_DIR}/auxiliary"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
     "${FORWARDING_HEADERS_DIR}"
     "${CMAKE_BINARY_DIR}/src/purc_fetcher"

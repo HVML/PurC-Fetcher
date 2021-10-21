@@ -44,4 +44,14 @@
 #define PURCFETCHER_EXPORT WTF_IMPORT_DECLARATION
 #endif
 
+#ifdef __cplusplus
+
+// These undefs match up with defines in WebKit2Prefix.h for Mac OS X.
+// Helps us catch if anyone uses new or delete by accident in code and doesn't include "config.h".
+#undef new
+#undef delete
+#include <wtf/FastMalloc.h>
+
+#endif
+
 #endif

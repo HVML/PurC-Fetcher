@@ -11,4 +11,6 @@ ipc/StringReference.cpp @no-unify
 ipc/MessageNames.cpp @no-unify
 ipc/SharedMemory.cpp @no-unify
 
+auxiliary/ProcessIdentifier.cpp
+auxiliary/UserActivity.cpp
 

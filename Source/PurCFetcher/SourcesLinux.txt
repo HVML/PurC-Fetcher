@@ -7,4 +7,6 @@ auxiliary/crypto/gcrypt/CryptoDigestGCrypt.cpp
 auxiliary/soup/PublicSuffixSoup.cpp
 auxiliary/soup/SharedBufferSoup.cpp
 
-//network/soup/ResourceRequestSoup.cpp
+network/soup/ResourceRequestSoup.cpp
+network/soup/ResourceResponseSoup.cpp
+

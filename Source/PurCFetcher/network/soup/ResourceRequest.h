@@ -89,7 +89,7 @@ namespace WebCore {
 
         void updateSoupMessageHeaders(SoupMessageHeaders*) const;
         void updateFromSoupMessageHeaders(SoupMessageHeaders*);
-        void updateSoupMessage(SoupMessage*, BlobRegistryImpl&) const;
+        void updateSoupMessage(SoupMessage*) const;
         void updateFromSoupMessage(SoupMessage*);
         void updateSoupRequest(SoupRequest*) const;
         void updateFromSoupRequest(SoupRequest*);
@@ -114,7 +114,7 @@ namespace WebCore {
         Optional<uint64_t> m_initiatingPageID;
 
         void updateSoupMessageMembers(SoupMessage*) const;
-        void updateSoupMessageBody(SoupMessage*, BlobRegistryImpl&) const;
+        void updateSoupMessageBody(SoupMessage*) const;
         void doUpdatePlatformRequest() { }
         void doUpdateResourceRequest() { }
         void doUpdatePlatformHTTPBody() { }

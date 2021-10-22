@@ -22,8 +22,6 @@
 #if USE(SOUP)
 #include "ResourceRequest.h"
 
-#include "BlobData.h"
-#include "BlobRegistryImpl.h"
 #include "GUniquePtrSoup.h"
 #include "HTTPParsers.h"
 #include "MIMETypeRegistry.h"
@@ -35,40 +33,7 @@
 
 namespace WebCore {
 
-static uint64_t appendEncodedBlobItemToSoupMessageBody(SoupMessage* soupMessage, const BlobDataItem& blobItem)
-{
-    switch (blobItem.type()) {
-    case BlobDataItem::Type::Data:
-        soup_message_body_append(soupMessage->request_body, SOUP_MEMORY_TEMPORARY, blobItem.data().data()->data() + blobItem.offset(), blobItem.length());
-        return blobItem.length();
-    case BlobDataItem::Type::File: {
-        if (!blobItem.file()->expectedModificationTime())
-            return 0;
-
-        auto fileModificationTime = FileSystem::getFileModificationTime(blobItem.file()->path());
-        if (!fileModificationTime)
-            return 0;
-
-        if (fileModificationTime->secondsSinceEpoch().secondsAs<time_t>() != blobItem.file()->expectedModificationTime()->secondsSinceEpoch().secondsAs<time_t>())
-            return 0;
-
-        if (auto buffer = SharedBuffer::createWithContentsOfFile(blobItem.file()->path())) {
-            if (buffer->isEmpty())
-                return 0;
-
-            GUniquePtr<SoupBuffer> soupBuffer(buffer->createSoupBuffer(blobItem.offset(), blobItem.length() == BlobDataItem::toEndOfFile ? 0 : blobItem.length()));
-            if (soupBuffer->length)
-                soup_message_body_append_buffer(soupMessage->request_body, soupBuffer.get());
-            return soupBuffer->length;
-        }
-        break;
-    }
-    }
-
-    return 0;
-}
-
-void ResourceRequest::updateSoupMessageBody(SoupMessage* soupMessage, BlobRegistryImpl& blobRegistry) const
+void ResourceRequest::updateSoupMessageBody(SoupMessage* soupMessage) const
 {
     auto* formData = httpBody();
     if (!formData || formData->isEmpty())
@@ -91,11 +56,7 @@ void ResourceRequest::updateSoupMessageBody(SoupMessage* soupMessage, BlobRegist
                     if (soupBuffer->length)
                         soup_message_body_append_buffer(soupMessage->request_body, soupBuffer.get());
                 }
-            }, [&] (const FormDataElement::EncodedBlobData& blob) {
-                if (auto* blobData = blobRegistry.getBlobDataFromURL(blob.url)) {
-                    for (const auto& item : blobData->items())
-                        bodySize += appendEncodedBlobItemToSoupMessageBody(soupMessage, item);
-                }
+            }, [&] (const FormDataElement::EncodedBlobData&) {
             }
         );
     }
@@ -149,7 +110,7 @@ void ResourceRequest::updateFromSoupMessageHeaders(SoupMessageHeaders* soupHeade
         m_httpHeaderFields.set(String(headerName), String(headerValue));
 }
 
-void ResourceRequest::updateSoupMessage(SoupMessage* soupMessage, BlobRegistryImpl& blobRegistry) const
+void ResourceRequest::updateSoupMessage(SoupMessage* soupMessage) const
 {
     g_object_set(soupMessage, SOUP_MESSAGE_METHOD, httpMethod().ascii().data(), NULL);
 
@@ -157,7 +118,7 @@ void ResourceRequest::updateSoupMessage(SoupMessage* soupMessage, BlobRegistryIm
     soup_message_set_uri(soupMessage, uri.get());
 
     updateSoupMessageMembers(soupMessage);
-    updateSoupMessageBody(soupMessage, blobRegistry);
+    updateSoupMessageBody(soupMessage);
 }
 
 void ResourceRequest::updateFromSoupMessage(SoupMessage* soupMessage)

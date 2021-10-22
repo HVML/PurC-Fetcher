@@ -25,7 +25,6 @@
 #include "config.h"
 #include "FormDataBuilder.h"
 
-#include "Blob.h"
 #include "TextEncoding.h"
 #include <limits>
 #include <wtf/Assertions.h>
@@ -184,7 +183,6 @@ void addFilenameToMultiPartHeader(Vector<char>& buffer, const TextEncoding& enco
 
 void addContentTypeToMultiPartHeader(Vector<char>& buffer, const CString& mimeType)
 {
-    ASSERT(Blob::isNormalizedContentType(mimeType));
     append(buffer, "\r\nContent-Type: ");
     append(buffer, mimeType);
 }

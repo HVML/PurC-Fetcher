@@ -46,10 +46,16 @@ auxiliary/ThreadTimers.cpp
 auxiliary/Timer.cpp
 auxiliary/UserActivity.cpp
 
-//network/FormData.cpp
-//network/HTTPHeaderMap.cpp
-//network/HTTPParsers.cpp
-//network/ParsedContentRange.cpp
-//network/ResourceRequestBase.cpp
-//network/SecurityPolicy.cpp
+network/CachedResourceRequestInitiators.cpp
+network/CacheValidation.cpp
+network/FormDataBuilder.cpp
+network/FormData.cpp
+network/HTTPHeaderField.cpp
+network/HTTPHeaderMap.cpp
+network/HTTPParsers.cpp
+network/ParsedContentRange.cpp
+network/ParsedContentType.cpp
+network/ResourceRequestBase.cpp
+network/SecurityPolicy.cpp
+network/UserContentURLPattern.cpp
 

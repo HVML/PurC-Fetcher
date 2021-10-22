@@ -26,13 +26,10 @@
 #include "config.h"
 #include "SharedMemory.h"
 
-#if 0
-#include <WebCore/SharedBuffer.h>
-#endif
+#include "SharedBuffer.h"
 
 namespace WebKit {
 
-#if 0
 using namespace WebCore;
 
 RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
@@ -55,6 +52,5 @@ RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
 
     return sharedMemory;
 }
-#endif
 
 } // namespace WebKit

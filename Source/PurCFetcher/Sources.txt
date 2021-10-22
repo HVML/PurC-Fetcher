@@ -9,7 +9,6 @@ ipc/MessageSender.cpp @no-unify
 ipc/StringReference.cpp @no-unify
 
 ipc/MessageNames.cpp @no-unify
-ipc/SharedMemory.cpp @no-unify
 
 database/DatabaseAuthorizer.cpp
 database/SQLiteAuthorizer.cpp
@@ -30,6 +29,8 @@ auxiliary/ReferrerPolicy.cpp
 auxiliary/RuntimeApplicationChecks.cpp
 auxiliary/SecurityOrigin.cpp
 auxiliary/SecurityOriginData.cpp
+auxiliary/SharedBuffer.cpp
+auxiliary/SharedMemory.cpp
 auxiliary/TextCodec.cpp
 auxiliary/TextCodecICU.cpp
 auxiliary/TextCodecLatin1.cpp

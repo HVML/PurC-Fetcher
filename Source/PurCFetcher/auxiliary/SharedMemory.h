@@ -44,11 +44,9 @@ class Decoder;
 class Encoder;
 }
 
-#if 0
 namespace WebCore {
 class SharedBuffer;
 }
-#endif
 
 #if OS(DARWIN)
 namespace WTF {
@@ -107,9 +105,7 @@ public:
 
     static RefPtr<SharedMemory> allocate(size_t);
     static RefPtr<SharedMemory> create(void*, size_t, Protection);
-#if 0
     static RefPtr<SharedMemory> copyBuffer(const WebCore::SharedBuffer&);
-#endif
     static RefPtr<SharedMemory> map(const Handle&, Protection);
 #if USE(UNIX_DOMAIN_SOCKETS)
     static RefPtr<SharedMemory> wrapMap(void*, size_t, int fileDescriptor);

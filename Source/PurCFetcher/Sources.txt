@@ -29,6 +29,7 @@ auxiliary/ReferrerPolicy.cpp
 auxiliary/RuntimeApplicationChecks.cpp
 auxiliary/SecurityOrigin.cpp
 auxiliary/SecurityOriginData.cpp
+auxiliary/ShareableResource.cpp
 auxiliary/SharedBuffer.cpp
 auxiliary/SharedMemory.cpp
 auxiliary/TextCodec.cpp

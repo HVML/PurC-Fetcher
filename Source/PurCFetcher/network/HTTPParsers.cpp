@@ -930,7 +930,7 @@ bool isCrossOriginSafeHeader(HTTPHeaderName name, const HTTPHeaderSet& accessCon
 
 bool isCrossOriginSafeHeader(const String& name, const HTTPHeaderSet& accessControlExposeHeaderSet)
 {
-#if ASSERT_ENABLED
+#if ENABLE_ASSERTS
     HTTPHeaderName headerName;
     ASSERT(!findHTTPHeaderName(name, headerName));
 #endif

@@ -48,14 +48,20 @@ auxiliary/UserActivity.cpp
 
 network/CachedResourceRequestInitiators.cpp
 network/CacheValidation.cpp
+network/CookieJar.cpp
+network/CredentialBase.cpp
+network/CredentialStorage.cpp
 network/FormDataBuilder.cpp
 network/FormData.cpp
 network/HTTPHeaderField.cpp
 network/HTTPHeaderMap.cpp
 network/HTTPParsers.cpp
+network/NetworkStorageSession.cpp
 network/ParsedContentRange.cpp
 network/ParsedContentType.cpp
 network/ResourceRequestBase.cpp
+network/SameSiteInfo.cpp
 network/SecurityPolicy.cpp
+network/SessionID.cpp
 network/UserContentURLPattern.cpp
 

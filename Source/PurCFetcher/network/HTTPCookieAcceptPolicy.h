@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2011-2020 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,37 +25,27 @@
 
 #pragma once
 
-#include "FrameIdentifier.h"
-#include "PageIdentifier.h"
-#include <wtf/Forward.h>
-#include <wtf/text/WTFString.h>
-
 namespace WebCore {
 
-enum class IncludeSecureCookies : bool { No, Yes };
-enum class IncludeHttpOnlyCookies : bool { No, Yes };
-enum class SecureCookiesAccessed : bool { No, Yes };
-
-class StorageSessionProvider;
-struct SameSiteInfo;
-
-class PURCFETCHER_EXPORT CookieJar : public RefCounted<CookieJar> {
-public:
-    static Ref<CookieJar> create(Ref<StorageSessionProvider>&&);
-    
-
-    virtual std::pair<String, SecureCookiesAccessed> cookieRequestHeaderFieldValue(const URL& firstParty, const SameSiteInfo&, const URL&, Optional<FrameIdentifier>, Optional<PageIdentifier>, IncludeSecureCookies) const;
-
-    // Cookie Cache.
-    virtual void clearCache() { }
-    virtual void clearCacheForHost(const String&) { }
-
-    virtual ~CookieJar();
-protected:
-    CookieJar(Ref<StorageSessionProvider>&&);
-
-private:
-    Ref<StorageSessionProvider> m_storageSessionProvider;
+enum class HTTPCookieAcceptPolicy : uint8_t {
+    AlwaysAccept = 0,
+    Never = 1,
+    OnlyFromMainDocumentDomain = 2,
+    ExclusivelyFromMainDocumentDomain = 3,
 };
 
-} // namespace WebCore
+} // namespace WebKit
+
+namespace WTF {
+
+template<> struct EnumTraits<WebCore::HTTPCookieAcceptPolicy> {
+    using values = EnumValues<
+        WebCore::HTTPCookieAcceptPolicy,
+        WebCore::HTTPCookieAcceptPolicy::AlwaysAccept,
+        WebCore::HTTPCookieAcceptPolicy::Never,
+        WebCore::HTTPCookieAcceptPolicy::OnlyFromMainDocumentDomain,
+        WebCore::HTTPCookieAcceptPolicy::ExclusivelyFromMainDocumentDomain
+    >;
+};
+
+}

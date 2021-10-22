@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2019 Apple, Inc. All Rights Reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,37 +25,17 @@
 
 #pragma once
 
-#include "FrameIdentifier.h"
-#include "PageIdentifier.h"
-#include <wtf/Forward.h>
-#include <wtf/text/WTFString.h>
+#include <wtf/ThreadSafeRefCounted.h>
 
 namespace WebCore {
 
-enum class IncludeSecureCookies : bool { No, Yes };
-enum class IncludeHttpOnlyCookies : bool { No, Yes };
-enum class SecureCookiesAccessed : bool { No, Yes };
+class NetworkStorageSession;
 
-class StorageSessionProvider;
-struct SameSiteInfo;
-
-class PURCFETCHER_EXPORT CookieJar : public RefCounted<CookieJar> {
+class StorageSessionProvider : public ThreadSafeRefCounted<StorageSessionProvider> {
 public:
-    static Ref<CookieJar> create(Ref<StorageSessionProvider>&&);
-    
+    virtual NetworkStorageSession* storageSession() const = 0;
 
-    virtual std::pair<String, SecureCookiesAccessed> cookieRequestHeaderFieldValue(const URL& firstParty, const SameSiteInfo&, const URL&, Optional<FrameIdentifier>, Optional<PageIdentifier>, IncludeSecureCookies) const;
-
-    // Cookie Cache.
-    virtual void clearCache() { }
-    virtual void clearCacheForHost(const String&) { }
-
-    virtual ~CookieJar();
-protected:
-    CookieJar(Ref<StorageSessionProvider>&&);
-
-private:
-    Ref<StorageSessionProvider> m_storageSessionProvider;
+    virtual ~StorageSessionProvider() { }
 };
 
 } // namespace WebCore

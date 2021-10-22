@@ -11,9 +11,6 @@ ipc/StringReference.cpp @no-unify
 ipc/MessageNames.cpp @no-unify
 ipc/SharedMemory.cpp @no-unify
 
-auxiliary/ProcessIdentifier.cpp
-auxiliary/UserActivity.cpp
-
 database/DatabaseAuthorizer.cpp
 database/SQLiteAuthorizer.cpp
 database/SQLiteDatabase.cpp
@@ -22,4 +19,35 @@ database/SQLiteFileSystem.cpp
 database/SQLiteStatement.cpp
 database/SQLiteStatementAutoResetScope.cpp
 database/SQLiteTransaction.cpp
+
+auxiliary/HTTPHeaderNames.cpp
+auxiliary/LegacySchemeRegistry.cpp
+auxiliary/MainThreadSharedTimer.cpp
+auxiliary/MIMETypeRegistry.cpp
+auxiliary/OriginAccessEntry.cpp
+auxiliary/ProcessIdentifier.cpp
+auxiliary/ReferrerPolicy.cpp
+auxiliary/RuntimeApplicationChecks.cpp
+auxiliary/SecurityOrigin.cpp
+auxiliary/SecurityOriginData.cpp
+auxiliary/TextCodec.cpp
+auxiliary/TextCodecICU.cpp
+auxiliary/TextCodecLatin1.cpp
+auxiliary/TextCodecReplacement.cpp
+auxiliary/TextCodecUserDefined.cpp
+auxiliary/TextCodecUTF16.cpp
+auxiliary/TextCodecUTF8.cpp
+auxiliary/TextEncoding.cpp
+auxiliary/TextEncodingRegistry.cpp
+auxiliary/ThreadGlobalData.cpp
+auxiliary/ThreadTimers.cpp
+auxiliary/Timer.cpp
+auxiliary/UserActivity.cpp
+
+//network/FormData.cpp
+//network/HTTPHeaderMap.cpp
+//network/HTTPParsers.cpp
+//network/ParsedContentRange.cpp
+//network/ResourceRequestBase.cpp
+//network/SecurityPolicy.cpp
 

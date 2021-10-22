@@ -60,6 +60,7 @@ network/NetworkStorageSession.cpp
 network/ParsedContentRange.cpp
 network/ParsedContentType.cpp
 network/ResourceRequestBase.cpp
+network/ResourceResponseBase.cpp
 network/SameSiteInfo.cpp
 network/SecurityPolicy.cpp
 network/SessionID.cpp

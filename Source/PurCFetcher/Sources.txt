@@ -66,3 +66,8 @@ network/SecurityPolicy.cpp
 network/SessionID.cpp
 network/UserContentURLPattern.cpp
 
+network/CacheModel.cpp
+network/NetworkActivityTracker.h
+network/NetworkProcess.cpp
+//network/NetworkResourceLoader.cpp
+//network/NetworkDataTask.cpp

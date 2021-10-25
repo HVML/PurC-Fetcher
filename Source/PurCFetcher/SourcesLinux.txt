@@ -9,4 +9,4 @@ auxiliary/soup/SharedBufferSoup.cpp
 
 network/soup/ResourceRequestSoup.cpp
 network/soup/ResourceResponseSoup.cpp
-
+//network/soup/WebSocketTaskSoup.cpp

@@ -28,7 +28,7 @@
 #include "Decoder.h"
 #include "Encoder.h"
 #include "SandboxExtension.h"
-#include <WebCore/FormData.h>
+#include "FormData.h"
 
 namespace IPC {
 

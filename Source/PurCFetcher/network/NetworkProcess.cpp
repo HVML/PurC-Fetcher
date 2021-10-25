@@ -28,18 +28,15 @@
 #include "NetworkProcess.h"
 
 #include "ArgumentCoders.h"
+#include "WebCoreArgumentCoders.h"
 #include "Attachment.h"
 #include "AuthenticationManager.h"
 #include "AuxiliaryProcessMessages.h"
 #include "DataReference.h"
 #include "Download.h"
 #include "DownloadProxyMessages.h"
-#if ENABLE(LEGACY_CUSTOM_PROTOCOL_MANAGER)
-#include "LegacyCustomProtocolManager.h"
-#endif
 #include "Logging.h"
 #include "NetworkConnectionToWebProcess.h"
-//#include "NetworkContentRuleListManagerMessages.h"
 #include "NetworkLoad.h"
 #include "NetworkProcessCreationParameters.h"
 #include "NetworkProcessPlatformStrategies.h"
@@ -2153,8 +2150,8 @@ void NetworkProcess::pendingDownloadCanceled(DownloadID downloadID)
 void NetworkProcess::findPendingDownloadLocation(NetworkDataTask& networkDataTask, ResponseCompletionHandler&& completionHandler, const ResourceResponse& response)
 {
     uint64_t destinationID = networkDataTask.pendingDownloadID().downloadID();
-// TODO
-//    downloadProxyConnection()->send(Messages::DownloadProxy::DidReceiveResponse(response), destinationID);
+
+    downloadProxyConnection()->send(Messages::DownloadProxy::DidReceiveResponse(response), destinationID);
 
     downloadManager().willDecidePendingDownloadDestination(networkDataTask, WTFMove(completionHandler));
 

@@ -26,7 +26,7 @@
 #pragma once
 
 #include "StorageNamespaceIdentifier.h"
-#include <WebCore/StorageNamespaceProvider.h>
+#include "StorageNamespaceProvider.h"
 
 namespace WebKit {
 

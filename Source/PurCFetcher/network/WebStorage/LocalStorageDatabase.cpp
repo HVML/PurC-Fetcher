@@ -27,11 +27,11 @@
 #include "LocalStorageDatabase.h"
 
 #include "LocalStorageDatabaseTracker.h"
-#include <WebCore/SQLiteStatement.h>
-#include <WebCore/SQLiteTransaction.h>
-#include <WebCore/SecurityOrigin.h>
-#include <WebCore/StorageMap.h>
-#include <WebCore/SuddenTermination.h>
+#include "SQLiteStatement.h"
+#include "SQLiteTransaction.h"
+#include "SecurityOrigin.h"
+#include "StorageMap.h"
+#include "SuddenTermination.h"
 #include <wtf/FileSystem.h>
 #include <wtf/RefPtr.h>
 #include <wtf/RunLoop.h>

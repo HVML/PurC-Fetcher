@@ -27,7 +27,7 @@
 
 #include "StorageAreaIdentifier.h"
 #include "StorageNamespaceIdentifier.h"
-#include <WebCore/SecurityOriginData.h>
+#include "SecurityOriginData.h"
 #include <wtf/Forward.h>
 #include <wtf/HashMap.h>
 #include <wtf/WeakPtr.h>

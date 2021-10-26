@@ -28,7 +28,7 @@
 #include "Connection.h"
 #include "StorageAreaIdentifier.h"
 #include "StorageAreaImplIdentifier.h"
-#include <WebCore/SecurityOriginData.h>
+#include "SecurityOriginData.h"
 #include <wtf/Forward.h>
 #include <wtf/WeakPtr.h>
 

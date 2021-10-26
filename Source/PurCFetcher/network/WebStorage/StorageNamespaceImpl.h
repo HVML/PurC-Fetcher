@@ -26,12 +26,12 @@
 #pragma once
 
 #include "StorageNamespaceIdentifier.h"
-#include <WebCore/PageIdentifier.h>
-#include <WebCore/SecurityOriginData.h>
-#include <WebCore/SecurityOriginHash.h>
-#include <WebCore/StorageArea.h>
-#include <WebCore/StorageMap.h>
-#include <WebCore/StorageNamespace.h>
+#include "PageIdentifier.h"
+#include "SecurityOriginData.h"
+#include "SecurityOriginHash.h"
+#include "StorageArea.h"
+#include "StorageMap.h"
+#include "StorageNamespace.h"
 #include <pal/SessionID.h>
 #include <wtf/HashMap.h>
 

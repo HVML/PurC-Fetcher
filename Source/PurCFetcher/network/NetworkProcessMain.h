@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2017 Sony Interactive Entertainment Inc.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,34 +25,14 @@
 
 #pragma once
 
-#include "StorageAreaIdentifier.h"
-#include "SecurityOriginData.h"
-#include <wtf/Forward.h>
-#include <wtf/HashMap.h>
-#include <wtf/WorkQueue.h>
+#if !PLATFORM(COCOA)
+
+#include <WebKit/WKBase.h>
 
 namespace WebKit {
 
-class StorageArea;
-
-class TransientLocalStorageNamespace {
-    WTF_MAKE_NONCOPYABLE(TransientLocalStorageNamespace);
-    WTF_MAKE_FAST_ALLOCATED;
-public:
-    TransientLocalStorageNamespace();
-    ~TransientLocalStorageNamespace();
-
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    Vector<WebCore::SecurityOriginData> origins() const;
-
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
-    void clearAllStorageAreas();
-
-    Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
-
-private:
-    const unsigned m_quotaInBytes { 0 };
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
-};
+WK_EXPORT int NetworkProcessMain(int argc, char** argv);
 
 } // namespace WebKit
+
+#endif // !PLATFORM(COCOA)

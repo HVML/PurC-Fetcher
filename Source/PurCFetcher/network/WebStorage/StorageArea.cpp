@@ -30,7 +30,7 @@
 #include "LocalStorageNamespace.h"
 #include "StorageAreaMapMessages.h"
 #include "StorageManager.h"
-#include <WebCore/StorageMap.h>
+#include "StorageMap.h"
 
 namespace WebKit {
 

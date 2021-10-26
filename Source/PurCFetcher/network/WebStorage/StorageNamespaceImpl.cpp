@@ -33,11 +33,11 @@
 #include "WebPage.h"
 #include "WebPageGroupProxy.h"
 #include "WebProcess.h"
-#include <WebCore/Frame.h>
-#include <WebCore/PageGroup.h>
-#include <WebCore/SecurityOrigin.h>
-#include <WebCore/Settings.h>
-#include <WebCore/StorageType.h>
+#include "Frame.h"
+#include "PageGroup.h"
+#include "SecurityOrigin.h"
+#include "Settings.h"
+#include "StorageType.h"
 
 namespace WebKit {
 using namespace WebCore;

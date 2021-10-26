@@ -34,10 +34,10 @@
 #include "StorageAreaMapMessages.h"
 #include "TransientLocalStorageNamespace.h"
 #include "WebProcessProxy.h"
-#include <WebCore/SecurityOriginData.h>
-#include <WebCore/SecurityOriginHash.h>
-#include <WebCore/StorageMap.h>
-#include <WebCore/TextEncoding.h>
+#include "SecurityOriginData.h"
+#include "SecurityOriginHash.h"
+#include "StorageMap.h"
+#include "TextEncoding.h"
 #include <memory>
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/FileSystem.h>

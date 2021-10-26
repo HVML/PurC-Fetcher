@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2019 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,34 +25,24 @@
 
 #pragma once
 
-#include "StorageAreaIdentifier.h"
-#include "SecurityOriginData.h"
-#include <wtf/Forward.h>
-#include <wtf/HashMap.h>
-#include <wtf/WorkQueue.h>
+#include <wtf/HashSet.h>
+#include <wtf/RefCounted.h>
+#include <wtf/text/StringHash.h>
+#include <wtf/text/WTFString.h>
 
 namespace WebKit {
 
-class StorageArea;
-
-class TransientLocalStorageNamespace {
-    WTF_MAKE_NONCOPYABLE(TransientLocalStorageNamespace);
-    WTF_MAKE_FAST_ALLOCATED;
+class NetworkSchemeRegistry : public RefCounted<NetworkSchemeRegistry> {
 public:
-    TransientLocalStorageNamespace();
-    ~TransientLocalStorageNamespace();
+    static Ref<NetworkSchemeRegistry> create() { return adoptRef(*new NetworkSchemeRegistry); }
 
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    Vector<WebCore::SecurityOriginData> origins() const;
-
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
-    void clearAllStorageAreas();
-
-    Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
+    // Allow non-HTTP schemes to be registered to allow CORS requests.
+    void registerURLSchemeAsCORSEnabled(String&& scheme);
+    bool shouldTreatURLSchemeAsCORSEnabled(StringView scheme);
 
 private:
-    const unsigned m_quotaInBytes { 0 };
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    using URLSchemes = HashSet<String, ASCIICaseInsensitiveHash>;
+    URLSchemes m_corsEnabledSchemes;
 };
 
 } // namespace WebKit

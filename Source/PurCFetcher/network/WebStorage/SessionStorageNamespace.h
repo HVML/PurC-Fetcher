@@ -27,7 +27,7 @@
 
 #include "Connection.h"
 #include "StorageAreaIdentifier.h"
-#include <WebCore/SecurityOriginData.h>
+#include "SecurityOriginData.h"
 #include <wtf/Forward.h>
 #include <wtf/WorkQueue.h>
 

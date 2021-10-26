@@ -29,7 +29,7 @@
 #include "StorageArea.h"
 #include "StorageAreaMapMessages.h"
 #include "StorageManagerSetMessages.h"
-#include <WebCore/TextEncoding.h>
+#include "TextEncoding.h"
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/threads/BinarySemaphore.h>
 

@@ -30,9 +30,9 @@
 #include "WebCookieManagerMessages.h"
 #include "WebCookieManagerProxyMessages.h"
 #include "WebCoreArgumentCoders.h"
-#include <WebCore/Cookie.h>
-#include <WebCore/CookieStorage.h>
-#include <WebCore/NetworkStorageSession.h>
+#include "Cookie.h"
+#include "CookieStorage.h"
+#include "NetworkStorageSession.h"
 #include <wtf/MainThread.h>
 #include <wtf/URL.h>
 #include <wtf/text/StringHash.h>

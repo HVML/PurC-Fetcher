@@ -28,7 +28,7 @@
 
 #include "StorageArea.h"
 #include "StorageManager.h"
-#include <WebCore/SecurityOriginData.h>
+#include "SecurityOriginData.h"
 
 namespace WebKit {
 

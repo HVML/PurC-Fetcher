@@ -28,8 +28,8 @@
 #include "MessageReceiver.h"
 #include "StorageAreaIdentifier.h"
 #include "StorageAreaImplIdentifier.h"
-#include <WebCore/SecurityOrigin.h>
-#include <WebCore/StorageArea.h>
+#include "SecurityOrigin.h"
+#include "StorageArea.h"
 #include <wtf/Forward.h>
 #include <wtf/HashCountedSet.h>
 #include <wtf/RefCounted.h>

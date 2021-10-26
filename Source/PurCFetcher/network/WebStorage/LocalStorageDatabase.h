@@ -25,8 +25,8 @@
 
 #pragma once
 
-#include <WebCore/SQLiteDatabase.h>
-#include <WebCore/SecurityOriginData.h>
+#include "SQLiteDatabase.h"
+#include "SecurityOriginData.h"
 #include <wtf/Forward.h>
 #include <wtf/HashMap.h>
 #include <wtf/RefCounted.h>

@@ -35,16 +35,16 @@
 #include "WebPage.h"
 #include "WebPageGroupProxy.h"
 #include "WebProcess.h"
-#include <WebCore/DOMWindow.h>
-#include <WebCore/Document.h>
-#include <WebCore/Frame.h>
-#include <WebCore/Page.h>
-#include <WebCore/PageGroup.h>
-#include <WebCore/SecurityOriginData.h>
-#include <WebCore/Storage.h>
-#include <WebCore/StorageEventDispatcher.h>
-#include <WebCore/StorageMap.h>
-#include <WebCore/StorageType.h>
+#include "DOMWindow.h"
+#include "Document.h"
+#include "Frame.h"
+#include "Page.h"
+#include "PageGroup.h"
+#include "SecurityOriginData.h"
+#include "Storage.h"
+#include "StorageEventDispatcher.h"
+#include "StorageMap.h"
+#include "StorageType.h"
 
 namespace WebKit {
 using namespace WebCore;

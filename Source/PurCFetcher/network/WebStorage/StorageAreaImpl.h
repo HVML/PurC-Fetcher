@@ -27,7 +27,7 @@
 
 #include "MessageReceiver.h"
 #include "StorageAreaImplIdentifier.h"
-#include <WebCore/StorageArea.h>
+#include "StorageArea.h"
 #include <wtf/HashMap.h>
 #include <wtf/WeakPtr.h>
 

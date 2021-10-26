@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2013-2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2019 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,34 +25,32 @@
 
 #pragma once
 
-#include "StorageAreaIdentifier.h"
-#include "SecurityOriginData.h"
-#include <wtf/Forward.h>
-#include <wtf/HashMap.h>
-#include <wtf/WorkQueue.h>
+#include "NetworkProcess.h"
+#include "NetworkStorageSession.h"
+#include "StorageSessionProvider.h"
+#include <pal/SessionID.h>
+#include <wtf/WeakPtr.h>
 
 namespace WebKit {
 
-class StorageArea;
-
-class TransientLocalStorageNamespace {
-    WTF_MAKE_NONCOPYABLE(TransientLocalStorageNamespace);
-    WTF_MAKE_FAST_ALLOCATED;
+class NetworkStorageSessionProvider final : public WebCore::StorageSessionProvider {
 public:
-    TransientLocalStorageNamespace();
-    ~TransientLocalStorageNamespace();
-
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    Vector<WebCore::SecurityOriginData> origins() const;
-
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
-    void clearAllStorageAreas();
-
-    Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
-
+    static Ref<NetworkStorageSessionProvider> create(NetworkProcess& networkProcess, const PAL::SessionID& sessionID) { return adoptRef(*new NetworkStorageSessionProvider(networkProcess, sessionID)); }
+    
 private:
-    const unsigned m_quotaInBytes { 0 };
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    NetworkStorageSessionProvider(NetworkProcess& networkProcess, const PAL::SessionID& sessionID)
+        : m_networkProcess(makeWeakPtr(networkProcess))
+        , m_sessionID(sessionID) { }
+
+    WebCore::NetworkStorageSession* storageSession() const final
+    {
+        if (m_networkProcess)
+            return m_networkProcess->storageSession(m_sessionID);
+        return nullptr;
+    }
+
+    WeakPtr<NetworkProcess> m_networkProcess;
+    PAL::SessionID m_sessionID;
 };
 
-} // namespace WebKit
+}

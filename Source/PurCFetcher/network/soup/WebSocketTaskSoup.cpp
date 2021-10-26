@@ -28,10 +28,10 @@
 
 #include "DataReference.h"
 #include "NetworkSocketChannel.h"
-#include <WebCore/HTTPParsers.h>
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/ResourceResponse.h>
-#include <WebCore/WebSocketChannel.h>
+#include "HTTPParsers.h"
+#include "ResourceRequest.h"
+#include "ResourceResponse.h"
+#include "WebSocketChannel.h"
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/text/StringBuilder.h>
 

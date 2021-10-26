@@ -72,8 +72,7 @@ network/NetworkActivityTracker.cpp
 network/NetworkCORSPreflightChecker.cpp
 //network/NetworkConnectionToWebProcess.cpp
 network/NetworkContentRuleListManager.cpp
-//network/NetworkDataTask.cpp
-//network/NetworkDataTaskBlob.cpp
+network/NetworkDataTask.cpp
 network/NetworkHTTPSUpgradeChecker.cpp
 network/NetworkLoad.cpp
 network/NetworkLoadChecker.cpp

@@ -28,7 +28,6 @@
 #include "NetworkDataTask.h"
 
 #include "AuthenticationManager.h"
-#include "NetworkDataTaskBlob.h"
 #include "NetworkLoadParameters.h"
 #include "NetworkSession.h"
 #include "RegistrableDomain.h"
@@ -37,10 +36,12 @@
 #include "ResourceResponse.h"
 #include <wtf/RunLoop.h>
 
+#if 0
 #include "NetworkDataTaskHybirdos.h"
 #include "NetworkDataTaskLsql.h"
 #if ENABLE(RSQL)
 #include "NetworkDataTaskRsql.h"
+#endif
 #endif
 
 #if PLATFORM(COCOA)
@@ -59,6 +60,7 @@ using namespace WebCore;
 Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDataTaskClient& client, const NetworkLoadParameters& parameters)
 {
     ASSERT(!parameters.request.url().protocolIsBlob());
+#if 0
     if (parameters.request.url().protocolIsLcmd()) {
         return NetworkDataTaskHybirdos::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
     }
@@ -69,6 +71,7 @@ Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDat
     else if (parameters.request.url().protocolIsRsql()) {
         return NetworkDataTaskRsql::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
     }
+#endif
 #endif
 
 #if PLATFORM(COCOA)
@@ -198,6 +201,7 @@ bool NetworkDataTask::isThirdPartyRequest(const WebCore::ResourceRequest& reques
 
 void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(WebCore::ResourceRequest& request)
 {
+    UNUSED_PARAM(request);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     if ((m_session->sessionID().isEphemeral() || m_session->isResourceLoadStatisticsEnabled()) && m_session->shouldDowngradeReferrer() && isThirdPartyRequest(request))
         request.setExistingHTTPReferrerToOriginString();

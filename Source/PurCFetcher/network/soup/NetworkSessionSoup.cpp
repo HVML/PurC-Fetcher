@@ -30,10 +30,10 @@
 #include "NetworkSessionCreationParameters.h"
 #include "WebCookieManager.h"
 #include "WebSocketTaskSoup.h"
-#include <WebCore/DeprecatedGlobalSettings.h>
-#include <WebCore/NetworkStorageSession.h>
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/SoupNetworkSession.h>
+#include "DeprecatedGlobalSettings.h"
+#include "NetworkStorageSession.h"
+#include "ResourceRequest.h"
+#include "SoupNetworkSession.h"
 #include <libsoup/soup.h>
 
 namespace WebKit {

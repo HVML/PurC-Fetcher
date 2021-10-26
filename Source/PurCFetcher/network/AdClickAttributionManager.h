@@ -32,7 +32,7 @@
 #include "ResourceError.h"
 #include "ResourceResponse.h"
 #include "Timer.h"
-#include <pal/SessionID.h>
+#include "SessionID.h"
 #include <wtf/CompletionHandler.h>
 #include <wtf/HashMap.h>
 #include <wtf/WeakPtr.h>

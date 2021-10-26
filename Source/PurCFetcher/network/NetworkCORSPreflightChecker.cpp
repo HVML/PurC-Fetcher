@@ -150,6 +150,8 @@ void NetworkCORSPreflightChecker::didCompleteWithError(const WebCore::ResourceEr
 
 void NetworkCORSPreflightChecker::didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend)
 {
+    UNUSED_PARAM(totalBytesSent);
+    UNUSED_PARAM(totalBytesExpectedToSend);
 }
 
 void NetworkCORSPreflightChecker::wasBlocked()

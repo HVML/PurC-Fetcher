@@ -28,7 +28,7 @@
 #include "NetworkProcess.h"
 #include "NetworkStorageSession.h"
 #include "StorageSessionProvider.h"
-#include <pal/SessionID.h>
+#include "SessionID.h"
 #include <wtf/WeakPtr.h>
 
 namespace WebKit {

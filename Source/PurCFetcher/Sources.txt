@@ -69,13 +69,13 @@ network/UserContentURLPattern.cpp
 network/CacheModel.cpp
 
 network/NetworkActivityTracker.cpp
-//network/NetworkCORSPreflightChecker.cpp
+network/NetworkCORSPreflightChecker.cpp
 //network/NetworkConnectionToWebProcess.cpp
 network/NetworkContentRuleListManager.cpp
 //network/NetworkDataTask.cpp
 //network/NetworkDataTaskBlob.cpp
 //network/NetworkHTTPSUpgradeChecker.cpp
-//network/NetworkLoad.cpp
+network/NetworkLoad.cpp
 //network/NetworkLoadChecker.cpp
 network/NetworkProcess.cpp
 //network/NetworkProcessCreationParameters.cpp

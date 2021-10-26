@@ -30,7 +30,7 @@
 #include "WebSocketIdentifier.h"
 #include "SocketStreamHandleClient.h"
 #include "SocketStreamHandleImpl.h"
-#include <pal/SessionID.h>
+#include "SessionID.h"
 
 namespace IPC {
 class Connection;

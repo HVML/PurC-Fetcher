@@ -31,7 +31,7 @@
 #include "NetworkLoadInformation.h"
 #include "PageIdentifier.h"
 #include "StoredCredentialsPolicy.h"
-#include <pal/SessionID.h>
+#include "SessionID.h"
 #include <wtf/CompletionHandler.h>
 
 namespace WebCore {

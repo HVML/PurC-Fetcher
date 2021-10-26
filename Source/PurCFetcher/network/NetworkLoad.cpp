@@ -28,14 +28,13 @@
 
 #include "AuthenticationChallengeDisposition.h"
 #include "AuthenticationManager.h"
-#include "NetworkDataTaskBlob.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessProxyMessages.h"
 #include "NetworkSession.h"
 #include "WebCoreArgumentCoders.h"
 #include "WebErrors.h"
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/SharedBuffer.h>
+#include "ResourceRequest.h"
+#include "SharedBuffer.h"
 #include <wtf/Seconds.h>
 
 namespace WebKit {
@@ -228,6 +227,7 @@ void NetworkLoad::didReceiveResponse(ResourceResponse&& response, NegotiatedLega
 
 void NetworkLoad::notifyDidReceiveResponse(ResourceResponse&& response, NegotiatedLegacyTLS negotiatedLegacyTLS, ResponseCompletionHandler&& completionHandler)
 {
+    UNUSED_PARAM(negotiatedLegacyTLS);
     ASSERT(RunLoop::isMain());
 
     if (m_parameters.needsCertificateInfo)

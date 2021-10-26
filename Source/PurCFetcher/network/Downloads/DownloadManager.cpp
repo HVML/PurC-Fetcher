@@ -31,8 +31,8 @@
 #include "NetworkLoad.h"
 #include "NetworkSession.h"
 #include "PendingDownload.h"
-#include <WebCore/NotImplemented.h>
-#include <pal/SessionID.h>
+#include "NotImplemented.h"
+#include "SessionID.h"
 #include <wtf/StdLibExtras.h>
 
 namespace WebKit {
@@ -53,11 +53,9 @@ void DownloadManager::startDownload(PAL::SessionID sessionID, DownloadID downloa
     parameters.request = request;
     parameters.clientCredentialPolicy = ClientCredentialPolicy::MayAskClientForCredentials;
     parameters.isNavigatingToAppBoundDomain = isNavigatingToAppBoundDomain;
-    if (request.url().protocolIsBlob())
-        parameters.blobFileReferences = client().networkSession(sessionID)->blobRegistry().filesInBlob(request.url());
     parameters.storedCredentialsPolicy = sessionID.isEphemeral() ? StoredCredentialsPolicy::DoNotUse : StoredCredentialsPolicy::Use;
 
-    m_pendingDownloads.add(downloadID, makeUnique<PendingDownload>(m_client.parentProcessConnectionForDownloads(), WTFMove(parameters), downloadID, *networkSession, &client().networkSession(sessionID)->blobRegistry(), suggestedName));
+    m_pendingDownloads.add(downloadID, makeUnique<PendingDownload>(m_client.parentProcessConnectionForDownloads(), WTFMove(parameters), downloadID, *networkSession, suggestedName));
 }
 
 void DownloadManager::dataTaskBecameDownloadTask(DownloadID downloadID, std::unique_ptr<Download>&& download)
@@ -122,6 +120,11 @@ void DownloadManager::continueDecidePendingDownloadDestination(DownloadID downlo
 void DownloadManager::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&& sandboxExtensionHandle)
 {
 #if !PLATFORM(COCOA)
+    UNUSED_PARAM(sessionID);
+    UNUSED_PARAM(downloadID);
+    UNUSED_PARAM(resumeData);
+    UNUSED_PARAM(path);
+    UNUSED_PARAM(sandboxExtensionHandle);
     notImplemented();
 #else
     auto* networkSession = m_client.networkSession(sessionID);

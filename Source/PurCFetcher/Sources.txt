@@ -92,11 +92,11 @@ network/PreconnectTask.cpp
 
 network/Cookies/WebCookieManager.cpp
 
-//network/Downloads/Download.cpp
-//network/Downloads/DownloadManager.cpp
+network/Downloads/Download.cpp
+network/Downloads/DownloadManager.cpp
 network/Downloads/DownloadMap.cpp
-//network/Downloads/DownloadMonitor.cpp
-//network/Downloads/PendingDownload.cpp
+network/Downloads/DownloadMonitor.cpp
+network/Downloads/PendingDownload.cpp
 
 //network/WebStorage/LocalStorageDatabase.cpp
 //network/WebStorage/LocalStorageDatabaseTracker.cpp

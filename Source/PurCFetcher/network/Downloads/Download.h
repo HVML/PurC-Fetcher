@@ -50,7 +50,6 @@ class DataReference;
 
 namespace WebCore {
 class AuthenticationChallenge;
-class BlobDataFileReference;
 class Credential;
 class ResourceError;
 class ResourceHandle;
@@ -114,7 +113,6 @@ private:
     DownloadID m_downloadID;
     Ref<DownloadManager::Client> m_client;
 
-    Vector<RefPtr<WebCore::BlobDataFileReference>> m_blobFileReferences;
     RefPtr<SandboxExtension> m_sandboxExtension;
 
     RefPtr<NetworkDataTask> m_download;

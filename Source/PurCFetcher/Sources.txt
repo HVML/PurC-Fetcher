@@ -90,7 +90,7 @@ network/NetworkSocketStream.cpp
 network/PingLoad.cpp
 network/PreconnectTask.cpp
 
-//network/Cookies/WebCookieManager.cpp
+network/Cookies/WebCookieManager.cpp
 
 //network/Downloads/Download.cpp
 //network/Downloads/DownloadManager.cpp

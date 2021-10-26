@@ -33,7 +33,7 @@
 #include "StorageArea.h"
 #include "StorageAreaMapMessages.h"
 #include "TransientLocalStorageNamespace.h"
-#include "WebProcessProxy.h"
+//#include "WebProcessProxy.h"
 #include "SecurityOriginData.h"
 #include "SecurityOriginHash.h"
 #include "StorageMap.h"

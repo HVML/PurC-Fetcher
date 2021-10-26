@@ -70,6 +70,7 @@ String LocalStorageDatabaseTracker::databasePath(const SecurityOriginData& secur
 
 void LocalStorageDatabaseTracker::didOpenDatabaseWithOrigin(const SecurityOriginData& securityOrigin)
 {
+    UNUSED_PARAM(securityOrigin);
     // FIXME: Tell clients that the origin was added.
 }
 

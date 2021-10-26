@@ -39,6 +39,7 @@ LocalStorageNamespace::LocalStorageNamespace(StorageManager& storageManager, Sto
     : m_storageManager(storageManager)
     , m_quotaInBytes(StorageManager::localStorageDatabaseQuotaInBytes)
 {
+    UNUSED_PARAM(storageNamespaceID);
     ASSERT(!RunLoop::isMain());
 }
 

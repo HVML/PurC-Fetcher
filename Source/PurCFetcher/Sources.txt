@@ -98,14 +98,14 @@ network/Downloads/DownloadMap.cpp
 network/Downloads/DownloadMonitor.cpp
 network/Downloads/PendingDownload.cpp
 
-//network/WebStorage/LocalStorageDatabase.cpp
-//network/WebStorage/LocalStorageDatabaseTracker.cpp
-//network/WebStorage/LocalStorageNamespace.cpp
+network/WebStorage/LocalStorageDatabase.cpp
+network/WebStorage/LocalStorageDatabaseTracker.cpp
+network/WebStorage/LocalStorageNamespace.cpp
 network/WebStorage/SessionStorageNamespace.cpp
-//network/WebStorage/StorageArea.cpp
-//network/WebStorage/StorageManager.cpp
-//network/WebStorage/StorageManagerSet.cpp
-//network/WebStorage/TransientLocalStorageNamespace.cpp
+network/WebStorage/StorageArea.cpp
+network/WebStorage/StorageManager.cpp
+network/WebStorage/StorageManagerSet.cpp
+network/WebStorage/TransientLocalStorageNamespace.cpp
 
 //network/cache/CacheStorageEngine.cpp
 //network/cache/CacheStorageEngineCache.cpp

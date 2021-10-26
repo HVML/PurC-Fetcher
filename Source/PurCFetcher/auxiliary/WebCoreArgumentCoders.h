@@ -33,16 +33,68 @@
 
 namespace WebCore {
 
+class AuthenticationChallenge;
 class CertificateInfo;
+class ProtectionSpace;
+class Credential;
+class SharedBuffer;
+class ResourceError;
+class ResourceRequest;
+class ResourceResponse;
 
 } // namespace WebCore
 
 namespace IPC {
 
+template<> struct ArgumentCoder<WebCore::AuthenticationChallenge> {
+    static void encode(Encoder&, const WebCore::AuthenticationChallenge&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::AuthenticationChallenge&);
+};
+
+template<> struct ArgumentCoder<WebCore::ProtectionSpace> {
+    static void encode(Encoder&, const WebCore::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ProtectionSpace&);
+    static void encodePlatformData(Encoder&, const WebCore::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ProtectionSpace&);
+};
+
+template<> struct ArgumentCoder<WebCore::Credential> {
+    static void encode(Encoder&, const WebCore::Credential&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::Credential&);
+    static void encodePlatformData(Encoder&, const WebCore::Credential&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::Credential&);
+};
+
 template<> struct ArgumentCoder<WebCore::CertificateInfo> {
     static void encode(Encoder&, const WebCore::CertificateInfo&);
     static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::CertificateInfo&);
 };
+
+template<> struct ArgumentCoder<RefPtr<WebCore::SharedBuffer>> {
+    static void encode(Encoder&, const RefPtr<WebCore::SharedBuffer>&);
+    static Optional<RefPtr<WebCore::SharedBuffer>> decode(Decoder&);
+};
+
+template<> struct ArgumentCoder<Ref<WebCore::SharedBuffer>> {
+    static void encode(Encoder&, const Ref<WebCore::SharedBuffer>&);
+    static Optional<Ref<WebCore::SharedBuffer>> decode(Decoder&);
+};
+
+template<> struct ArgumentCoder<WebCore::ResourceError> {
+    static void encode(Encoder&, const WebCore::ResourceError&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ResourceError&);
+    static void encodePlatformData(Encoder&, const WebCore::ResourceError&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ResourceError&);
+};
+
+template<> struct ArgumentCoder<WebCore::ResourceRequest> {
+    static void encode(Encoder&, const WebCore::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ResourceRequest&);
+    static void encodePlatformData(Encoder&, const WebCore::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ResourceRequest&);
+};
+
+
 
 } // namespace IPC
 

@@ -44,7 +44,7 @@ class NetworkProcess;
 class NetworkLoad final : private NetworkDataTaskClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
-    NetworkLoad(NetworkLoadClient&, WebCore::BlobRegistryImpl*, NetworkLoadParameters&&, NetworkSession&);
+    NetworkLoad(NetworkLoadClient&, NetworkLoadParameters&&, NetworkSession&);
     ~NetworkLoad();
 
     void cancel();
@@ -69,7 +69,7 @@ public:
     String description() const;
 
 private:
-    void initialize(NetworkSession&, WebCore::BlobRegistryImpl*);
+    void initialize(NetworkSession&);
 
     // NetworkDataTaskClient
     void willPerformHTTPRedirection(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&, RedirectCompletionHandler&&) final;

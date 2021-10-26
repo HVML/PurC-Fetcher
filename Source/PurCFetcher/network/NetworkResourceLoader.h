@@ -43,7 +43,6 @@
 #include <wtf/WeakPtr.h>
 
 namespace WebCore {
-class BlobDataFileReference;
 class FormData;
 class NetworkStorageSession;
 class ResourceRequest;
@@ -221,7 +220,6 @@ private:
     unsigned m_redirectCount { 0 };
 
     std::unique_ptr<SynchronousLoadData> m_synchronousLoadData;
-    Vector<RefPtr<WebCore::BlobDataFileReference>> m_fileReferences;
 
     bool m_wasStarted { false };
     bool m_didConsumeSandboxExtensions { false };

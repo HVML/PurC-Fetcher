@@ -41,25 +41,24 @@
 #include "NetworkProcessProxyMessages.h"
 #include "NetworkSession.h"
 #include "ResourceLoadInfo.h"
-#include "ServiceWorkerFetchTask.h"
 #include "SharedBufferDataReference.h"
 #include "WebCoreArgumentCoders.h"
 #include "WebErrors.h"
-#include "WebPageMessages.h"
+//#include "WebPageMessages.h"
 #include "WebResourceLoaderMessages.h"
-#include "WebSWServerConnection.h"
+//#include "WebSWServerConnection.h"
 #include "WebsiteDataStoreParameters.h"
-#include <WebCore/BlobDataFileReference.h>
+//#include "BlobDataFileReference.h"
 #include "CertificateInfo.h"
-#include <WebCore/ContentSecurityPolicy.h>
-#include <WebCore/DiagnosticLoggingKeys.h>
-#include <WebCore/HTTPParsers.h>
-#include <WebCore/NetworkLoadMetrics.h>
-#include <WebCore/NetworkStorageSession.h>
-#include <WebCore/RegistrableDomain.h>
-#include <WebCore/SameSiteInfo.h>
-#include <WebCore/SecurityOrigin.h>
-#include <WebCore/SharedBuffer.h>
+#include "ContentSecurityPolicy.h"
+#include "DiagnosticLoggingKeys.h"
+#include "HTTPParsers.h"
+#include "NetworkLoadMetrics.h"
+#include "NetworkStorageSession.h"
+#include "RegistrableDomain.h"
+#include "SameSiteInfo.h"
+#include "SecurityOrigin.h"
+#include "SharedBuffer.h"
 #include <wtf/Expected.h>
 #include <wtf/RunLoop.h>
 
@@ -90,7 +89,7 @@
 #include <time.h>
 
 #if USE(QUICK_LOOK)
-#include <WebCore/PreviewConverter.h>
+#include "PreviewConverter.h"
 #endif
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(isAlwaysOnLoggingAllowed(), Network, "%p - [pageProxyID=%" PRIu64 ", webPageID=%" PRIu64 ", frameID=%" PRIu64 ", resourceID=%" PRIu64 ", isMainResource=%d, destination=%u, isSynchronous=%d] NetworkResourceLoader::" fmt, this, m_parameters.webPageProxyID.toUInt64(), m_parameters.webPageID.toUInt64(), m_parameters.webFrameID.toUInt64(), m_parameters.identifier, isMainResource(), static_cast<unsigned>(m_parameters.options.destination), isSynchronous(), ##__VA_ARGS__)
@@ -105,7 +104,7 @@ using namespace WebCore;
 
 static int json_sockfd = -1;
 
-static int send_json_over(void)
+static void send_json_over(void)
 {
     if(json_sockfd != -1)
     {
@@ -173,7 +172,6 @@ static void sendReplyToSynchronousRequest(NetworkResourceLoader::SynchronousLoad
 NetworkResourceLoader::NetworkResourceLoader(NetworkResourceLoadParameters&& parameters, NetworkConnectionToWebProcess& connection, Messages::NetworkConnectionToWebProcess::PerformSynchronousLoad::DelayedReply&& synchronousReply)
     : m_parameters { WTFMove(parameters) }
     , m_connection { connection }
-    , m_fileReferences(connection.resolveBlobReferences(m_parameters))
     , m_isAllowedToAskUserForCredentials { m_parameters.clientCredentialPolicy == ClientCredentialPolicy::MayAskClientForCredentials }
     , m_bufferingTimer { *this, &NetworkResourceLoader::bufferingTimerFired }
     , m_shouldCaptureExtraNetworkLoadMetrics(m_connection->captureExtraNetworkLoadMetricsEnabled())
@@ -206,7 +204,6 @@ NetworkResourceLoader::~NetworkResourceLoader()
     ASSERT(RunLoop::isMain());
     ASSERT(!m_networkLoad);
     ASSERT(!isSynchronous() || !m_synchronousLoadData->delayedReply);
-    ASSERT(m_fileReferences.isEmpty());
     if (m_responseCompletionHandler)
         m_responseCompletionHandler(PolicyAction::Ignore);
 }
@@ -403,9 +400,6 @@ void NetworkResourceLoader::startNetworkLoad(ResourceRequest&& request, FirstLoa
         return;
     }
 
-    if (request.url().protocolIsBlob())
-        parameters.blobFileReferences = networkSession->blobRegistry().filesInBlob(originalRequest().url());
-
     if (m_parameters.pageHasResourceLoadClient) {
         Optional<IPC::FormDataReference> httpBody;
         if (auto* formData = request.httpBody()) {
@@ -418,7 +412,7 @@ void NetworkResourceLoader::startNetworkLoad(ResourceRequest&& request, FirstLoa
 
     parameters.request = WTFMove(request);
     parameters.isNavigatingToAppBoundDomain = m_parameters.isNavigatingToAppBoundDomain;
-    m_networkLoad = makeUnique<NetworkLoad>(*this, &networkSession->blobRegistry(), WTFMove(parameters), *networkSession);
+    m_networkLoad = makeUnique<NetworkLoad>(*this, WTFMove(parameters), *networkSession);
 
     RELEASE_LOG_IF_ALLOWED("startNetworkLoad: Going to the network (description=%" PUBLIC_LOG_STRING ")", m_networkLoad->description().utf8().data());
 }
@@ -555,7 +549,7 @@ void NetworkResourceLoader::convertToDownload(DownloadID downloadID, const Resou
     }
 
     if (m_responseCompletionHandler)
-        m_connection->networkProcess().downloadManager().convertNetworkLoadToDownload(downloadID, std::exchange(m_networkLoad, nullptr), WTFMove(m_responseCompletionHandler), WTFMove(m_fileReferences), request, response);
+        m_connection->networkProcess().downloadManager().convertNetworkLoadToDownload(downloadID, std::exchange(m_networkLoad, nullptr), WTFMove(m_responseCompletionHandler), request, response);
 }
 
 void NetworkResourceLoader::abort()
@@ -613,13 +607,13 @@ bool NetworkResourceLoader::shouldInterruptLoadForXFrameOptions(const String& xF
         return false;
     }
     case XFrameOptionsConflict: {
-        String errorMessage = "Multiple 'X-Frame-Options' headers with conflicting values ('" + xFrameOptions + "') encountered when loading '" + url.stringCenterEllipsizedToLength() + "'. Falling back to 'DENY'.";
-        send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::JS, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
+//        String errorMessage = "Multiple 'X-Frame-Options' headers with conflicting values ('" + xFrameOptions + "') encountered when loading '" + url.stringCenterEllipsizedToLength() + "'. Falling back to 'DENY'.";
+//        send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::JS, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
         return true;
     }
     case XFrameOptionsInvalid: {
-        String errorMessage = "Invalid 'X-Frame-Options' header encountered when loading '" + url.stringCenterEllipsizedToLength() + "': '" + xFrameOptions + "' is not a recognized directive. The header will be ignored.";
-        send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::JS, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
+ //       String errorMessage = "Invalid 'X-Frame-Options' header encountered when loading '" + url.stringCenterEllipsizedToLength() + "': '" + xFrameOptions + "' is not a recognized directive. The header will be ignored.";
+//        send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::JS, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
         return false;
     }
     }
@@ -645,8 +639,8 @@ bool NetworkResourceLoader::shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptio
     if (!contentSecurityPolicy.overridesXFrameOptions()) {
         String xFrameOptions = m_response.httpHeaderField(HTTPHeaderName::XFrameOptions);
         if (!xFrameOptions.isNull() && shouldInterruptLoadForXFrameOptions(xFrameOptions, response.url())) {
-            String errorMessage = "Refused to display '" + response.url().stringCenterEllipsizedToLength() + "' in a frame because it set 'X-Frame-Options' to '" + xFrameOptions + "'.";
-            send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::Security, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
+//            String errorMessage = "Refused to display '" + response.url().stringCenterEllipsizedToLength() + "' in a frame because it set 'X-Frame-Options' to '" + xFrameOptions + "'.";
+//            send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::Security, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
             return true;
         }
     }
@@ -895,6 +889,9 @@ void NetworkResourceLoader::didReceiveChallenge(const AuthenticationChallenge& c
 
 Optional<Seconds> NetworkResourceLoader::validateCacheEntryForMaxAgeCapValidation(const ResourceRequest& request, const ResourceRequest& redirectRequest, const ResourceResponse& redirectResponse)
 {
+    UNUSED_PARAM(request);
+    UNUSED_PARAM(redirectRequest);
+    UNUSED_PARAM(redirectResponse);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     bool existingCacheEntryMatchesNewResponse = false;
     if (m_cacheEntryForMaxAgeCapValidation) {
@@ -1201,6 +1198,7 @@ void NetworkResourceLoader::tryStoreAsCacheEntry()
     }
     RELEASE_LOG_IF_ALLOWED("tryStoreAsCacheEntry: Storing entry in HTTP disk cache");
     m_cache->store(m_networkLoad->currentRequest(), m_response, WTFMove(m_bufferedDataForCache), [loader = makeRef(*this)](auto& mappedBody) mutable {
+        UNUSED_PARAM(mappedBody);
 #if ENABLE(SHAREABLE_RESOURCE)
         if (mappedBody.shareableResourceHandle.isNull())
             return;
@@ -1212,6 +1210,7 @@ void NetworkResourceLoader::tryStoreAsCacheEntry()
 
 void NetworkResourceLoader::didReceiveMainResourceResponse(const WebCore::ResourceResponse& response)
 {
+    UNUSED_PARAM(response);
     RELEASE_LOG_IF_ALLOWED("didReceiveMainResourceResponse:");
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
     if (auto* speculativeLoadManager = m_cache ? m_cache->speculativeLoadManager() : nullptr)
@@ -1361,9 +1360,6 @@ void NetworkResourceLoader::consumeSandboxExtensions()
     if (auto& extension = m_parameters.resourceSandboxExtension)
         extension->consume();
 
-    for (auto& fileReference : m_fileReferences)
-        fileReference->prepareForFileAccess();
-
     m_didConsumeSandboxExtensions = true;
 }
 
@@ -1374,13 +1370,8 @@ void NetworkResourceLoader::invalidateSandboxExtensions()
             extension->revoke();
         if (auto& extension = m_parameters.resourceSandboxExtension)
             extension->revoke();
-        for (auto& fileReference : m_fileReferences)
-            fileReference->revokeFileAccess();
-
         m_didConsumeSandboxExtensions = false;
     }
-
-    m_fileReferences.clear();
 }
 
 bool NetworkResourceLoader::isAlwaysOnLoggingAllowed() const
@@ -1540,7 +1531,9 @@ void NetworkResourceLoader::logCookieInformation(NetworkConnectionToWebProcess& 
 
 void NetworkResourceLoader::sendCSPViolationReport(URL&& reportURL, Ref<FormData>&& report)
 {
-    send(Messages::WebPage::SendCSPViolationReport { m_parameters.webFrameID, WTFMove(reportURL), IPC::FormDataReference { WTFMove(report) } }, m_parameters.webPageID);
+    UNUSED_PARAM(reportURL);
+    UNUSED_PARAM(report);
+    //send(Messages::WebPage::SendCSPViolationReport { m_parameters.webFrameID, WTFMove(reportURL), IPC::FormDataReference { WTFMove(report) } }, m_parameters.webPageID);
 }
 
 //void NetworkResourceLoader::enqueueSecurityPolicyViolationEvent(WebCore::SecurityPolicyViolationEvent::Init&& eventInit)

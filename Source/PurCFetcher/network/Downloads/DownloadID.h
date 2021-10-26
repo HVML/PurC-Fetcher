@@ -27,6 +27,7 @@
 #define DownloadID_h
 
 #include "ArgumentCoder.h"
+#include "WebCoreArgumentCoders.h"
 #include "Decoder.h"
 #include "Encoder.h"
 #include <wtf/HashTraits.h>

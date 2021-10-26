@@ -184,45 +184,6 @@ enum class LockBackForwardList : bool { No, Yes };
 enum class AllowNavigationToInvalidURL : bool { No, Yes };
 enum class HasInsecureContent : bool { No, Yes };
 
-#if 0
-struct SystemPreviewInfo {
-    ElementContext element;
-
-    IntRect previewRect;
-    bool isPreview { false };
-
-    template<class Encoder> void encode(Encoder&) const;
-    template<class Decoder> static Optional<SystemPreviewInfo> decode(Decoder&);
-};
-
-template<class Encoder>
-void SystemPreviewInfo::encode(Encoder& encoder) const
-{
-    encoder << element << previewRect << isPreview;
-}
-
-template<class Decoder>
-Optional<SystemPreviewInfo> SystemPreviewInfo::decode(Decoder& decoder)
-{
-    Optional<ElementContext> element;
-    decoder >> element;
-    if (!element)
-        return WTF::nullopt;
-
-    Optional<IntRect> previewRect;
-    decoder >> previewRect;
-    if (!previewRect)
-        return WTF::nullopt;
-
-    Optional<bool> isPreview;
-    decoder >> isPreview;
-    if (!isPreview)
-        return WTF::nullopt;
-
-    return { { WTFMove(*element), WTFMove(*previewRect), WTFMove(*isPreview) } };
-}
-#endif
-
 enum class LoadCompletionType : bool {
     Finish,
     Cancel

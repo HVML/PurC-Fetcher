@@ -45,6 +45,7 @@ auxiliary/ThreadGlobalData.cpp
 auxiliary/ThreadTimers.cpp
 auxiliary/Timer.cpp
 auxiliary/UserActivity.cpp
+auxiliary/WebCoreArgumentCoders.cpp
 
 network/CachedResourceRequestInitiators.cpp
 network/CacheValidation.cpp
@@ -69,5 +70,5 @@ network/UserContentURLPattern.cpp
 network/CacheModel.cpp
 network/NetworkActivityTracker.h
 network/NetworkProcess.cpp
-//network/NetworkResourceLoader.cpp
+network/NetworkResourceLoader.cpp
 //network/NetworkDataTask.cpp

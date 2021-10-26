@@ -35,7 +35,7 @@
 #include "CustomHeaderFields.h"
 #include "DeviceOrientationOrMotionPermissionState.h"
 //#include <WebCore/DocumentLoader.h>
-//#include <WebCore/FrameLoaderTypes.h>
+#include "FrameLoaderTypes.h"
 #include <wtf/OptionSet.h>
 
 namespace IPC {
@@ -64,7 +64,7 @@ struct WebsitePoliciesData {
     WebsiteSimulatedMouseEventsDispatchPolicy simulatedMouseEventsDispatchPolicy { WebsiteSimulatedMouseEventsDispatchPolicy::Default };
     WebsiteLegacyOverflowScrollingTouchPolicy legacyOverflowScrollingTouchPolicy { WebsiteLegacyOverflowScrollingTouchPolicy::Default };
     bool allowContentChangeObserverQuirk { false };
-    WebCore::AllowsContentJavaScript allowsContentJavaScript { WebCore::AllowsContentJavaScript::Yes };
+    bool allowsContentJavaScript { true };
 //    WebCore::MouseEventPolicy mouseEventPolicy { WebCore::MouseEventPolicy::Default };
     bool idempotentModeAutosizingOnlyHonorsPercentages { false };
 

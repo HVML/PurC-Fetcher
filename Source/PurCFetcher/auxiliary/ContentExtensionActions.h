@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2015 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,44 +25,57 @@
 
 #pragma once
 
-#include "SharedBuffer.h"
+#if ENABLE(CONTENT_EXTENSIONS)
 
-namespace IPC {
+#include <wtf/HashSet.h>
+#include <wtf/text/WTFString.h>
 
-class SharedBufferDataReference {
-public:
-    SharedBufferDataReference() = default;
-    SharedBufferDataReference(RefPtr<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(Ref<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(const WebCore::SharedBuffer& buffer)
-        : m_buffer(WebCore::SharedBuffer::create())
-    {
-        m_buffer->append(buffer);
-    }
+namespace WebCore {
 
-    RefPtr<WebCore::SharedBuffer>& buffer() { return m_buffer; }
-    const RefPtr<WebCore::SharedBuffer>& buffer() const { return m_buffer; }
+struct ContentRuleListResults;
+class Page;
+class ResourceRequest;
 
-    const char* data() const { return m_buffer ? m_buffer->data() : nullptr; }
-    size_t size() const { return m_buffer ? m_buffer->size() : 0; }
-    bool isEmpty() const { return m_buffer ? m_buffer->isEmpty() : true; }
+namespace ContentExtensions {
 
-    void encode(Encoder& encoder) const
-    {
-        encoder << m_buffer;
-    }
+struct Action;
+using SerializedActionByte = uint8_t;
 
-    static Optional<SharedBufferDataReference> decode(Decoder& decoder)
-    {
-        Optional<RefPtr<WebCore::SharedBuffer>> buffer;
-        decoder >> buffer;
-        if (!buffer)
-            return WTF::nullopt;
-        return { WTFMove(*buffer) };
-    }
-
-private:
-    RefPtr<WebCore::SharedBuffer> m_buffer;
+enum class ActionType : uint8_t {
+    BlockLoad,
+    BlockCookies,
+    CSSDisplayNoneSelector,
+    Notify,
+    IgnorePreviousRules,
+    MakeHTTPS,
 };
 
+static inline bool hasStringArgument(ActionType actionType)
+{
+    switch (actionType) {
+    case ActionType::CSSDisplayNoneSelector:
+    case ActionType::Notify:
+        return true;
+    case ActionType::BlockLoad:
+    case ActionType::BlockCookies:
+    case ActionType::IgnorePreviousRules:
+    case ActionType::MakeHTTPS:
+        return false;
+    }
+    ASSERT_NOT_REACHED();
+    return false;
 }
+
+struct ActionsFromContentRuleList {
+    String contentRuleListIdentifier;
+    bool sawIgnorePreviousRules { false };
+    Vector<Action> actions;
+};
+
+PURCFETCHER_EXPORT void applyResultsToRequest(ContentRuleListResults&&, Page*, ResourceRequest&);
+
+} // namespace ContentExtensions
+
+} // namespace WebCore
+
+#endif // ENABLE(CONTENT_EXTENSIONS)

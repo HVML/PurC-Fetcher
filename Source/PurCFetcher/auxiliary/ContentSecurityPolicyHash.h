@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2016 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,44 +25,11 @@
 
 #pragma once
 
-#include "SharedBuffer.h"
+#include "ResourceCryptographicDigest.h"
 
-namespace IPC {
+namespace WebCore {
 
-class SharedBufferDataReference {
-public:
-    SharedBufferDataReference() = default;
-    SharedBufferDataReference(RefPtr<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(Ref<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(const WebCore::SharedBuffer& buffer)
-        : m_buffer(WebCore::SharedBuffer::create())
-    {
-        m_buffer->append(buffer);
-    }
+using ContentSecurityPolicyHashAlgorithm = ResourceCryptographicDigest::Algorithm;
+using ContentSecurityPolicyHash = ResourceCryptographicDigest;
 
-    RefPtr<WebCore::SharedBuffer>& buffer() { return m_buffer; }
-    const RefPtr<WebCore::SharedBuffer>& buffer() const { return m_buffer; }
-
-    const char* data() const { return m_buffer ? m_buffer->data() : nullptr; }
-    size_t size() const { return m_buffer ? m_buffer->size() : 0; }
-    bool isEmpty() const { return m_buffer ? m_buffer->isEmpty() : true; }
-
-    void encode(Encoder& encoder) const
-    {
-        encoder << m_buffer;
-    }
-
-    static Optional<SharedBufferDataReference> decode(Decoder& decoder)
-    {
-        Optional<RefPtr<WebCore::SharedBuffer>> buffer;
-        decoder >> buffer;
-        if (!buffer)
-            return WTF::nullopt;
-        return { WTFMove(*buffer) };
-    }
-
-private:
-    RefPtr<WebCore::SharedBuffer> m_buffer;
-};
-
-}
+} // namespace WebCore

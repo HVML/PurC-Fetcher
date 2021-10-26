@@ -64,14 +64,14 @@
 #include "WebSWServerToContextConnectionMessages.h"
 #include "WebSocketIdentifier.h"
 #include "WebsiteDataStoreParameters.h"
-#include <WebCore/DocumentStorageAccess.h>
-#include <WebCore/HTTPCookieAcceptPolicy.h>
-#include <WebCore/NetworkStorageSession.h>
-#include <WebCore/ResourceLoadObserver.h>
-#include <WebCore/ResourceLoadStatistics.h>
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/SameSiteInfo.h>
-#include <WebCore/SecurityPolicy.h>
+#include "DocumentStorageAccess.h"
+#include "HTTPCookieAcceptPolicy.h"
+#include "NetworkStorageSession.h"
+#include "ResourceLoadObserver.h"
+#include "ResourceLoadStatistics.h"
+#include "ResourceRequest.h"
+#include "SameSiteInfo.h"
+#include "SecurityPolicy.h"
 
 #if ENABLE(APPLE_PAY_REMOTE_UI)
 #include "WebPaymentCoordinatorProxyMessages.h"

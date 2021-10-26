@@ -76,7 +76,7 @@ network/NetworkContentRuleListManager.cpp
 //network/NetworkDataTaskBlob.cpp
 //network/NetworkHTTPSUpgradeChecker.cpp
 network/NetworkLoad.cpp
-//network/NetworkLoadChecker.cpp
+network/NetworkLoadChecker.cpp
 network/NetworkProcess.cpp
 //network/NetworkProcessCreationParameters.cpp
 //network/NetworkProcessPlatformStrategies.cpp

@@ -55,7 +55,7 @@
 #endif
 
 #if USE(CURL)
-#include <WebCore/CurlProxySettings.h>
+#include "CurlProxySettings.h"
 #endif
 
 namespace API {

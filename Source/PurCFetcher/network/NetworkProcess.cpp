@@ -103,7 +103,7 @@
 #endif
 
 #if USE(CURL)
-#include <WebCore/CurlContext.h>
+#include "CurlContext.h"
 #endif
 
 #if ENABLE(SERVICE_WORKER)

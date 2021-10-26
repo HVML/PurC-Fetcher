@@ -28,7 +28,7 @@
 #if ENABLE(SERVER_PRECONNECT)
 
 #include "NetworkLoadClient.h"
-#include <WebCore/Timer.h>
+#include "Timer.h"
 #include <wtf/CompletionHandler.h>
 #include <wtf/WeakPtr.h>
 

@@ -38,9 +38,9 @@
 #include "WebPageProxyMessages.h"
 #include "WebProcessProxy.h"
 #include "WebSocketTask.h"
-#include <WebCore/AdClickAttribution.h>
-#include <WebCore/CookieJar.h>
-#include <WebCore/ResourceRequest.h>
+#include "AdClickAttribution.h"
+#include "CookieJar.h"
+#include "ResourceRequest.h"
 
 #if PLATFORM(COCOA)
 #include "NetworkSessionCocoa.h"

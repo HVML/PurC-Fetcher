@@ -36,7 +36,7 @@
 #endif
 
 #if USE(CURL)
-#include <WebCore/CurlProxySettings.h>
+#include "CurlProxySettings.h"
 #endif
 
 #if PLATFORM(COCOA)

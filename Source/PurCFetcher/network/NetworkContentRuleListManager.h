@@ -29,7 +29,7 @@
 
 #include "UserContentControllerIdentifier.h"
 #include "WebCompiledContentRuleListData.h"
-#include <WebCore/ContentExtensionsBackend.h>
+#include "ContentExtensionsBackend.h"
 
 namespace IPC {
 class Connection;

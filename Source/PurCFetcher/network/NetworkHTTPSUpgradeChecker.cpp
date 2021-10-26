@@ -27,8 +27,8 @@
 #include "NetworkHTTPSUpgradeChecker.h"
 
 #include "Logging.h"
-#include <WebCore/SQLiteDatabase.h>
-#include <WebCore/SQLiteStatement.h>
+#include "SQLiteDatabase.h"
+#include "SQLiteStatement.h"
 #include <pal/SessionID.h>
 #include <wtf/CompletionHandler.h>
 #include <wtf/NeverDestroyed.h>

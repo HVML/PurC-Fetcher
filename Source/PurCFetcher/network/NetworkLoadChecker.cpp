@@ -32,11 +32,11 @@
 #include "NetworkProcess.h"
 #include "NetworkResourceLoader.h"
 #include "NetworkSchemeRegistry.h"
-#include <WebCore/ContentRuleListResults.h>
-#include <WebCore/ContentSecurityPolicy.h>
-#include <WebCore/CrossOriginAccessControl.h>
-#include <WebCore/CrossOriginPreflightResultCache.h>
-#include <WebCore/LegacySchemeRegistry.h>
+#include "ContentRuleListResults.h"
+#include "ContentSecurityPolicy.h"
+#include "CrossOriginAccessControl.h"
+#include "CrossOriginPreflightResultCache.h"
+#include "LegacySchemeRegistry.h"
 #include <wtf/Scope.h>
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkLoadChecker::" fmt, this, ##__VA_ARGS__)

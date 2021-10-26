@@ -34,9 +34,9 @@
 #include "NetworkResourceLoader.h"
 #include "NetworkSessionCreationParameters.h"
 #include "PingLoad.h"
-#include "WebPageProxy.h"
-#include "WebPageProxyMessages.h"
-#include "WebProcessProxy.h"
+//#include "WebPageProxy.h"
+//#include "WebPageProxyMessages.h"
+//#include "WebProcessProxy.h"
 #include "WebSocketTask.h"
 #include "AdClickAttribution.h"
 #include "CookieJar.h"
@@ -336,7 +336,7 @@ void NetworkSession::removeKeptAliveLoad(NetworkResourceLoader& loader)
     m_keptAliveLoads.remove(loader);
 }
 
-std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocketChannel&, const WebCore::ResourceRequest&, const String& protocol)
+std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocketChannel&, const WebCore::ResourceRequest&, const String&)
 {
     return nullptr;
 }

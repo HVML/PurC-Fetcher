@@ -55,13 +55,6 @@ public:
         return *m_mediaStrategy;
     }
 
-    BlobRegistry* blobRegistry()
-    {
-        if (!m_blobRegistry)
-            m_blobRegistry = createBlobRegistry();
-        return m_blobRegistry;
-    }
-
 protected:
     PlatformStrategies() = default;
 
@@ -73,12 +66,10 @@ private:
     virtual LoaderStrategy* createLoaderStrategy() = 0;
     virtual PasteboardStrategy* createPasteboardStrategy() = 0;
     virtual MediaStrategy* createMediaStrategy() = 0;
-    virtual BlobRegistry* createBlobRegistry() = 0;
 
     LoaderStrategy* m_loaderStrategy { };
     PasteboardStrategy* m_pasteboardStrategy { };
     MediaStrategy* m_mediaStrategy { };
-    BlobRegistry* m_blobRegistry { };
 };
 
 PURCFETCHER_EXPORT PlatformStrategies* platformStrategies();

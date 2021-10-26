@@ -1,8 +1,6 @@
-
 /*
- * Copyright (C) 2009-2018 Apple Inc. All rights reserved.
- * Copyright (C) 2009 Google Inc.  All rights reserved.
- * Copyright (C) 2012 Samsung Electronics Ltd. All Rights Reserved.
+ * Copyright (C) 2009 Apple Inc. All rights reserved.
+ * Copyright (C) 2009, 2011, 2012 Google Inc.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -33,47 +31,22 @@
 
 #pragma once
 
-#include "SocketStreamHandle.h"
-
-#if USE(SOUP)
-
-#include "SessionID.h"
 
 namespace WebCore {
 
 class SocketStreamError;
-class SocketStreamHandleClient;
-class StorageSessionProvider;
+class SocketStreamHandle;
 
-class SocketStreamHandleImpl final : public SocketStreamHandle {
+class SocketStreamHandleClient {
 public:
-    static Ref<SocketStreamHandleImpl> create(const URL&, SocketStreamHandleClient&, PAL::SessionID, const String&, SourceApplicationAuditToken&&, const StorageSessionProvider*)
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    virtual ~SocketStreamHandleClient() = default;
 
-    void platformSend(const uint8_t*, size_t, Function<void(bool)>&&) final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
-
-    void platformSendHandshake(const uint8_t*, size_t, const Optional<CookieRequestHeaderFieldProxy>&, Function<void(bool, bool)>&&) final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
-
-    void platformClose() final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
-
-private:
-    size_t bufferedAmount() final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    virtual void didOpenSocketStream(SocketStreamHandle&) = 0;
+    virtual void didCloseSocketStream(SocketStreamHandle&) = 0;
+    virtual void didReceiveSocketStreamData(SocketStreamHandle&, const char* data, size_t length) = 0;
+    virtual void didFailToReceiveSocketStreamData(SocketStreamHandle&) = 0;
+    virtual void didUpdateBufferedAmount(SocketStreamHandle&, size_t bufferedAmount) = 0;
+    virtual void didFailSocketStream(SocketStreamHandle&, const SocketStreamError&) = 0;
 };
 
 } // namespace WebCore
-
-#endif // USE(SOUP)

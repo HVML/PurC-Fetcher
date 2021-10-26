@@ -29,7 +29,7 @@
 #include "Logging.h"
 #include "SQLiteDatabase.h"
 #include "SQLiteStatement.h"
-#include <pal/SessionID.h>
+#include "SessionID.h"
 #include <wtf/CompletionHandler.h>
 #include <wtf/NeverDestroyed.h>
 #include <wtf/RunLoop.h>

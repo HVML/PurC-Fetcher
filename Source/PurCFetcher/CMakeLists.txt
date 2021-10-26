@@ -13,6 +13,7 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}"
     "${PURCFETCHER_DIR}/include"
     "${PURCFETCHER_DIR}/ipc"
+    "${PURCFETCHER_DIR}/database"
     "${PURCFETCHER_DIR}/auxiliary"
     "${PURCFETCHER_DIR}/auxiliary/crypto"
     "${PURCFETCHER_DIR}/network"

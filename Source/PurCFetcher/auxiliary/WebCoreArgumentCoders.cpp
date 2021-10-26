@@ -35,6 +35,7 @@
 #include "SharedBuffer.h"
 #include "ResourceError.h"
 #include "ResourceRequest.h"
+#include "SecurityOrigin.h"
 
 #include <wtf/URL.h>
 #include <wtf/text/CString.h>
@@ -333,5 +334,30 @@ bool ArgumentCoder<ResourceRequest>::decode(Decoder& decoder, ResourceRequest& r
 
     return resourceRequest.decodeWithoutPlatformData(decoder);
 }
+
+void ArgumentCoder<Vector<RefPtr<SecurityOrigin>>>::encode(Encoder& encoder, const Vector<RefPtr<SecurityOrigin>>& origins)
+{
+    encoder << static_cast<uint64_t>(origins.size());
+    for (auto& origin : origins)
+        encoder << *origin;
+}
+    
+bool ArgumentCoder<Vector<RefPtr<SecurityOrigin>>>::decode(Decoder& decoder, Vector<RefPtr<SecurityOrigin>>& origins)
+{
+    uint64_t dataSize;
+    if (!decoder.decode(dataSize))
+        return false;
+
+    for (uint64_t i = 0; i < dataSize; ++i) {
+        auto decodedOriginRefPtr = SecurityOrigin::decode(decoder);
+        if (!decodedOriginRefPtr)
+            return false;
+        origins.append(decodedOriginRefPtr.releaseNonNull());
+    }
+    origins.shrinkToFit();
+
+    return true;
+}
+
 
 } // namespace IPC

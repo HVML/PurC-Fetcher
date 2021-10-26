@@ -56,13 +56,7 @@ PingLoad::PingLoad(NetworkConnectionToWebProcess& connection, NetworkResourceLoa
     , m_completionHandler(WTFMove(completionHandler))
     , m_timeoutTimer(*this, &PingLoad::timeoutTimerFired)
     , m_networkLoadChecker(makeUniqueRef<NetworkLoadChecker>(connection.networkProcess(), nullptr,  &connection.schemeRegistry(), FetchOptions { m_parameters.options}, m_sessionID, m_parameters.webPageProxyID, WTFMove(m_parameters.originalRequestHeaders), URL { m_parameters.request.url() }, m_parameters.sourceOrigin.copyRef(), m_parameters.topOrigin.copyRef(), m_parameters.preflightPolicy, m_parameters.request.httpReferrer()))
-    , m_blobFiles(connection.resolveBlobReferences(m_parameters))
 {
-    for (auto& file : m_blobFiles) {
-        if (file)
-            file->prepareForFileAccess();
-    }
-
     initialize(connection.networkProcess());
 }
 
@@ -88,6 +82,7 @@ void PingLoad::initialize(NetworkProcess& networkProcess)
             },
             [] (NetworkLoadChecker::RedirectionTriplet& triplet) {
                 // We should never send a synthetic redirect for PingLoads.
+                UNUSED_PARAM(triplet);
                 ASSERT_NOT_REACHED();
             },
             [&] (ResourceRequest& request) {
@@ -103,10 +98,6 @@ PingLoad::~PingLoad()
         ASSERT(m_task->client() == this);
         m_task->clearClient();
         m_task->cancel();
-    }
-    for (auto& file : m_blobFiles) {
-        if (file)
-            file->revokeFileAccess();
     }
 }
 
@@ -188,6 +179,8 @@ void PingLoad::didCompleteWithError(const ResourceError& error, const NetworkLoa
 
 void PingLoad::didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend)
 {
+    UNUSED_PARAM(totalBytesSent);
+    UNUSED_PARAM(totalBytesExpectedToSend);
 }
 
 void PingLoad::wasBlocked()

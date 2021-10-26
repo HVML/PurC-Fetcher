@@ -74,21 +74,21 @@ network/NetworkCORSPreflightChecker.cpp
 network/NetworkContentRuleListManager.cpp
 //network/NetworkDataTask.cpp
 //network/NetworkDataTaskBlob.cpp
-//network/NetworkHTTPSUpgradeChecker.cpp
+network/NetworkHTTPSUpgradeChecker.cpp
 network/NetworkLoad.cpp
 network/NetworkLoadChecker.cpp
 network/NetworkProcess.cpp
-//network/NetworkProcessCreationParameters.cpp
-//network/NetworkProcessPlatformStrategies.cpp
-//network/NetworkResourceLoadParameters.cpp
-//network/NetworkResourceLoadMap.cpp
+network/NetworkProcessCreationParameters.cpp
+network/NetworkProcessPlatformStrategies.cpp
+network/NetworkResourceLoadParameters.cpp
+network/NetworkResourceLoadMap.cpp
 network/NetworkResourceLoader.cpp
 network/NetworkSchemeRegistry.cpp
-//network/NetworkSession.cpp // WebPageProxy
-//network/NetworkSessionCreationParameters.cpp
-//network/NetworkSocketChannel.cpp
-//network/NetworkSocketStream.cpp
-//network/PingLoad.cpp
+network/NetworkSession.cpp
+network/NetworkSessionCreationParameters.cpp
+network/NetworkSocketChannel.cpp
+network/NetworkSocketStream.cpp
+network/PingLoad.cpp
 network/PreconnectTask.cpp
 
 //network/Cookies/WebCookieManager.cpp

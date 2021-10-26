@@ -28,8 +28,8 @@
 
 #include "ArgumentCoders.h"
 #include "NetworkLoadMetrics.h"
+#include "StoredCredentialsPolicy.h"
 #include <wtf/EnumTraits.h>
-
 
 namespace WebCore {
 
@@ -37,10 +37,16 @@ class AuthenticationChallenge;
 class CertificateInfo;
 class ProtectionSpace;
 class Credential;
+class SecurityOrigin;
 class SharedBuffer;
 class ResourceError;
 class ResourceRequest;
 class ResourceResponse;
+
+#if USE(SOUP)
+struct SoupNetworkProxySettings;
+#endif
+
 
 } // namespace WebCore
 
@@ -94,7 +100,17 @@ template<> struct ArgumentCoder<WebCore::ResourceRequest> {
     static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ResourceRequest&);
 };
 
+#if USE(SOUP)
+template<> struct ArgumentCoder<WebCore::SoupNetworkProxySettings> {
+    static void encode(Encoder&, const WebCore::SoupNetworkProxySettings&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::SoupNetworkProxySettings&);
+};
+#endif
 
+template<> struct ArgumentCoder<Vector<RefPtr<WebCore::SecurityOrigin>>> {
+    static void encode(Encoder&, const Vector<RefPtr<WebCore::SecurityOrigin>>&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<WebCore::SecurityOrigin>>&);
+};
 
 } // namespace IPC
 
@@ -107,6 +123,15 @@ template<> struct EnumTraits<WebCore::NetworkLoadPriority> {
         WebCore::NetworkLoadPriority::Medium,
         WebCore::NetworkLoadPriority::High,
         WebCore::NetworkLoadPriority::Unknown
+    >;
+};
+
+template<> struct EnumTraits<WebCore::StoredCredentialsPolicy> {
+    using values = EnumValues<
+        WebCore::StoredCredentialsPolicy,
+        WebCore::StoredCredentialsPolicy::DoNotUse,
+        WebCore::StoredCredentialsPolicy::Use,
+        WebCore::StoredCredentialsPolicy::EphemeralStateless
     >;
 };
 

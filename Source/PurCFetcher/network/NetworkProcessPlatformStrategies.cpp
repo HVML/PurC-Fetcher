@@ -26,7 +26,6 @@
 #include "config.h"
 #include "NetworkProcessPlatformStrategies.h"
 
-#include "BlobRegistry.h"
 #include <wtf/NeverDestroyed.h>
 
 namespace WebKit {
@@ -51,23 +50,6 @@ PasteboardStrategy* NetworkProcessPlatformStrategies::createPasteboardStrategy()
 MediaStrategy* NetworkProcessPlatformStrategies::createMediaStrategy()
 {
     return nullptr;
-}
-
-BlobRegistry* NetworkProcessPlatformStrategies::createBlobRegistry()
-{
-    using namespace WebCore;
-    class EmptyBlobRegistry : public WebCore::BlobRegistry {
-        void registerFileBlobURL(const URL&, Ref<BlobDataFileReference>&&, const String& contentType) final { ASSERT_NOT_REACHED(); }
-        void registerBlobURL(const URL&, Vector<BlobPart>&&, const String& contentType) final { ASSERT_NOT_REACHED(); }
-        void registerBlobURL(const URL&, const URL& srcURL) final { ASSERT_NOT_REACHED(); }
-        void registerBlobURLOptionallyFileBacked(const URL&, const URL& srcURL, RefPtr<BlobDataFileReference>&&, const String& contentType) final { ASSERT_NOT_REACHED(); }
-        void registerBlobURLForSlice(const URL&, const URL& srcURL, long long start, long long end) final { ASSERT_NOT_REACHED(); }
-        void unregisterBlobURL(const URL&) final { ASSERT_NOT_REACHED(); }
-        unsigned long long blobSize(const URL&) final { ASSERT_NOT_REACHED(); return 0; }
-        void writeBlobsToTemporaryFiles(const Vector<String>& blobURLs, CompletionHandler<void(Vector<String>&& filePaths)>&&) final { ASSERT_NOT_REACHED(); }
-    };
-    static NeverDestroyed<EmptyBlobRegistry> blobRegistry;
-    return &blobRegistry.get();
 }
 
 }

@@ -1,8 +1,6 @@
-
 /*
- * Copyright (C) 2009-2018 Apple Inc. All rights reserved.
- * Copyright (C) 2009 Google Inc.  All rights reserved.
- * Copyright (C) 2012 Samsung Electronics Ltd. All Rights Reserved.
+ * Copyright (C) 2009 Apple Inc. All rights reserved.
+ * Copyright (C) 2009, 2012 Google Inc.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are
@@ -33,47 +31,44 @@
 
 #pragma once
 
-#include "SocketStreamHandle.h"
-
-#if USE(SOUP)
-
-#include "SessionID.h"
+#include <wtf/ThreadSafeRefCounted.h>
+#include <wtf/URL.h>
 
 namespace WebCore {
 
-class SocketStreamError;
+struct CookieRequestHeaderFieldProxy;
 class SocketStreamHandleClient;
-class StorageSessionProvider;
 
-class SocketStreamHandleImpl final : public SocketStreamHandle {
+typedef struct {
+#if PLATFORM(COCOA)
+    RetainPtr<CFDataRef> sourceApplicationAuditData;
+#else
+    void *empty { nullptr };
+#endif
+} SourceApplicationAuditToken;
+
+class SocketStreamHandle : public ThreadSafeRefCounted<SocketStreamHandle, WTF::DestructionThread::Main> {
 public:
-    static Ref<SocketStreamHandleImpl> create(const URL&, SocketStreamHandleClient&, PAL::SessionID, const String&, SourceApplicationAuditToken&&, const StorageSessionProvider*)
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    enum SocketStreamState { Connecting, Open, Closing, Closed };
+    virtual ~SocketStreamHandle() = default;
+    SocketStreamState state() const;
 
-    void platformSend(const uint8_t*, size_t, Function<void(bool)>&&) final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    void sendData(const char* data, size_t length, Function<void(bool)>);
+    void sendHandshake(CString&& handshake, Optional<CookieRequestHeaderFieldProxy>&&, Function<void(bool, bool)>);
+    void close(); // Disconnect after all data in buffer are sent.
+    void disconnect();
+    virtual size_t bufferedAmount() = 0;
 
-    void platformSendHandshake(const uint8_t*, size_t, const Optional<CookieRequestHeaderFieldProxy>&, Function<void(bool, bool)>&&) final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+protected:
+    PURCFETCHER_EXPORT SocketStreamHandle(const URL&, SocketStreamHandleClient&);
 
-    void platformClose() final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    virtual void platformSend(const uint8_t* data, size_t length, Function<void(bool)>&&) = 0;
+    virtual void platformSendHandshake(const uint8_t* data, size_t length, const Optional<CookieRequestHeaderFieldProxy>&, Function<void(bool, bool)>&&) = 0;
+    virtual void platformClose() = 0;
 
-private:
-    size_t bufferedAmount() final
-    {
-        RELEASE_ASSERT_NOT_REACHED();
-    }
+    URL m_url;
+    SocketStreamHandleClient& m_client;
+    SocketStreamState m_state;
 };
 
 } // namespace WebCore
-
-#endif // USE(SOUP)

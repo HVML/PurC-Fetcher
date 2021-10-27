@@ -51,12 +51,12 @@
 #if ENABLE(RSQL)
 
 #include "NetworkDataTask.h"
-#include <WebCore/NetworkLoadMetrics.h>
-#include <WebCore/ProtectionSpace.h>
-#include <WebCore/ResourceResponse.h>
-#include <WebCore/SQLiteDatabase.h>
-#include <WebCore/SQLiteFileSystem.h>
-#include <WebCore/SQLValue.h>
+#include "NetworkLoadMetrics.h"
+#include "ProtectionSpace.h"
+#include "ResourceResponse.h"
+#include "SQLiteDatabase.h"
+#include "SQLiteFileSystem.h"
+#include "SQLValue.h"
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 #include <mysql/mysql.h>

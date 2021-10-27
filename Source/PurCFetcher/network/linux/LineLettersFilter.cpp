@@ -104,7 +104,7 @@ Vector<String> LineLettersFilter::doFilterInner(Vector<String> lines, String par
     return res;
 }
 
-Vector<String> LineLettersFilter::splitLine(String line, String param)
+Vector<String> LineLettersFilter::splitLine(String line, String)
 {
     if (line.isEmpty())
     {

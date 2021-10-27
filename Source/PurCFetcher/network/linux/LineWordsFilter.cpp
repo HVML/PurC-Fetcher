@@ -61,7 +61,7 @@ LineWordsFilter::~LineWordsFilter()
 {
 }
 
-Vector<String> LineWordsFilter::splitLine(String line, String param)
+Vector<String> LineWordsFilter::splitLine(String line, String)
 {
     Vector<String> result;
     if (line.isEmpty())

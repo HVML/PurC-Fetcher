@@ -103,7 +103,7 @@ Vector<String> ColumnLettersFilter::filterInnter(Vector<String> lines, String pa
     return res;
 }
 
-Vector<String> ColumnLettersFilter::splitLine(String line, String param)
+Vector<String> ColumnLettersFilter::splitLine(String line, String)
 {
     if (line.isEmpty())
     {

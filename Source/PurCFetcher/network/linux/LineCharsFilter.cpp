@@ -75,7 +75,7 @@ Vector<String> LineCharsFilter::doFilterInner(Vector<String> lines, String param
     return result;
 }
 
-Vector<String> LineCharsFilter::splitLine(String line, String param)
+Vector<String> LineCharsFilter::splitLine(String line, String)
 {
     if (line.isEmpty())
     {

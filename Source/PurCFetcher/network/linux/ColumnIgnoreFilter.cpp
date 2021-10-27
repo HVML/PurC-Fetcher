@@ -82,7 +82,7 @@ Vector<String> ColumnIgnoreFilter::doFilterInner(Vector<String> lines, String pa
         return lines;
     }
 
-    int start = begin.toInt(&success);
+    size_t start = begin.toInt(&success);
     if (!success)
     {
         if (equalIgnoringASCIICase(begin, "$"))
@@ -110,7 +110,7 @@ Vector<String> ColumnIgnoreFilter::doFilterInner(Vector<String> lines, String pa
     }
 
     result.append(lines.data(), ignoreBegin);
-    if (ignoreBegin + ignoreSize < lines.size())
+    if ((ignoreBegin + ignoreSize) < (int)lines.size())
     {
         result.append(lines.data() + ignoreBegin + ignoreSize, lines.size() - ignoreBegin - ignoreSize);
     }

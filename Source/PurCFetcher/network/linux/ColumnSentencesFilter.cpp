@@ -162,7 +162,7 @@ Vector<Row> ColumnSentencesFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-Vector<Row> ColumnSentencesFilter::splitRow(Row& row, String param)
+Vector<Row> ColumnSentencesFilter::splitRow(Row& row, String)
 {
     Vector<Row> result;
     result.append(filterInnter(row));

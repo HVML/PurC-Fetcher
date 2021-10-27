@@ -75,7 +75,7 @@ Vector<String> ColumnWordsFilter::filterInnter(Vector<String> lines, String para
     return result;
 }
 
-Vector<String> ColumnWordsFilter::splitLine(String line, String param)
+Vector<String> ColumnWordsFilter::splitLine(String line, String)
 {
     Vector<String> result;
     if (line.isEmpty())

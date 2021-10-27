@@ -59,17 +59,17 @@
 #include "NetworkProcess.h"
 #include "NetworkSession.h"
 #include "WebErrors.h"
-#include <WebCore/AuthenticationChallenge.h>
-#include <WebCore/HTTPParsers.h>
-#include <WebCore/MIMETypeRegistry.h>
-#include <WebCore/NetworkStorageSession.h>
-#include <WebCore/SharedBuffer.h>
-#include <WebCore/TextEncoding.h>
+#include "AuthenticationChallenge.h"
+#include "HTTPParsers.h"
+#include "MIMETypeRegistry.h"
+#include "NetworkStorageSession.h"
+#include "SharedBuffer.h"
+#include "TextEncoding.h"
 #include <wtf/MainThread.h>
 #include <wtf/glib/RunLoopSourcePriority.h>
 #include <sys/types.h>
 #include <unistd.h>
-#include <WebCore/SQLiteStatement.h>
+#include "SQLiteStatement.h"
 
 
 namespace WebKit {
@@ -102,6 +102,7 @@ NetworkDataTaskLsql::NetworkDataTaskLsql(NetworkSession& session, NetworkDataTas
     : NetworkDataTask(session, client, requestWithCredentials, storedCredentialsPolicy, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation)
     , m_formatArray(false)
 {
+    UNUSED_PARAM(shouldContentSniff);
     m_session->registerNetworkDataTask(*this);
     if (m_scheduledFailureType != NoFailure)
         return;
@@ -614,10 +615,10 @@ void NetworkDataTaskLsql::parseSqlQuery(String sqlQuery)
             continue;
         }
 
-        int paramLength = param.length();
+        size_t paramLength = param.length();
         size_t end = start + 1;
         sqlSb.append(param.substring(0, start - 0));
-        while (start != notFound && end < paramLength) 
+        while ((start != notFound) && (end < paramLength))
         {
             if (param[end] == '$' )
             {
@@ -637,8 +638,8 @@ void NetworkDataTaskLsql::parseSqlQuery(String sqlQuery)
                 continue;
             }
 
-            if (!(param[end] >= 'a' && param[end] <= 'z' 
-                        || param[end] >= 'A' && param[end] <= 'Z'
+            if (!((param[end] >= 'a' && param[end] <= 'z')
+                        || (param[end] >= 'A' && param[end] <= 'Z')
                         ))
             {
                 sqlSb.append(param.substring(start, 2));
@@ -664,11 +665,10 @@ void NetworkDataTaskLsql::parseSqlQuery(String sqlQuery)
             StringBuilder sb;
             for (;end < paramLength; end++)
             {
-                if (param[end] >= '0' && param[end] <= '9'
-                    || param[end] >= 'a' && param[end] <= 'z' 
-                    || param[end] >= 'A' && param[end] <= 'Z'
-                    || param[end] == '_'
-                        )
+                if ((param[end] >= '0' && param[end] <= '9')
+                    || (param[end] >= 'a' && param[end] <= 'z')
+                    || (param[end] >= 'A' && param[end] <= 'Z')
+                    || (param[end] == '_'))
                 {
                     sb.append(param[end]);
                 }

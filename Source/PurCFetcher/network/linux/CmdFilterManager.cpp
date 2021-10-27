@@ -47,8 +47,6 @@
  */ 
 
 
-#pragma once
-
 #include "config.h"
 #include "CmdFilterManager.h"
 

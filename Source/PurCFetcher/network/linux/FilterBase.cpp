@@ -46,8 +46,6 @@
  * <https://www.fmsoft.cn/exception-list>.
  */ 
 
-#pragma once
-
 #include "config.h"
 #include "FilterBase.h"
 

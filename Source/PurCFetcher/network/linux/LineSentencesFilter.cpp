@@ -151,7 +151,7 @@ Vector<Row> LineSentencesFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-Vector<Row> LineSentencesFilter::splitRow(Row& row, String param)
+Vector<Row> LineSentencesFilter::splitRow(Row& row, String)
 {
     Vector<Row> rowVec;
     int rowColumnSize = row.size();

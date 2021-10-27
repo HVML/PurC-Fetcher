@@ -25,34 +25,34 @@ network/soup/NetworkSessionSoup.cpp
 network/soup/RemoteNetworkingContextSoup.cpp
 
 network/linux/NetworkDataTaskLcmd.cpp
-//network/linux/NetworkDataTaskLsql.cpp
-//network/linux/NetworkDataTaskRsql.cpp
+network/linux/NetworkDataTaskLsql.cpp
+network/linux/NetworkDataTaskRsql.cpp
 
-//network/linux/FilterBase.cpp
-//network/linux/LineSplitFilter.cpp
-//network/linux/LineCharsFilter.cpp
-//network/linux/LineLettersFilter.cpp
-//network/linux/LineWordsFilter.cpp
-//network/linux/LineSentencesFilter.cpp
-//network/linux/LineHeadFilter.cpp
-//network/linux/LineTailFilter.cpp
-//network/linux/LineIgnoreFilter.cpp
-//network/linux/LinePickFilter.cpp
-//network/linux/LineCutFilter.cpp
+network/linux/FilterBase.cpp
+network/linux/LineSplitFilter.cpp
+network/linux/LineCharsFilter.cpp
+network/linux/LineLettersFilter.cpp
+network/linux/LineWordsFilter.cpp
+network/linux/LineSentencesFilter.cpp
+network/linux/LineHeadFilter.cpp
+network/linux/LineTailFilter.cpp
+network/linux/LineIgnoreFilter.cpp
+network/linux/LinePickFilter.cpp
+network/linux/LineCutFilter.cpp
 
-//network/linux/ColumnDelimiterFilter.cpp
-//network/linux/ColumnCharsFilter.cpp
-//network/linux/ColumnLettersFilter.cpp
-//network/linux/ColumnWordsFilter.cpp
-//network/linux/ColumnSentencesFilter.cpp
-//network/linux/ColumnHeadFilter.cpp
-//network/linux/ColumnTailFilter.cpp
-//network/linux/ColumnIgnoreFilter.cpp
-//network/linux/ColumnPickFilter.cpp
-//network/linux/ColumnCutFilter.cpp
+network/linux/ColumnDelimiterFilter.cpp
+network/linux/ColumnCharsFilter.cpp
+network/linux/ColumnLettersFilter.cpp
+network/linux/ColumnWordsFilter.cpp
+network/linux/ColumnSentencesFilter.cpp
+network/linux/ColumnHeadFilter.cpp
+network/linux/ColumnTailFilter.cpp
+network/linux/ColumnIgnoreFilter.cpp
+network/linux/ColumnPickFilter.cpp
+network/linux/ColumnCutFilter.cpp
 
-//network/linux/FormatKeys.cpp
-//network/linux/FormatArray.cpp
+network/linux/FormatKeys.cpp
+network/linux/FormatArray.cpp
 
-//network/linux/CmdFilterManager.cpp
+network/linux/CmdFilterManager.cpp
 

@@ -47,6 +47,9 @@
  */ 
 
 #include "config.h"
+
+#if ENABLE(LCMD)
+
 #include <stdio.h>
 #include "NetworkDataTaskLcmd.h"
 #include "FilterBase.h"
@@ -515,3 +518,4 @@ String NetworkDataTaskLcmd::parseCmdLine(String cmdLine)
 
 } // namespace WebKit
 
+#endif // ENABLE(LCMD)

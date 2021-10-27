@@ -47,6 +47,9 @@
  */ 
 
 #include "config.h"
+
+#if ENABLE(LSQL)
+
 #include <stdio.h>
 #include "NetworkDataTaskLsql.h"
 #include "FilterBase.h"
@@ -708,3 +711,4 @@ void NetworkDataTaskLsql::parseSqlQuery(String sqlQuery)
 
 } // namespace WebKit
 
+#endif // ENABLE(LSQL)

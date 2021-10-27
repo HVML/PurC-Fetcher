@@ -36,12 +36,16 @@
 #include "ResourceResponse.h"
 #include <wtf/RunLoop.h>
 
-#if 0
+#if ENABLE(LCMD)
 #include "NetworkDataTaskLcmd.h"
+#endif
+
+#if ENABLE(LSQL)
 #include "NetworkDataTaskLsql.h"
+#endif
+
 #if ENABLE(RSQL)
 #include "NetworkDataTaskRsql.h"
-#endif
 #endif
 
 #if PLATFORM(COCOA)
@@ -60,18 +64,22 @@ using namespace WebCore;
 Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDataTaskClient& client, const NetworkLoadParameters& parameters)
 {
     ASSERT(!parameters.request.url().protocolIsBlob());
-#if 0
+#if ENABLE(LCMD)
     if (parameters.request.url().protocolIsLcmd()) {
-        return NetworkDataTaskHybirdos::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
-    }
-    else if (parameters.request.url().protocolIsLsql()) {
-        return NetworkDataTaskLsql::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
-    }
-#if ENABLE(RSQL)
-    else if (parameters.request.url().protocolIsRsql()) {
-        return NetworkDataTaskRsql::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
+        return NetworkDataTaskLcmd::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
     }
 #endif
+
+#if ENABLE(LSQL)
+    if (parameters.request.url().protocolIsLsql()) {
+        return NetworkDataTaskLsql::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
+    }
+#endif
+
+#if ENABLE(RSQL)
+    if (parameters.request.url().protocolIsRsql()) {
+        return NetworkDataTaskRsql::create(session, client, parameters.request, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
+    }
 #endif
 
 #if PLATFORM(COCOA)

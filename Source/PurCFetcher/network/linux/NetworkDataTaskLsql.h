@@ -48,6 +48,8 @@
 
 #pragma once
 
+#if ENABLE(LSQL)
+
 #include "NetworkDataTask.h"
 #include "NetworkLoadMetrics.h"
 #include "ProtectionSpace.h"
@@ -136,3 +138,5 @@ private:
 };
 
 } // namespace WebKit
+
+#endif // ENABLE(LSQL)

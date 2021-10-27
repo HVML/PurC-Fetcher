@@ -32,10 +32,10 @@
 #include "NetworkCacheKey.h"
 #include "NetworkProcess.h"
 #include "WebCoreArgumentCoders.h"
-#include <WebCore/CacheQueryOptions.h>
-#include <WebCore/HTTPParsers.h>
-#include <WebCore/RetrieveRecordsOptions.h>
-#include <pal/SessionID.h>
+#include "CacheQueryOptions.h"
+#include "HTTPParsers.h"
+#include "RetrieveRecordsOptions.h"
+#include "SessionID.h"
 #include <wtf/MainThread.h>
 #include <wtf/NeverDestroyed.h>
 #include <wtf/UUID.h>
@@ -563,6 +563,7 @@ Storage::Record Cache::encode(const RecordInformation& recordInformation, const 
     Data header(encoder.buffer(), encoder.bufferSize());
     Data body;
     WTF::switchOn(record.responseBody, [](const Ref<WebCore::FormData>& formData) {
+        UNUSED_PARAM(formData);
         // FIXME: Store form data body.
     }, [&](const Ref<WebCore::SharedBuffer>& buffer) {
         body = { reinterpret_cast<const uint8_t*>(buffer->data()), buffer->size() };

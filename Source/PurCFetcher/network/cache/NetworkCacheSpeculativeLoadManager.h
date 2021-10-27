@@ -30,7 +30,7 @@
 
 #include "NetworkCache.h"
 #include "NetworkCacheStorage.h"
-#include <WebCore/ResourceRequest.h>
+#include "ResourceRequest.h"
 #include <wtf/HashMap.h>
 #include <wtf/Vector.h>
 

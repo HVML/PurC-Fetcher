@@ -26,7 +26,7 @@
 #include "config.h"
 #include "PrefetchCache.h"
 
-#include <WebCore/HTTPHeaderNames.h>
+#include "HTTPHeaderNames.h"
 
 namespace WebKit {
 

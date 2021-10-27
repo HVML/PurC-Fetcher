@@ -34,13 +34,13 @@
 #include "NetworkCacheStorage.h"
 #include "NetworkProcess.h"
 #include "NetworkSession.h"
-#include <WebCore/CacheValidation.h>
-#include <WebCore/HTTPHeaderNames.h>
-#include <WebCore/LowPowerModeNotifier.h>
-#include <WebCore/NetworkStorageSession.h>
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/ResourceResponse.h>
-#include <WebCore/SharedBuffer.h>
+#include "CacheValidation.h"
+#include "HTTPHeaderNames.h"
+#include "LowPowerModeNotifier.h"
+#include "NetworkStorageSession.h"
+#include "ResourceRequest.h"
+#include "ResourceResponse.h"
+#include "SharedBuffer.h"
 #include <wtf/FileSystem.h>
 #include <wtf/MainThread.h>
 #include <wtf/NeverDestroyed.h>
@@ -197,6 +197,7 @@ static bool cachePolicyAllowsExpired(WebCore::ResourceRequestCachePolicy policy)
 
 static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, const WebCore::ResourceResponse& response, WallTime timestamp, Optional<Seconds> maxStale)
 {
+    UNUSED_PARAM(networkSession);
     if (response.cacheControlContainsNoCache())
         return UseDecision::Validate;
 
@@ -281,6 +282,7 @@ static bool isMediaMIMEType(const String& type)
 
 static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalRequest, const WebCore::ResourceResponse& response, size_t bodySize)
 {
+    UNUSED_PARAM(bodySize);
     if (!originalRequest.url().protocolIsInHTTPFamily() || !response.isInHTTPFamily())
         return StoreDecision::NoDueToProtocol;
 
@@ -375,6 +377,9 @@ void Cache::startAsyncRevalidationIfNeeded(const WebCore::ResourceRequest& reque
 
 void Cache::browsingContextRemoved(WebPageProxyIdentifier webPageProxyID, WebCore::PageIdentifier webPageID, WebCore::FrameIdentifier webFrameID)
 {
+    UNUSED_PARAM(webPageProxyID);
+    UNUSED_PARAM(webPageID);
+    UNUSED_PARAM(webFrameID);
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
     auto loaders = m_pendingAsyncRevalidationByPage.take({ webPageProxyID, webPageID, webFrameID });
     for (auto& loader : loaders)
@@ -506,6 +511,7 @@ std::unique_ptr<Entry> Cache::store(const WebCore::ResourceRequest& request, con
     auto record = cacheEntry->encodeAsStorageRecord();
 
     m_storage->store(record, [protectedThis = makeRef(*this), completionHandler = WTFMove(completionHandler)](const Data& bodyData) mutable {
+        UNUSED_PARAM(bodyData);
         MappedBody mappedBody;
 #if ENABLE(SHAREABLE_RESOURCE)
         if (auto sharedMemory = bodyData.tryCreateSharedMemory()) {

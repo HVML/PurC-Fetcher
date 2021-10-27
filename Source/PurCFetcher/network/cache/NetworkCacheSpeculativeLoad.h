@@ -31,9 +31,9 @@
 #include "NetworkCacheEntry.h"
 #include "NetworkLoadClient.h"
 #include "PolicyDecision.h"
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/ResourceResponse.h>
-#include <WebCore/SharedBuffer.h>
+#include "ResourceRequest.h"
+#include "ResourceResponse.h"
+#include "SharedBuffer.h"
 #include <wtf/CompletionHandler.h>
 
 namespace WebKit {

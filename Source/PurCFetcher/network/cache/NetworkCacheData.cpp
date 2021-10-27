@@ -98,6 +98,7 @@ Data mapFile(const String& path)
 
 Data adoptAndMapFile(FileSystem::PlatformFileHandle handle, size_t offset, size_t size)
 {
+    UNUSED_PARAM(offset);
     if (!size) {
         FileSystem::closeFile(handle);
         return Data::empty();

@@ -34,7 +34,7 @@
 #include "NetworkCacheSubresourcesEntry.h"
 #include "NetworkProcess.h"
 #include "PreconnectTask.h"
-#include <WebCore/DiagnosticLoggingKeys.h>
+#include "DiagnosticLoggingKeys.h"
 #include <pal/HysteresisActivity.h>
 #include <wtf/HashCountedSet.h>
 #include <wtf/NeverDestroyed.h>

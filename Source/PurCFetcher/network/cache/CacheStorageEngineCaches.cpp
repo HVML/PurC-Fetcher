@@ -29,8 +29,8 @@
 #include "Logging.h"
 #include "NetworkCacheCoders.h"
 #include "NetworkCacheIOChannel.h"
-#include <WebCore/SecurityOrigin.h>
-#include <WebCore/StorageQuotaManager.h>
+#include "SecurityOrigin.h"
+#include "StorageQuotaManager.h"
 #include <wtf/RunLoop.h>
 #include <wtf/UUID.h>
 #include <wtf/text/StringBuilder.h>
@@ -214,6 +214,7 @@ void Caches::initializeSize()
 
     uint64_t size = 0;
     m_storage->traverse({ }, { }, [protectedThis = makeRef(*this), this, protectedStorage = makeRef(*m_storage), size](const auto* storage, const auto& information) mutable {
+        UNUSED_PARAM(information);
         if (!storage) {
             if (m_pendingInitializationCallbacks.isEmpty()) {
                 // Caches was cleared so let's not get initialized.
@@ -246,6 +247,7 @@ void Caches::clear(CompletionHandler<void()>&& completionHandler)
 {
     if (m_isWritingCachesToDisk) {
         m_pendingWritingCachesToDiskCallbacks.append([this, completionHandler = WTFMove(completionHandler)] (auto&& error) mutable {
+            UNUSED_PARAM(error);
             this->clear(WTFMove(completionHandler));
         });
         return;
@@ -537,6 +539,7 @@ void Caches::requestSpace(uint64_t spaceRequired, WebCore::DOMCacheEngine::Compl
 
 void Caches::writeRecord(const Cache& cache, const RecordInformation& recordInformation, Record&& record, uint64_t previousRecordSize, CompletionCallback&& callback)
 {
+    UNUSED_PARAM(cache);
     ASSERT(m_isInitialized);
 
     ASSERT(m_size >= previousRecordSize);

@@ -28,7 +28,7 @@
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
 
 #include "NetworkCacheStorage.h"
-#include <WebCore/ResourceRequest.h>
+#include "ResourceRequest.h"
 #include <wtf/HashMap.h>
 #include <wtf/URL.h>
 

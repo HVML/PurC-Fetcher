@@ -27,8 +27,8 @@
 #include "AsyncRevalidation.h"
 
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
-#include <WebCore/CacheValidation.h>
-#include <WebCore/ResourceRequest.h>
+#include "CacheValidation.h"
+#include "ResourceRequest.h"
 
 namespace WebKit {
 namespace NetworkCache {

@@ -107,22 +107,22 @@ network/WebStorage/StorageManager.cpp
 network/WebStorage/StorageManagerSet.cpp
 network/WebStorage/TransientLocalStorageNamespace.cpp
 
-//network/cache/CacheStorageEngine.cpp
-//network/cache/CacheStorageEngineCache.cpp
-//network/cache/CacheStorageEngineCaches.cpp
-//network/cache/CacheStorageEngineConnection.cpp
+network/cache/CacheStorageEngine.cpp
+network/cache/CacheStorageEngineCache.cpp
+network/cache/CacheStorageEngineCaches.cpp
+network/cache/CacheStorageEngineConnection.cpp
 network/cache/AsyncRevalidation.cpp
-//network/cache/NetworkCache.cpp
-//network/cache/NetworkCacheBlobStorage.cpp
-//network/cache/NetworkCacheCoders.cpp
-//network/cache/NetworkCacheData.cpp
-//network/cache/NetworkCacheEntry.cpp
+network/cache/NetworkCache.cpp
+network/cache/NetworkCacheBlobStorage.cpp
+network/cache/NetworkCacheCoders.cpp
+network/cache/NetworkCacheData.cpp
+network/cache/NetworkCacheEntry.cpp
 network/cache/NetworkCacheFileSystem.cpp
-//network/cache/NetworkCacheKey.cpp
+network/cache/NetworkCacheKey.cpp
 network/cache/NetworkCacheSpeculativeLoad.cpp
 network/cache/NetworkCacheSpeculativeLoadManager.cpp
-//network/cache/NetworkCacheStorage.cpp
+network/cache/NetworkCacheStorage.cpp
 network/cache/NetworkCacheSubresourcesEntry.cpp
-//network/cache/PrefetchCache.cpp
+network/cache/PrefetchCache.cpp
 
 

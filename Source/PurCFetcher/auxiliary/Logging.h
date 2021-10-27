@@ -9,6 +9,7 @@
 #define PURCFETCHER_LOG_CHANNELS(M) \
      M(SQLDatabase) \
      M(NetworkCache) \
+     M(NetworkCacheStorage) \
 
 #undef DECLARE_LOG_CHANNEL
 #define DECLARE_LOG_CHANNEL(name) \

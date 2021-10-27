@@ -33,7 +33,7 @@
 #include "NetworkLoad.h"
 #include "NetworkProcess.h"
 #include "NetworkSession.h"
-#include <WebCore/NetworkStorageSession.h>
+#include "NetworkStorageSession.h"
 #include <pal/SessionID.h>
 #include <wtf/RunLoop.h>
 

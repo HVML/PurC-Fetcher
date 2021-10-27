@@ -30,7 +30,7 @@
 
 #include "Logging.h"
 #include "NetworkCacheCoders.h"
-#include <WebCore/RegistrableDomain.h>
+#include "RegistrableDomain.h"
 
 namespace WebKit {
 namespace NetworkCache {

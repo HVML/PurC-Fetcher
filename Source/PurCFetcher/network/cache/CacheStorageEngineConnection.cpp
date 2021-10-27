@@ -30,7 +30,7 @@
 #include "Logging.h"
 #include "NetworkConnectionToWebProcess.h"
 #include "WebCoreArgumentCoders.h"
-#include <WebCore/CacheQueryOptions.h>
+#include "CacheQueryOptions.h"
 
 namespace WebKit {
 using namespace WebCore::DOMCacheEngine;

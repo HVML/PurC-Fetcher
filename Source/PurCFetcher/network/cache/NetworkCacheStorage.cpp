@@ -322,6 +322,7 @@ void Storage::synchronize()
 
         String anyType;
         traverseRecordsFiles(recordsPathIsolatedCopy(), anyType, [&](const String& fileName, const String& hashString, const String& type, bool isBlob, const String& recordDirectoryPath) {
+            UNUSED_PARAM(type);
             auto filePath = FileSystem::pathByAppendingComponent(recordDirectoryPath, fileName);
 
             Key::HashType hash;
@@ -960,6 +961,7 @@ void Storage::traverse(const String& type, OptionSet<TraverseFlag> flags, Traver
 
     ioQueue().dispatch([this, &traverseOperation] {
         traverseRecordsFiles(recordsPathIsolatedCopy(), traverseOperation.type, [this, &traverseOperation](const String& fileName, const String& hashString, const String& type, bool isBlob, const String& recordDirectoryPath) {
+            UNUSED_PARAM(hashString);
             ASSERT(type == traverseOperation.type || traverseOperation.type.isEmpty());
             if (isBlob)
                 return;
@@ -1058,6 +1060,9 @@ void Storage::clear(const String& type, WallTime modifiedSinceTime, CompletionHa
     ioQueue().dispatch([this, protectedThis = makeRef(*this), modifiedSinceTime, completionHandler = WTFMove(completionHandler), type = type.isolatedCopy()] () mutable {
         auto recordsPath = this->recordsPathIsolatedCopy();
         traverseRecordsFiles(recordsPath, type, [modifiedSinceTime](const String& fileName, const String& hashString, const String& type, bool isBlob, const String& recordDirectoryPath) {
+            UNUSED_PARAM(hashString);
+            UNUSED_PARAM(type);
+            UNUSED_PARAM(isBlob);
             auto filePath = FileSystem::pathByAppendingComponent(recordDirectoryPath, fileName);
             if (modifiedSinceTime > -WallTime::infinity()) {
                 auto times = fileTimes(filePath);
@@ -1135,6 +1140,8 @@ void Storage::shrink()
         auto recordsPath = this->recordsPathIsolatedCopy();
         String anyType;
         traverseRecordsFiles(recordsPath, anyType, [this](const String& fileName, const String& hashString, const String& type, bool isBlob, const String& recordDirectoryPath) {
+            UNUSED_PARAM(hashString);
+            UNUSED_PARAM(type);
             if (isBlob)
                 return;
 

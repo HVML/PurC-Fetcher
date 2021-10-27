@@ -27,20 +27,19 @@
 #include "config.h"
 #include "NetworkConnectionToWebProcess.h"
 
-#include "BlobDataFileReferenceWithSandboxExtension.h"
 #include "CacheStorageEngineConnectionMessages.h"
 #include "DataReference.h"
 #include "Logging.h"
 #include "NetworkCache.h"
 #include "NetworkConnectionToWebProcessMessages.h"
-#include "NetworkMDNSRegisterMessages.h"
+//#include "NetworkMDNSRegisterMessages.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessConnectionMessages.h"
 #include "NetworkProcessMessages.h"
 #include "NetworkProcessProxyMessages.h"
-#include "NetworkRTCMonitorMessages.h"
-#include "NetworkRTCProviderMessages.h"
-#include "NetworkRTCSocketMessages.h"
+//#include "NetworkRTCMonitorMessages.h"
+//#include "NetworkRTCProviderMessages.h"
+//#include "NetworkRTCSocketMessages.h"
 #include "NetworkResourceLoadParameters.h"
 #include "NetworkResourceLoader.h"
 #include "NetworkResourceLoaderMessages.h"
@@ -52,23 +51,22 @@
 #include "NetworkSocketStreamMessages.h"
 #include "PingLoad.h"
 #include "PreconnectTask.h"
-#include "ServiceWorkerFetchTaskMessages.h"
+//#include "ServiceWorkerFetchTaskMessages.h"
 #include "WebCoreArgumentCoders.h"
 #include "WebErrors.h"
-#include "WebProcessMessages.h"
+//#include "WebProcessMessages.h"
 #include "WebProcessPoolMessages.h"
-#include "WebResourceLoadStatisticsStore.h"
-#include "WebSWServerConnection.h"
-#include "WebSWServerConnectionMessages.h"
-#include "WebSWServerToContextConnection.h"
-#include "WebSWServerToContextConnectionMessages.h"
+//#include "WebResourceLoadStatisticsStore.h"
+//#include "WebSWServerConnection.h"
+//#include "WebSWServerConnectionMessages.h"
+//#include "WebSWServerToContextConnection.h"
+//#include "WebSWServerToContextConnectionMessages.h"
 #include "WebSocketIdentifier.h"
 #include "WebsiteDataStoreParameters.h"
-#include "DocumentStorageAccess.h"
+//#include "DocumentStorageAccess.h"
 #include "HTTPCookieAcceptPolicy.h"
 #include "NetworkStorageSession.h"
 #include "ResourceLoadObserver.h"
-#include "ResourceLoadStatistics.h"
 #include "ResourceRequest.h"
 #include "SameSiteInfo.h"
 #include "SecurityPolicy.h"
@@ -411,28 +409,6 @@ NetworkSession* NetworkConnectionToWebProcess::networkSession()
     return networkProcess().networkSession(m_sessionID);
 }
 
-Vector<RefPtr<WebCore::BlobDataFileReference>> NetworkConnectionToWebProcess::resolveBlobReferences(const NetworkResourceLoadParameters& loadParameters)
-{
-    RELEASE_LOG_IF_ALLOWED(Loading, "resolveBlobReferences: (parentPID=%d, pageProxyID=%" PRIu64 ", webPageID=%" PRIu64 ", frameID=%" PRIu64 ", resourceID=%" PRIu64 ")", loadParameters.parentPID, loadParameters.webPageProxyID.toUInt64(), loadParameters.webPageID.toUInt64(), loadParameters.webFrameID.toUInt64(), loadParameters.identifier);
-
-    auto* session = networkSession();
-    if (!session)
-        return { };
-
-    auto& blobRegistry = session->blobRegistry();
-
-    Vector<RefPtr<WebCore::BlobDataFileReference>> files;
-    if (auto* body = loadParameters.request.httpBody()) {
-        for (auto& element : body->elements()) {
-            if (auto* blobData = WTF::get_if<FormDataElement::EncodedBlobData>(element.data))
-                files.appendVector(blobRegistry.filesInBlob(blobData->url));
-        }
-        const_cast<WebCore::ResourceRequest&>(loadParameters.request).setHTTPBody(body->resolveBlobReferences(&blobRegistry));
-    }
-
-    return files;
-}
-
 #if ENABLE(SERVICE_WORKER)
 std::unique_ptr<ServiceWorkerFetchTask> NetworkConnectionToWebProcess::createFetchTask(NetworkResourceLoader& loader, const ResourceRequest& request)
 {
@@ -738,90 +714,6 @@ void NetworkConnectionToWebProcess::allCookiesDeleted()
 }
 
 #endif
-
-void NetworkConnectionToWebProcess::registerFileBlobURL(const URL& url, const String& path, SandboxExtension::Handle&& extensionHandle, const String& contentType)
-{
-    NETWORK_PROCESS_MESSAGE_CHECK(!url.isEmpty());
-
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().registerFileBlobURL(url, BlobDataFileReferenceWithSandboxExtension::create(path, SandboxExtension::create(WTFMove(extensionHandle))), contentType);
-}
-
-void NetworkConnectionToWebProcess::registerBlobURL(const URL& url, Vector<BlobPart>&& blobParts, const String& contentType)
-{
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().registerBlobURL(url, WTFMove(blobParts), contentType);
-}
-
-void NetworkConnectionToWebProcess::registerBlobURLFromURL(const URL& url, const URL& srcURL)
-{
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().registerBlobURL(url, srcURL);
-}
-
-void NetworkConnectionToWebProcess::registerBlobURLOptionallyFileBacked(const URL& url, const URL& srcURL, const String& fileBackedPath, const String& contentType)
-{
-    NETWORK_PROCESS_MESSAGE_CHECK(!url.isEmpty() && !srcURL.isEmpty() && !fileBackedPath.isEmpty());
-
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().registerBlobURLOptionallyFileBacked(url, srcURL, BlobDataFileReferenceWithSandboxExtension::create(fileBackedPath, nullptr), contentType);
-}
-
-void NetworkConnectionToWebProcess::registerBlobURLForSlice(const URL& url, const URL& srcURL, int64_t start, int64_t end)
-{
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().registerBlobURLForSlice(url, srcURL, start, end);
-}
-
-void NetworkConnectionToWebProcess::unregisterBlobURL(const URL& url)
-{
-    auto* session = networkSession();
-    if (!session)
-        return;
-
-    session->blobRegistry().unregisterBlobURL(url);
-}
-
-void NetworkConnectionToWebProcess::blobSize(const URL& url, CompletionHandler<void(uint64_t)>&& completionHandler)
-{
-    auto* session = networkSession();
-    completionHandler(session ? session->blobRegistry().blobSize(url) : 0);
-}
-
-void NetworkConnectionToWebProcess::writeBlobsToTemporaryFiles(const Vector<String>& blobURLs, CompletionHandler<void(Vector<String>&&)>&& completionHandler)
-{
-    auto* session = networkSession();
-    if (!session)
-        return completionHandler({ });
-
-    Vector<RefPtr<BlobDataFileReference>> fileReferences;
-    for (auto& url : blobURLs)
-        fileReferences.appendVector(session->blobRegistry().filesInBlob({ { }, url }));
-
-    for (auto& file : fileReferences)
-        file->prepareForFileAccess();
-
-    session->blobRegistry().writeBlobsToTemporaryFiles(blobURLs, [fileReferences = WTFMove(fileReferences), completionHandler = WTFMove(completionHandler)](auto&& fileNames) mutable {
-        for (auto& file : fileReferences)
-            file->revokeFileAccess();
-        completionHandler(WTFMove(fileNames));
-    });
-}
 
 void NetworkConnectionToWebProcess::setCaptureExtraNetworkLoadMetricsEnabled(bool enabled)
 {

@@ -128,7 +128,6 @@ static void callExitSoon(IPC::Connection*)
     });
 }
 
-#if 0
 static inline MessagePortChannelRegistry createMessagePortChannelRegistry(NetworkProcess& networkProcess)
 {
     return MessagePortChannelRegistry { [&networkProcess](auto& messagePortIdentifier, auto processIdentifier, auto&& completionHandler) {
@@ -141,7 +140,6 @@ static inline MessagePortChannelRegistry createMessagePortChannelRegistry(Networ
         connection->checkProcessLocalPortForActivity(messagePortIdentifier, WTFMove(completionHandler));
     } };
 }
-#endif
 
 NetworkProcess::NetworkProcess(AuxiliaryProcessInitializationParameters&& parameters)
     : m_downloadManager(*this)
@@ -152,7 +150,7 @@ NetworkProcess::NetworkProcess(AuxiliaryProcessInitializationParameters&& parame
 #if PLATFORM(IOS_FAMILY)
     , m_webSQLiteDatabaseTracker([this](bool isHoldingLockedFiles) { parentProcessConnection()->send(Messages::NetworkProcessProxy::SetIsHoldingLockedFiles(isHoldingLockedFiles), 0); })
 #endif
-//    , m_messagePortChannelRegistry(createMessagePortChannelRegistry(*this))
+    , m_messagePortChannelRegistry(createMessagePortChannelRegistry(*this))
 {
     NetworkProcessPlatformStrategies::initialize();
 

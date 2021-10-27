@@ -43,7 +43,7 @@
 #include "DiagnosticLoggingClient.h"
 #include "FetchIdentifier.h"
 //#include "IDBKeyData.h"
-//#include "MessagePortChannelRegistry.h"
+#include "MessagePortChannelRegistry.h"
 #include "StorageQuotaManager.h"
 #include "PageIdentifier.h"
 #include "RegistrableDomain.h"
@@ -346,7 +346,7 @@ public:
     const OptionSet<NetworkCache::CacheOption>& cacheOptions() const { return m_cacheOptions; }
 
     NetworkConnectionToWebProcess* webProcessConnection(WebCore::ProcessIdentifier) const;
-//    WebCore::MessagePortChannelRegistry& messagePortChannelRegistry() { return m_messagePortChannelRegistry; }
+    WebCore::MessagePortChannelRegistry& messagePortChannelRegistry() { return m_messagePortChannelRegistry; }
 
     void setServiceWorkerFetchTimeoutForTesting(Seconds, CompletionHandler<void()>&&);
     void resetServiceWorkerFetchTimeoutForTesting(CompletionHandler<void()>&&);
@@ -590,7 +590,7 @@ private:
     HashMap<PAL::SessionID, std::unique_ptr<SessionStorageQuotaManager>> m_sessionStorageQuotaManagers;
 
     OptionSet<NetworkCache::CacheOption> m_cacheOptions;
-//    WebCore::MessagePortChannelRegistry m_messagePortChannelRegistry;
+    WebCore::MessagePortChannelRegistry m_messagePortChannelRegistry;
 
     static const Seconds defaultServiceWorkerFetchTimeout;
     Seconds m_serviceWorkerFetchTimeout { defaultServiceWorkerFetchTimeout };

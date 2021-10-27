@@ -30,7 +30,7 @@
 #include "Credential.h"
 #include "FrameLoaderTypes.h"
 #include "NetworkLoadMetrics.h"
-//#include "ResourceLoaderOptions.h"
+#include "ResourceLoaderOptions.h"
 #include "ResourceRequest.h"
 #include "StoredCredentialsPolicy.h"
 #include "Timer.h"
@@ -162,9 +162,7 @@ protected:
     String m_user;
     String m_password;
     String m_partition;
-#if USE(CREDENTIAL_STORAGE_WITH_NETWORK_SESSION)
     WebCore::Credential m_initialCredential;
-#endif
     WebCore::StoredCredentialsPolicy m_storedCredentialsPolicy { WebCore::StoredCredentialsPolicy::DoNotUse };
     String m_lastHTTPMethod;
     String m_pendingDownloadLocation;

@@ -174,6 +174,7 @@ void IOChannel::read(size_t offset, size_t size, WorkQueue* queue, Function<void
 
 void IOChannel::readSyncInThread(size_t offset, size_t size, WorkQueue* queue, Function<void (Data&, int error)>&& completionHandler)
 {
+    UNUSED_PARAM(offset);
     ASSERT(!RunLoop::isMain());
 
     RefPtr<IOChannel> channel(this);
@@ -251,6 +252,7 @@ static void outputStreamWriteReadyCallback(GOutputStream* stream, GAsyncResult* 
 
 void IOChannel::write(size_t offset, const Data& data, WorkQueue* queue, Function<void (int error)>&& completionHandler)
 {
+    UNUSED_PARAM(offset);
     RefPtr<IOChannel> channel(this);
     if (!m_outputStream && !m_ioStream) {
         runTaskInQueue([channel, completionHandler = WTFMove(completionHandler)] {

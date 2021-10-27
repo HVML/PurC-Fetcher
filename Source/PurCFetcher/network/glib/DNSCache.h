@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Sony Interactive Entertainment Inc.
+ * Copyright (C) 2019 Igalia S.L.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,14 +25,49 @@
 
 #pragma once
 
-#if !PLATFORM(COCOA)
+#include <wtf/HashMap.h>
+#include <wtf/Lock.h>
+#include <wtf/MonotonicTime.h>
+#include <wtf/Optional.h>
+#include <wtf/RunLoop.h>
+#include <wtf/Vector.h>
+#include <wtf/glib/GRefPtr.h>
+#include <wtf/text/CString.h>
 
-//#include <WebKit/WKBase.h>
+typedef struct _GInetAddress GInetAddress;
 
 namespace WebKit {
 
-PURCFETCHER_EXPORT int NetworkProcessMain(int argc, char** argv);
+class DNSCache {
+public:
+    DNSCache();
+    ~DNSCache() = default;
+
+    enum class Type { Default, IPv4Only, IPv6Only };
+    Optional<Vector<GRefPtr<GInetAddress>>> lookup(const CString& host, Type = Type::Default);
+    void update(const CString& host, Vector<GRefPtr<GInetAddress>>&&, Type = Type::Default);
+    void clear();
+
+private:
+    struct CachedResponse {
+        Vector<GRefPtr<GInetAddress>> addressList;
+        MonotonicTime expirationTime;
+    };
+
+    using DNSCacheMap = HashMap<CString, CachedResponse>;
+
+    DNSCacheMap& mapForType(Type);
+    void removeExpiredResponsesFired();
+    void removeExpiredResponsesInMap(DNSCacheMap&);
+    void pruneResponsesInMap(DNSCacheMap&);
+
+    Lock m_lock;
+    DNSCacheMap m_dnsMap;
+#if GLIB_CHECK_VERSION(2, 59, 0)
+    DNSCacheMap m_ipv4Map;
+    DNSCacheMap m_ipv6Map;
+#endif
+    RunLoop::Timer<DNSCache> m_expiredTimer;
+};
 
 } // namespace WebKit
-
-#endif // !PLATFORM(COCOA)

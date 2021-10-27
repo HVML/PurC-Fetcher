@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2017 Sony Interactive Entertainment Inc.
+ * Copyright (C) 2019 Igalia S.L.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,16 +23,23 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#include <gio/gio.h>
+#include <wtf/glib/GRefPtr.h>
 
-#if !PLATFORM(COCOA)
+G_BEGIN_DECLS
 
-//#include <WebKit/WKBase.h>
+#define WEBKIT_TYPE_CACHED_RESOLVER            (webkit_cached_resolver_get_type())
+#define WEBKIT_CACHED_RESOLVER(object)         (G_TYPE_CHECK_INSTANCE_CAST((object), WEBKIT_TYPE_CACHED_RESOLVER, WebKitCachedResolver))
+#define WEBKIT_IS_CACHED_RESOLVER(object)      (G_TYPE_CHECK_INSTANCE_TYPE((object), WEBKIT_TYPE_CACHED_RESOLVER))
+#define WEBKIT_CACHED_RESOLVER_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST((klass), WEBKIT_TYPE_CACHED_RESOLVER, WebKitCachedResolverClass))
+#define WEBKIT_IS_CACHED_RESOLVER_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE((klass), WEBKIT_TYPE_CACHED_RESOLVER))
+#define WEBKIT_CACHED_RESOLVER_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS((obj), WEBKIT_TYPE_CACHED_RESOLVER, WebKitCachedResolverClass))
 
-namespace WebKit {
+typedef struct _WebKitCachedResolver WebKitCachedResolver;
+typedef struct _WebKitCachedResolverClass WebKitCachedResolverClass;
 
-PURCFETCHER_EXPORT int NetworkProcessMain(int argc, char** argv);
+GType webkit_cached_resolver_get_type(void);
 
-} // namespace WebKit
+GResolver* webkitCachedResolverNew(GRefPtr<GResolver>&&);
 
-#endif // !PLATFORM(COCOA)
+G_END_DECLS

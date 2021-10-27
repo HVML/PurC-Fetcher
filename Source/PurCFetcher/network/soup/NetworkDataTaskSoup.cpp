@@ -108,6 +108,7 @@ void NetworkDataTaskSoup::setPendingDownloadLocation(const String& filename, San
 
 void NetworkDataTaskSoup::createRequest(ResourceRequest&& request, WasBlockingCookies wasBlockingCookies)
 {
+    UNUSED_PARAM(wasBlockingCookies);
     m_currentRequest = WTFMove(request);
 
     GUniquePtr<SoupURI> soupURI = m_currentRequest.createSoupURI();
@@ -140,7 +141,7 @@ void NetworkDataTaskSoup::createRequest(ResourceRequest&& request, WasBlockingCo
 
     unsigned messageFlags = SOUP_MESSAGE_NO_REDIRECT;
 
-    m_currentRequest.updateSoupMessage(soupMessage.get(), m_session->blobRegistry());
+    m_currentRequest.updateSoupMessage(soupMessage.get());
     if (m_shouldContentSniff == ContentSniffingPolicy::DoNotSniffContent)
         soup_message_disable_feature(soupMessage.get(), SOUP_TYPE_CONTENT_SNIFFER);
     if (m_user.isEmpty() && m_password.isEmpty() && m_storedCredentialsPolicy == StoredCredentialsPolicy::DoNotUse) {

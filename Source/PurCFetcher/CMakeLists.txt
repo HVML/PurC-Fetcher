@@ -21,6 +21,7 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/network/WebStorage"
     "${PURCFETCHER_DIR}/network/cache"
     "${PURCFETCHER_DIR}/network/Cookies"
+    "${PURCFETCHER_DIR}/network/glib"
     "${PURCFETCHER_DIR}/messages"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
     "${FORWARDING_HEADERS_DIR}"

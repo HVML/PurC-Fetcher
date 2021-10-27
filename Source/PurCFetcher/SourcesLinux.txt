@@ -24,35 +24,35 @@ network/soup/NetworkProcessSoup.cpp
 network/soup/NetworkSessionSoup.cpp
 network/soup/RemoteNetworkingContextSoup.cpp
 
-//network/hbd/NetworkDataTaskHybirdos.cpp
-//network/hbd/NetworkDataTaskLsql.cpp
-//network/hbd/NetworkDataTaskRsql.cpp
+network/linux/NetworkDataTaskLcmd.cpp
+//network/linux/NetworkDataTaskLsql.cpp
+//network/linux/NetworkDataTaskRsql.cpp
 
-//network/hbd/FilterBase.cpp
-//network/hbd/LineSplitFilter.cpp
-//network/hbd/LineCharsFilter.cpp
-//network/hbd/LineLettersFilter.cpp
-//network/hbd/LineWordsFilter.cpp
-//network/hbd/LineSentencesFilter.cpp
-//network/hbd/LineHeadFilter.cpp
-//network/hbd/LineTailFilter.cpp
-//network/hbd/LineIgnoreFilter.cpp
-//network/hbd/LinePickFilter.cpp
-//network/hbd/LineCutFilter.cpp
+//network/linux/FilterBase.cpp
+//network/linux/LineSplitFilter.cpp
+//network/linux/LineCharsFilter.cpp
+//network/linux/LineLettersFilter.cpp
+//network/linux/LineWordsFilter.cpp
+//network/linux/LineSentencesFilter.cpp
+//network/linux/LineHeadFilter.cpp
+//network/linux/LineTailFilter.cpp
+//network/linux/LineIgnoreFilter.cpp
+//network/linux/LinePickFilter.cpp
+//network/linux/LineCutFilter.cpp
 
-//network/hbd/ColumnDelimiterFilter.cpp
-//network/hbd/ColumnCharsFilter.cpp
-//network/hbd/ColumnLettersFilter.cpp
-//network/hbd/ColumnWordsFilter.cpp
-//network/hbd/ColumnSentencesFilter.cpp
-//network/hbd/ColumnHeadFilter.cpp
-//network/hbd/ColumnTailFilter.cpp
-//network/hbd/ColumnIgnoreFilter.cpp
-//network/hbd/ColumnPickFilter.cpp
-//network/hbd/ColumnCutFilter.cpp
+//network/linux/ColumnDelimiterFilter.cpp
+//network/linux/ColumnCharsFilter.cpp
+//network/linux/ColumnLettersFilter.cpp
+//network/linux/ColumnWordsFilter.cpp
+//network/linux/ColumnSentencesFilter.cpp
+//network/linux/ColumnHeadFilter.cpp
+//network/linux/ColumnTailFilter.cpp
+//network/linux/ColumnIgnoreFilter.cpp
+//network/linux/ColumnPickFilter.cpp
+//network/linux/ColumnCutFilter.cpp
 
-//network/hbd/FormatKeys.cpp
-//network/hbd/FormatArray.cpp
+//network/linux/FormatKeys.cpp
+//network/linux/FormatArray.cpp
 
-//network/hbd/CmdFilterManager.cpp
+//network/linux/CmdFilterManager.cpp
 

@@ -34,7 +34,6 @@
 namespace WebCore {
 
 struct ClientOrigin;
-class FetchResponse;
 
 class CacheStorageConnection : public ThreadSafeRefCounted<CacheStorageConnection> {
 public:
@@ -50,8 +49,6 @@ public:
 
     virtual void reference(uint64_t /* cacheIdentifier */) = 0;
     virtual void dereference(uint64_t /* cacheIdentifier */) = 0;
-
-    uint64_t computeRecordBodySize(const FetchResponse&, const DOMCacheEngine::ResponseBody&);
 
     // Used only for testing purposes.
     virtual void clearMemoryRepresentation(const ClientOrigin&, DOMCacheEngine::CompletionCallback&& callback) { callback(DOMCacheEngine::Error::NotImplemented); }

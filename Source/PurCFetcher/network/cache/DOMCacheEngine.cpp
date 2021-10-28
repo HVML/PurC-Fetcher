@@ -30,7 +30,6 @@
 #include "CacheQueryOptions.h"
 #include "Exception.h"
 #include "HTTPParsers.h"
-#include "ScriptExecutionContext.h"
 
 namespace WebCore {
 
@@ -54,14 +53,6 @@ Exception convertToException(Error error)
     }
     ASSERT_NOT_REACHED();
     return Exception { TypeError, "Connection stopped"_s };
-}
-
-Exception convertToExceptionAndLog(ScriptExecutionContext* context, Error error)
-{
-    auto exception = convertToException(error);
-    if (context)
-        context->addConsoleMessage(MessageSource::JS, MessageLevel::Error, makeString("Cache API operation failed: ", exception.message()));
-    return exception;
 }
 
 static inline bool matchURLs(const ResourceRequest& request, const URL& cachedURL, const CacheQueryOptions& options)

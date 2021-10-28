@@ -273,6 +273,7 @@ static inline bool httpOnlyCookieExists(const GSList* cookies, const gchar* name
 
 void NetworkStorageSession::setCookiesFromDOM(const URL& firstParty, const SameSiteInfo&, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, const String& value, ShouldRelaxThirdPartyCookieBlocking relaxThirdPartyCookieBlocking) const
 {
+    UNUSED_PARAM(relaxThirdPartyCookieBlocking);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     if (shouldAskITP == ShouldAskITP::Yes && shouldBlockCookies(firstParty, url, frameID, pageID, relaxThirdPartyCookieBlocking))
         return;
@@ -478,6 +479,7 @@ void NetworkStorageSession::hasCookies(const RegistrableDomain& domain, Completi
 
 bool NetworkStorageSession::getRawCookies(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking relaxThirdPartyCookieBlocking, Vector<Cookie>& rawCookies) const
 {
+    UNUSED_PARAM(relaxThirdPartyCookieBlocking);
     rawCookies.clear();
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
@@ -520,6 +522,7 @@ bool NetworkStorageSession::getRawCookies(const URL& firstParty, const SameSiteI
 
 static std::pair<String, bool> cookiesForSession(const NetworkStorageSession& session, const URL& firstParty, const URL& url, const SameSiteInfo& sameSiteInfo, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, bool forHTTPHeader, IncludeSecureCookies includeSecureCookies, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking relaxThirdPartyCookieBlocking)
 {
+    UNUSED_PARAM(relaxThirdPartyCookieBlocking);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     if (shouldAskITP == ShouldAskITP::Yes && session.shouldBlockCookies(firstParty, url, frameID, pageID, relaxThirdPartyCookieBlocking))
         return { { }, false };

@@ -34,7 +34,6 @@
 #include "CredentialStorage.h"
 #include "GUniquePtrSoup.h"
 #include "HTTPParsers.h"
-#include "LocalizedStrings.h"
 #include "MIMETypeRegistry.h"
 #include "NetworkStorageSession.h"
 #include "NetworkingContext.h"

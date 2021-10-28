@@ -35,7 +35,7 @@
 #include "SoupNetworkProxySettings.h"
 #include <glib/gstdio.h>
 #include <libsoup/soup.h>
-#include <pal/crypto/CryptoDigest.h>
+#include "CryptoDigest.h"
 #include <wtf/FileSystem.h>
 #include <wtf/HashSet.h>
 #include <wtf/NeverDestroyed.h>

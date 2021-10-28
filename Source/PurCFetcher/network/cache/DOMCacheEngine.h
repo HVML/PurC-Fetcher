@@ -35,8 +35,6 @@
 
 namespace WebCore {
 
-class ScriptExecutionContext;
-
 struct CacheQueryOptions;
 
 namespace DOMCacheEngine {
@@ -51,7 +49,6 @@ enum class Error {
 };
 
 Exception convertToException(Error);
-Exception convertToExceptionAndLog(ScriptExecutionContext*, Error);
 
 PURCFETCHER_EXPORT bool queryCacheMatch(const ResourceRequest& request, const ResourceRequest& cachedRequest, const ResourceResponse&, const CacheQueryOptions&);
 PURCFETCHER_EXPORT bool queryCacheMatch(const ResourceRequest& request, const URL& url, bool hasVaryStar, const HashMap<String, String>& varyHeaders, const CacheQueryOptions&);

@@ -28,7 +28,6 @@
 
 #if USE(SOUP)
 
-#include "LocalizedStrings.h"
 #include "URLSoup.h"
 #include <libsoup/soup.h>
 #include <wtf/glib/GUniquePtr.h>
@@ -74,6 +73,11 @@ ResourceError ResourceError::genericGError(GError* error, SoupRequest* request)
 {
     return ResourceError(g_quark_to_string(error->domain), error->code,
         failingURI(request), String::fromUTF8(error->message));
+}
+
+String unacceptableTLSCertificate()
+{
+    return "Unacceptable TLS certificate, Unacceptable TLS certificate error";
 }
 
 ResourceError ResourceError::tlsError(const URL& failingURL, unsigned tlsErrors, GTlsCertificate* certificate)

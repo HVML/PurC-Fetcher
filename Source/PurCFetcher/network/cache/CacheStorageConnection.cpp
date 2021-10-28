@@ -27,7 +27,6 @@
 #include "config.h"
 #include "CacheStorageConnection.h"
 
-#include "FetchResponse.h"
 #include <wtf/RandomNumber.h>
 
 namespace WebCore {
@@ -55,25 +54,6 @@ uint64_t CacheStorageConnection::computeRealBodySize(const DOMCacheEngine::Respo
     }, [] (const std::nullptr_t&) {
     });
     return result;
-}
-
-uint64_t CacheStorageConnection::computeRecordBodySize(const FetchResponse& response, const DOMCacheEngine::ResponseBody& body)
-{
-    if (!response.opaqueLoadIdentifier()) {
-        ASSERT(response.tainting() != ResourceResponse::Tainting::Opaque);
-        return computeRealBodySize(body);
-    }
-
-    return m_opaqueResponseToSizeWithPaddingMap.ensure(response.opaqueLoadIdentifier(), [&] () {
-        uint64_t realSize = computeRealBodySize(body);
-
-        // Padding the size as per https://github.com/whatwg/storage/issues/31.
-        uint64_t sizeWithPadding = realSize + static_cast<uint64_t>(randomNumber() * 128000);
-        sizeWithPadding = ((sizeWithPadding / 32000) + 1) * 32000;
-
-        m_opaqueResponseToSizeWithPaddingMap.set(response.opaqueLoadIdentifier(), sizeWithPadding);
-        return sizeWithPadding;
-    }).iterator->value;
 }
 
 } // namespace WebCore

@@ -23,6 +23,8 @@ _deps
 *_tests.cmake
 log
 
+# python
+*.pyc
 
 # test
 test/rwstream/test_rwstream

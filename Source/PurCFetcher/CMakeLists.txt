@@ -59,6 +59,11 @@ list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES
     "Sources.txt"
 )
 
+set(PurCFetcher_MESSAGES_IN_FILES
+    messages/AuxiliaryProcess
+)
+#GENERATE_MESSAGE_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MESSAGES_IN_FILES}")
+
 set(PurCFetcher_LIBRARIES)
 
 # TODO: the source files and libraries for optional features.

@@ -11,3 +11,40 @@ macro(APPEND_ALL_SOURCE_FILES_IN_DIRLIST result)
 #    ENDFOREACH()
     unset(filelist)
 endmacro()
+
+# Helper macro which wraps the generate-message-receiver.py script
+#   _output_source is a list name which will contain generated sources.(eg. WebKit_SOURCES)
+#   _inputs are messages.in files to generate.
+macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
+    unset(_input_files)
+    unset(_outputs)
+    foreach (_file IN ITEMS ${_inputs})
+        get_filename_component(_name ${_file} NAME_WE)
+        list(APPEND _input_files ${PURCFETCHER_DIR}/${_file}.messages.in)
+        list(APPEND _outputs
+            ${DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp
+            ${DERIVED_SOURCES_DIR}/${_name}Messages.h
+            ${DERIVED_SOURCES_DIR}/${_name}MessagesReplies.h
+        )
+        list(APPEND ${_output_source} ${DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp)
+    endforeach ()
+    list(APPEND ${_output_source} ${DERIVED_SOURCES_DIR}/MessageNames.cpp)
+
+    add_custom_command(
+        OUTPUT
+            ${DERIVED_SOURCES_DIR}/MessageNames.cpp
+            ${DERIVED_SOURCES_DIR}/MessageNames.h
+            ${_outputs}
+        MAIN_DEPENDENCY ${TOOLS_DIR}/Scripts/generate-message-receiver.py
+        DEPENDS
+            ${TOOLS_DIR}/Scripts/webkit/__init__.py
+            ${TOOLS_DIR}/Scripts/webkit/messages.py
+            ${TOOLS_DIR}/Scripts/webkit/model.py
+            ${TOOLS_DIR}/Scripts/webkit/parser.py
+            ${_input_files}
+            COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/Scripts/generate-message-receiver.py ${PURCFETCHER_DIR} ${_inputs}
+        WORKING_DIRECTORY ${DERIVED_SOURCES_DIR}
+        VERBATIM
+    )
+endmacro()
+

@@ -48,7 +48,6 @@ struct SecurityOriginData;
 
 namespace WebKit {
 
-class AdClickAttributionManager;
 class NetworkDataTask;
 class NetworkProcess;
 class NetworkResourceLoader;
@@ -163,7 +162,6 @@ protected:
     WebCore::RegistrableDomain m_standaloneApplicationDomain;
 #endif
     bool m_isStaleWhileRevalidateEnabled { false };
-    UniqueRef<AdClickAttributionManager> m_adClickAttribution;
 
     HashSet<Ref<NetworkResourceLoader>> m_keptAliveLoads;
 

@@ -26,8 +26,6 @@
 #include "config.h"
 #include "DeprecatedGlobalSettings.h"
 
-#include "AudioSession.h"
-#include "HTMLMediaElement.h"
 #include "RuntimeApplicationChecks.h"
 #include <wtf/NeverDestroyed.h>
 

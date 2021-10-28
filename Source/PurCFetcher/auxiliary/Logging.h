@@ -10,6 +10,7 @@
      M(SQLDatabase) \
      M(NetworkCache) \
      M(NetworkCacheStorage) \
+     M(Network) \
 
 #undef DECLARE_LOG_CHANNEL
 #define DECLARE_LOG_CHANNEL(name) \

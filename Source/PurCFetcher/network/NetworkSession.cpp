@@ -26,7 +26,6 @@
 #include "config.h"
 #include "NetworkSession.h"
 
-#include "AdClickAttributionManager.h"
 #include "Logging.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessProxyMessages.h"
@@ -91,7 +90,6 @@ NetworkSession::NetworkSession(NetworkProcess& networkProcess, const NetworkSess
     , m_firstPartyWebsiteDataRemovalMode(parameters.resourceLoadStatisticsParameters.firstPartyWebsiteDataRemovalMode)
     , m_standaloneApplicationDomain(parameters.resourceLoadStatisticsParameters.standaloneApplicationDomain)
 #endif
-    , m_adClickAttribution(makeUniqueRef<AdClickAttributionManager>(networkProcess, parameters.sessionID))
     , m_testSpeedMultiplier(parameters.testSpeedMultiplier)
     , m_allowsServerPreconnect(parameters.allowsServerPreconnect)
 {
@@ -119,13 +117,6 @@ NetworkSession::NetworkSession(NetworkProcess& networkProcess, const NetworkSess
     }
 
     m_isStaleWhileRevalidateEnabled = parameters.staleWhileRevalidateEnabled;
-
-    m_adClickAttribution->setPingLoadFunction([this, weakThis = makeWeakPtr(this)](NetworkResourceLoadParameters&& loadParameters, CompletionHandler<void(const WebCore::ResourceError&, const WebCore::ResourceResponse&)>&& completionHandler) {
-        if (!weakThis)
-            return;
-        // PingLoad manages its own lifetime, deleting itself when its purpose has been fulfilled.
-        new PingLoad(m_networkProcess, m_sessionID, WTFMove(loadParameters), WTFMove(completionHandler));
-    });
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     setResourceLoadStatisticsEnabled(parameters.resourceLoadStatisticsParameters.enabled);
@@ -282,44 +273,38 @@ void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(WebCore::SameSiteSt
 }
 #endif // ENABLE(RESOURCE_LOAD_STATISTICS)
 
-void NetworkSession::storeAdClickAttribution(WebCore::AdClickAttribution&& adClickAttribution)
+void NetworkSession::storeAdClickAttribution(WebCore::AdClickAttribution&&)
 {
-    m_adClickAttribution->storeUnconverted(WTFMove(adClickAttribution));
 }
 
-void NetworkSession::handleAdClickAttributionConversion(AdClickAttribution::Conversion&& conversion, const URL& requestURL, const WebCore::ResourceRequest& redirectRequest)
+void NetworkSession::handleAdClickAttributionConversion(
+        AdClickAttribution::Conversion&&, const URL&,
+        const WebCore::ResourceRequest&)
 {
-    m_adClickAttribution->handleConversion(WTFMove(conversion), requestURL, redirectRequest);
 }
 
-void NetworkSession::dumpAdClickAttribution(CompletionHandler<void(String)>&& completionHandler)
+void NetworkSession::dumpAdClickAttribution(CompletionHandler<void(String)>&&)
 {
-    m_adClickAttribution->toString(WTFMove(completionHandler));
 }
 
 void NetworkSession::clearAdClickAttribution()
 {
-    m_adClickAttribution->clear();
 }
 
-void NetworkSession::clearAdClickAttributionForRegistrableDomain(WebCore::RegistrableDomain&& domain)
+void NetworkSession::clearAdClickAttributionForRegistrableDomain(WebCore::RegistrableDomain&&)
 {
-    m_adClickAttribution->clearForRegistrableDomain(WTFMove(domain));
 }
 
-void NetworkSession::setAdClickAttributionOverrideTimerForTesting(bool value)
+void NetworkSession::setAdClickAttributionOverrideTimerForTesting(bool)
 {
-    m_adClickAttribution->setOverrideTimerForTesting(value);
 }
 
-void NetworkSession::setAdClickAttributionConversionURLForTesting(URL&& url)
+void NetworkSession::setAdClickAttributionConversionURLForTesting(URL&&)
 {
-    m_adClickAttribution->setConversionURLForTesting(WTFMove(url));
 }
 
 void NetworkSession::markAdClickAttributionsAsExpiredForTesting()
 {
-    m_adClickAttribution->markAllUnconvertedAsExpiredForTesting();
 }
 
 void NetworkSession::addKeptAliveLoad(Ref<NetworkResourceLoader>&& loader)

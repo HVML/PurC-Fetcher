@@ -26,7 +26,7 @@
 #include "config.h"
 #include "HTTPHeaderField.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 namespace RFC7230 {
     

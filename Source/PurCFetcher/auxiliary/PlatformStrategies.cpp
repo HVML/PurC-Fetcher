@@ -26,7 +26,7 @@
 #include "config.h"
 #include "PlatformStrategies.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static PlatformStrategies* s_platformStrategies;
 
@@ -49,5 +49,5 @@ void setPlatformStrategies(PlatformStrategies* platformStrategies)
     ASSERT(platformStrategies == s_platformStrategies);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

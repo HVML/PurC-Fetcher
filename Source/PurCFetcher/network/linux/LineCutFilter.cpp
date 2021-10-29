@@ -51,7 +51,7 @@
 #include "LineCutFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 LineCutFilter::LineCutFilter()
 {

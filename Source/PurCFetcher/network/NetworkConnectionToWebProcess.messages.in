@@ -23,31 +23,31 @@
 messages -> NetworkConnectionToWebProcess LegacyReceiver {
 
     ScheduleResourceLoad(WebKit::NetworkResourceLoadParameters resourceLoadParameters)
-    PerformSynchronousLoad(WebKit::NetworkResourceLoadParameters resourceLoadParameters) -> (WebCore::ResourceError error, WebCore::ResourceResponse response, Vector<char> data) Synchronous
+    PerformSynchronousLoad(WebKit::NetworkResourceLoadParameters resourceLoadParameters) -> (PurcFetcher::ResourceError error, PurcFetcher::ResourceResponse response, Vector<char> data) Synchronous
     TestProcessIncomingSyncMessagesWhenWaitingForSyncReply(WebKit::WebPageProxyIdentifier pageID) -> (bool handled) Synchronous
     LoadPing(WebKit::NetworkResourceLoadParameters resourceLoadParameters)
     RemoveLoadIdentifier(uint64_t resourceLoadIdentifier)
-    PageLoadCompleted(WebCore::PageIdentifier webPageID)
-    BrowsingContextRemoved(WebKit::WebPageProxyIdentifier webPageProxyID, WebCore::PageIdentifier webPageID, WebCore::FrameIdentifier webFrameID)
+    PageLoadCompleted(PurcFetcher::PageIdentifier webPageID)
+    BrowsingContextRemoved(WebKit::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, PurcFetcher::FrameIdentifier webFrameID)
     PrefetchDNS(String hostname)
     PreconnectTo(Optional<uint64_t> preconnectionIdentifier, WebKit::NetworkResourceLoadParameters loadParameters);
 
-    StartDownload(WebKit::DownloadID downloadID, WebCore::ResourceRequest request, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedName)
-    ConvertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, WebKit::DownloadID downloadID, WebCore::ResourceRequest request, WebCore::ResourceResponse response, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
+    StartDownload(WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedName)
+    ConvertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request, PurcFetcher::ResourceResponse response, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
 
-    CookiesForDOM(URL firstParty, struct WebCore::SameSiteInfo sameSiteInfo, URL url, WebCore::FrameIdentifier frameID, WebCore::PageIdentifier pageID, enum:bool WebCore::IncludeSecureCookies includeSecureCookies, enum:bool WebCore::ShouldAskITP shouldAskITP, enum:bool WebCore::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (String cookieString, bool didAccessSecureCookies) Synchronous
-    SetCookiesFromDOM(URL firstParty, struct WebCore::SameSiteInfo sameSiteInfo, URL url, WebCore::FrameIdentifier frameID, WebCore::PageIdentifier pageID, enum:bool WebCore::ShouldAskITP shouldAskITP, String cookieString, enum:bool WebCore::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
-    CookieRequestHeaderFieldValue(URL firstParty, struct WebCore::SameSiteInfo sameSiteInfo, URL url, Optional<WebCore::FrameIdentifier> frameID, Optional<WebCore::PageIdentifier> pageID, enum:bool WebCore::IncludeSecureCookies includeSecureCookies, enum:bool WebCore::ShouldAskITP shouldAskITP, enum:bool WebCore::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (String cookieString, bool didAccessSecureCookies) Synchronous
-    GetRawCookies(URL firstParty, struct WebCore::SameSiteInfo sameSiteInfo, URL url, Optional<WebCore::FrameIdentifier> frameID, Optional<WebCore::PageIdentifier> pageID, enum:bool WebCore::ShouldAskITP shouldAskITP, enum:bool WebCore::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (Vector<WebCore::Cookie> cookies) Synchronous
-    SetRawCookie(struct WebCore::Cookie cookie)
+    CookiesForDOM(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, enum:bool PurcFetcher::IncludeSecureCookies includeSecureCookies, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (String cookieString, bool didAccessSecureCookies) Synchronous
+    SetCookiesFromDOM(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, String cookieString, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
+    CookieRequestHeaderFieldValue(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, Optional<PurcFetcher::FrameIdentifier> frameID, Optional<PurcFetcher::PageIdentifier> pageID, enum:bool PurcFetcher::IncludeSecureCookies includeSecureCookies, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (String cookieString, bool didAccessSecureCookies) Synchronous
+    GetRawCookies(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, Optional<PurcFetcher::FrameIdentifier> frameID, Optional<PurcFetcher::PageIdentifier> pageID, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (Vector<PurcFetcher::Cookie> cookies) Synchronous
+    SetRawCookie(struct PurcFetcher::Cookie cookie)
     DeleteCookie(URL url, String cookieName)
-    DomCookiesForHost(String host, bool subscribeToCookieChangeNotifications) -> (Vector<WebCore::Cookie> cookies) Synchronous
+    DomCookiesForHost(String host, bool subscribeToCookieChangeNotifications) -> (Vector<PurcFetcher::Cookie> cookies) Synchronous
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
     UnsubscribeFromCookieChangeNotifications(HashSet<String> hosts)
 #endif
 
     RegisterFileBlobURL(URL url, String path, WebKit::SandboxExtension::Handle extensionHandle, String contentType)
-    RegisterBlobURL(URL url, Vector<WebCore::BlobPart> blobParts, String contentType)
+    RegisterBlobURL(URL url, Vector<PurcFetcher::BlobPart> blobParts, String contentType)
     RegisterBlobURLFromURL(URL url, URL srcURL)
     RegisterBlobURLOptionallyFileBacked(URL url, URL srcURL, String fileBackedPath, String contentType)
     RegisterBlobURLForSlice(URL url, URL srcURL, int64_t start, int64_t end)
@@ -58,39 +58,39 @@ messages -> NetworkConnectionToWebProcess LegacyReceiver {
     SetCaptureExtraNetworkLoadMetricsEnabled(bool enabled)
 
     CreateSocketStream(URL url, String cachePartition, WebKit::WebSocketIdentifier identifier)
-    CreateSocketChannel(WebCore::ResourceRequest request, String protocol, WebKit::WebSocketIdentifier identifier)
+    CreateSocketChannel(PurcFetcher::ResourceRequest request, String protocol, WebKit::WebSocketIdentifier identifier)
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    RemoveStorageAccessForFrame(WebCore::FrameIdentifier frameID, WebCore::PageIdentifier pageID);
-    ClearPageSpecificDataForResourceLoadStatistics(WebCore::PageIdentifier pageID);
-    LogUserInteraction(WebCore::RegistrableDomain domain)
-    ResourceLoadStatisticsUpdated(Vector<WebCore::ResourceLoadStatistics> statistics)
-    HasStorageAccess(WebCore::RegistrableDomain subFrameDomain, WebCore::RegistrableDomain topFrameDomain, WebCore::FrameIdentifier frameID, WebCore::PageIdentifier pageID) -> (bool hasStorageAccess) Async
-    RequestStorageAccess(WebCore::RegistrableDomain subFrameDomain, WebCore::RegistrableDomain topFrameDomain, WebCore::FrameIdentifier frameID, WebCore::PageIdentifier webPageID, WebKit::WebPageProxyIdentifier webPageProxyID, enum:bool WebCore::StorageAccessScope scope) -> (struct WebCore::RequestStorageAccessResult result) Async
-    RequestStorageAccessUnderOpener(WebCore::RegistrableDomain domainInNeedOfStorageAccess, WebCore::PageIdentifier openerPageID, WebCore::RegistrableDomain openerDomain)
+    RemoveStorageAccessForFrame(PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID);
+    ClearPageSpecificDataForResourceLoadStatistics(PurcFetcher::PageIdentifier pageID);
+    LogUserInteraction(PurcFetcher::RegistrableDomain domain)
+    ResourceLoadStatisticsUpdated(Vector<PurcFetcher::ResourceLoadStatistics> statistics)
+    HasStorageAccess(PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID) -> (bool hasStorageAccess) Async
+    RequestStorageAccess(PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier webPageID, WebKit::WebPageProxyIdentifier webPageProxyID, enum:bool PurcFetcher::StorageAccessScope scope) -> (struct PurcFetcher::RequestStorageAccessResult result) Async
+    RequestStorageAccessUnderOpener(PurcFetcher::RegistrableDomain domainInNeedOfStorageAccess, PurcFetcher::PageIdentifier openerPageID, PurcFetcher::RegistrableDomain openerDomain)
 #endif
 
     AddOriginAccessWhitelistEntry(String sourceOrigin, String destinationProtocol, String destinationHost, bool allowDestinationSubdomains);
     RemoveOriginAccessWhitelistEntry(String sourceOrigin, String destinationProtocol, String destinationHost, bool allowDestinationSubdomains);
     ResetOriginAccessWhitelists();
 
-    GetNetworkLoadInformationResponse(uint64_t resourceLoadIdentifier) -> (WebCore::ResourceResponse response) Synchronous
-    GetNetworkLoadIntermediateInformation(uint64_t resourceLoadIdentifier) -> (Vector<WebCore::NetworkTransactionInformation> transactions) Synchronous
-    TakeNetworkLoadInformationMetrics(uint64_t resourceLoadIdentifier) -> (WebCore::NetworkLoadMetrics networkMetrics) Synchronous
+    GetNetworkLoadInformationResponse(uint64_t resourceLoadIdentifier) -> (PurcFetcher::ResourceResponse response) Synchronous
+    GetNetworkLoadIntermediateInformation(uint64_t resourceLoadIdentifier) -> (Vector<PurcFetcher::NetworkTransactionInformation> transactions) Synchronous
+    TakeNetworkLoadInformationMetrics(uint64_t resourceLoadIdentifier) -> (PurcFetcher::NetworkLoadMetrics networkMetrics) Synchronous
 
 #if ENABLE(SERVICE_WORKER)
-    EstablishSWContextConnection(WebCore::RegistrableDomain domain) -> () Async
+    EstablishSWContextConnection(PurcFetcher::RegistrableDomain domain) -> () Async
     CloseSWContextConnection()
 #endif
 
-    UpdateQuotaBasedOnSpaceUsageForTesting(struct WebCore::ClientOrigin origin)
-    CreateNewMessagePortChannel(struct WebCore::MessagePortIdentifier port1, struct WebCore::MessagePortIdentifier port2)
-    EntangleLocalPortInThisProcessToRemote(struct WebCore::MessagePortIdentifier local, struct WebCore::MessagePortIdentifier remote)
-    MessagePortDisentangled(struct WebCore::MessagePortIdentifier local)
-    MessagePortClosed(struct WebCore::MessagePortIdentifier local)
-    TakeAllMessagesForPort(struct WebCore::MessagePortIdentifier port) -> (Vector<WebCore::MessageWithMessagePorts> messages, uint64_t messageBatchIdentifier) Async
-    PostMessageToRemote(struct WebCore::MessageWithMessagePorts message, struct WebCore::MessagePortIdentifier remote)
-    CheckRemotePortForActivity(struct WebCore::MessagePortIdentifier port) -> (bool hasActivity) Async
+    UpdateQuotaBasedOnSpaceUsageForTesting(struct PurcFetcher::ClientOrigin origin)
+    CreateNewMessagePortChannel(struct PurcFetcher::MessagePortIdentifier port1, struct PurcFetcher::MessagePortIdentifier port2)
+    EntangleLocalPortInThisProcessToRemote(struct PurcFetcher::MessagePortIdentifier local, struct PurcFetcher::MessagePortIdentifier remote)
+    MessagePortDisentangled(struct PurcFetcher::MessagePortIdentifier local)
+    MessagePortClosed(struct PurcFetcher::MessagePortIdentifier local)
+    TakeAllMessagesForPort(struct PurcFetcher::MessagePortIdentifier port) -> (Vector<PurcFetcher::MessageWithMessagePorts> messages, uint64_t messageBatchIdentifier) Async
+    PostMessageToRemote(struct PurcFetcher::MessageWithMessagePorts message, struct PurcFetcher::MessagePortIdentifier remote)
+    CheckRemotePortForActivity(struct PurcFetcher::MessagePortIdentifier port) -> (bool hasActivity) Async
     DidDeliverMessagePortMessages(uint64_t messageBatchIdentifier)
     RegisterURLSchemesAsCORSEnabled(Vector<String> schemes);
 }

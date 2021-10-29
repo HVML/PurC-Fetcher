@@ -27,7 +27,7 @@
 
 #include <wtf/URL.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SecurityOrigin;
 
@@ -145,13 +145,13 @@ struct SecurityOriginDataHash {
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct HashTraits<WebCore::SecurityOriginData> : WebCore::SecurityOriginDataHashTraits { };
-template<> struct DefaultHash<WebCore::SecurityOriginData> {
-    typedef WebCore::SecurityOriginDataHash Hash;
+template<> struct HashTraits<PurcFetcher::SecurityOriginData> : PurcFetcher::SecurityOriginDataHashTraits { };
+template<> struct DefaultHash<PurcFetcher::SecurityOriginData> {
+    typedef PurcFetcher::SecurityOriginDataHash Hash;
 };
 
 } // namespace WTF

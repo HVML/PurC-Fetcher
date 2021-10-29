@@ -23,22 +23,22 @@
 messages -> NetworkProcessConnection LegacyReceiver {
 
 #if ENABLE(SHAREABLE_RESOURCE)
-    DidCacheResource(WebCore::ResourceRequest request, WebKit::ShareableResource::Handle resource)
+    DidCacheResource(PurcFetcher::ResourceRequest request, WebKit::ShareableResource::Handle resource)
 #endif
 
-    DidFinishPingLoad(uint64_t pingLoadIdentifier, WebCore::ResourceError error, WebCore::ResourceResponse response)
-    DidFinishPreconnection(uint64_t preconnectionIdentifier, WebCore::ResourceError error)
+    DidFinishPingLoad(uint64_t pingLoadIdentifier, PurcFetcher::ResourceError error, PurcFetcher::ResourceResponse response)
+    DidFinishPreconnection(uint64_t preconnectionIdentifier, PurcFetcher::ResourceError error)
     SetOnLineState(bool isOnLine);
-    CookieAcceptPolicyChanged(enum:uint8_t WebCore::HTTPCookieAcceptPolicy policy);
+    CookieAcceptPolicyChanged(enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy policy);
 
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
-    CookiesAdded(String host, Vector<struct WebCore::Cookie> cookies);
-    CookiesDeleted(String host, Vector<struct WebCore::Cookie> cookies);
+    CookiesAdded(String host, Vector<struct PurcFetcher::Cookie> cookies);
+    CookiesDeleted(String host, Vector<struct PurcFetcher::Cookie> cookies);
     AllCookiesDeleted();
 #endif
 
-    CheckProcessLocalPortForActivity(struct WebCore::MessagePortIdentifier port) -> (WebCore::MessagePortChannelProvider::HasActivity hasActivity) Async
-    MessagesAvailableForPort(struct WebCore::MessagePortIdentifier port)
+    CheckProcessLocalPortForActivity(struct PurcFetcher::MessagePortIdentifier port) -> (PurcFetcher::MessagePortChannelProvider::HasActivity hasActivity) Async
+    MessagesAvailableForPort(struct PurcFetcher::MessagePortIdentifier port)
 
     BroadcastConsoleMessage(enum:uint8_t JSC::MessageSource messageSource, enum:uint8_t JSC::MessageLevel messageLevel, String message)
 }

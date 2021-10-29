@@ -34,7 +34,7 @@
 #include "SessionID.h"
 #include <wtf/CompletionHandler.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class ResourceError;
 class SecurityOrigin;
 }
@@ -48,31 +48,31 @@ class NetworkCORSPreflightChecker final : private NetworkDataTaskClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     struct Parameters {
-        WebCore::ResourceRequest originalRequest;
-        Ref<WebCore::SecurityOrigin> sourceOrigin;
-        RefPtr<WebCore::SecurityOrigin> topOrigin;
+        PurcFetcher::ResourceRequest originalRequest;
+        Ref<PurcFetcher::SecurityOrigin> sourceOrigin;
+        RefPtr<PurcFetcher::SecurityOrigin> topOrigin;
         String referrer;
         String userAgent;
         PAL::SessionID sessionID;
         WebPageProxyIdentifier webPageProxyID;
-        WebCore::StoredCredentialsPolicy storedCredentialsPolicy;
+        PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy;
     };
-    using CompletionCallback = CompletionHandler<void(WebCore::ResourceError&&)>;
+    using CompletionCallback = CompletionHandler<void(PurcFetcher::ResourceError&&)>;
 
     NetworkCORSPreflightChecker(NetworkProcess&, NetworkResourceLoader*, Parameters&&, bool shouldCaptureExtraNetworkLoadMetrics, CompletionCallback&&);
     ~NetworkCORSPreflightChecker();
-    const WebCore::ResourceRequest& originalRequest() const { return m_parameters.originalRequest; }
+    const PurcFetcher::ResourceRequest& originalRequest() const { return m_parameters.originalRequest; }
 
     void startPreflight();
 
-    WebCore::NetworkTransactionInformation takeInformation();
+    PurcFetcher::NetworkTransactionInformation takeInformation();
 
 private:
-    void willPerformHTTPRedirection(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(WebCore::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<WebCore::SharedBuffer>&&) final;
-    void didCompleteWithError(const WebCore::ResourceError&, const WebCore::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
@@ -80,11 +80,11 @@ private:
 
     Parameters m_parameters;
     Ref<NetworkProcess> m_networkProcess;
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ResourceResponse m_response;
     CompletionCallback m_completionCallback;
     RefPtr<NetworkDataTask> m_task;
     bool m_shouldCaptureExtraNetworkLoadMetrics { false };
-    WebCore::NetworkTransactionInformation m_loadInformation;
+    PurcFetcher::NetworkTransactionInformation m_loadInformation;
     WeakPtr<NetworkResourceLoader> m_networkResourceLoader;
 };
 

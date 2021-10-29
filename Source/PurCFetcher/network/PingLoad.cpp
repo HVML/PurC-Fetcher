@@ -38,7 +38,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 PingLoad::PingLoad(NetworkProcess& networkProcess, PAL::SessionID sessionID, NetworkResourceLoadParameters&& parameters, CompletionHandler<void(const ResourceError&, const ResourceResponse&)>&& completionHandler)
     : m_sessionID(sessionID)

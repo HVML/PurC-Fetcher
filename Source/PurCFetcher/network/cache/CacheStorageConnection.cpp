@@ -29,8 +29,8 @@
 
 #include <wtf/RandomNumber.h>
 
-namespace WebCore {
-using namespace WebCore::DOMCacheEngine;
+namespace PurcFetcher {
+using namespace PurcFetcher::DOMCacheEngine;
 
 static inline uint64_t formDataSize(const FormData& formData)
 {
@@ -56,4 +56,4 @@ uint64_t CacheStorageConnection::computeRealBodySize(const DOMCacheEngine::Respo
     return result;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

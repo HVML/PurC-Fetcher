@@ -30,7 +30,7 @@
 
 typedef struct _SoupSession SoupSession;
 
-namespace WebCore {
+namespace PurcFetcher {
 class SoupNetworkSession;
 }
 
@@ -49,16 +49,16 @@ public:
     NetworkSessionSoup(NetworkProcess&, NetworkSessionCreationParameters&&);
     ~NetworkSessionSoup();
 
-    WebCore::SoupNetworkSession& soupNetworkSession() const { return *m_networkSession; }
+    PurcFetcher::SoupNetworkSession& soupNetworkSession() const { return *m_networkSession; }
     SoupSession* soupSession() const;
 
     void setCookiePersistentStorage(const String& storagePath, SoupCookiePersistentStorageType);
 
 private:
-    std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const WebCore::ResourceRequest&, const String& protocol) final;
+    std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String& protocol) final;
     void clearCredentials() final;
 
-    std::unique_ptr<WebCore::SoupNetworkSession> m_networkSession;
+    std::unique_ptr<PurcFetcher::SoupNetworkSession> m_networkSession;
 };
 
 } // namespace WebKit

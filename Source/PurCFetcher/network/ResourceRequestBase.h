@@ -36,7 +36,7 @@
 #include <wtf/EnumTraits.h>
 #include <wtf/URL.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class ResourceRequestCachePolicy : uint8_t {
     UseProtocolCachePolicy, // normal load, equivalent to fetch "default" cache mode.
@@ -400,42 +400,42 @@ bool ResourceRequestBase::decodeWithoutPlatformData(Decoder& decoder)
     return decodeBase(decoder);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ResourceRequestCachePolicy> {
+template<> struct EnumTraits<PurcFetcher::ResourceRequestCachePolicy> {
     using values = EnumValues<
-        WebCore::ResourceRequestCachePolicy,
-        WebCore::ResourceRequestCachePolicy::UseProtocolCachePolicy,
-        WebCore::ResourceRequestCachePolicy::ReloadIgnoringCacheData,
-        WebCore::ResourceRequestCachePolicy::ReturnCacheDataElseLoad,
-        WebCore::ResourceRequestCachePolicy::ReturnCacheDataDontLoad,
-        WebCore::ResourceRequestCachePolicy::DoNotUseAnyCache,
-        WebCore::ResourceRequestCachePolicy::RefreshAnyCacheData
+        PurcFetcher::ResourceRequestCachePolicy,
+        PurcFetcher::ResourceRequestCachePolicy::UseProtocolCachePolicy,
+        PurcFetcher::ResourceRequestCachePolicy::ReloadIgnoringCacheData,
+        PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataElseLoad,
+        PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataDontLoad,
+        PurcFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache,
+        PurcFetcher::ResourceRequestCachePolicy::RefreshAnyCacheData
     >;
 };
 
-template<> struct EnumTraits<WebCore::ResourceRequestBase::SameSiteDisposition> {
+template<> struct EnumTraits<PurcFetcher::ResourceRequestBase::SameSiteDisposition> {
     using values = EnumValues<
-        WebCore::ResourceRequestBase::SameSiteDisposition,
-        WebCore::ResourceRequestBase::SameSiteDisposition::Unspecified,
-        WebCore::ResourceRequestBase::SameSiteDisposition::SameSite,
-        WebCore::ResourceRequestBase::SameSiteDisposition::CrossSite
+        PurcFetcher::ResourceRequestBase::SameSiteDisposition,
+        PurcFetcher::ResourceRequestBase::SameSiteDisposition::Unspecified,
+        PurcFetcher::ResourceRequestBase::SameSiteDisposition::SameSite,
+        PurcFetcher::ResourceRequestBase::SameSiteDisposition::CrossSite
     >;
 };
 
-template<> struct EnumTraits<WebCore::ResourceRequestBase::Requester> {
+template<> struct EnumTraits<PurcFetcher::ResourceRequestBase::Requester> {
     using values = EnumValues<
-        WebCore::ResourceRequestBase::Requester,
-        WebCore::ResourceRequestBase::Requester::Unspecified,
-        WebCore::ResourceRequestBase::Requester::Main,
-        WebCore::ResourceRequestBase::Requester::XHR,
-        WebCore::ResourceRequestBase::Requester::Fetch,
-        WebCore::ResourceRequestBase::Requester::Media,
-        WebCore::ResourceRequestBase::Requester::ImportScripts,
-        WebCore::ResourceRequestBase::Requester::Ping,
-        WebCore::ResourceRequestBase::Requester::Beacon
+        PurcFetcher::ResourceRequestBase::Requester,
+        PurcFetcher::ResourceRequestBase::Requester::Unspecified,
+        PurcFetcher::ResourceRequestBase::Requester::Main,
+        PurcFetcher::ResourceRequestBase::Requester::XHR,
+        PurcFetcher::ResourceRequestBase::Requester::Fetch,
+        PurcFetcher::ResourceRequestBase::Requester::Media,
+        PurcFetcher::ResourceRequestBase::Requester::ImportScripts,
+        PurcFetcher::ResourceRequestBase::Requester::Ping,
+        PurcFetcher::ResourceRequestBase::Requester::Beacon
     >;
 };
 

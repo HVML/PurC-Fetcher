@@ -35,12 +35,12 @@ namespace IPC {
 class FormDataReference {
 public:
     FormDataReference() = default;
-    explicit FormDataReference(RefPtr<WebCore::FormData>&& data)
+    explicit FormDataReference(RefPtr<PurcFetcher::FormData>&& data)
         : m_data(WTFMove(data))
     {
     }
 
-    RefPtr<WebCore::FormData> takeData() { return WTFMove(m_data); }
+    RefPtr<PurcFetcher::FormData> takeData() { return WTFMove(m_data); }
 
     void encode(Encoder& encoder) const
     {
@@ -52,14 +52,14 @@ public:
 
         auto& elements = m_data->elements();
         size_t fileCount = std::count_if(elements.begin(), elements.end(), [](auto& element) {
-            return WTF::holds_alternative<WebCore::FormDataElement::EncodedFileData>(element.data);
+            return WTF::holds_alternative<PurcFetcher::FormDataElement::EncodedFileData>(element.data);
         });
 
         WebKit::SandboxExtension::HandleArray sandboxExtensionHandles;
         sandboxExtensionHandles.allocate(fileCount);
         size_t extensionIndex = 0;
         for (auto& element : elements) {
-            if (auto* fileData = WTF::get_if<WebCore::FormDataElement::EncodedFileData>(element.data)) {
+            if (auto* fileData = WTF::get_if<PurcFetcher::FormDataElement::EncodedFileData>(element.data)) {
                 const String& path = fileData->filename;
                 WebKit::SandboxExtension::createHandle(path, WebKit::SandboxExtension::Type::ReadOnly, sandboxExtensionHandles[extensionIndex++]);
             }
@@ -76,7 +76,7 @@ public:
         if (!hasFormData.value())
             return FormDataReference { };
 
-        auto formData = WebCore::FormData::decode(decoder);
+        auto formData = PurcFetcher::FormData::decode(decoder);
         if (!formData)
             return WTF::nullopt;
 
@@ -91,7 +91,7 @@ public:
     }
 
 private:
-    RefPtr<WebCore::FormData> m_data;
+    RefPtr<PurcFetcher::FormData> m_data;
 };
 
 } // namespace IPC

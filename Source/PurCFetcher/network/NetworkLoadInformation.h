@@ -30,7 +30,7 @@
 #include "ResourceResponse.h"
 #include <wtf/Vector.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct NetworkTransactionInformation {
     enum class Type { Redirection, Preflight };
@@ -53,16 +53,16 @@ struct NetworkLoadInformation {
 }
 
 namespace WTF {
-template<> struct EnumTraits<WebCore::NetworkTransactionInformation::Type> {
+template<> struct EnumTraits<PurcFetcher::NetworkTransactionInformation::Type> {
     using values = EnumValues<
-        WebCore::NetworkTransactionInformation::Type,
-        WebCore::NetworkTransactionInformation::Type::Redirection,
-        WebCore::NetworkTransactionInformation::Type::Preflight
+        PurcFetcher::NetworkTransactionInformation::Type,
+        PurcFetcher::NetworkTransactionInformation::Type::Redirection,
+        PurcFetcher::NetworkTransactionInformation::Type::Preflight
     >;
 };
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 
 template<class Encoder> inline void NetworkTransactionInformation::encode(Encoder& encoder) const
 {

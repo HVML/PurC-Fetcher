@@ -172,7 +172,7 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
             urlCacheMemoryCapacity = 8 * MB;
 #else
         // Foundation memory cache capacity (in bytes)
-        // (These values are small because WebCore does most caching itself.)
+        // (These values are small because PurcFetcher does most caching itself.)
         if (memorySize >= 1024)
             urlCacheMemoryCapacity = 4 * MB;
         else if (memorySize >= 512)

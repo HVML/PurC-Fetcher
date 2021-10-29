@@ -33,7 +33,7 @@
 #include <wtf/Forward.h>
 #include <wtf/OptionSet.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class CachedResourceRequest;
 class Document;
@@ -84,18 +84,18 @@ PURCFETCHER_EXPORT Optional<ResourceError> validateCrossOriginResourcePolicy(con
 Optional<ResourceError> validateRangeRequestedFlag(const ResourceRequest&, const ResourceResponse&);
 String validateCrossOriginRedirectionURL(const URL&);
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::HTTPHeadersToKeepFromCleaning> {
+template<> struct EnumTraits<PurcFetcher::HTTPHeadersToKeepFromCleaning> {
     using values = EnumValues<
-        WebCore::HTTPHeadersToKeepFromCleaning,
-        WebCore::HTTPHeadersToKeepFromCleaning::ContentType,
-        WebCore::HTTPHeadersToKeepFromCleaning::Referer,
-        WebCore::HTTPHeadersToKeepFromCleaning::Origin,
-        WebCore::HTTPHeadersToKeepFromCleaning::UserAgent,
-        WebCore::HTTPHeadersToKeepFromCleaning::AcceptEncoding
+        PurcFetcher::HTTPHeadersToKeepFromCleaning,
+        PurcFetcher::HTTPHeadersToKeepFromCleaning::ContentType,
+        PurcFetcher::HTTPHeadersToKeepFromCleaning::Referer,
+        PurcFetcher::HTTPHeadersToKeepFromCleaning::Origin,
+        PurcFetcher::HTTPHeadersToKeepFromCleaning::UserAgent,
+        PurcFetcher::HTTPHeadersToKeepFromCleaning::AcceptEncoding
     >;
 };
 

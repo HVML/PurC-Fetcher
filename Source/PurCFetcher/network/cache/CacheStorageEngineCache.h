@@ -30,7 +30,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 struct RetrieveRecordsOptions;
 }
 
@@ -63,29 +63,29 @@ public:
     Cache(Caches&, uint64_t identifier, State, String&& name, String&& uniqueName);
 
     bool isOpened() const { return m_state == State::Open; }
-    void open(WebCore::DOMCacheEngine::CompletionCallback&&);
+    void open(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
 
     uint64_t identifier() const { return m_identifier; }
     const String& name() const { return m_name; }
     const String& uniqueName() const { return m_uniqueName; }
     bool isActive() const { return m_state != State::Uninitialized; }
 
-    void retrieveRecords(const WebCore::RetrieveRecordsOptions&, WebCore::DOMCacheEngine::RecordsCallback&&);
-    WebCore::DOMCacheEngine::CacheInfo info() const { return { m_identifier, m_name }; }
+    void retrieveRecords(const PurcFetcher::RetrieveRecordsOptions&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
+    PurcFetcher::DOMCacheEngine::CacheInfo info() const { return { m_identifier, m_name }; }
 
-    void put(Vector<WebCore::DOMCacheEngine::Record>&&, WebCore::DOMCacheEngine::RecordIdentifiersCallback&&);
-    void remove(WebCore::ResourceRequest&&, WebCore::CacheQueryOptions&&, WebCore::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void put(Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void remove(PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     Vector<NetworkCache::Key> keys() const;
 
     void dispose();
     void clearMemoryRepresentation();
 
-    static Optional<WebCore::DOMCacheEngine::Record> decode(const NetworkCache::Storage::Record&);
-    static NetworkCache::Storage::Record encode(const RecordInformation&, const WebCore::DOMCacheEngine::Record&);
+    static Optional<PurcFetcher::DOMCacheEngine::Record> decode(const NetworkCache::Storage::Record&);
+    static NetworkCache::Storage::Record encode(const RecordInformation&, const PurcFetcher::DOMCacheEngine::Record&);
 
     struct DecodedRecord {
-        DecodedRecord(double insertionTime, uint64_t size, WebCore::DOMCacheEngine::Record&& record)
+        DecodedRecord(double insertionTime, uint64_t size, PurcFetcher::DOMCacheEngine::Record&& record)
             : insertionTime(insertionTime)
             , size(size)
             , record(WTFMove(record))
@@ -93,7 +93,7 @@ public:
 
         double insertionTime { 0 };
         uint64_t size { 0 };
-        WebCore::DOMCacheEngine::Record record;
+        PurcFetcher::DOMCacheEngine::Record record;
     };
     static Optional<DecodedRecord> decodeRecordHeader(const NetworkCache::Storage::Record&);
 
@@ -102,20 +102,20 @@ public:
 private:
     Vector<RecordInformation>* recordsFromURL(const URL&);
     const Vector<RecordInformation>* recordsFromURL(const URL&) const;
-    RecordInformation& addRecord(Vector<RecordInformation>*, const WebCore::DOMCacheEngine::Record&);
+    RecordInformation& addRecord(Vector<RecordInformation>*, const PurcFetcher::DOMCacheEngine::Record&);
 
-    void storeRecords(Vector<WebCore::DOMCacheEngine::Record>&&, WebCore::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void storeRecords(Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
-    RecordInformation toRecordInformation(const WebCore::DOMCacheEngine::Record&);
+    RecordInformation toRecordInformation(const PurcFetcher::DOMCacheEngine::Record&);
 
-    void finishOpening(WebCore::DOMCacheEngine::CompletionCallback&&, Optional<WebCore::DOMCacheEngine::Error>&&);
+    void finishOpening(PurcFetcher::DOMCacheEngine::CompletionCallback&&, Optional<PurcFetcher::DOMCacheEngine::Error>&&);
     void retrieveRecord(const RecordInformation&, Ref<ReadRecordTaskCounter>&&);
 
-    void readRecordsList(WebCore::DOMCacheEngine::CompletionCallback&&);
-    void writeRecordToDisk(const RecordInformation&, WebCore::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&, uint64_t previousRecordSize);
-    void updateRecordToDisk(RecordInformation&, WebCore::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&);
+    void readRecordsList(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void writeRecordToDisk(const RecordInformation&, PurcFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&, uint64_t previousRecordSize);
+    void updateRecordToDisk(RecordInformation&, PurcFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&);
     void removeRecordFromDisk(const RecordInformation&);
-    void readRecordFromDisk(const RecordInformation&, WTF::Function<void(Expected<WebCore::DOMCacheEngine::Record, WebCore::DOMCacheEngine::Error>&&)>&&);
+    void readRecordFromDisk(const RecordInformation&, WTF::Function<void(Expected<PurcFetcher::DOMCacheEngine::Record, PurcFetcher::DOMCacheEngine::Error>&&)>&&);
     void removeFromRecordList(const Vector<uint64_t>&);
 
     Caches& m_caches;
@@ -125,7 +125,7 @@ private:
     String m_uniqueName;
     HashMap<String, Vector<RecordInformation>> m_records;
     uint64_t m_nextRecordIdentifier { 0 };
-    Vector<WebCore::DOMCacheEngine::CompletionCallback> m_pendingOpeningCallbacks;
+    Vector<PurcFetcher::DOMCacheEngine::CompletionCallback> m_pendingOpeningCallbacks;
 };
 
 } // namespace CacheStorage

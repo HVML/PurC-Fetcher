@@ -39,7 +39,7 @@
 #include <wtf/URL.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static SecurityPolicy::LocalLoadPolicy localLoadPolicy = SecurityPolicy::AllowLocalLoadsForLocalOnly;
 
@@ -278,4 +278,4 @@ void SecurityPolicy::allowAccessTo(const UserContentURLPattern& pattern)
     originAccessPatterns().append(pattern);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

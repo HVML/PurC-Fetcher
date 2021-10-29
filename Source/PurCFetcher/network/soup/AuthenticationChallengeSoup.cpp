@@ -32,7 +32,7 @@
 #include "ResourceError.h"
 #include <libsoup/soup.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static ProtectionSpaceServerType protectionSpaceServerTypeFromURI(SoupURI* uri, bool isForProxy)
 {
@@ -83,6 +83,6 @@ bool AuthenticationChallenge::platformCompare(const AuthenticationChallenge& a, 
     return a.soupMessage() == b.soupMessage() && a.soupAuth() == b.soupAuth();
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

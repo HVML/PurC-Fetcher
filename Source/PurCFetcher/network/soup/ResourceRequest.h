@@ -31,7 +31,7 @@
 #include "ResourceRequestBase.h"
 #include "URLSoup.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
     class BlobRegistryImpl;
 
@@ -194,6 +194,6 @@ inline SoupMessagePriority toSoupMessagePriority(ResourceLoadPriority priority)
     return SOUP_MESSAGE_PRIORITY_VERY_LOW;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // ResourceRequest_h

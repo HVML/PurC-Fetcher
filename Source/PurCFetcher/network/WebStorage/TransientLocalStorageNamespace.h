@@ -42,17 +42,17 @@ public:
     TransientLocalStorageNamespace();
     ~TransientLocalStorageNamespace();
 
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    Vector<WebCore::SecurityOriginData> origins() const;
+    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    Vector<PurcFetcher::SecurityOriginData> origins() const;
 
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
 
 private:
     const unsigned m_quotaInBytes { 0 };
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
 } // namespace WebKit

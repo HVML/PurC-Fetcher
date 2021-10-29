@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 PURCFETCHER_EXPORT void setPresentingApplicationPID(int);
 PURCFETCHER_EXPORT int presentingApplicationPID();
@@ -118,4 +118,4 @@ inline bool isInNetworkProcess() { return false; }
 
 #endif // PLATFORM(COCOA)
 
-} // namespace WebCore
+} // namespace PurcFetcher

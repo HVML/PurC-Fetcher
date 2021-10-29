@@ -30,7 +30,7 @@
 #include <wtf/URL.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ResourceError;
 
@@ -99,18 +99,18 @@ private:
 inline bool operator==(const ResourceError& a, const ResourceError& b) { return ResourceErrorBase::compare(a, b); }
 inline bool operator!=(const ResourceError& a, const ResourceError& b) { return !(a == b); }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ResourceErrorBase::Type> {
+template<> struct EnumTraits<PurcFetcher::ResourceErrorBase::Type> {
     using values = EnumValues<
-        WebCore::ResourceErrorBase::Type,
-        WebCore::ResourceErrorBase::Type::Null,
-        WebCore::ResourceErrorBase::Type::General,
-        WebCore::ResourceErrorBase::Type::AccessControl,
-        WebCore::ResourceErrorBase::Type::Cancellation,
-        WebCore::ResourceErrorBase::Type::Timeout
+        PurcFetcher::ResourceErrorBase::Type,
+        PurcFetcher::ResourceErrorBase::Type::Null,
+        PurcFetcher::ResourceErrorBase::Type::General,
+        PurcFetcher::ResourceErrorBase::Type::AccessControl,
+        PurcFetcher::ResourceErrorBase::Type::Cancellation,
+        PurcFetcher::ResourceErrorBase::Type::Timeout
     >;
 };
 

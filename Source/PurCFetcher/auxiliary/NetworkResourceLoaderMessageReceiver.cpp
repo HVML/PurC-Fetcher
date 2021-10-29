@@ -30,7 +30,7 @@
 #include "HandleMessage.h"
 #include "NetworkResourceLoaderMessages.h"
 #include "WebCoreArgumentCoders.h"
-#include <WebCore/ResourceRequest.h>
+#include <PurcFetcher/ResourceRequest.h>
 
 namespace WebKit {
 

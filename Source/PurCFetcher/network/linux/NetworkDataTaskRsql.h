@@ -63,13 +63,13 @@
 
 namespace WebKit {
 
-using WebCore::SQLValueH;
+using PurcFetcher::SQLValueH;
 
 class SqlResult;
 
 class NetworkDataTaskRsql final : public NetworkDataTask {
 public:
-    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const WebCore::ResourceRequest& request, WebCore::StoredCredentialsPolicy storedCredentialsPolicy, WebCore::ContentSniffingPolicy shouldContentSniff, WebCore::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurcFetcher::ResourceRequest& request, PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurcFetcher::ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     {
         return adoptRef(*new NetworkDataTaskRsql(session, client, request, storedCredentialsPolicy, shouldContentSniff, shouldContentEncodingSniff, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation));
     }
@@ -77,7 +77,7 @@ public:
     ~NetworkDataTaskRsql();
 
 private:
-    NetworkDataTaskRsql(NetworkSession&, NetworkDataTaskClient&, const WebCore::ResourceRequest&, WebCore::StoredCredentialsPolicy, WebCore::ContentSniffingPolicy, WebCore::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
+    NetworkDataTaskRsql(NetworkSession&, NetworkDataTaskClient&, const PurcFetcher::ResourceRequest&, PurcFetcher::StoredCredentialsPolicy, PurcFetcher::ContentSniffingPolicy, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
 
     String suggestedFilename() const override;
     void setPendingDownloadLocation(const String&, SandboxExtension::Handle&&, bool /*allowOverwrite*/) override;
@@ -87,9 +87,9 @@ private:
     void invalidateAndCancel() override;
     NetworkDataTask::State state() const override;
 
-    void dispatchDidCompleteWithError(const WebCore::ResourceError&);
+    void dispatchDidCompleteWithError(const PurcFetcher::ResourceError&);
     void dispatchDidReceiveResponse();
-    void createRequest(WebCore::ResourceRequest&&);
+    void createRequest(PurcFetcher::ResourceRequest&&);
     void sendRequest();
 
     void runCmdInner();
@@ -108,11 +108,11 @@ private:
     Ref<JSON::Value> formatAsDict(Vector<SQLValueH>& lineColumns);
 private:
     State m_state { State::Suspended };
-    WebCore::ResourceRequest m_currentRequest;
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ResourceRequest m_currentRequest;
+    PurcFetcher::ResourceResponse m_response;
 
     MonotonicTime m_startTime;
-    WebCore::NetworkLoadMetrics m_networkLoadMetrics;
+    PurcFetcher::NetworkLoadMetrics m_networkLoadMetrics;
     Vector<char> m_readBuffer;
     Vector<char> m_responseBuffer;
     Vector<String> m_readLines;

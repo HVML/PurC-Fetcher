@@ -51,7 +51,7 @@
 #include "ColumnIgnoreFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnIgnoreFilter::ColumnIgnoreFilter()
 {

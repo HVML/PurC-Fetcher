@@ -44,7 +44,7 @@ static const auto databaseUpdateInterval = 1_s;
 static const int maximumItemsToUpdate = 100;
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 Ref<LocalStorageDatabase> LocalStorageDatabase::create(Ref<WorkQueue>&& queue, Ref<LocalStorageDatabaseTracker>&& tracker, const SecurityOriginData& securityOrigin)
 {

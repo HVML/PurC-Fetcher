@@ -30,7 +30,7 @@
 #include "FloatRect.h"
 #include "PageIdentifier.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct ElementContext {
     FloatRect boundingRect;

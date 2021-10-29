@@ -96,7 +96,7 @@
 #define RELEASE_LOG_ERROR_IF_ALLOWED(fmt, ...) RELEASE_LOG_ERROR_IF(isAlwaysOnLoggingAllowed(), Network, "%p - [pageProxyID=%" PRIu64 ", webPageID=%" PRIu64 ", frameID=%" PRIu64 ", resourceID=%" PRIu64 ", isMainResource=%d, destination=%u, isSynchronous=%d] NetworkResourceLoader::" fmt, this, m_parameters.webPageProxyID.toUInt64(), m_parameters.webPageID.toUInt64(), m_parameters.webFrameID.toUInt64(), m_parameters.identifier, isMainResource(), static_cast<unsigned>(m_parameters.options.destination), isSynchronous(), ##__VA_ARGS__)
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 #define NATIVE_SERVER_IP        "127.0.0.1"
 #define NATIVE_SERVER_PORT      9301
@@ -182,7 +182,7 @@ NetworkResourceLoader::NetworkResourceLoader(NetworkResourceLoadParameters&& par
     if (auto* session = connection.networkProcess().networkSession(sessionID()))
         m_cache = session->cache();
 
-    // FIXME: This is necessary because of the existence of EmptyFrameLoaderClient in WebCore.
+    // FIXME: This is necessary because of the existence of EmptyFrameLoaderClient in PurcFetcher.
     //        Once bug 116233 is resolved, this ASSERT can just be "m_webPageID && m_webFrameID"
     ASSERT((m_parameters.webPageID && m_parameters.webFrameID) || m_parameters.clientCredentialPolicy == ClientCredentialPolicy::CannotAskClientForCredentials);
 
@@ -216,7 +216,7 @@ bool NetworkResourceLoader::canUseCache(const ResourceRequest& request) const
 
     if (!request.url().protocolIsInHTTPFamily())
         return false;
-    if (originalRequest().cachePolicy() == WebCore::ResourceRequestCachePolicy::DoNotUseAnyCache)
+    if (originalRequest().cachePolicy() == PurcFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache)
         return false;
 
     return true;
@@ -338,7 +338,7 @@ void NetworkResourceLoader::retrieveCacheEntry(const ResourceRequest& request)
     });
 }
 
-void NetworkResourceLoader::retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&& entry, WebCore::ResourceRequest&& request)
+void NetworkResourceLoader::retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&& entry, PurcFetcher::ResourceRequest&& request)
 {
     RELEASE_LOG_IF_ALLOWED("retrieveCacheEntryInternal:");
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
@@ -360,7 +360,7 @@ void NetworkResourceLoader::retrieveCacheEntryInternal(std::unique_ptr<NetworkCa
         startNetworkLoad(WTFMove(request), FirstLoad::Yes);
         return;
     }
-    if (entry->needsValidation() || request.cachePolicy() == WebCore::ResourceRequestCachePolicy::RefreshAnyCacheData) {
+    if (entry->needsValidation() || request.cachePolicy() == PurcFetcher::ResourceRequestCachePolicy::RefreshAnyCacheData) {
         RELEASE_LOG_IF_ALLOWED("retrieveCacheEntryInternal: Cached entry needs revalidation");
         validateCacheEntry(WTFMove(entry));
         return;
@@ -388,14 +388,14 @@ void NetworkResourceLoader::startNetworkLoad(ResourceRequest&& request, FirstLoa
 
     NetworkLoadParameters parameters = m_parameters;
     parameters.networkActivityTracker = m_networkActivityTracker;
-    if (parameters.storedCredentialsPolicy == WebCore::StoredCredentialsPolicy::Use && m_networkLoadChecker)
+    if (parameters.storedCredentialsPolicy == PurcFetcher::StoredCredentialsPolicy::Use && m_networkLoadChecker)
         parameters.storedCredentialsPolicy = m_networkLoadChecker->storedCredentialsPolicy();
 
     auto* networkSession = m_connection->networkSession();
     if (!networkSession) {
         WTFLogAlways("Attempted to create a NetworkLoad with a session (id=%" PRIu64 ") that does not exist.", sessionID().toUInt64());
         RELEASE_LOG_ERROR_IF_ALLOWED("startNetworkLoad: Attempted to create a NetworkLoad for a session that does not exist (sessionID=%" PRIu64 ")", sessionID().toUInt64());
-        m_connection->networkProcess().logDiagnosticMessage(m_parameters.webPageProxyID, WebCore::DiagnosticLoggingKeys::internalErrorKey(), WebCore::DiagnosticLoggingKeys::invalidSessionIDKey(), WebCore::ShouldSample::No);
+        m_connection->networkProcess().logDiagnosticMessage(m_parameters.webPageProxyID, PurcFetcher::DiagnosticLoggingKeys::internalErrorKey(), PurcFetcher::DiagnosticLoggingKeys::invalidSessionIDKey(), PurcFetcher::ShouldSample::No);
         didFailLoading(internalError(request.url()));
         return;
     }
@@ -437,54 +437,54 @@ ResourceLoadInfo NetworkResourceLoader::resourceLoadInfo()
         return false;
     };
 
-    auto resourceType = [] (WebCore::ResourceRequestBase::Requester requester, WebCore::FetchOptions::Destination destination) {
+    auto resourceType = [] (PurcFetcher::ResourceRequestBase::Requester requester, PurcFetcher::FetchOptions::Destination destination) {
         switch (requester) {
-        case WebCore::ResourceRequestBase::Requester::XHR:
+        case PurcFetcher::ResourceRequestBase::Requester::XHR:
             return ResourceLoadInfo::Type::XMLHTTPRequest;
-        case WebCore::ResourceRequestBase::Requester::Fetch:
+        case PurcFetcher::ResourceRequestBase::Requester::Fetch:
             return ResourceLoadInfo::Type::Fetch;
-        case WebCore::ResourceRequestBase::Requester::Ping:
+        case PurcFetcher::ResourceRequestBase::Requester::Ping:
             return ResourceLoadInfo::Type::Ping;
-        case WebCore::ResourceRequestBase::Requester::Beacon:
+        case PurcFetcher::ResourceRequestBase::Requester::Beacon:
             return ResourceLoadInfo::Type::Beacon;
         default:
             break;
         }
 
         switch (destination) {
-        case WebCore::FetchOptions::Destination::EmptyString:
+        case PurcFetcher::FetchOptions::Destination::EmptyString:
             return ResourceLoadInfo::Type::Other;
-        case WebCore::FetchOptions::Destination::Audio:
+        case PurcFetcher::FetchOptions::Destination::Audio:
             return ResourceLoadInfo::Type::Media;
-        case WebCore::FetchOptions::Destination::Document:
+        case PurcFetcher::FetchOptions::Destination::Document:
             return ResourceLoadInfo::Type::Document;
-        case WebCore::FetchOptions::Destination::Embed:
+        case PurcFetcher::FetchOptions::Destination::Embed:
             return ResourceLoadInfo::Type::Object;
-        case WebCore::FetchOptions::Destination::Font:
+        case PurcFetcher::FetchOptions::Destination::Font:
             return ResourceLoadInfo::Type::Font;
-        case WebCore::FetchOptions::Destination::Image:
+        case PurcFetcher::FetchOptions::Destination::Image:
             return ResourceLoadInfo::Type::Image;
-        case WebCore::FetchOptions::Destination::Manifest:
+        case PurcFetcher::FetchOptions::Destination::Manifest:
             return ResourceLoadInfo::Type::ApplicationManifest;
-        case WebCore::FetchOptions::Destination::Object:
+        case PurcFetcher::FetchOptions::Destination::Object:
             return ResourceLoadInfo::Type::Object;
-        case WebCore::FetchOptions::Destination::Report:
+        case PurcFetcher::FetchOptions::Destination::Report:
             return ResourceLoadInfo::Type::CSPReport;
-        case WebCore::FetchOptions::Destination::Script:
+        case PurcFetcher::FetchOptions::Destination::Script:
             return ResourceLoadInfo::Type::Script;
-        case WebCore::FetchOptions::Destination::Serviceworker:
+        case PurcFetcher::FetchOptions::Destination::Serviceworker:
             return ResourceLoadInfo::Type::Other;
-        case WebCore::FetchOptions::Destination::Sharedworker:
+        case PurcFetcher::FetchOptions::Destination::Sharedworker:
             return ResourceLoadInfo::Type::Other;
-        case WebCore::FetchOptions::Destination::Style:
+        case PurcFetcher::FetchOptions::Destination::Style:
             return ResourceLoadInfo::Type::Stylesheet;
-        case WebCore::FetchOptions::Destination::Track:
+        case PurcFetcher::FetchOptions::Destination::Track:
             return ResourceLoadInfo::Type::Media;
-        case WebCore::FetchOptions::Destination::Video:
+        case PurcFetcher::FetchOptions::Destination::Video:
             return ResourceLoadInfo::Type::Media;
-        case WebCore::FetchOptions::Destination::Worker:
+        case PurcFetcher::FetchOptions::Destination::Worker:
             return ResourceLoadInfo::Type::Other;
-        case WebCore::FetchOptions::Destination::Xslt:
+        case PurcFetcher::FetchOptions::Destination::Xslt:
             return ResourceLoadInfo::Type::XSLT;
         }
 
@@ -677,7 +677,7 @@ void NetworkResourceLoader::didReceiveResponse(ResourceResponse&& receivedRespon
         RELEASE_LOG_IF_ALLOWED("didReceiveResponse: Received revalidation response (validationSucceeded=%d, wasOriginalRequestConditional=%d)", validationSucceeded, originalRequest().isConditional());
         if (validationSucceeded) {
             m_cacheEntryForValidation = m_cache->update(originalRequest(), *m_cacheEntryForValidation, m_response);
-            // If the request was conditional then this revalidation was not triggered by the network cache and we pass the 304 response to WebCore.
+            // If the request was conditional then this revalidation was not triggered by the network cache and we pass the 304 response to PurcFetcher.
             if (originalRequest().isConditional())
                 m_cacheEntryForValidation = nullptr;
         } else
@@ -897,7 +897,7 @@ Optional<Seconds> NetworkResourceLoader::validateCacheEntryForMaxAgeCapValidatio
     if (m_cacheEntryForMaxAgeCapValidation) {
         ASSERT(redirectResponse.source() == ResourceResponse::Source::Network);
         ASSERT(redirectResponse.isRedirection());
-        if (redirectResponse.httpHeaderField(WebCore::HTTPHeaderName::Location) == m_cacheEntryForMaxAgeCapValidation->response().httpHeaderField(WebCore::HTTPHeaderName::Location))
+        if (redirectResponse.httpHeaderField(PurcFetcher::HTTPHeaderName::Location) == m_cacheEntryForMaxAgeCapValidation->response().httpHeaderField(PurcFetcher::HTTPHeaderName::Location))
             existingCacheEntryMatchesNewResponse = true;
 
         m_cache->remove(m_cacheEntryForMaxAgeCapValidation->key());
@@ -994,7 +994,7 @@ void NetworkResourceLoader::continueWillSendRedirectedRequest(ResourceRequest&& 
         send(Messages::WebResourceLoader::WillSendRequest(redirectRequest, IPC::FormDataReference { redirectRequest.httpBody() }, sanitizeResponseIfPossible(WTFMove(redirectResponse), ResourceResponse::SanitizationType::Redirection)));
 }
 
-void NetworkResourceLoader::didFinishWithRedirectResponse(WebCore::ResourceRequest&& request, WebCore::ResourceRequest&& redirectRequest, ResourceResponse&& redirectResponse)
+void NetworkResourceLoader::didFinishWithRedirectResponse(PurcFetcher::ResourceRequest&& request, PurcFetcher::ResourceRequest&& redirectRequest, ResourceResponse&& redirectResponse)
 {
     RELEASE_LOG_IF_ALLOWED("didFinishWithRedirectResponse:");
     redirectResponse.setType(ResourceResponse::Type::Opaqueredirect);
@@ -1003,7 +1003,7 @@ void NetworkResourceLoader::didFinishWithRedirectResponse(WebCore::ResourceReque
     else if (auto* session = m_connection->networkProcess().networkSession(sessionID()))
         session->prefetchCache().storeRedirect(request.url(), WTFMove(redirectResponse), WTFMove(redirectRequest));
 
-    WebCore::NetworkLoadMetrics networkLoadMetrics;
+    PurcFetcher::NetworkLoadMetrics networkLoadMetrics;
     networkLoadMetrics.markComplete();
     networkLoadMetrics.responseBodyBytesReceived = 0;
     networkLoadMetrics.responseBodyDecodedSize = 0;
@@ -1021,7 +1021,7 @@ ResourceResponse NetworkResourceLoader::sanitizeResponseIfPossible(ResourceRespo
     return WTFMove(response);
 }
 
-void NetworkResourceLoader::restartNetworkLoad(WebCore::ResourceRequest&& newRequest)
+void NetworkResourceLoader::restartNetworkLoad(PurcFetcher::ResourceRequest&& newRequest)
 {
     RELEASE_LOG_IF_ALLOWED("restartNetworkLoad: (hasNetworkLoad=%d)", !!m_networkLoad);
 
@@ -1208,7 +1208,7 @@ void NetworkResourceLoader::tryStoreAsCacheEntry()
     });
 }
 
-void NetworkResourceLoader::didReceiveMainResourceResponse(const WebCore::ResourceResponse& response)
+void NetworkResourceLoader::didReceiveMainResourceResponse(const PurcFetcher::ResourceResponse& response)
 {
     UNUSED_PARAM(response);
     RELEASE_LOG_IF_ALLOWED("didReceiveMainResourceResponse:");
@@ -1290,7 +1290,7 @@ void NetworkResourceLoader::sendResultForCacheEntry(std::unique_ptr<NetworkCache
         logCookieInformation();
 #endif
 
-    WebCore::NetworkLoadMetrics networkLoadMetrics;
+    PurcFetcher::NetworkLoadMetrics networkLoadMetrics;
     networkLoadMetrics.markComplete();
     networkLoadMetrics.requestHeaderBytesSent = 0;
     networkLoadMetrics.requestBodyBytesSent = 0;
@@ -1430,7 +1430,7 @@ void NetworkResourceLoader::logCookieInformation() const
     logCookieInformation(m_connection, "NetworkResourceLoader", reinterpret_cast<const void*>(this), *networkStorageSession, originalRequest().firstPartyForCookies(), SameSiteInfo::create(originalRequest()), originalRequest().url(), originalRequest().httpReferrer(), frameID(), pageID(), identifier());
 }
 
-static void logBlockedCookieInformation(NetworkConnectionToWebProcess& connection, const String& label, const void* loggedObject, const WebCore::NetworkStorageSession& networkStorageSession, const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, const String& referrer, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, Optional<uint64_t> identifier)
+static void logBlockedCookieInformation(NetworkConnectionToWebProcess& connection, const String& label, const void* loggedObject, const PurcFetcher::NetworkStorageSession& networkStorageSession, const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, const String& referrer, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, Optional<uint64_t> identifier)
 {
     ASSERT(NetworkResourceLoader::shouldLogCookieInformation(connection, networkStorageSession.sessionID()));
 
@@ -1457,11 +1457,11 @@ static void logBlockedCookieInformation(NetworkConnectionToWebProcess& connectio
 #undef LOCAL_LOG_IF_ALLOWED
 }
 
-static void logCookieInformationInternal(NetworkConnectionToWebProcess& connection, const String& label, const void* loggedObject, const WebCore::NetworkStorageSession& networkStorageSession, const URL& firstParty, const WebCore::SameSiteInfo& sameSiteInfo, const URL& url, const String& referrer, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, Optional<uint64_t> identifier)
+static void logCookieInformationInternal(NetworkConnectionToWebProcess& connection, const String& label, const void* loggedObject, const PurcFetcher::NetworkStorageSession& networkStorageSession, const URL& firstParty, const PurcFetcher::SameSiteInfo& sameSiteInfo, const URL& url, const String& referrer, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, Optional<uint64_t> identifier)
 {
     ASSERT(NetworkResourceLoader::shouldLogCookieInformation(connection, networkStorageSession.sessionID()));
 
-    Vector<WebCore::Cookie> cookies;
+    Vector<PurcFetcher::Cookie> cookies;
     if (!networkStorageSession.getRawCookies(firstParty, sameSiteInfo, url, frameID, pageID, ShouldAskITP::Yes, ShouldRelaxThirdPartyCookieBlocking::No, cookies))
         return;
 
@@ -1471,7 +1471,7 @@ static void logCookieInformationInternal(NetworkConnectionToWebProcess& connecti
     auto escapedFrameID = escapeIDForJSON(frameID);
     auto escapedPageID = escapeIDForJSON(pageID);
     auto escapedIdentifier = escapeIDForJSON(identifier);
-    bool hasStorageAccess = (frameID && pageID) ? networkStorageSession.hasStorageAccess(WebCore::RegistrableDomain { url }, WebCore::RegistrableDomain { firstParty }, frameID.value(), pageID.value()) : false;
+    bool hasStorageAccess = (frameID && pageID) ? networkStorageSession.hasStorageAccess(PurcFetcher::RegistrableDomain { url }, PurcFetcher::RegistrableDomain { firstParty }, frameID.value(), pageID.value()) : false;
 
 #define LOCAL_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(networkStorageSession.sessionID().isAlwaysOnLoggingAllowed(), Network, "%p - %s::" fmt, loggedObject, label.utf8().data(), ##__VA_ARGS__)
 #define LOCAL_LOG(str, ...) \
@@ -1536,7 +1536,7 @@ void NetworkResourceLoader::sendCSPViolationReport(URL&& reportURL, Ref<FormData
     //send(Messages::WebPage::SendCSPViolationReport { m_parameters.webFrameID, WTFMove(reportURL), IPC::FormDataReference { WTFMove(report) } }, m_parameters.webPageID);
 }
 
-//void NetworkResourceLoader::enqueueSecurityPolicyViolationEvent(WebCore::SecurityPolicyViolationEvent::Init&& eventInit)
+//void NetworkResourceLoader::enqueueSecurityPolicyViolationEvent(PurcFetcher::SecurityPolicyViolationEvent::Init&& eventInit)
 //{
 //    send(Messages::WebPage::EnqueueSecurityPolicyViolationEvent { m_parameters.webFrameID, WTFMove(eventInit) }, m_parameters.webPageID);
 //}

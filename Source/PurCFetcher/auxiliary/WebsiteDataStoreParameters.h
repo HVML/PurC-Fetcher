@@ -51,7 +51,7 @@ struct WebsiteDataStoreParameters {
 
     Vector<uint8_t> uiProcessCookieStorageIdentifier;
     SandboxExtension::Handle cookieStoragePathExtensionHandle;
-    Vector<WebCore::Cookie> pendingCookies;
+    Vector<PurcFetcher::Cookie> pendingCookies;
     NetworkSessionCreationParameters networkSessionParameters;
 
 #if ENABLE(INDEXED_DATABASE)
@@ -74,8 +74,8 @@ struct WebsiteDataStoreParameters {
     String cacheStorageDirectory;
     SandboxExtension::Handle cacheStorageDirectoryExtensionHandle;
 
-    uint64_t perOriginStorageQuota { WebCore::StorageQuotaManager::defaultQuota() };
-    uint64_t perThirdPartyOriginStorageQuota { WebCore::StorageQuotaManager::defaultThirdPartyQuota() };
+    uint64_t perOriginStorageQuota { PurcFetcher::StorageQuotaManager::defaultQuota() };
+    uint64_t perThirdPartyOriginStorageQuota { PurcFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
 };
 
 } // namespace WebKit

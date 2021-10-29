@@ -39,7 +39,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 struct NetworkLoad::Throttle {
     WTF_MAKE_STRUCT_FAST_ALLOCATED;
@@ -98,14 +98,14 @@ static inline void updateRequest(ResourceRequest& currentRequest, const Resource
 #endif
 }
 
-void NetworkLoad::updateRequestAfterRedirection(WebCore::ResourceRequest& newRequest) const
+void NetworkLoad::updateRequestAfterRedirection(PurcFetcher::ResourceRequest& newRequest) const
 {
     ResourceRequest updatedRequest = m_currentRequest;
     updateRequest(updatedRequest, newRequest);
     newRequest = WTFMove(updatedRequest);
 }
 
-void NetworkLoad::continueWillSendRequest(WebCore::ResourceRequest&& newRequest)
+void NetworkLoad::continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest)
 {
     updateRequest(m_currentRequest, newRequest);
 
@@ -245,7 +245,7 @@ void NetworkLoad::didReceiveData(Ref<SharedBuffer>&& buffer)
     m_client.get().didReceiveBuffer(WTFMove(buffer), size);
 }
 
-void NetworkLoad::didCompleteWithError(const ResourceError& error, const WebCore::NetworkLoadMetrics& networkLoadMetrics)
+void NetworkLoad::didCompleteWithError(const ResourceError& error, const PurcFetcher::NetworkLoadMetrics& networkLoadMetrics)
 {
     ASSERT(!m_throttle);
 
@@ -284,7 +284,7 @@ void NetworkLoad::wasBlockedByRestrictions()
     m_client.get().didFailLoading(wasBlockedByRestrictionsError(m_currentRequest));
 }
 
-void NetworkLoad::didNegotiateModernTLS(const WebCore::AuthenticationChallenge& challenge)
+void NetworkLoad::didNegotiateModernTLS(const PurcFetcher::AuthenticationChallenge& challenge)
 {
     if (m_parameters.webPageProxyID)
         m_networkProcess->send(Messages::NetworkProcessProxy::DidNegotiateModernTLS(m_parameters.webPageProxyID, challenge));

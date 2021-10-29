@@ -41,7 +41,7 @@ typedef const struct __SCDynamicStore * SCDynamicStoreRef;
 #include <windows.h>
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class NetworkStateNotifier {
     WTF_MAKE_NONCOPYABLE(NetworkStateNotifier);
@@ -89,4 +89,4 @@ private:
 #endif
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

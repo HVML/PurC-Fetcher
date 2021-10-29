@@ -38,7 +38,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/NeverDestroyed.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // When resolve queue is empty, we fire async resolution requests immediately (which is important if the prefetch is triggered by hovering).
 // But during page parsing, we should coalesce identical requests to avoid stressing out the DNS resolver.
@@ -131,4 +131,4 @@ void DNSResolveQueue::timerFired()
         m_timer.startOneShot(resolvingRetryDelay);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

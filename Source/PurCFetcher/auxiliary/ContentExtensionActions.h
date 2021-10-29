@@ -30,7 +30,7 @@
 #include <wtf/HashSet.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct ContentRuleListResults;
 class Page;
@@ -76,6 +76,6 @@ PURCFETCHER_EXPORT void applyResultsToRequest(ContentRuleListResults&&, Page*, R
 
 } // namespace ContentExtensions
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

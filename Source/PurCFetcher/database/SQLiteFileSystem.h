@@ -36,7 +36,7 @@
 
 struct sqlite3;
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SQLiteDatabase;
 
@@ -98,6 +98,6 @@ private:
     SQLiteFileSystem();
 }; // class SQLiteFileSystem
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

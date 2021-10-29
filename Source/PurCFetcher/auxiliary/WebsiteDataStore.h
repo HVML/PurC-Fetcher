@@ -62,7 +62,7 @@ namespace API {
 class HTTPCookieStore;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class RegistrableDomain;
 class SecurityOrigin;
 
@@ -141,7 +141,7 @@ public:
     void setCacheModelSynchronouslyForTesting(CacheModel);
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    void fetchDataForRegistrableDomains(OptionSet<WebsiteDataType>, OptionSet<WebsiteDataFetchOption>, const Vector<WebCore::RegistrableDomain>&, CompletionHandler<void(Vector<WebsiteDataRecord>&&, HashSet<WebCore::RegistrableDomain>&&)>&&);
+    void fetchDataForRegistrableDomains(OptionSet<WebsiteDataType>, OptionSet<WebsiteDataFetchOption>, const Vector<PurcFetcher::RegistrableDomain>&, CompletionHandler<void(Vector<WebsiteDataRecord>&&, HashSet<PurcFetcher::RegistrableDomain>&&)>&&);
     void clearPrevalentResource(const URL&, CompletionHandler<void()>&&);
     void clearUserInteraction(const URL&, CompletionHandler<void()>&&);
     void dumpResourceLoadStatistics(CompletionHandler<void(const String&)>&&);
@@ -198,11 +198,11 @@ public:
     void hasIsolatedSessionForTesting(const URL&, CompletionHandler<void(bool)>&&) const;
     void setResourceLoadStatisticsShouldDowngradeReferrerForTesting(bool, CompletionHandler<void()>&&);
     void setResourceLoadStatisticsShouldBlockThirdPartyCookiesForTesting(bool enabled, bool onlyOnSitesWithoutUserInteraction, CompletionHandler<void()>&&);
-    void setThirdPartyCookieBlockingMode(WebCore::ThirdPartyCookieBlockingMode, CompletionHandler<void()>&&);
+    void setThirdPartyCookieBlockingMode(PurcFetcher::ThirdPartyCookieBlockingMode, CompletionHandler<void()>&&);
     void setResourceLoadStatisticsShouldEnbleSameSiteStrictEnforcementForTesting(bool enabled, CompletionHandler<void()>&&);
     void setResourceLoadStatisticsFirstPartyWebsiteDataRemovalModeForTesting(bool enabled, CompletionHandler<void()>&&);
     void setResourceLoadStatisticsToSameSiteStrictCookiesForTesting(const URL&, CompletionHandler<void()>&&);
-    WebCore::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode() const;
+    PurcFetcher::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode() const;
     bool isItpStateExplicitlySet() const { return m_isItpStateExplicitlySet; }
     void useExplicitITPState() { m_isItpStateExplicitlySet = true; }
 #endif
@@ -230,14 +230,14 @@ public:
 
     WebsiteDataStoreParameters parameters();
 
-    Vector<WebCore::Cookie> pendingCookies() const;
-    void addPendingCookie(const WebCore::Cookie&);
-    void removePendingCookie(const WebCore::Cookie&);
+    Vector<PurcFetcher::Cookie> pendingCookies() const;
+    void addPendingCookie(const PurcFetcher::Cookie&);
+    void removePendingCookie(const PurcFetcher::Cookie&);
     void clearPendingCookies();
 
 #if USE(CURL)
-    void setNetworkProxySettings(WebCore::CurlProxySettings&&);
-    const WebCore::CurlProxySettings& networkProxySettings() const { return m_proxySettings; }
+    void setNetworkProxySettings(PurcFetcher::CurlProxySettings&&);
+    const PurcFetcher::CurlProxySettings& networkProxySettings() const { return m_proxySettings; }
 #endif
 
     static void allowWebsiteDataRecordsForAllOrigins();
@@ -248,7 +248,7 @@ public:
 
 #if ENABLE(WEB_AUTHN)
     AuthenticatorManager& authenticatorManager() { return m_authenticatorManager.get(); }
-    void setMockWebAuthenticationConfiguration(WebCore::MockWebAuthenticationConfiguration&&);
+    void setMockWebAuthenticationConfiguration(PurcFetcher::MockWebAuthenticationConfiguration&&);
 #endif
 
     void didCreateNetworkProcess();
@@ -293,10 +293,10 @@ public:
     void clearAppBoundSession(CompletionHandler<void()>&&);
 
     void beginAppBoundDomainCheck(const URL&, WebFramePolicyListenerProxy&);
-    void getAppBoundDomains(CompletionHandler<void(const HashSet<WebCore::RegistrableDomain>&)>&&) const;
-    void ensureAppBoundDomains(CompletionHandler<void(const HashSet<WebCore::RegistrableDomain>&)>&&) const;
+    void getAppBoundDomains(CompletionHandler<void(const HashSet<PurcFetcher::RegistrableDomain>&)>&&) const;
+    void ensureAppBoundDomains(CompletionHandler<void(const HashSet<PurcFetcher::RegistrableDomain>&)>&&) const;
     void reinitializeAppBoundDomains();
-    static void setAppBoundDomainsForTesting(HashSet<WebCore::RegistrableDomain>&&, CompletionHandler<void()>&&);
+    static void setAppBoundDomainsForTesting(HashSet<PurcFetcher::RegistrableDomain>&&, CompletionHandler<void()>&&);
     void updateBundleIdentifierInNetworkProcess(const String&, CompletionHandler<void()>&&);
     void clearBundleIdentifierInNetworkProcess(CompletionHandler<void()>&&);
     
@@ -328,17 +328,17 @@ private:
     Vector<PluginModuleInfo> plugins() const;
 #endif
 
-    static Vector<WebCore::SecurityOriginData> mediaKeyOrigins(const String& mediaKeysStorageDirectory);
+    static Vector<PurcFetcher::SecurityOriginData> mediaKeyOrigins(const String& mediaKeysStorageDirectory);
     static void removeMediaKeys(const String& mediaKeysStorageDirectory, WallTime modifiedSince);
-    static void removeMediaKeys(const String& mediaKeysStorageDirectory, const HashSet<WebCore::SecurityOriginData>&);
+    static void removeMediaKeys(const String& mediaKeysStorageDirectory, const HashSet<PurcFetcher::SecurityOriginData>&);
 
     void maybeRegisterWithSessionIDMap();
 
 #if PLATFORM(COCOA)
-    static Optional<HashSet<WebCore::RegistrableDomain>> appBoundDomainsIfInitialized();
+    static Optional<HashSet<PurcFetcher::RegistrableDomain>> appBoundDomainsIfInitialized();
     constexpr static const std::atomic<bool> isAppBoundITPRelaxationEnabled = false;
     static void forwardAppBoundDomainsToITPIfInitialized(CompletionHandler<void()>&&);
-    void setAppBoundDomainsForITP(const HashSet<WebCore::RegistrableDomain>&, CompletionHandler<void()>&&);
+    void setAppBoundDomainsForITP(const HashSet<PurcFetcher::RegistrableDomain>&, CompletionHandler<void()>&&);
 #endif
 
     const PAL::SessionID m_sessionID;
@@ -363,10 +363,10 @@ private:
 #endif
 
 #if USE(CURL)
-    WebCore::CurlProxySettings m_proxySettings;
+    PurcFetcher::CurlProxySettings m_proxySettings;
 #endif
 
-    HashSet<WebCore::Cookie> m_pendingCookies;
+    HashSet<PurcFetcher::Cookie> m_pendingCookies;
     
     WeakHashSet<WebProcessProxy> m_processes;
 
@@ -393,7 +393,7 @@ private:
     UniqueRef<SOAuthorizationCoordinator> m_soAuthorizationCoordinator;
 #endif
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    mutable Optional<WebCore::ThirdPartyCookieBlockingMode> m_thirdPartyCookieBlockingMode; // Lazily computed.
+    mutable Optional<PurcFetcher::ThirdPartyCookieBlockingMode> m_thirdPartyCookieBlockingMode; // Lazily computed.
 #endif
 };
 

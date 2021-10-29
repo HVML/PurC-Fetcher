@@ -66,7 +66,7 @@ namespace WTF {
 class OrdinalNumber;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ContentSecurityPolicyDirective;
 class ContentSecurityPolicyDirectiveList;

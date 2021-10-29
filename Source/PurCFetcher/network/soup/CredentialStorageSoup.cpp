@@ -30,13 +30,13 @@
 
 #include "Credential.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 Credential CredentialStorage::getFromPersistentStorage(const ProtectionSpace&)
 {
     return Credential();
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

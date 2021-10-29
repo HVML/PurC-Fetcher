@@ -32,7 +32,7 @@
 #include "WebCoreThread.h"
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static const Seconds updateStateSoonInterval { 2_s };
 
@@ -89,4 +89,4 @@ void NetworkStateNotifier::updateStateSoon()
     m_updateStateTimer.startOneShot(updateStateSoonInterval);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

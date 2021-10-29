@@ -33,7 +33,7 @@
 #include <wtf/Forward.h>
 #include <wtf/Noncopyable.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextEncoding;
 
@@ -59,5 +59,5 @@ using EncodingNameRegistrar = void (*)(const char* alias, const char* name);
 using NewTextCodecFunction = WTF::Function<std::unique_ptr<TextCodec>()>;
 using TextCodecRegistrar = void (*)(const char* name, NewTextCodecFunction&&);
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

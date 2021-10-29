@@ -29,7 +29,7 @@
 #include "HTTPHeaderNames.h"
 #include "ResourceResponse.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 ContentSecurityPolicyResponseHeaders::ContentSecurityPolicyResponseHeaders(const ResourceResponse& response)
 {
@@ -54,4 +54,4 @@ ContentSecurityPolicyResponseHeaders ContentSecurityPolicyResponseHeaders::isola
     return isolatedCopy;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

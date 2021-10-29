@@ -30,7 +30,7 @@
 #include <wtf/text/WTFString.h>
 #include <wtf/unicode/CharacterNames.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 void TextCodecReplacement::registerEncodingNames(EncodingNameRegistrar registrar)
 {
@@ -62,4 +62,4 @@ String TextCodecReplacement::decode(const char*, size_t, bool, bool, bool& sawEr
     return String { &replacementCharacter, 1 };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

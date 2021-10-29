@@ -33,7 +33,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/Vector.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SharedTimer;
 class ThreadTimers;

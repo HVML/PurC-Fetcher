@@ -75,7 +75,7 @@ struct NetworkSessionCreationParameters {
 #endif
 #if USE(CURL)
     String cookiePersistentStorageFile;
-    WebCore::CurlProxySettings proxySettings;
+    PurcFetcher::CurlProxySettings proxySettings;
 #endif
     bool deviceManagementRestrictionsEnabled { false };
     bool allLoadsBlockedByDeviceManagementRestrictionsForTesting { false };

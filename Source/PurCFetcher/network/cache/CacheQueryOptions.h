@@ -27,7 +27,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct CacheQueryOptions {
     CacheQueryOptions isolatedCopy() const { return { ignoreSearch, ignoreMethod, ignoreVary, cacheName.isolatedCopy() }; }
@@ -38,4 +38,4 @@ struct CacheQueryOptions {
     String cacheName;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

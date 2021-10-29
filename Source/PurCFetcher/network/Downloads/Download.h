@@ -48,7 +48,7 @@ namespace IPC {
 class DataReference;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class AuthenticationChallenge;
 class Credential;
 class ResourceError;
@@ -85,11 +85,11 @@ public:
     const String& suggestedName() const { return m_suggestedName; }
 
     void setSandboxExtension(RefPtr<SandboxExtension>&& sandboxExtension) { m_sandboxExtension = WTFMove(sandboxExtension); }
-    void didReceiveChallenge(const WebCore::AuthenticationChallenge&, ChallengeCompletionHandler&&);
+    void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&, ChallengeCompletionHandler&&);
     void didCreateDestination(const String& path);
     void didReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite);
     void didFinish();
-    void didFail(const WebCore::ResourceError&, const IPC::DataReference& resumeData);
+    void didFail(const PurcFetcher::ResourceError&, const IPC::DataReference& resumeData);
     void didCancel(const IPC::DataReference& resumeData);
 
     bool isAlwaysOnLoggingAllowed() const;

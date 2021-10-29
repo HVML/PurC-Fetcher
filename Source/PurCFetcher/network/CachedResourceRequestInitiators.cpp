@@ -27,7 +27,7 @@
 #include "config.h"
 #include "CachedResourceRequestInitiators.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 CachedResourceRequestInitiators::CachedResourceRequestInitiators()
     : css("css", AtomString::ConstructFromLiteral)
@@ -39,4 +39,4 @@ CachedResourceRequestInitiators::CachedResourceRequestInitiators()
 {
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -52,7 +52,7 @@
 #endif
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 std::unique_ptr<NetworkSession> NetworkSession::create(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
 {
@@ -220,7 +220,7 @@ void NetworkSession::notifyResourceLoadStatisticsProcessed()
     m_networkProcess->parentProcessConnection()->send(Messages::NetworkProcessProxy::NotifyResourceLoadStatisticsProcessed(), 0);
 }
 
-void NetworkSession::logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, WebCore::ShouldSample shouldSample)
+void NetworkSession::logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, PurcFetcher::ShouldSample shouldSample)
 {
     m_networkProcess->parentProcessConnection()->send(Messages::WebPageProxy::LogDiagnosticMessageWithValue(message, description, value, significantFigures, shouldSample), 0);
 }
@@ -264,7 +264,7 @@ void NetworkSession::setThirdPartyCookieBlockingMode(ThirdPartyCookieBlockingMod
         m_resourceLoadStatistics->setThirdPartyCookieBlockingMode(blockingMode);
 }
 
-void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(WebCore::SameSiteStrictEnforcementEnabled enabled)
+void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(PurcFetcher::SameSiteStrictEnforcementEnabled enabled)
 {
     ASSERT(m_resourceLoadStatistics);
     m_sameSiteStrictEnforcementEnabled = enabled;
@@ -273,13 +273,13 @@ void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(WebCore::SameSiteSt
 }
 #endif // ENABLE(RESOURCE_LOAD_STATISTICS)
 
-void NetworkSession::storeAdClickAttribution(WebCore::AdClickAttribution&&)
+void NetworkSession::storeAdClickAttribution(PurcFetcher::AdClickAttribution&&)
 {
 }
 
 void NetworkSession::handleAdClickAttributionConversion(
         AdClickAttribution::Conversion&&, const URL&,
-        const WebCore::ResourceRequest&)
+        const PurcFetcher::ResourceRequest&)
 {
 }
 
@@ -291,7 +291,7 @@ void NetworkSession::clearAdClickAttribution()
 {
 }
 
-void NetworkSession::clearAdClickAttributionForRegistrableDomain(WebCore::RegistrableDomain&&)
+void NetworkSession::clearAdClickAttributionForRegistrableDomain(PurcFetcher::RegistrableDomain&&)
 {
 }
 
@@ -321,7 +321,7 @@ void NetworkSession::removeKeptAliveLoad(NetworkResourceLoader& loader)
     m_keptAliveLoads.remove(loader);
 }
 
-std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocketChannel&, const WebCore::ResourceRequest&, const String&)
+std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String&)
 {
     return nullptr;
 }

@@ -32,9 +32,9 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
-// We should investigate a way to share it with WebCore.
+// We should investigate a way to share it with PurcFetcher.
 LocalStorageNamespace::LocalStorageNamespace(StorageManager& storageManager, StorageNamespaceIdentifier storageNamespaceID)
     : m_storageManager(storageManager)
     , m_quotaInBytes(StorageManager::localStorageDatabaseQuotaInBytes)

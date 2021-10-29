@@ -30,7 +30,7 @@
 #include <wtf/HashTraits.h>
 #include <wtf/URL.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct ClientOrigin {
     static ClientOrigin emptyKey() { return { }; }
@@ -89,24 +89,24 @@ template<class Decoder> inline Optional<ClientOrigin> ClientOrigin::decode(Decod
     return ClientOrigin { WTFMove(*topOrigin), WTFMove(*clientOrigin) };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
 struct ClientOriginKeyHash {
-    static unsigned hash(const WebCore::ClientOrigin& key) { return key.hash(); }
-    static bool equal(const WebCore::ClientOrigin& a, const WebCore::ClientOrigin& b) { return a == b; }
+    static unsigned hash(const PurcFetcher::ClientOrigin& key) { return key.hash(); }
+    static bool equal(const PurcFetcher::ClientOrigin& a, const PurcFetcher::ClientOrigin& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-template<> struct HashTraits<WebCore::ClientOrigin> : GenericHashTraits<WebCore::ClientOrigin> {
-    static WebCore::ClientOrigin emptyValue() { return WebCore::ClientOrigin::emptyKey(); }
+template<> struct HashTraits<PurcFetcher::ClientOrigin> : GenericHashTraits<PurcFetcher::ClientOrigin> {
+    static PurcFetcher::ClientOrigin emptyValue() { return PurcFetcher::ClientOrigin::emptyKey(); }
 
-    static void constructDeletedValue(WebCore::ClientOrigin& slot) { slot.topOrigin = WebCore::SecurityOriginData(HashTableDeletedValue); }
-    static bool isDeletedValue(const WebCore::ClientOrigin& slot) { return slot.topOrigin.isHashTableDeletedValue(); }
+    static void constructDeletedValue(PurcFetcher::ClientOrigin& slot) { slot.topOrigin = PurcFetcher::SecurityOriginData(HashTableDeletedValue); }
+    static bool isDeletedValue(const PurcFetcher::ClientOrigin& slot) { return slot.topOrigin.isHashTableDeletedValue(); }
 };
 
-template<> struct DefaultHash<WebCore::ClientOrigin> {
+template<> struct DefaultHash<PurcFetcher::ClientOrigin> {
     typedef ClientOriginKeyHash Hash;
 };
 

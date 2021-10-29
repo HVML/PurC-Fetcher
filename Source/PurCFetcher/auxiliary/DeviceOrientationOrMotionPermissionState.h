@@ -27,7 +27,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class DeviceOrientationOrMotionPermissionState : uint8_t { Granted, Denied, Prompt };
 
@@ -35,12 +35,12 @@ enum class DeviceOrientationOrMotionPermissionState : uint8_t { Granted, Denied,
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::DeviceOrientationOrMotionPermissionState> {
+template<> struct EnumTraits<PurcFetcher::DeviceOrientationOrMotionPermissionState> {
     using values = EnumValues<
-        WebCore::DeviceOrientationOrMotionPermissionState,
-        WebCore::DeviceOrientationOrMotionPermissionState::Granted,
-        WebCore::DeviceOrientationOrMotionPermissionState::Denied,
-        WebCore::DeviceOrientationOrMotionPermissionState::Prompt
+        PurcFetcher::DeviceOrientationOrMotionPermissionState,
+        PurcFetcher::DeviceOrientationOrMotionPermissionState::Granted,
+        PurcFetcher::DeviceOrientationOrMotionPermissionState::Denied,
+        PurcFetcher::DeviceOrientationOrMotionPermissionState::Prompt
     >;
 };
 

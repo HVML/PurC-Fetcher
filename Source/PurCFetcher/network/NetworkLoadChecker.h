@@ -38,7 +38,7 @@
 #include <wtf/Variant.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class ContentSecurityPolicy;
 struct ContentSecurityPolicyClient;
 class SecurityOrigin;
@@ -58,26 +58,26 @@ class NetworkLoadChecker : public CanMakeWeakPtr<NetworkLoadChecker> {
 public:
     enum class LoadType : bool { MainFrame, Other };
 
-    NetworkLoadChecker(NetworkProcess&, NetworkResourceLoader*, NetworkSchemeRegistry*, WebCore::FetchOptions&&, PAL::SessionID, WebPageProxyIdentifier, WebCore::HTTPHeaderMap&&, URL&&, RefPtr<WebCore::SecurityOrigin>&&, RefPtr<WebCore::SecurityOrigin>&& topOrigin, WebCore::PreflightPolicy, String&& referrer, bool isHTTPSUpgradeEnabled = false, bool shouldCaptureExtraNetworkLoadMetrics = false, LoadType requestLoadType = LoadType::Other);
+    NetworkLoadChecker(NetworkProcess&, NetworkResourceLoader*, NetworkSchemeRegistry*, PurcFetcher::FetchOptions&&, PAL::SessionID, WebPageProxyIdentifier, PurcFetcher::HTTPHeaderMap&&, URL&&, RefPtr<PurcFetcher::SecurityOrigin>&&, RefPtr<PurcFetcher::SecurityOrigin>&& topOrigin, PurcFetcher::PreflightPolicy, String&& referrer, bool isHTTPSUpgradeEnabled = false, bool shouldCaptureExtraNetworkLoadMetrics = false, LoadType requestLoadType = LoadType::Other);
     ~NetworkLoadChecker();
 
     struct RedirectionTriplet {
-        WebCore::ResourceRequest request;
-        WebCore::ResourceRequest redirectRequest;
-        WebCore::ResourceResponse redirectResponse;
+        PurcFetcher::ResourceRequest request;
+        PurcFetcher::ResourceRequest redirectRequest;
+        PurcFetcher::ResourceResponse redirectResponse;
     };
 
-    using RequestOrRedirectionTripletOrError = Variant<WebCore::ResourceRequest, RedirectionTriplet, WebCore::ResourceError>;
+    using RequestOrRedirectionTripletOrError = Variant<PurcFetcher::ResourceRequest, RedirectionTriplet, PurcFetcher::ResourceError>;
     using ValidationHandler = CompletionHandler<void(RequestOrRedirectionTripletOrError&&)>;
-    void check(WebCore::ResourceRequest&&, WebCore::ContentSecurityPolicyClient*, ValidationHandler&&);
+    void check(PurcFetcher::ResourceRequest&&, PurcFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
 
-    using RedirectionRequestOrError = Expected<RedirectionTriplet, WebCore::ResourceError>;
+    using RedirectionRequestOrError = Expected<RedirectionTriplet, PurcFetcher::ResourceError>;
     using RedirectionValidationHandler = CompletionHandler<void(RedirectionRequestOrError&&)>;
-    void checkRedirection(WebCore::ResourceRequest&& request, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse, WebCore::ContentSecurityPolicyClient*, RedirectionValidationHandler&&);
+    void checkRedirection(PurcFetcher::ResourceRequest&& request, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ContentSecurityPolicyClient*, RedirectionValidationHandler&&);
 
-    WebCore::ResourceError validateResponse(const WebCore::ResourceRequest&, WebCore::ResourceResponse&);
+    PurcFetcher::ResourceError validateResponse(const PurcFetcher::ResourceRequest&, PurcFetcher::ResourceResponse&);
 
-    void setCSPResponseHeaders(WebCore::ContentSecurityPolicyResponseHeaders&& headers) { m_cspResponseHeaders = WTFMove(headers); }
+    void setCSPResponseHeaders(PurcFetcher::ContentSecurityPolicyResponseHeaders&& headers) { m_cspResponseHeaders = WTFMove(headers); }
 #if ENABLE(CONTENT_EXTENSIONS)
     void setContentExtensionController(URL&& mainDocumentURL, Optional<UserContentControllerIdentifier> identifier)
     {
@@ -89,55 +89,55 @@ public:
     NetworkProcess& networkProcess() { return m_networkProcess; }
 
     const URL& url() const { return m_url; }
-    WebCore::StoredCredentialsPolicy storedCredentialsPolicy() const { return m_storedCredentialsPolicy; }
+    PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy() const { return m_storedCredentialsPolicy; }
 
-    WebCore::NetworkLoadInformation takeNetworkLoadInformation() { return WTFMove(m_loadInformation); }
-    void storeRedirectionIfNeeded(const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+    PurcFetcher::NetworkLoadInformation takeNetworkLoadInformation() { return WTFMove(m_loadInformation); }
+    void storeRedirectionIfNeeded(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
 
     void enableContentExtensionsCheck() { m_checkContentExtensions = true; }
 
 private:
-    WebCore::ContentSecurityPolicy* contentSecurityPolicy();
+    PurcFetcher::ContentSecurityPolicy* contentSecurityPolicy();
     bool isChecking() const { return !!m_corsPreflightChecker; }
     bool isRedirected() const { return m_redirectCount; }
 
-    void checkRequest(WebCore::ResourceRequest&&, WebCore::ContentSecurityPolicyClient*, ValidationHandler&&);
+    void checkRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
 
-    bool isAllowedByContentSecurityPolicy(const WebCore::ResourceRequest&, WebCore::ContentSecurityPolicyClient*);
+    bool isAllowedByContentSecurityPolicy(const PurcFetcher::ResourceRequest&, PurcFetcher::ContentSecurityPolicyClient*);
 
-    void continueCheckingRequest(WebCore::ResourceRequest&&, ValidationHandler&&);
-    void continueCheckingRequestOrDoSyntheticRedirect(WebCore::ResourceRequest&& originalRequest, WebCore::ResourceRequest&& currentRequest, ValidationHandler&&);
+    void continueCheckingRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
+    void continueCheckingRequestOrDoSyntheticRedirect(PurcFetcher::ResourceRequest&& originalRequest, PurcFetcher::ResourceRequest&& currentRequest, ValidationHandler&&);
 
     bool doesNotNeedCORSCheck(const URL&) const;
-    void checkCORSRequest(WebCore::ResourceRequest&&, ValidationHandler&&);
-    void checkCORSRedirectedRequest(WebCore::ResourceRequest&&, ValidationHandler&&);
-    void checkCORSRequestWithPreflight(WebCore::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRedirectedRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRequestWithPreflight(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
 
     RequestOrRedirectionTripletOrError accessControlErrorForValidationHandler(String&&);
 
 #if ENABLE(CONTENT_EXTENSIONS)
     struct ContentExtensionResult {
-        WebCore::ResourceRequest request;
-        const WebCore::ContentRuleListResults& results;
+        PurcFetcher::ResourceRequest request;
+        const PurcFetcher::ContentRuleListResults& results;
     };
-    using ContentExtensionResultOrError = Expected<ContentExtensionResult, WebCore::ResourceError>;
+    using ContentExtensionResultOrError = Expected<ContentExtensionResult, PurcFetcher::ResourceError>;
     using ContentExtensionCallback = CompletionHandler<void(ContentExtensionResultOrError&&)>;
-    void processContentRuleListsForLoad(WebCore::ResourceRequest&&, ContentExtensionCallback&&);
+    void processContentRuleListsForLoad(PurcFetcher::ResourceRequest&&, ContentExtensionCallback&&);
 #endif
 
-    void applyHTTPSUpgradeIfNeeded(WebCore::ResourceRequest&&, CompletionHandler<void(WebCore::ResourceRequest&&)>&&) const;
+    void applyHTTPSUpgradeIfNeeded(PurcFetcher::ResourceRequest&&, CompletionHandler<void(PurcFetcher::ResourceRequest&&)>&&) const;
 
-    WebCore::FetchOptions m_options;
-    WebCore::StoredCredentialsPolicy m_storedCredentialsPolicy;
+    PurcFetcher::FetchOptions m_options;
+    PurcFetcher::StoredCredentialsPolicy m_storedCredentialsPolicy;
     PAL::SessionID m_sessionID;
     Ref<NetworkProcess> m_networkProcess;
     WebPageProxyIdentifier m_webPageProxyID;
-    WebCore::HTTPHeaderMap m_originalRequestHeaders; // Needed for CORS checks.
-    WebCore::HTTPHeaderMap m_firstRequestHeaders; // Needed for CORS checks.
+    PurcFetcher::HTTPHeaderMap m_originalRequestHeaders; // Needed for CORS checks.
+    PurcFetcher::HTTPHeaderMap m_firstRequestHeaders; // Needed for CORS checks.
     URL m_url;
-    RefPtr<WebCore::SecurityOrigin> m_origin;
-    RefPtr<WebCore::SecurityOrigin> m_topOrigin;
-    Optional<WebCore::ContentSecurityPolicyResponseHeaders> m_cspResponseHeaders;
+    RefPtr<PurcFetcher::SecurityOrigin> m_origin;
+    RefPtr<PurcFetcher::SecurityOrigin> m_topOrigin;
+    Optional<PurcFetcher::ContentSecurityPolicyResponseHeaders> m_cspResponseHeaders;
 #if ENABLE(CONTENT_EXTENSIONS)
     URL m_mainDocumentURL;
     Optional<UserContentControllerIdentifier> m_userContentControllerIdentifier;
@@ -146,10 +146,10 @@ private:
     std::unique_ptr<NetworkCORSPreflightChecker> m_corsPreflightChecker;
     bool m_isSameOriginRequest { true };
     bool m_isSimpleRequest { true };
-    std::unique_ptr<WebCore::ContentSecurityPolicy> m_contentSecurityPolicy;
+    std::unique_ptr<PurcFetcher::ContentSecurityPolicy> m_contentSecurityPolicy;
     size_t m_redirectCount { 0 };
     URL m_previousURL;
-    WebCore::PreflightPolicy m_preflightPolicy;
+    PurcFetcher::PreflightPolicy m_preflightPolicy;
     String m_referrer;
     bool m_checkContentExtensions { false };
     bool m_shouldCaptureExtraNetworkLoadMetrics { false };
@@ -158,7 +158,7 @@ private:
     bool m_isHTTPSUpgradeEnabled { false };
 #endif
 
-    WebCore::NetworkLoadInformation m_loadInformation;
+    PurcFetcher::NetworkLoadInformation m_loadInformation;
 
     LoadType m_requestLoadType;
     RefPtr<NetworkSchemeRegistry> m_schemeRegistry;

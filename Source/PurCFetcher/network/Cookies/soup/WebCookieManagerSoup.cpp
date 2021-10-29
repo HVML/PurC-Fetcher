@@ -35,7 +35,7 @@
 #include <libsoup/soup.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 void WebCookieManager::platformSetHTTPCookieAcceptPolicy(HTTPCookieAcceptPolicy policy)
 {

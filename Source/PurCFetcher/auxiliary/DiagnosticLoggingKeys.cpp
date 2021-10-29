@@ -26,7 +26,7 @@
 #include "config.h"
 #include "DiagnosticLoggingKeys.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 String DiagnosticLoggingKeys::mediaLoadedKey()
 {
@@ -790,12 +790,12 @@ String DiagnosticLoggingKeys::prunedDueToProcessSuspended()
     return "pruned.processSuspended"_s;
 }
 
-String WebCore::DiagnosticLoggingKeys::notHTTPFamilyKey()
+String PurcFetcher::DiagnosticLoggingKeys::notHTTPFamilyKey()
 {
     return "notHTTPFamily"_s;
 }
 
-String WebCore::DiagnosticLoggingKeys::webGLStateKey()
+String PurcFetcher::DiagnosticLoggingKeys::webGLStateKey()
 {
     return "webGLState"_s;
 }
@@ -864,5 +864,5 @@ String DiagnosticLoggingKeys::resourceLoadStatisticsTelemetryKey()
     return "resourceLoadStatisticsTelemetry"_s;
 }
     
-} // namespace WebCore
+} // namespace PurcFetcher
 

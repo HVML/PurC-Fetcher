@@ -33,13 +33,13 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ProtectionSpace;
 
 class CredentialStorage {
 public:
-    // WebCore session credential storage.
+    // PurcFetcher session credential storage.
     PURCFETCHER_EXPORT void set(const String&, const Credential&, const ProtectionSpace&, const URL&);
     PURCFETCHER_EXPORT Credential get(const String&, const ProtectionSpace&);
     PURCFETCHER_EXPORT void remove(const String&, const ProtectionSpace&);
@@ -70,4 +70,4 @@ private:
     PathToDefaultProtectionSpaceMap::iterator findDefaultProtectionSpaceForURL(const URL&);
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -20,7 +20,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum ExceptionCode {
     // DOMException error names (https://heycam.github.io/webidl/#idl-DOMException-error-names).
@@ -69,49 +69,49 @@ enum ExceptionCode {
     ExistingExceptionError,
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ExceptionCode> {
+template<> struct EnumTraits<PurcFetcher::ExceptionCode> {
     using values = EnumValues<
-    WebCore::ExceptionCode,
-    WebCore::ExceptionCode::IndexSizeError,
-    WebCore::ExceptionCode::HierarchyRequestError,
-    WebCore::ExceptionCode::WrongDocumentError,
-    WebCore::ExceptionCode::InvalidCharacterError,
-    WebCore::ExceptionCode::NoModificationAllowedError,
-    WebCore::ExceptionCode::NotFoundError,
-    WebCore::ExceptionCode::NotSupportedError,
-    WebCore::ExceptionCode::InUseAttributeError,
-    WebCore::ExceptionCode::InvalidStateError,
-    WebCore::ExceptionCode::SyntaxError,
-    WebCore::ExceptionCode::InvalidModificationError,
-    WebCore::ExceptionCode::NamespaceError,
-    WebCore::ExceptionCode::InvalidAccessError,
-    WebCore::ExceptionCode::TypeMismatchError,
-    WebCore::ExceptionCode::SecurityError,
-    WebCore::ExceptionCode::NetworkError,
-    WebCore::ExceptionCode::AbortError,
-    WebCore::ExceptionCode::URLMismatchError,
-    WebCore::ExceptionCode::QuotaExceededError,
-    WebCore::ExceptionCode::TimeoutError,
-    WebCore::ExceptionCode::InvalidNodeTypeError,
-    WebCore::ExceptionCode::DataCloneError,
-    WebCore::ExceptionCode::EncodingError,
-    WebCore::ExceptionCode::NotReadableError,
-    WebCore::ExceptionCode::UnknownError,
-    WebCore::ExceptionCode::ConstraintError,
-    WebCore::ExceptionCode::DataError,
-    WebCore::ExceptionCode::TransactionInactiveError,
-    WebCore::ExceptionCode::ReadonlyError,
-    WebCore::ExceptionCode::VersionError,
-    WebCore::ExceptionCode::OperationError,
-    WebCore::ExceptionCode::NotAllowedError,
-    WebCore::ExceptionCode::RangeError,
-    WebCore::ExceptionCode::TypeError,
-    WebCore::ExceptionCode::StackOverflowError,
-    WebCore::ExceptionCode::ExistingExceptionError
+    PurcFetcher::ExceptionCode,
+    PurcFetcher::ExceptionCode::IndexSizeError,
+    PurcFetcher::ExceptionCode::HierarchyRequestError,
+    PurcFetcher::ExceptionCode::WrongDocumentError,
+    PurcFetcher::ExceptionCode::InvalidCharacterError,
+    PurcFetcher::ExceptionCode::NoModificationAllowedError,
+    PurcFetcher::ExceptionCode::NotFoundError,
+    PurcFetcher::ExceptionCode::NotSupportedError,
+    PurcFetcher::ExceptionCode::InUseAttributeError,
+    PurcFetcher::ExceptionCode::InvalidStateError,
+    PurcFetcher::ExceptionCode::SyntaxError,
+    PurcFetcher::ExceptionCode::InvalidModificationError,
+    PurcFetcher::ExceptionCode::NamespaceError,
+    PurcFetcher::ExceptionCode::InvalidAccessError,
+    PurcFetcher::ExceptionCode::TypeMismatchError,
+    PurcFetcher::ExceptionCode::SecurityError,
+    PurcFetcher::ExceptionCode::NetworkError,
+    PurcFetcher::ExceptionCode::AbortError,
+    PurcFetcher::ExceptionCode::URLMismatchError,
+    PurcFetcher::ExceptionCode::QuotaExceededError,
+    PurcFetcher::ExceptionCode::TimeoutError,
+    PurcFetcher::ExceptionCode::InvalidNodeTypeError,
+    PurcFetcher::ExceptionCode::DataCloneError,
+    PurcFetcher::ExceptionCode::EncodingError,
+    PurcFetcher::ExceptionCode::NotReadableError,
+    PurcFetcher::ExceptionCode::UnknownError,
+    PurcFetcher::ExceptionCode::ConstraintError,
+    PurcFetcher::ExceptionCode::DataError,
+    PurcFetcher::ExceptionCode::TransactionInactiveError,
+    PurcFetcher::ExceptionCode::ReadonlyError,
+    PurcFetcher::ExceptionCode::VersionError,
+    PurcFetcher::ExceptionCode::OperationError,
+    PurcFetcher::ExceptionCode::NotAllowedError,
+    PurcFetcher::ExceptionCode::RangeError,
+    PurcFetcher::ExceptionCode::TypeError,
+    PurcFetcher::ExceptionCode::StackOverflowError,
+    PurcFetcher::ExceptionCode::ExistingExceptionError
     >;
 };
 

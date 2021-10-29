@@ -40,7 +40,7 @@
 #include <wtf/WeakHashSet.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class LowPowerModeNotifier;
 class ResourceRequest;
 class SharedBuffer;
@@ -51,8 +51,8 @@ namespace NetworkCache {
 
 struct GlobalFrameID {
     WebPageProxyIdentifier webPageProxyID;
-    WebCore::PageIdentifier webPageID;
-    WebCore::FrameIdentifier frameID;
+    PurcFetcher::PageIdentifier webPageID;
+    PurcFetcher::FrameIdentifier frameID;
 
     unsigned hash() const;
 };
@@ -87,7 +87,7 @@ struct GlobalFrameIDHash {
 template<> struct HashTraits<WebKit::NetworkCache::GlobalFrameID> : GenericHashTraits<WebKit::NetworkCache::GlobalFrameID> {
     static WebKit::NetworkCache::GlobalFrameID emptyValue() { return { }; }
 
-    static void constructDeletedValue(WebKit::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<WebCore::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
+    static void constructDeletedValue(WebKit::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<PurcFetcher::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
 
     static bool isDeletedValue(const WebKit::NetworkCache::GlobalFrameID& slot) { return slot.webPageID.toUInt64() == std::numeric_limits<uint64_t>::max(); }
 };
@@ -171,10 +171,10 @@ public:
         WTF_MAKE_FAST_ALLOCATED;
     };
     using RetrieveCompletionHandler = Function<void(std::unique_ptr<Entry>, const RetrieveInfo&)>;
-    void retrieve(const WebCore::ResourceRequest&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>, RetrieveCompletionHandler&&);
-    std::unique_ptr<Entry> store(const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, RefPtr<WebCore::SharedBuffer>&&, Function<void(MappedBody&)>&& = nullptr);
-    std::unique_ptr<Entry> storeRedirect(const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, const WebCore::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap);
-    std::unique_ptr<Entry> update(const WebCore::ResourceRequest&, const Entry&, const WebCore::ResourceResponse& validatingResponse);
+    void retrieve(const PurcFetcher::ResourceRequest&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>, RetrieveCompletionHandler&&);
+    std::unique_ptr<Entry> store(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&, Function<void(MappedBody&)>&& = nullptr);
+    std::unique_ptr<Entry> storeRedirect(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap);
+    std::unique_ptr<Entry> update(const PurcFetcher::ResourceRequest&, const Entry&, const PurcFetcher::ResourceResponse& validatingResponse);
 
     struct TraversalEntry {
         const Entry& entry;
@@ -182,7 +182,7 @@ public:
     };
     void traverse(Function<void(const TraversalEntry*)>&&);
     void remove(const Key&);
-    void remove(const WebCore::ResourceRequest&);
+    void remove(const PurcFetcher::ResourceRequest&);
     void remove(const Vector<Key>&, Function<void()>&&);
 
     void clear();
@@ -191,8 +191,8 @@ public:
     void retrieveData(const DataKey&, Function<void(const uint8_t*, size_t)>);
     void storeData(const DataKey&,  const uint8_t* data, size_t);
     
-    std::unique_ptr<Entry> makeEntry(const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, RefPtr<WebCore::SharedBuffer>&&);
-    std::unique_ptr<Entry> makeRedirectEntry(const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, const WebCore::ResourceRequest& redirectRequest);
+    std::unique_ptr<Entry> makeEntry(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&);
+    std::unique_ptr<Entry> makeRedirectEntry(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest);
 
     void dumpContentsToFile();
 
@@ -203,10 +203,10 @@ public:
 #endif
 
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
-    void startAsyncRevalidationIfNeeded(const WebCore::ResourceRequest&, const NetworkCache::Key&, std::unique_ptr<Entry>&&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
+    void startAsyncRevalidationIfNeeded(const PurcFetcher::ResourceRequest&, const NetworkCache::Key&, std::unique_ptr<Entry>&&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
 #endif
 
-    void browsingContextRemoved(WebPageProxyIdentifier, WebCore::PageIdentifier, WebCore::FrameIdentifier);
+    void browsingContextRemoved(WebPageProxyIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::FrameIdentifier);
 
     NetworkProcess& networkProcess() { return m_networkProcess.get(); }
     const PAL::SessionID& sessionID() const { return m_sessionID; }
@@ -217,20 +217,20 @@ public:
 private:
     Cache(NetworkProcess&, const String& storageDirectory, Ref<Storage>&&, OptionSet<CacheOption>, PAL::SessionID);
 
-    Key makeCacheKey(const WebCore::ResourceRequest&);
+    Key makeCacheKey(const PurcFetcher::ResourceRequest&);
 
     static void completeRetrieve(RetrieveCompletionHandler&&, std::unique_ptr<Entry>, RetrieveInfo&);
 
     String dumpFilePath() const;
     void deleteDumpFile();
 
-    Optional<Seconds> maxAgeCap(Entry&, const WebCore::ResourceRequest&, PAL::SessionID);
+    Optional<Seconds> maxAgeCap(Entry&, const PurcFetcher::ResourceRequest&, PAL::SessionID);
 
     Ref<Storage> m_storage;
     Ref<NetworkProcess> m_networkProcess;
 
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    std::unique_ptr<WebCore::LowPowerModeNotifier> m_lowPowerModeNotifier;
+    std::unique_ptr<PurcFetcher::LowPowerModeNotifier> m_lowPowerModeNotifier;
     std::unique_ptr<SpeculativeLoadManager> m_speculativeLoadManager;
 #endif
 

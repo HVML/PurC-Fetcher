@@ -35,7 +35,7 @@
 
 #include "ProtectionSpaceBase.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ProtectionSpace : public ProtectionSpaceBase {
 public:
@@ -48,11 +48,11 @@ public:
     ProtectionSpace(WTF::HashTableDeletedValueType deletedValue) : ProtectionSpaceBase(deletedValue) { }
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
-template<> struct DefaultHash<WebCore::ProtectionSpace>;
-template<> struct HashTraits<WebCore::ProtectionSpace>;
+template<> struct DefaultHash<PurcFetcher::ProtectionSpace>;
+template<> struct HashTraits<PurcFetcher::ProtectionSpace>;
 }
 
 #endif

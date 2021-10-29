@@ -28,7 +28,7 @@
 #include <wtf/EnumTraits.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ProtectionSpace;
 
@@ -96,37 +96,37 @@ private:
 inline bool operator==(const ProtectionSpace& a, const ProtectionSpace& b) { return ProtectionSpaceBase::compare(a, b); }
 inline bool operator!=(const ProtectionSpace& a, const ProtectionSpace& b) { return !(a == b); }
     
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ProtectionSpaceAuthenticationScheme> {
+template<> struct EnumTraits<PurcFetcher::ProtectionSpaceAuthenticationScheme> {
     using values = EnumValues<
-        WebCore::ProtectionSpaceAuthenticationScheme,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeDefault,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTTPBasic,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTTPDigest,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTMLForm,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeNTLM,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeNegotiate,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeClientCertificateRequested,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeServerTrustEvaluationRequested,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeOAuth,
-        WebCore::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeUnknown
+        PurcFetcher::ProtectionSpaceAuthenticationScheme,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeDefault,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTTPBasic,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTTPDigest,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeHTMLForm,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeNTLM,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeNegotiate,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeClientCertificateRequested,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeServerTrustEvaluationRequested,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeOAuth,
+        PurcFetcher::ProtectionSpaceAuthenticationScheme::ProtectionSpaceAuthenticationSchemeUnknown
     >;
 };
 
-template<> struct EnumTraits<WebCore::ProtectionSpaceServerType> {
+template<> struct EnumTraits<PurcFetcher::ProtectionSpaceServerType> {
     using values = EnumValues<
-        WebCore::ProtectionSpaceServerType,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceServerHTTP,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceServerHTTPS,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceServerFTP,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceServerFTPS,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceProxyHTTP,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceProxyHTTPS,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceProxyFTP,
-        WebCore::ProtectionSpaceServerType::ProtectionSpaceProxySOCKS
+        PurcFetcher::ProtectionSpaceServerType,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceServerHTTP,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceServerHTTPS,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceServerFTP,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceServerFTPS,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceProxyHTTP,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceProxyHTTPS,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceProxyFTP,
+        PurcFetcher::ProtectionSpaceServerType::ProtectionSpaceProxySOCKS
     >;
 };
 

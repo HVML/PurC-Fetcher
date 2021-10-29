@@ -31,7 +31,7 @@
 #include "ProcessIdentifier.h"
 #include <wtf/HashMap.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class MessagePortChannelRegistry {
 public:
@@ -60,4 +60,4 @@ private:
     CheckProcessLocalPortForActivityCallback m_checkProcessLocalPortForActivityCallback;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

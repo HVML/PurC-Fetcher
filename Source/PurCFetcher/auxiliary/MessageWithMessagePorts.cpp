@@ -26,6 +26,6 @@
 #include "config.h"
 #include "MessageWithMessagePorts.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
-} // namespace WebCore
+} // namespace PurcFetcher

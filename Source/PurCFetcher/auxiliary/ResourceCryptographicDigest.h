@@ -31,7 +31,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class CachedResource;
 
@@ -80,13 +80,13 @@ ResourceCryptographicDigest cryptographicDigestForBytes(ResourceCryptographicDig
 
 namespace WTF {
 
-template<> struct DefaultHash<WebCore::ResourceCryptographicDigest> {
+template<> struct DefaultHash<PurcFetcher::ResourceCryptographicDigest> {
     struct Hash {
-        static unsigned hash(const WebCore::ResourceCryptographicDigest& digest)
+        static unsigned hash(const PurcFetcher::ResourceCryptographicDigest& digest)
         {
             return pairIntHash(intHash(static_cast<unsigned>(digest.algorithm)), StringHasher::computeHash(digest.value.data(), digest.value.size()));
         }
-        static bool equal(const WebCore::ResourceCryptographicDigest& a, const WebCore::ResourceCryptographicDigest& b)
+        static bool equal(const PurcFetcher::ResourceCryptographicDigest& a, const PurcFetcher::ResourceCryptographicDigest& b)
         {
             return a == b;
         }
@@ -94,25 +94,25 @@ template<> struct DefaultHash<WebCore::ResourceCryptographicDigest> {
     };
 };
 
-template<> struct HashTraits<WebCore::ResourceCryptographicDigest> : GenericHashTraits<WebCore::ResourceCryptographicDigest> {
-    using Algorithm = WebCore::ResourceCryptographicDigest::Algorithm;
+template<> struct HashTraits<PurcFetcher::ResourceCryptographicDigest> : GenericHashTraits<PurcFetcher::ResourceCryptographicDigest> {
+    using Algorithm = PurcFetcher::ResourceCryptographicDigest::Algorithm;
     using AlgorithmUnderlyingType = typename std::underlying_type<Algorithm>::type;
     static constexpr auto emptyAlgorithmValue = static_cast<Algorithm>(std::numeric_limits<AlgorithmUnderlyingType>::max());
     static constexpr auto deletedAlgorithmValue = static_cast<Algorithm>(std::numeric_limits<AlgorithmUnderlyingType>::max() - 1);
 
     static const bool emptyValueIsZero = false;
 
-    static WebCore::ResourceCryptographicDigest emptyValue()
+    static PurcFetcher::ResourceCryptographicDigest emptyValue()
     {
         return { emptyAlgorithmValue, { } };
     }
 
-    static void constructDeletedValue(WebCore::ResourceCryptographicDigest& slot)
+    static void constructDeletedValue(PurcFetcher::ResourceCryptographicDigest& slot)
     {
         slot.algorithm = deletedAlgorithmValue;
     }
 
-    static bool isDeletedValue(const WebCore::ResourceCryptographicDigest& slot)
+    static bool isDeletedValue(const PurcFetcher::ResourceCryptographicDigest& slot)
     {
         return slot.algorithm == deletedAlgorithmValue;
     }

@@ -44,7 +44,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class SharedBuffer;
 }
 
@@ -105,7 +105,7 @@ public:
 
     static RefPtr<SharedMemory> allocate(size_t);
     static RefPtr<SharedMemory> create(void*, size_t, Protection);
-    static RefPtr<SharedMemory> copyBuffer(const WebCore::SharedBuffer&);
+    static RefPtr<SharedMemory> copyBuffer(const PurcFetcher::SharedBuffer&);
     static RefPtr<SharedMemory> map(const Handle&, Protection);
 #if USE(UNIX_DOMAIN_SOCKETS)
     static RefPtr<SharedMemory> wrapMap(void*, size_t, int fileDescriptor);

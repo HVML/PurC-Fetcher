@@ -42,7 +42,7 @@
 #include "Timer.h"
 #include <wtf/WeakPtr.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class FormData;
 class NetworkStorageSession;
 class ResourceRequest;
@@ -68,8 +68,8 @@ class NetworkResourceLoader final
     : public RefCounted<NetworkResourceLoader>
     , public NetworkLoadClient
     , public IPC::MessageSender
-    , public WebCore::ContentSecurityPolicyClient
-    , public WebCore::CrossOriginAccessControlCheckDisabler
+    , public PurcFetcher::ContentSecurityPolicyClient
+    , public PurcFetcher::CrossOriginAccessControlCheckDisabler
     , public CanMakeWeakPtr<NetworkResourceLoader> {
 public:
     static Ref<NetworkResourceLoader> create(NetworkResourceLoadParameters&& parameters, NetworkConnectionToWebProcess& connection, Messages::NetworkConnectionToWebProcess::PerformSynchronousLoadDelayedReply&& reply = nullptr)
@@ -78,7 +78,7 @@ public:
     }
     virtual ~NetworkResourceLoader();
 
-    const WebCore::ResourceRequest& originalRequest() const { return m_parameters.request; }
+    const PurcFetcher::ResourceRequest& originalRequest() const { return m_parameters.request; }
 
     NetworkLoad* networkLoad() const { return m_networkLoad.get(); }
 
@@ -88,15 +88,15 @@ public:
     // Message handlers.
     void didReceiveNetworkResourceLoaderMessage(IPC::Connection&, IPC::Decoder&);
 
-    void continueWillSendRequest(WebCore::ResourceRequest&& newRequest, bool isAllowedToAskUserForCredentials);
+    void continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest, bool isAllowedToAskUserForCredentials);
 
-    const WebCore::ResourceResponse& response() const { return m_response; }
+    const PurcFetcher::ResourceResponse& response() const { return m_response; }
 
     NetworkConnectionToWebProcess& connectionToWebProcess() const { return m_connection; }
     PAL::SessionID sessionID() const { return m_connection->sessionID(); }
     ResourceLoadIdentifier identifier() const { return m_parameters.identifier; }
-    WebCore::FrameIdentifier frameID() const { return m_parameters.webFrameID; }
-    WebCore::PageIdentifier pageID() const { return m_parameters.webPageID; }
+    PurcFetcher::FrameIdentifier frameID() const { return m_parameters.webFrameID; }
+    PurcFetcher::PageIdentifier pageID() const { return m_parameters.webPageID; }
     const NetworkResourceLoadParameters& parameters() const { return m_parameters; }
 
     NetworkCache::GlobalFrameID globalFrameID() { return { m_parameters.webPageProxyID, pageID(), frameID() }; }
@@ -107,21 +107,21 @@ public:
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) final;
     bool isSynchronous() const final;
     bool isAllowedToAskUserForCredentials() const final { return m_isAllowedToAskUserForCredentials; }
-    void willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&&) final;
-    void didReceiveResponse(WebCore::ResourceResponse&&, ResponseCompletionHandler&&) final;
-    void didReceiveBuffer(Ref<WebCore::SharedBuffer>&&, int reportedEncodedDataLength) final;
-    void didFinishLoading(const WebCore::NetworkLoadMetrics&) final;
-    void didFailLoading(const WebCore::ResourceError&) final;
+    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&) final;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
+    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
+    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) final;
+    void didFailLoading(const PurcFetcher::ResourceError&) final;
     void didBlockAuthenticationChallenge() final;
-    void didReceiveChallenge(const WebCore::AuthenticationChallenge&) final;
+    void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&) final;
     bool shouldCaptureExtraNetworkLoadMetrics() const final;
 
     // CrossOriginAccessControlCheckDisabler
     bool crossOriginAccessControlCheckEnabled() const override;
         
-    void convertToDownload(DownloadID, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+    void convertToDownload(DownloadID, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
 
-    bool isMainResource() const { return m_parameters.request.requester() == WebCore::ResourceRequest::Requester::Main; }
+    bool isMainResource() const { return m_parameters.request.requester() == PurcFetcher::ResourceRequest::Requester::Main; }
     bool isMainFrameLoad() const { return isMainResource() && m_parameters.frameAncestorOrigins.isEmpty(); }
     bool isCrossOriginPrefetch() const;
 
@@ -129,7 +129,7 @@ public:
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS) && !RELEASE_LOG_DISABLED
     static bool shouldLogCookieInformation(NetworkConnectionToWebProcess&, const PAL::SessionID&);
-    static void logCookieInformation(NetworkConnectionToWebProcess&, const String& label, const void* loggedObject, const WebCore::NetworkStorageSession&, const URL& firstParty, const WebCore::SameSiteInfo&, const URL&, const String& referrer, Optional<WebCore::FrameIdentifier>, Optional<WebCore::PageIdentifier>, Optional<uint64_t> identifier);
+    static void logCookieInformation(NetworkConnectionToWebProcess&, const String& label, const void* loggedObject, const PurcFetcher::NetworkStorageSession&, const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, const String& referrer, Optional<PurcFetcher::FrameIdentifier>, Optional<PurcFetcher::PageIdentifier>, Optional<uint64_t> identifier);
 #endif
 
     void disableExtraNetworkLoadMetricsCapture() { m_shouldCaptureExtraNetworkLoadMetrics = false; }
@@ -150,25 +150,25 @@ private:
     IPC::Connection* messageSenderConnection() const override;
     uint64_t messageSenderDestinationID() const override { return m_parameters.identifier; }
 
-    bool canUseCache(const WebCore::ResourceRequest&) const;
-    bool canUseCachedRedirect(const WebCore::ResourceRequest&) const;
+    bool canUseCache(const PurcFetcher::ResourceRequest&) const;
+    bool canUseCachedRedirect(const PurcFetcher::ResourceRequest&) const;
 
     void tryStoreAsCacheEntry();
-    void retrieveCacheEntry(const WebCore::ResourceRequest&);
-    void retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&&, WebCore::ResourceRequest&&);
+    void retrieveCacheEntry(const PurcFetcher::ResourceRequest&);
+    void retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&&, PurcFetcher::ResourceRequest&&);
     void didRetrieveCacheEntry(std::unique_ptr<NetworkCache::Entry>);
     void sendResultForCacheEntry(std::unique_ptr<NetworkCache::Entry>);
     void validateCacheEntry(std::unique_ptr<NetworkCache::Entry>);
-    void dispatchWillSendRequestForCacheEntry(WebCore::ResourceRequest&&, std::unique_ptr<NetworkCache::Entry>&&);
+    void dispatchWillSendRequestForCacheEntry(PurcFetcher::ResourceRequest&&, std::unique_ptr<NetworkCache::Entry>&&);
 
     bool shouldInterruptLoadForXFrameOptions(const String&, const URL&);
-    bool shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptions(const WebCore::ResourceResponse&);
+    bool shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptions(const PurcFetcher::ResourceResponse&);
 
     enum class FirstLoad { No, Yes };
-    void startNetworkLoad(WebCore::ResourceRequest&&, FirstLoad);
-    void restartNetworkLoad(WebCore::ResourceRequest&&);
+    void startNetworkLoad(PurcFetcher::ResourceRequest&&, FirstLoad);
+    void restartNetworkLoad(PurcFetcher::ResourceRequest&&);
     void continueDidReceiveResponse();
-    void didReceiveMainResourceResponse(const WebCore::ResourceResponse&);
+    void didReceiveMainResourceResponse(const PurcFetcher::ResourceResponse&);
 
     enum class LoadResult {
         Unknown,
@@ -178,11 +178,11 @@ private:
     };
     void cleanup(LoadResult);
     
-    void platformDidReceiveResponse(const WebCore::ResourceResponse&);
+    void platformDidReceiveResponse(const PurcFetcher::ResourceResponse&);
 
     void startBufferingTimerIfNeeded();
     void bufferingTimerFired();
-    void sendBuffer(WebCore::SharedBuffer&, size_t encodedDataLength);
+    void sendBuffer(PurcFetcher::SharedBuffer&, size_t encodedDataLength);
 
     void consumeSandboxExtensions();
     void invalidateSandboxExtensions();
@@ -191,19 +191,19 @@ private:
     void logCookieInformation() const;
 #endif
 
-    void continueWillSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&&, Optional<WebCore::AdClickAttribution::Conversion>&&);
-    void didFinishWithRedirectResponse(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&&);
-    WebCore::ResourceResponse sanitizeResponseIfPossible(WebCore::ResourceResponse&&, WebCore::ResourceResponse::SanitizationType);
+    void continueWillSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&, Optional<PurcFetcher::AdClickAttribution::Conversion>&&);
+    void didFinishWithRedirectResponse(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&);
+    PurcFetcher::ResourceResponse sanitizeResponseIfPossible(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceResponse::SanitizationType);
 
     // ContentSecurityPolicyClient
-    void sendCSPViolationReport(URL&&, Ref<WebCore::FormData>&&) final;
-//    void enqueueSecurityPolicyViolationEvent(WebCore::SecurityPolicyViolationEvent::Init&&) final;
+    void sendCSPViolationReport(URL&&, Ref<PurcFetcher::FormData>&&) final;
+//    void enqueueSecurityPolicyViolationEvent(PurcFetcher::SecurityPolicyViolationEvent::Init&&) final;
 
     void logSlowCacheRetrieveIfNeeded(const NetworkCache::Cache::RetrieveInfo&);
 
-    void handleAdClickAttributionConversion(WebCore::AdClickAttribution::Conversion&&, const URL&, const WebCore::ResourceRequest&);
+    void handleAdClickAttributionConversion(PurcFetcher::AdClickAttribution::Conversion&&, const URL&, const PurcFetcher::ResourceRequest&);
 
-    Optional<Seconds> validateCacheEntryForMaxAgeCapValidation(const WebCore::ResourceRequest&, const WebCore::ResourceRequest& redirectRequest, const WebCore::ResourceResponse&);
+    Optional<Seconds> validateCacheEntryForMaxAgeCapValidation(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceRequest& redirectRequest, const PurcFetcher::ResourceResponse&);
 
     ResourceLoadInfo resourceLoadInfo();
 
@@ -213,10 +213,10 @@ private:
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
 
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ResourceResponse m_response;
 
     size_t m_bufferedDataEncodedDataLength { 0 };
-    RefPtr<WebCore::SharedBuffer> m_bufferedData;
+    RefPtr<PurcFetcher::SharedBuffer> m_bufferedData;
     unsigned m_redirectCount { 0 };
 
     std::unique_ptr<SynchronousLoadData> m_synchronousLoadData;
@@ -228,9 +228,9 @@ private:
 
     unsigned m_retrievedDerivedDataCount { 0 };
 
-    WebCore::Timer m_bufferingTimer;
+    PurcFetcher::Timer m_bufferingTimer;
     RefPtr<NetworkCache::Cache> m_cache;
-    RefPtr<WebCore::SharedBuffer> m_bufferedDataForCache;
+    RefPtr<PurcFetcher::SharedBuffer> m_bufferedDataForCache;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntryForValidation;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntryForMaxAgeCapValidation;
     bool m_isWaitingContinueWillSendRequestForCachedRedirect { false };
@@ -250,7 +250,7 @@ private:
     std::unique_ptr<ServiceWorkerFetchTask> m_serviceWorkerFetchTask;
 #endif
     NetworkResourceLoadIdentifier m_resourceLoadID;
-    WebCore::ResourceResponse m_redirectResponse;
+    PurcFetcher::ResourceResponse m_redirectResponse;
 };
 
 } // namespace WebKit

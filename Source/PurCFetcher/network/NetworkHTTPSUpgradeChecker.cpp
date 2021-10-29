@@ -69,8 +69,8 @@ NetworkHTTPSUpgradeChecker::NetworkHTTPSUpgradeChecker()
             return;
         }
 
-        m_database = makeUnique<WebCore::SQLiteDatabase>();
-        bool isDatabaseOpen = m_database->open(path, WebCore::SQLiteDatabase::OpenMode::ReadOnly);
+        m_database = makeUnique<PurcFetcher::SQLiteDatabase>();
+        bool isDatabaseOpen = m_database->open(path, PurcFetcher::SQLiteDatabase::OpenMode::ReadOnly);
         if (!isDatabaseOpen) {
 #if PLATFORM(COCOA)
             RELEASE_LOG_ERROR(Network, "%p - NetworkHTTPSUpgradeChecker::open failed, error message: %{public}s, database path: %{public}s", this, m_database->lastErrorMsg(), path.utf8().data());
@@ -82,7 +82,7 @@ NetworkHTTPSUpgradeChecker::NetworkHTTPSUpgradeChecker()
         // Since we are using a workerQueue, the sequential dispatch blocks may be called by different threads.
         m_database->disableThreadingChecks();
 
-        m_statement = makeUnique<WebCore::SQLiteStatement>(*m_database, httpsUpgradeCheckerQuery);
+        m_statement = makeUnique<PurcFetcher::SQLiteStatement>(*m_database, httpsUpgradeCheckerQuery);
         int isStatementPrepared = (m_statement->prepare() == SQLITE_OK);
         ASSERT(isStatementPrepared);
         if (!isStatementPrepared)

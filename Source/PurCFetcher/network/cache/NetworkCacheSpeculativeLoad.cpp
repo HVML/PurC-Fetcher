@@ -40,7 +40,7 @@
 namespace WebKit {
 namespace NetworkCache {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 SpeculativeLoad::SpeculativeLoad(Cache& cache, const GlobalFrameID& globalFrameID, const ResourceRequest& request, std::unique_ptr<NetworkCache::Entry> cacheEntryForValidation, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, RevalidationCompletionHandler&& completionHandler)
     : m_cache(cache)
@@ -125,7 +125,7 @@ void SpeculativeLoad::didReceiveBuffer(Ref<SharedBuffer>&& buffer, int reportedE
     }
 }
 
-void SpeculativeLoad::didFinishLoading(const WebCore::NetworkLoadMetrics&)
+void SpeculativeLoad::didFinishLoading(const PurcFetcher::NetworkLoadMetrics&)
 {
     if (m_didComplete)
         return;

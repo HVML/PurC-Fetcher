@@ -70,7 +70,7 @@ class SchedulePair;
 template<typename T> class MessageQueue;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class AuthenticationChallenge;
 class Credential;

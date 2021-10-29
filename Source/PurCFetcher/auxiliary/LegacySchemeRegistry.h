@@ -30,7 +30,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // FIXME: Make HashSet<String>::contains(StringView) work and use StringViews here.
 using URLSchemesMap = HashSet<String, ASCIICaseInsensitiveHash>;
@@ -100,4 +100,4 @@ public:
     static bool isUserExtensionScheme(const String& scheme);
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

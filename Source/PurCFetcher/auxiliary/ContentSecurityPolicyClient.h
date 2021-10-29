@@ -28,7 +28,7 @@
 //#include "SecurityPolicyViolationEvent.h"
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class FormData;
 
@@ -53,4 +53,4 @@ struct PURCFETCHER_EXPORT ContentSecurityPolicyClient {
 //    virtual void enqueueSecurityPolicyViolationEvent(SecurityPolicyViolationEvent::Init&&) = 0;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -33,7 +33,7 @@
 #include "SocketStreamError.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 Ref<NetworkSocketStream> NetworkSocketStream::create(NetworkProcess& networkProcess, URL&& url, PAL::SessionID sessionID, const String& credentialPartition, WebSocketIdentifier identifier, IPC::Connection& connection, SourceApplicationAuditToken&& auditData)
 {
@@ -89,7 +89,7 @@ void NetworkSocketStream::didReceiveSocketStreamData(SocketStreamHandle& handle,
     send(Messages::WebSocketStream::DidReceiveSocketStreamData(IPC::DataReference(reinterpret_cast<const uint8_t*>(data), length)));
 }
 
-void NetworkSocketStream::didFailToReceiveSocketStreamData(WebCore::SocketStreamHandle& handle)
+void NetworkSocketStream::didFailToReceiveSocketStreamData(PurcFetcher::SocketStreamHandle& handle)
 {
     ASSERT_UNUSED(handle, &handle == m_impl.ptr());
     send(Messages::WebSocketStream::DidFailToReceiveSocketStreamData());

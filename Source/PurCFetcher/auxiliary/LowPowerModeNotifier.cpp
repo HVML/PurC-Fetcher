@@ -26,7 +26,7 @@
 #include "config.h"
 #include "LowPowerModeNotifier.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 #if !PLATFORM(IOS_FAMILY) && !USE(GLIB)
 
@@ -43,4 +43,4 @@ bool LowPowerModeNotifier::isLowPowerModeEnabled() const
 
 #endif
 
-} // namespace WebCore
+} // namespace PurcFetcher

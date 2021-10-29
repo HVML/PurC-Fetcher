@@ -39,7 +39,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class AuthenticationChallenge;
 class ResourceError;
 class ResourceResponse;
@@ -54,17 +54,17 @@ class PendingDownload;
 enum class AuthenticationChallengeDisposition : uint8_t;
 enum class NegotiatedLegacyTLS : bool;
 
-using RedirectCompletionHandler = CompletionHandler<void(WebCore::ResourceRequest&&)>;
-using ChallengeCompletionHandler = CompletionHandler<void(AuthenticationChallengeDisposition, const WebCore::Credential&)>;
-using ResponseCompletionHandler = CompletionHandler<void(WebCore::PolicyAction)>;
+using RedirectCompletionHandler = CompletionHandler<void(PurcFetcher::ResourceRequest&&)>;
+using ChallengeCompletionHandler = CompletionHandler<void(AuthenticationChallengeDisposition, const PurcFetcher::Credential&)>;
+using ResponseCompletionHandler = CompletionHandler<void(PurcFetcher::PolicyAction)>;
 
 class NetworkDataTaskClient {
 public:
-    virtual void willPerformHTTPRedirection(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&, RedirectCompletionHandler&&) = 0;
-    virtual void didReceiveChallenge(WebCore::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) = 0;
-    virtual void didReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) = 0;
-    virtual void didReceiveData(Ref<WebCore::SharedBuffer>&&) = 0;
-    virtual void didCompleteWithError(const WebCore::ResourceError&, const WebCore::NetworkLoadMetrics&) = 0;
+    virtual void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) = 0;
+    virtual void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) = 0;
+    virtual void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) = 0;
+    virtual void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) = 0;
+    virtual void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) = 0;
     virtual void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) = 0;
     virtual void wasBlocked() = 0;
     virtual void cannotShowURL() = 0;
@@ -72,11 +72,11 @@ public:
 
     virtual bool shouldCaptureExtraNetworkLoadMetrics() const { return false; }
 
-    virtual void didNegotiateModernTLS(const WebCore::AuthenticationChallenge&) { }
+    virtual void didNegotiateModernTLS(const PurcFetcher::AuthenticationChallenge&) { }
 
-    void didCompleteWithError(const WebCore::ResourceError& error)
+    void didCompleteWithError(const PurcFetcher::ResourceError& error)
     {
-        WebCore::NetworkLoadMetrics emptyMetrics;
+        PurcFetcher::NetworkLoadMetrics emptyMetrics;
         didCompleteWithError(error, emptyMetrics);
     }
 
@@ -93,7 +93,7 @@ public:
     virtual void resume() = 0;
     virtual void invalidateAndCancel() = 0;
 
-    void didReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
     bool shouldCaptureExtraNetworkLoadMetrics() const;
 
     enum class State {
@@ -125,7 +125,7 @@ public:
     const String& pendingDownloadLocation() const { return m_pendingDownloadLocation; }
     bool isDownload() const { return !!m_pendingDownloadID.downloadID(); }
 
-    const WebCore::ResourceRequest& firstRequest() const { return m_firstRequest; }
+    const PurcFetcher::ResourceRequest& firstRequest() const { return m_firstRequest; }
     virtual String suggestedFilename() const { return String(); }
     void setSuggestedFilename(const String& suggestedName) { m_suggestedFilename = suggestedName; }
     const String& partition() { return m_partition; }
@@ -139,7 +139,7 @@ public:
     NetworkSession* networkSession();
 
 protected:
-    NetworkDataTask(NetworkSession&, NetworkDataTaskClient&, const WebCore::ResourceRequest&, WebCore::StoredCredentialsPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
+    NetworkDataTask(NetworkSession&, NetworkDataTaskClient&, const PurcFetcher::ResourceRequest&, PurcFetcher::StoredCredentialsPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
 
     enum FailureType {
         NoFailure,
@@ -150,11 +150,11 @@ protected:
     void failureTimerFired();
     void scheduleFailure(FailureType);
 
-    bool isThirdPartyRequest(const WebCore::ResourceRequest&) const;
-    void restrictRequestReferrerToOriginIfNeeded(WebCore::ResourceRequest&);
+    bool isThirdPartyRequest(const PurcFetcher::ResourceRequest&) const;
+    void restrictRequestReferrerToOriginIfNeeded(PurcFetcher::ResourceRequest&);
 
     FailureType m_scheduledFailureType { NoFailure };
-    WebCore::Timer m_failureTimer;
+    PurcFetcher::Timer m_failureTimer;
     WeakPtr<NetworkSession> m_session;
     NetworkDataTaskClient* m_client { nullptr };
     PendingDownload* m_pendingDownload { nullptr };
@@ -162,11 +162,11 @@ protected:
     String m_user;
     String m_password;
     String m_partition;
-    WebCore::Credential m_initialCredential;
-    WebCore::StoredCredentialsPolicy m_storedCredentialsPolicy { WebCore::StoredCredentialsPolicy::DoNotUse };
+    PurcFetcher::Credential m_initialCredential;
+    PurcFetcher::StoredCredentialsPolicy m_storedCredentialsPolicy { PurcFetcher::StoredCredentialsPolicy::DoNotUse };
     String m_lastHTTPMethod;
     String m_pendingDownloadLocation;
-    WebCore::ResourceRequest m_firstRequest;
+    PurcFetcher::ResourceRequest m_firstRequest;
     bool m_shouldClearReferrerOnHTTPSToHTTPRedirect { true };
     String m_suggestedFilename;
     bool m_dataTaskIsForMainFrameNavigation { false };

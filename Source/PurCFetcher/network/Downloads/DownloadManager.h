@@ -40,7 +40,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class BlobDataFileReference;
 class ResourceHandle;
 class ResourceRequest;
@@ -81,11 +81,11 @@ public:
 
     explicit DownloadManager(Client&);
 
-    void startDownload(PAL::SessionID, DownloadID, const WebCore::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
+    void startDownload(PAL::SessionID, DownloadID, const PurcFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
     void dataTaskBecameDownloadTask(DownloadID, std::unique_ptr<Download>&&);
-    void continueWillSendRequest(DownloadID, WebCore::ResourceRequest&&);
+    void continueWillSendRequest(DownloadID, PurcFetcher::ResourceRequest&&);
     void willDecidePendingDownloadDestination(NetworkDataTask&, ResponseCompletionHandler&&);
-    void convertNetworkLoadToDownload(DownloadID, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+    void convertNetworkLoadToDownload(DownloadID, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
     void continueDecidePendingDownloadDestination(DownloadID, String destination, SandboxExtension::Handle&&, bool allowOverwrite);
 
     void resumeDownload(PAL::SessionID, DownloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&&);

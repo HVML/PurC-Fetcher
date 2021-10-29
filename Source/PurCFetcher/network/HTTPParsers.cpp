@@ -44,7 +44,7 @@
 #include <wtf/unicode/CharacterNames.h>
 
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // True if characters which satisfy the predicate are present, incrementing
 // "pos" to the next character which does not satisfy the predicate.

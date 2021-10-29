@@ -44,23 +44,23 @@ enum class PreconnectOnly : bool { No, Yes };
 class NetworkLoadParameters {
 public:
     WebPageProxyIdentifier webPageProxyID;
-    WebCore::PageIdentifier webPageID;
-    WebCore::FrameIdentifier webFrameID;
-    RefPtr<WebCore::SecurityOrigin> topOrigin;
+    PurcFetcher::PageIdentifier webPageID;
+    PurcFetcher::FrameIdentifier webFrameID;
+    RefPtr<PurcFetcher::SecurityOrigin> topOrigin;
     WTF::ProcessID parentPID { 0 };
 #if HAVE(AUDIT_TOKEN)
     Optional<audit_token_t> networkProcessAuditToken;
 #endif
-    WebCore::ResourceRequest request;
-    WebCore::ContentSniffingPolicy contentSniffingPolicy { WebCore::ContentSniffingPolicy::SniffContent };
-    WebCore::ContentEncodingSniffingPolicy contentEncodingSniffingPolicy { WebCore::ContentEncodingSniffingPolicy::Sniff };
-    WebCore::StoredCredentialsPolicy storedCredentialsPolicy { WebCore::StoredCredentialsPolicy::DoNotUse };
-    WebCore::ClientCredentialPolicy clientCredentialPolicy { WebCore::ClientCredentialPolicy::CannotAskClientForCredentials };
+    PurcFetcher::ResourceRequest request;
+    PurcFetcher::ContentSniffingPolicy contentSniffingPolicy { PurcFetcher::ContentSniffingPolicy::SniffContent };
+    PurcFetcher::ContentEncodingSniffingPolicy contentEncodingSniffingPolicy { PurcFetcher::ContentEncodingSniffingPolicy::Sniff };
+    PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy { PurcFetcher::StoredCredentialsPolicy::DoNotUse };
+    PurcFetcher::ClientCredentialPolicy clientCredentialPolicy { PurcFetcher::ClientCredentialPolicy::CannotAskClientForCredentials };
     bool shouldClearReferrerOnHTTPSToHTTPRedirect { true };
     bool needsCertificateInfo { false };
     bool isMainFrameNavigation { false };
     bool isMainResourceNavigationForAnyFrame { false };
-    WebCore::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { WebCore::ShouldRelaxThirdPartyCookieBlocking::No };
+    PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { PurcFetcher::ShouldRelaxThirdPartyCookieBlocking::No };
     PreconnectOnly shouldPreconnectOnly { PreconnectOnly::No };
     Optional<NetworkActivityTracker> networkActivityTracker;
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };

@@ -51,7 +51,7 @@
 #include "ColumnDelimiterFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnDelimiterFilter::ColumnDelimiterFilter()
 {

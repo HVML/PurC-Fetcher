@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class StoredCredentialsPolicy : uint8_t {
     DoNotUse,
@@ -34,4 +34,4 @@ enum class StoredCredentialsPolicy : uint8_t {
 };
 static constexpr unsigned bitWidthOfStoredCredentialsPolicy = 2;
 
-} // namespace WebCore
+} // namespace PurcFetcher

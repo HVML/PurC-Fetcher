@@ -34,7 +34,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/StringView.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static const char adClickAttributionPathPrefix[] = "/.well-known/ad-click-attribution/";
 const size_t adClickConversionDataPathSegmentSize = 2;

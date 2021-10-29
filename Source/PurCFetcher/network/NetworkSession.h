@@ -38,7 +38,7 @@
 #include <wtf/WeakPtr.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class NetworkStorageSession;
 class ResourceRequest;
 enum class IncludeHttpOnlyCookies : bool;
@@ -71,13 +71,13 @@ public:
     virtual void clearCredentials() { };
     virtual bool shouldLogCookieInformation() const { return false; }
     virtual Seconds loadThrottleLatency() const { return { }; }
-    virtual Vector<WebCore::SecurityOriginData> hostNamesWithAlternativeServices() const { return { }; }
+    virtual Vector<PurcFetcher::SecurityOriginData> hostNamesWithAlternativeServices() const { return { }; }
     virtual void deleteAlternativeServicesForHostNames(const Vector<String>&) { }
     virtual void clearAlternativeServices(WallTime) { }
 
     PAL::SessionID sessionID() const { return m_sessionID; }
     NetworkProcess& networkProcess() { return m_networkProcess; }
-    WebCore::NetworkStorageSession* networkStorageSession() const;
+    PurcFetcher::NetworkStorageSession* networkStorageSession() const;
 
     void registerNetworkDataTask(NetworkDataTask& task) { m_dataTaskSet.add(&task); }
     void unregisterNetworkDataTask(NetworkDataTask& task) { m_dataTaskSet.remove(&task); }
@@ -88,29 +88,29 @@ public:
     void recreateResourceLoadStatisticStore(CompletionHandler<void()>&&);
     bool isResourceLoadStatisticsEnabled() const;
     void notifyResourceLoadStatisticsProcessed();
-    void deleteAndRestrictWebsiteDataForRegistrableDomains(OptionSet<WebsiteDataType>, RegistrableDomainsToDeleteOrRestrictWebsiteDataFor&&, bool shouldNotifyPage, CompletionHandler<void(const HashSet<WebCore::RegistrableDomain>&)>&&);
-    void registrableDomainsWithWebsiteData(OptionSet<WebsiteDataType>, bool shouldNotifyPage, CompletionHandler<void(HashSet<WebCore::RegistrableDomain>&&)>&&);
-    void logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, WebCore::ShouldSample);
+    void deleteAndRestrictWebsiteDataForRegistrableDomains(OptionSet<WebsiteDataType>, RegistrableDomainsToDeleteOrRestrictWebsiteDataFor&&, bool shouldNotifyPage, CompletionHandler<void(const HashSet<PurcFetcher::RegistrableDomain>&)>&&);
+    void registrableDomainsWithWebsiteData(OptionSet<WebsiteDataType>, bool shouldNotifyPage, CompletionHandler<void(HashSet<PurcFetcher::RegistrableDomain>&&)>&&);
+    void logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, PurcFetcher::ShouldSample);
     void notifyPageStatisticsTelemetryFinished(unsigned numberOfPrevalentResources, unsigned numberOfPrevalentResourcesWithUserInteraction, unsigned numberOfPrevalentResourcesWithoutUserInteraction, unsigned topPrevalentResourceWithUserInteractionDaysSinceUserInteraction, unsigned medianDaysSinceUserInteractionPrevalentResourceWithUserInteraction, unsigned top3NumberOfPrevalentResourcesWithUI, unsigned top3MedianSubFrameWithoutUI, unsigned top3MedianSubResourceWithoutUI, unsigned top3MedianUniqueRedirectsWithoutUI, unsigned top3MedianDataRecordsRemovedWithoutUI);
     bool enableResourceLoadStatisticsLogTestingEvent() const { return m_enableResourceLoadStatisticsLogTestingEvent; }
     void setResourceLoadStatisticsLogTestingEvent(bool log) { m_enableResourceLoadStatisticsLogTestingEvent = log; }
-    virtual bool hasIsolatedSession(const WebCore::RegistrableDomain) const { return false; }
+    virtual bool hasIsolatedSession(const PurcFetcher::RegistrableDomain) const { return false; }
     virtual void clearIsolatedSessions() { }
     void setShouldDowngradeReferrerForTesting(bool);
     bool shouldDowngradeReferrer() const;
-    void setThirdPartyCookieBlockingMode(WebCore::ThirdPartyCookieBlockingMode);
-    void setShouldEnbleSameSiteStrictEnforcement(WebCore::SameSiteStrictEnforcementEnabled);
+    void setThirdPartyCookieBlockingMode(PurcFetcher::ThirdPartyCookieBlockingMode);
+    void setShouldEnbleSameSiteStrictEnforcement(PurcFetcher::SameSiteStrictEnforcementEnabled);
     void destroyResourceLoadStatistics(CompletionHandler<void()>&&);
     void flushAndDestroyPersistentStore(CompletionHandler<void()>&&);
 #endif
     
     virtual bool hasAppBoundSession() const { return false; }
     virtual void clearAppBoundSession() { }
-    void storeAdClickAttribution(WebCore::AdClickAttribution&&);
-    void handleAdClickAttributionConversion(WebCore::AdClickAttribution::Conversion&&, const URL& requestURL, const WebCore::ResourceRequest& redirectRequest);
+    void storeAdClickAttribution(PurcFetcher::AdClickAttribution&&);
+    void handleAdClickAttributionConversion(PurcFetcher::AdClickAttribution::Conversion&&, const URL& requestURL, const PurcFetcher::ResourceRequest& redirectRequest);
     void dumpAdClickAttribution(CompletionHandler<void(String)>&&);
     void clearAdClickAttribution();
-    void clearAdClickAttributionForRegistrableDomain(WebCore::RegistrableDomain&&);
+    void clearAdClickAttributionForRegistrableDomain(PurcFetcher::RegistrableDomain&&);
     void setAdClickAttributionOverrideTimerForTesting(bool value);
     void setAdClickAttributionConversionURLForTesting(URL&&);
     void markAdClickAttributionsAsExpiredForTesting();
@@ -123,7 +123,7 @@ public:
     PrefetchCache& prefetchCache() { return m_prefetchCache; }
     void clearPrefetchCache() { m_prefetchCache.clear(); }
 
-    virtual std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const WebCore::ResourceRequest&, const String& protocol);
+    virtual std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String& protocol);
     virtual void removeWebSocketTask(WebSocketTask&) { }
     virtual void addWebSocketTask(WebSocketTask&) { }
 
@@ -153,13 +153,13 @@ protected:
     RefPtr<WebResourceLoadStatisticsStore> m_resourceLoadStatistics;
     ShouldIncludeLocalhost m_shouldIncludeLocalhostInResourceLoadStatistics { ShouldIncludeLocalhost::Yes };
     EnableResourceLoadStatisticsDebugMode m_enableResourceLoadStatisticsDebugMode { EnableResourceLoadStatisticsDebugMode::No };
-    WebCore::RegistrableDomain m_resourceLoadStatisticsManualPrevalentResource;
+    PurcFetcher::RegistrableDomain m_resourceLoadStatisticsManualPrevalentResource;
     bool m_enableResourceLoadStatisticsLogTestingEvent;
     bool m_downgradeReferrer { true };
-    WebCore::ThirdPartyCookieBlockingMode m_thirdPartyCookieBlockingMode { WebCore::ThirdPartyCookieBlockingMode::All };
-    WebCore::SameSiteStrictEnforcementEnabled m_sameSiteStrictEnforcementEnabled { WebCore::SameSiteStrictEnforcementEnabled::No };
-    WebCore::FirstPartyWebsiteDataRemovalMode m_firstPartyWebsiteDataRemovalMode { WebCore::FirstPartyWebsiteDataRemovalMode::AllButCookies };
-    WebCore::RegistrableDomain m_standaloneApplicationDomain;
+    PurcFetcher::ThirdPartyCookieBlockingMode m_thirdPartyCookieBlockingMode { PurcFetcher::ThirdPartyCookieBlockingMode::All };
+    PurcFetcher::SameSiteStrictEnforcementEnabled m_sameSiteStrictEnforcementEnabled { PurcFetcher::SameSiteStrictEnforcementEnabled::No };
+    PurcFetcher::FirstPartyWebsiteDataRemovalMode m_firstPartyWebsiteDataRemovalMode { PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies };
+    PurcFetcher::RegistrableDomain m_standaloneApplicationDomain;
 #endif
     bool m_isStaleWhileRevalidateEnabled { false };
 

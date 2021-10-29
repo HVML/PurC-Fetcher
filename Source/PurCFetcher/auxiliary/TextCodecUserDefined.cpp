@@ -31,7 +31,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 void TextCodecUserDefined::registerEncodingNames(EncodingNameRegistrar registrar)
 {
@@ -96,4 +96,4 @@ Vector<uint8_t> TextCodecUserDefined::encode(StringView string, UnencodableHandl
     return encodeComplexUserDefined(string, handling);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

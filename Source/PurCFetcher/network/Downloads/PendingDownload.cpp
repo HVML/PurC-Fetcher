@@ -34,7 +34,7 @@
 #include "WebCoreArgumentCoders.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 PendingDownload::PendingDownload(IPC::Connection* parentProcessConnection, NetworkLoadParameters&& parameters, DownloadID downloadID, NetworkSession& networkSession, const String& suggestedName)
     : m_networkLoad(makeUnique<NetworkLoad>(*this, WTFMove(parameters), networkSession))
@@ -61,12 +61,12 @@ PendingDownload::PendingDownload(IPC::Connection* parentProcessConnection, std::
     m_networkLoad->convertTaskToDownload(*this, request, response, WTFMove(completionHandler));
 }
 
-void PendingDownload::willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse)
+void PendingDownload::willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse)
 {
     send(Messages::DownloadProxy::WillSendRequest(WTFMove(redirectRequest), WTFMove(redirectResponse)));
 };
     
-void PendingDownload::continueWillSendRequest(WebCore::ResourceRequest&& newRequest)
+void PendingDownload::continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest)
 {
     m_networkLoad->continueWillSendRequest(WTFMove(newRequest));
 }
@@ -93,7 +93,7 @@ void PendingDownload::didBecomeDownload(const std::unique_ptr<Download>& downloa
 }
 #endif // PLATFORM(COCOA)
 
-void PendingDownload::didFailLoading(const WebCore::ResourceError& error)
+void PendingDownload::didFailLoading(const PurcFetcher::ResourceError& error)
 {
     send(Messages::DownloadProxy::DidFail(error, { }));
 }
@@ -103,11 +103,11 @@ IPC::Connection* PendingDownload::messageSenderConnection() const
     return m_parentProcessConnection.get();
 }
 
-void PendingDownload::didReceiveResponse(WebCore::ResourceResponse&& response, ResponseCompletionHandler&& completionHandler)
+void PendingDownload::didReceiveResponse(PurcFetcher::ResourceResponse&& response, ResponseCompletionHandler&& completionHandler)
 {
     UNUSED_PARAM(response);
     UNUSED_PARAM(completionHandler);
-    completionHandler(WebCore::PolicyAction::Download);
+    completionHandler(PurcFetcher::PolicyAction::Download);
 }
 
 uint64_t PendingDownload::messageSenderDestinationID() const

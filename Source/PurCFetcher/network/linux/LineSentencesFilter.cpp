@@ -51,7 +51,7 @@
 #include "LineSentencesFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 String enPunctuation = ".!?";
 String cnPunctuation = "。？！";

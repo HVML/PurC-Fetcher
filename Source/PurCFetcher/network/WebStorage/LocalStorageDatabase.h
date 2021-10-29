@@ -32,7 +32,7 @@
 #include <wtf/RefCounted.h>
 #include <wtf/WorkQueue.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class SecurityOrigin;
 class StorageMap;
 class SuddenTerminationDisabler;
@@ -44,11 +44,11 @@ class LocalStorageDatabaseTracker;
 
 class LocalStorageDatabase : public RefCounted<LocalStorageDatabase> {
 public:
-    static Ref<LocalStorageDatabase> create(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const WebCore::SecurityOriginData&);
+    static Ref<LocalStorageDatabase> create(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurcFetcher::SecurityOriginData&);
     ~LocalStorageDatabase();
 
     // Will block until the import is complete.
-    void importItems(WebCore::StorageMap&);
+    void importItems(PurcFetcher::StorageMap&);
 
     void setItem(const String& key, const String& value);
     void removeItem(const String& key);
@@ -60,7 +60,7 @@ public:
     void close();
 
 private:
-    LocalStorageDatabase(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const WebCore::SecurityOriginData&);
+    LocalStorageDatabase(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurcFetcher::SecurityOriginData&);
 
     enum DatabaseOpeningStrategy {
         CreateIfNonExistent,
@@ -80,10 +80,10 @@ private:
 
     Ref<WorkQueue> m_queue;
     Ref<LocalStorageDatabaseTracker> m_tracker;
-    WebCore::SecurityOriginData m_securityOrigin;
+    PurcFetcher::SecurityOriginData m_securityOrigin;
 
     String m_databasePath;
-    WebCore::SQLiteDatabase m_database;
+    PurcFetcher::SQLiteDatabase m_database;
     bool m_failedToOpenDatabase { false };
     bool m_didImportItems { false };
     bool m_isClosed { false };
@@ -92,7 +92,7 @@ private:
     bool m_shouldClearItems { false };
     HashMap<String, String> m_changedItems;
 
-    std::unique_ptr<WebCore::SuddenTerminationDisabler> m_disableSuddenTerminationWhileWritingToLocalStorage;
+    std::unique_ptr<PurcFetcher::SuddenTerminationDisabler> m_disableSuddenTerminationWhileWritingToLocalStorage;
 };
 
 

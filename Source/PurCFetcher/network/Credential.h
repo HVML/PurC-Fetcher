@@ -34,7 +34,7 @@
 
 #include "CredentialBase.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class Credential : public CredentialBase {
 public:

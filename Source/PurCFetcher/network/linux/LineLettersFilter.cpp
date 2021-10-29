@@ -51,7 +51,7 @@
 #include "LineLettersFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 
 String punctuation = " .!/_,$%^*()+\"'[]+——！，。？、~@#￥%……&*（）";

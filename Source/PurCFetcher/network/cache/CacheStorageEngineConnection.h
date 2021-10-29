@@ -35,17 +35,17 @@
 
 namespace IPC {
 
-template<> struct AsyncReplyError<WebCore::DOMCacheEngine::CacheIdentifierOrError> {
-    static WebCore::DOMCacheEngine::CacheIdentifierOrError create() { return makeUnexpected(WebCore::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::CacheIdentifierOrError> {
+    static PurcFetcher::DOMCacheEngine::CacheIdentifierOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<WebCore::DOMCacheEngine::RecordIdentifiersOrError> {
-    static WebCore::DOMCacheEngine::RecordIdentifiersOrError create() { return makeUnexpected(WebCore::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError> {
+    static PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<WebCore::DOMCacheEngine::CacheInfosOrError> {
-    static WebCore::DOMCacheEngine::CacheInfosOrError create() { return makeUnexpected(WebCore::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::CacheInfosOrError> {
+    static PurcFetcher::DOMCacheEngine::CacheInfosOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<WebCore::DOMCacheEngine::RecordsOrError> {
-    static WebCore::DOMCacheEngine::RecordsOrError create() { return makeUnexpected(WebCore::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::RecordsOrError> {
+    static PurcFetcher::DOMCacheEngine::RecordsOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
 };
 
 }
@@ -63,18 +63,18 @@ public:
 private:
     explicit CacheStorageEngineConnection(NetworkConnectionToWebProcess&);
 
-    void open(WebCore::ClientOrigin&&, String&& cacheName, WebCore::DOMCacheEngine::CacheIdentifierCallback&&);
-    void remove(uint64_t cacheIdentifier, WebCore::DOMCacheEngine::CacheIdentifierCallback&&);
-    void caches(WebCore::ClientOrigin&&, uint64_t updateCounter, WebCore::DOMCacheEngine::CacheInfosCallback&&);
+    void open(PurcFetcher::ClientOrigin&&, String&& cacheName, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void remove(uint64_t cacheIdentifier, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void caches(PurcFetcher::ClientOrigin&&, uint64_t updateCounter, PurcFetcher::DOMCacheEngine::CacheInfosCallback&&);
 
-    void retrieveRecords(uint64_t cacheIdentifier, WebCore::RetrieveRecordsOptions&&, WebCore::DOMCacheEngine::RecordsCallback&&);
-    void deleteMatchingRecords(uint64_t cacheIdentifier, WebCore::ResourceRequest&&, WebCore::CacheQueryOptions&&, WebCore::DOMCacheEngine::RecordIdentifiersCallback&&);
-    void putRecords(uint64_t cacheIdentifier, Vector<WebCore::DOMCacheEngine::Record>&&, WebCore::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void retrieveRecords(uint64_t cacheIdentifier, PurcFetcher::RetrieveRecordsOptions&&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
+    void deleteMatchingRecords(uint64_t cacheIdentifier, PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void putRecords(uint64_t cacheIdentifier, Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     void reference(uint64_t cacheIdentifier);
     void dereference(uint64_t cacheIdentifier);
 
-    void clearMemoryRepresentation(WebCore::ClientOrigin&&, CompletionHandler<void(Optional<WebCore::DOMCacheEngine::Error>&&)>&&);
+    void clearMemoryRepresentation(PurcFetcher::ClientOrigin&&, CompletionHandler<void(Optional<PurcFetcher::DOMCacheEngine::Error>&&)>&&);
     void engineRepresentation( CompletionHandler<void(String&&)>&&);
     
     PAL::SessionID sessionID() const;

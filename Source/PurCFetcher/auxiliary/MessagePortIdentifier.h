@@ -29,7 +29,7 @@
 #include <wtf/Hasher.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct MessagePortIdentifier {
     ProcessIdentifier processIdentifier;
@@ -87,25 +87,25 @@ inline String MessagePortIdentifier::logString() const
 
 #endif
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
 struct MessagePortIdentifierHash {
-    static unsigned hash(const WebCore::MessagePortIdentifier& key) { return key.hash(); }
-    static bool equal(const WebCore::MessagePortIdentifier& a, const WebCore::MessagePortIdentifier& b) { return a == b; }
+    static unsigned hash(const PurcFetcher::MessagePortIdentifier& key) { return key.hash(); }
+    static bool equal(const PurcFetcher::MessagePortIdentifier& a, const PurcFetcher::MessagePortIdentifier& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
 
-template<> struct HashTraits<WebCore::MessagePortIdentifier> : GenericHashTraits<WebCore::MessagePortIdentifier> {
-    static WebCore::MessagePortIdentifier emptyValue() { return { }; }
+template<> struct HashTraits<PurcFetcher::MessagePortIdentifier> : GenericHashTraits<PurcFetcher::MessagePortIdentifier> {
+    static PurcFetcher::MessagePortIdentifier emptyValue() { return { }; }
 
-    static void constructDeletedValue(WebCore::MessagePortIdentifier& slot) { slot.processIdentifier = makeObjectIdentifier<WebCore::ProcessIdentifierType>(std::numeric_limits<uint64_t>::max()); }
+    static void constructDeletedValue(PurcFetcher::MessagePortIdentifier& slot) { slot.processIdentifier = makeObjectIdentifier<PurcFetcher::ProcessIdentifierType>(std::numeric_limits<uint64_t>::max()); }
 
-    static bool isDeletedValue(const WebCore::MessagePortIdentifier& slot) { return slot.processIdentifier.toUInt64() == std::numeric_limits<uint64_t>::max(); }
+    static bool isDeletedValue(const PurcFetcher::MessagePortIdentifier& slot) { return slot.processIdentifier.toUInt64() == std::numeric_limits<uint64_t>::max(); }
 };
 
-template<> struct DefaultHash<WebCore::MessagePortIdentifier> {
+template<> struct DefaultHash<PurcFetcher::MessagePortIdentifier> {
     typedef MessagePortIdentifierHash Hash;
 };
 

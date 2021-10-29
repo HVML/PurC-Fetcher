@@ -30,12 +30,12 @@
 
 namespace WebKit {
 
-PrefetchCache::Entry::Entry(WebCore::ResourceResponse&& response, RefPtr<WebCore::SharedBuffer>&& buffer)
+PrefetchCache::Entry::Entry(PurcFetcher::ResourceResponse&& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer)
     : response(WTFMove(response)), buffer(WTFMove(buffer))
 {
 }
 
-PrefetchCache::Entry::Entry(WebCore::ResourceResponse&& redirectResponse, WebCore::ResourceRequest&& redirectRequest)
+PrefetchCache::Entry::Entry(PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ResourceRequest&& redirectRequest)
     : response(WTFMove(redirectResponse)), redirectRequest(WTFMove(redirectRequest))
 {
 }
@@ -66,13 +66,13 @@ std::unique_ptr<PrefetchCache::Entry> PrefetchCache::take(const URL& url)
         return std::get<0>(tuple) == url;
     });
     auto entry = resources->take(url);
-    ASSERT(!entry || !entry->response.httpHeaderField(WebCore::HTTPHeaderName::Vary).contains("Cookie"));
+    ASSERT(!entry || !entry->response.httpHeaderField(PurcFetcher::HTTPHeaderName::Vary).contains("Cookie"));
     return entry;
 }
 
 static const Seconds expirationTimeout { 5_s };
 
-void PrefetchCache::store(const URL& requestUrl, WebCore::ResourceResponse&& response, RefPtr<WebCore::SharedBuffer>&& buffer)
+void PrefetchCache::store(const URL& requestUrl, PurcFetcher::ResourceResponse&& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer)
 {
     if (!m_sessionPrefetches)
         m_sessionPrefetches = makeUnique<PrefetchEntriesMap>();
@@ -85,7 +85,7 @@ void PrefetchCache::store(const URL& requestUrl, WebCore::ResourceResponse&& res
         m_expirationTimer.startOneShot(expirationTimeout);
 }
 
-void PrefetchCache::storeRedirect(const URL& requestUrl, WebCore::ResourceResponse&& redirectResponse, WebCore::ResourceRequest&& redirectRequest)
+void PrefetchCache::storeRedirect(const URL& requestUrl, PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ResourceRequest&& redirectRequest)
 {
     if (!m_sessionPrefetches)
         m_sessionPrefetches = makeUnique<PrefetchEntriesMap>();

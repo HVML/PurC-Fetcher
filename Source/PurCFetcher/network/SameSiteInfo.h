@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ResourceRequest;
 
@@ -60,4 +60,4 @@ bool SameSiteInfo::decode(Decoder& decoder, SameSiteInfo& info)
     return true;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

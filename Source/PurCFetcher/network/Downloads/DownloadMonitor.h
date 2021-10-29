@@ -54,7 +54,7 @@ private:
     };
     static constexpr size_t timestampCapacity = 10;
     Deque<Timestamp, timestampCapacity> m_timestamps;
-    WebCore::Timer m_timer { *this, &DownloadMonitor::timerFired };
+    PurcFetcher::Timer m_timer { *this, &DownloadMonitor::timerFired };
     size_t m_interval { 0 };
 };
 

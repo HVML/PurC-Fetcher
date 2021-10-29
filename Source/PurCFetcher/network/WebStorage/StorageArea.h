@@ -32,7 +32,7 @@
 #include <wtf/Forward.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class StorageMap;
 }
 
@@ -47,10 +47,10 @@ class StorageArea : public CanMakeWeakPtr<StorageArea> {
 public:
     using Identifier = StorageAreaIdentifier;
     
-    StorageArea(LocalStorageNamespace*, const WebCore::SecurityOriginData&, unsigned quotaInBytes, Ref<WorkQueue>&&);
+    StorageArea(LocalStorageNamespace*, const PurcFetcher::SecurityOriginData&, unsigned quotaInBytes, Ref<WorkQueue>&&);
     ~StorageArea();
 
-    const WebCore::SecurityOriginData& securityOrigin() const { return m_securityOrigin; }
+    const PurcFetcher::SecurityOriginData& securityOrigin() const { return m_securityOrigin; }
     Identifier identifier() { return m_identifier; }
 
     void addListener(IPC::Connection::UniqueID);
@@ -81,10 +81,10 @@ private:
     mutable RefPtr<LocalStorageDatabase> m_localStorageDatabase;
     mutable bool m_didImportItemsFromDatabase { false };
 
-    WebCore::SecurityOriginData m_securityOrigin;
+    PurcFetcher::SecurityOriginData m_securityOrigin;
     unsigned m_quotaInBytes { 0 };
 
-    RefPtr<WebCore::StorageMap> m_storageMap;
+    RefPtr<PurcFetcher::StorageMap> m_storageMap;
     HashSet<IPC::Connection::UniqueID> m_eventListeners;
 
     Identifier m_identifier;

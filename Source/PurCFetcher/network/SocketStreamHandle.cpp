@@ -35,7 +35,7 @@
 #include "SocketStreamHandleClient.h"
 #include <wtf/Function.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 SocketStreamHandle::SocketStreamHandle(const URL& url, SocketStreamHandleClient& client)
     : m_url(url)
@@ -82,4 +82,4 @@ void SocketStreamHandle::disconnect()
     m_state = Closed;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

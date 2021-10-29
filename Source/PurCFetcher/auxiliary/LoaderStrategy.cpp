@@ -28,7 +28,7 @@
 
 #include "NetworkLoadInformation.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 LoaderStrategy::~LoaderStrategy() = default;
 
@@ -47,4 +47,4 @@ Vector<NetworkTransactionInformation> LoaderStrategy::intermediateLoadInformatio
     return { };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

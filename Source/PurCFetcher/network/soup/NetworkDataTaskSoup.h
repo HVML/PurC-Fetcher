@@ -38,7 +38,7 @@ namespace WebKit {
 
 class NetworkDataTaskSoup final : public NetworkDataTask {
 public:
-    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const WebCore::ResourceRequest& request, WebCore::FrameIdentifier frameID, WebCore::PageIdentifier pageID, WebCore::StoredCredentialsPolicy storedCredentialsPolicy, WebCore::ContentSniffingPolicy shouldContentSniff, WebCore::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurcFetcher::ResourceRequest& request, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurcFetcher::ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     {
         return adoptRef(*new NetworkDataTaskSoup(session, client, request, frameID, pageID, storedCredentialsPolicy, shouldContentSniff, shouldContentEncodingSniff, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation));
     }
@@ -46,7 +46,7 @@ public:
     ~NetworkDataTaskSoup();
 
 private:
-    NetworkDataTaskSoup(NetworkSession&, NetworkDataTaskClient&, const WebCore::ResourceRequest&, WebCore::FrameIdentifier, WebCore::PageIdentifier, WebCore::StoredCredentialsPolicy, WebCore::ContentSniffingPolicy, WebCore::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
+    NetworkDataTaskSoup(NetworkSession&, NetworkDataTaskClient&, const PurcFetcher::ResourceRequest&, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::StoredCredentialsPolicy, PurcFetcher::ContentSniffingPolicy, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
 
     void cancel() override;
     void resume() override;
@@ -61,20 +61,20 @@ private:
     void stopTimeout();
 
     enum class WasBlockingCookies { No, Yes };
-    void createRequest(WebCore::ResourceRequest&&, WasBlockingCookies);
+    void createRequest(PurcFetcher::ResourceRequest&&, WasBlockingCookies);
     void clearRequest();
     static void sendRequestCallback(SoupRequest*, GAsyncResult*, NetworkDataTaskSoup*);
     void didSendRequest(GRefPtr<GInputStream>&&);
     void dispatchDidReceiveResponse();
-    void dispatchDidCompleteWithError(const WebCore::ResourceError&);
+    void dispatchDidCompleteWithError(const PurcFetcher::ResourceError&);
 
     static gboolean tlsConnectionAcceptCertificateCallback(GTlsConnection*, GTlsCertificate*, GTlsCertificateFlags, NetworkDataTaskSoup*);
     bool tlsConnectionAcceptCertificate(GTlsCertificate*, GTlsCertificateFlags);
 
-    void applyAuthenticationToRequest(WebCore::ResourceRequest&);
+    void applyAuthenticationToRequest(PurcFetcher::ResourceRequest&);
     static void authenticateCallback(SoupSession*, SoupMessage*, SoupAuth*, gboolean retrying, NetworkDataTaskSoup*);
-    void authenticate(WebCore::AuthenticationChallenge&&);
-    void continueAuthenticate(WebCore::AuthenticationChallenge&&);
+    void authenticate(PurcFetcher::AuthenticationChallenge&&);
+    void continueAuthenticate(PurcFetcher::AuthenticationChallenge&&);
 
     static void skipInputStreamForRedirectionCallback(GInputStream*, GAsyncResult*, NetworkDataTaskSoup*);
     void skipInputStreamForRedirection();
@@ -102,11 +102,11 @@ private:
     static void writeDownloadCallback(GOutputStream*, GAsyncResult*, NetworkDataTaskSoup*);
     void writeDownload();
     void didWriteDownload(gsize bytesWritten);
-    void didFailDownload(const WebCore::ResourceError&);
+    void didFailDownload(const PurcFetcher::ResourceError&);
     void didFinishDownload();
     void cleanDownloadFiles();
 
-    void didFail(const WebCore::ResourceError&);
+    void didFail(const PurcFetcher::ResourceError&);
 
     static void networkEventCallback(SoupMessage*, GSocketClientEvent, GIOStream*, NetworkDataTaskSoup*);
     void networkEvent(GSocketClientEvent, GIOStream*);
@@ -125,20 +125,20 @@ private:
     static void restartedCallback(SoupMessage*, NetworkDataTaskSoup*);
     void didRestart();
 
-    WebCore::FrameIdentifier m_frameID;
-    WebCore::PageIdentifier m_pageID;
+    PurcFetcher::FrameIdentifier m_frameID;
+    PurcFetcher::PageIdentifier m_pageID;
     State m_state { State::Suspended };
-    WebCore::ContentSniffingPolicy m_shouldContentSniff;
+    PurcFetcher::ContentSniffingPolicy m_shouldContentSniff;
     GRefPtr<SoupRequest> m_soupRequest;
     GRefPtr<SoupMessage> m_soupMessage;
     GRefPtr<GInputStream> m_inputStream;
     GRefPtr<SoupMultipartInputStream> m_multipartInputStream;
     GRefPtr<GCancellable> m_cancellable;
     GRefPtr<GAsyncResult> m_pendingResult;
-    WebCore::ProtectionSpace m_protectionSpaceForPersistentStorage;
-    WebCore::Credential m_credentialForPersistentStorage;
-    WebCore::ResourceRequest m_currentRequest;
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ProtectionSpace m_protectionSpaceForPersistentStorage;
+    PurcFetcher::Credential m_credentialForPersistentStorage;
+    PurcFetcher::ResourceRequest m_currentRequest;
+    PurcFetcher::ResourceResponse m_response;
     Vector<char> m_readBuffer;
     unsigned m_redirectCount { 0 };
     uint64_t m_bodyDataTotalBytesSent { 0 };
@@ -146,7 +146,7 @@ private:
     GRefPtr<GFile> m_downloadIntermediateFile;
     GRefPtr<GOutputStream> m_downloadOutputStream;
     bool m_allowOverwriteDownload { false };
-    WebCore::NetworkLoadMetrics m_networkLoadMetrics;
+    PurcFetcher::NetworkLoadMetrics m_networkLoadMetrics;
     MonotonicTime m_startTime;
     bool m_isBlockingCookies { false };
     RunLoop::Timer<NetworkDataTaskSoup> m_timeoutSource;

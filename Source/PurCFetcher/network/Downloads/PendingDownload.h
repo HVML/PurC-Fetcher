@@ -33,7 +33,7 @@ namespace IPC {
 class Connection;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class ResourceResponse;
 }
 
@@ -49,9 +49,9 @@ class PendingDownload : public NetworkLoadClient, public IPC::MessageSender {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     PendingDownload(IPC::Connection*, NetworkLoadParameters&&, DownloadID, NetworkSession&, const String& suggestedName);
-    PendingDownload(IPC::Connection*, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, DownloadID, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+    PendingDownload(IPC::Connection*, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, DownloadID, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
 
-    void continueWillSendRequest(WebCore::ResourceRequest&&);
+    void continueWillSendRequest(PurcFetcher::ResourceRequest&&);
     void cancel();
 
 #if PLATFORM(COCOA)
@@ -64,11 +64,11 @@ private:
     void didSendData(unsigned long long, unsigned long long) override { }
     bool isSynchronous() const override { return false; }
     bool isAllowedToAskUserForCredentials() const final { return m_isAllowedToAskUserForCredentials; }
-    void willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse) override;
-    void didReceiveResponse(WebCore::ResourceResponse&&, ResponseCompletionHandler&&) override;
-    void didReceiveBuffer(Ref<WebCore::SharedBuffer>&&, int) override { };
-    void didFinishLoading(const WebCore::NetworkLoadMetrics&) override { };
-    void didFailLoading(const WebCore::ResourceError&) override;
+    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) override;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
+    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int) override { };
+    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) override { };
+    void didFailLoading(const PurcFetcher::ResourceError&) override;
 
     // MessageSender.
     IPC::Connection* messageSenderConnection() const override;

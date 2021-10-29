@@ -28,8 +28,8 @@
 
 #include "ArgumentCoders.h"
 #include "WebsiteDataType.h"
-#include <WebCore/RegistrableDomain.h>
-#include <WebCore/SecurityOriginData.h>
+#include <PurcFetcher/RegistrableDomain.h>
+#include <PurcFetcher/SecurityOriginData.h>
 #include <wtf/text/StringHash.h>
 
 namespace WebKit {
@@ -45,7 +45,7 @@ auto WebsiteData::Entry::decode(IPC::Decoder& decoder) -> Optional<Entry>
 {
     Entry result;
 
-    Optional<WebCore::SecurityOriginData> securityOriginData;
+    Optional<PurcFetcher::SecurityOriginData> securityOriginData;
     decoder >> securityOriginData;
     if (!securityOriginData)
         return WTF::nullopt;

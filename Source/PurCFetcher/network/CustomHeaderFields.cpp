@@ -29,7 +29,7 @@
 #include "HTTPHeaderField.h"
 #include "RegistrableDomain.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 bool CustomHeaderFields::thirdPartyDomainsMatch(const URL& url) const
 {

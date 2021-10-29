@@ -21,7 +21,7 @@
 
 #if USE(SOUP)
 
-namespace WebCore {
+namespace PurcFetcher {
 
 void startObservingCookieChanges(const NetworkStorageSession&, WTF::Function<void ()>&&)
 {

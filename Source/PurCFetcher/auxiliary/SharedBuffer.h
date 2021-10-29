@@ -62,7 +62,7 @@ class Decoder;
 }
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SharedBufferDataView;
 
@@ -265,4 +265,4 @@ private:
 
 RefPtr<SharedBuffer> utf8Buffer(const String&);
 
-} // namespace WebCore
+} // namespace PurcFetcher

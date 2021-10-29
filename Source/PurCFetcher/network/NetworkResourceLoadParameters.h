@@ -52,23 +52,23 @@ public:
     Vector<RefPtr<SandboxExtension>> requestBodySandboxExtensions; // Created automatically for the sender.
     RefPtr<SandboxExtension> resourceSandboxExtension; // Created automatically for the sender.
     Seconds maximumBufferingTime;
-    RefPtr<WebCore::SecurityOrigin> sourceOrigin;
-    WebCore::FetchOptions options;
-    Optional<WebCore::ContentSecurityPolicyResponseHeaders> cspResponseHeaders;
-    WebCore::HTTPHeaderMap originalRequestHeaders;
+    RefPtr<PurcFetcher::SecurityOrigin> sourceOrigin;
+    PurcFetcher::FetchOptions options;
+    Optional<PurcFetcher::ContentSecurityPolicyResponseHeaders> cspResponseHeaders;
+    PurcFetcher::HTTPHeaderMap originalRequestHeaders;
     bool shouldRestrictHTTPResponseAccess { false };
-    WebCore::PreflightPolicy preflightPolicy { WebCore::PreflightPolicy::Consider };
+    PurcFetcher::PreflightPolicy preflightPolicy { PurcFetcher::PreflightPolicy::Consider };
     bool shouldEnableCrossOriginResourcePolicy { false };
-    Vector<RefPtr<WebCore::SecurityOrigin>> frameAncestorOrigins;
+    Vector<RefPtr<PurcFetcher::SecurityOrigin>> frameAncestorOrigins;
     bool isHTTPSUpgradeEnabled { false };
     bool pageHasResourceLoadClient { false };
-    Optional<WebCore::FrameIdentifier> parentFrameID;
+    Optional<PurcFetcher::FrameIdentifier> parentFrameID;
     bool crossOriginAccessControlCheckEnabled { true };
 
 #if ENABLE(SERVICE_WORKER)
-    WebCore::ServiceWorkersMode serviceWorkersMode { WebCore::ServiceWorkersMode::None };
-    Optional<WebCore::ServiceWorkerRegistrationIdentifier> serviceWorkerRegistrationIdentifier;
-    OptionSet<WebCore::HTTPHeadersToKeepFromCleaning> httpHeadersToKeep;
+    PurcFetcher::ServiceWorkersMode serviceWorkersMode { PurcFetcher::ServiceWorkersMode::None };
+    Optional<PurcFetcher::ServiceWorkerRegistrationIdentifier> serviceWorkerRegistrationIdentifier;
+    OptionSet<PurcFetcher::HTTPHeadersToKeepFromCleaning> httpHeadersToKeep;
 #endif
 
 #if ENABLE(CONTENT_EXTENSIONS)

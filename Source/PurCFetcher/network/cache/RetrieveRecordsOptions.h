@@ -28,7 +28,7 @@
 
 #include "ResourceRequest.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct RetrieveRecordsOptions {
     RetrieveRecordsOptions isolatedCopy() const { return { request.isolatedCopy(), ignoreSearch, ignoreMethod, ignoreVary, shouldProvideResponse }; }
@@ -78,4 +78,4 @@ template<class Decoder> inline Optional<RetrieveRecordsOptions> RetrieveRecordsO
     return { { WTFMove(*request), WTFMove(*ignoreSearch), WTFMove(*ignoreMethod), WTFMove(*ignoreVary), WTFMove(*shouldProvideResponse) } };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

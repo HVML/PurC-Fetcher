@@ -42,14 +42,14 @@ class WebDeviceOrientationAndMotionAccessController : public CanMakeWeakPtr<WebD
 public:
     WebDeviceOrientationAndMotionAccessController() = default;
 
-    void shouldAllowAccess(WebPageProxy&, WebFrameProxy&, FrameInfoData&&, bool mayPrompt, CompletionHandler<void(WebCore::DeviceOrientationOrMotionPermissionState)>&&);
+    void shouldAllowAccess(WebPageProxy&, WebFrameProxy&, FrameInfoData&&, bool mayPrompt, CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>&&);
     void clearPermissions();
 
-    WebCore::DeviceOrientationOrMotionPermissionState cachedDeviceOrientationPermission(const WebCore::SecurityOriginData&) const;
+    PurcFetcher::DeviceOrientationOrMotionPermissionState cachedDeviceOrientationPermission(const PurcFetcher::SecurityOriginData&) const;
 
 private:
-    HashMap<WebCore::SecurityOriginData, bool> m_deviceOrientationPermissionDecisions;
-    HashMap<WebCore::SecurityOriginData, Vector<CompletionHandler<void(WebCore::DeviceOrientationOrMotionPermissionState)>>> m_pendingRequests;
+    HashMap<PurcFetcher::SecurityOriginData, bool> m_deviceOrientationPermissionDecisions;
+    HashMap<PurcFetcher::SecurityOriginData, Vector<CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>>> m_pendingRequests;
 };
 
 }

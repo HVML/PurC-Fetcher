@@ -31,10 +31,10 @@
 
 #include <sqlite3.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 const int SQLAuthAllow = SQLITE_OK;
 const int SQLAuthIgnore = SQLITE_IGNORE;
 const int SQLAuthDeny = SQLITE_DENY;
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -29,10 +29,10 @@
 #if ENABLE(SHAREABLE_RESOURCE)
 
 #include "ArgumentCoders.h"
-#include <WebCore/SharedBuffer.h>
+#include <PurcFetcher/SharedBuffer.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ShareableResource::Handle::Handle()
 {

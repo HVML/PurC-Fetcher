@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class Document;
 class Frame;
@@ -64,4 +64,4 @@ public:
     virtual bool hasHadUserInteraction(const RegistrableDomain&) const { return false; }
 };
     
-} // namespace WebCore
+} // namespace PurcFetcher

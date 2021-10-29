@@ -25,7 +25,7 @@
 #include "config.h"
 #include "AuthenticationChallenge.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 AuthenticationChallengeBase::AuthenticationChallengeBase()
     : m_isNull(true)

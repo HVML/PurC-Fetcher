@@ -24,7 +24,7 @@
 
 #include <libsoup/soup.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 SharedBuffer::SharedBuffer(SoupBuffer* soupBuffer)
 {
@@ -47,6 +47,6 @@ GUniquePtr<SoupBuffer> SharedBuffer::createSoupBuffer(unsigned offset, unsigned 
     return buffer;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

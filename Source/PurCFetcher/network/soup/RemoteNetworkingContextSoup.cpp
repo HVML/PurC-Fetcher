@@ -34,7 +34,7 @@
 #include "NetworkStorageSession.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 void RemoteNetworkingContext::ensureWebsiteDataStoreSession(NetworkProcess& networkProcess, WebsiteDataStoreParameters&& parameters)
 {

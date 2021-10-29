@@ -49,8 +49,8 @@ namespace WebKit {
 
 namespace CacheStorage {
 
-using namespace WebCore;
-using namespace WebCore::DOMCacheEngine;
+using namespace PurcFetcher;
+using namespace PurcFetcher::DOMCacheEngine;
 using namespace NetworkCache;
 
 static inline String computeKeyURL(const URL& url)
@@ -70,7 +70,7 @@ static inline Vector<uint64_t> queryCache(const Vector<RecordInformation>* recor
 
     Vector<uint64_t> results;
     for (const auto& record : *records) {
-        if (WebCore::DOMCacheEngine::queryCacheMatch(request, record.url, record.hasVaryStar, record.varyHeaders, options))
+        if (PurcFetcher::DOMCacheEngine::queryCacheMatch(request, record.url, record.hasVaryStar, record.varyHeaders, options))
             results.append(record.identifier);
     }
     return results;
@@ -78,7 +78,7 @@ static inline Vector<uint64_t> queryCache(const Vector<RecordInformation>* recor
 
 static inline void updateVaryInformation(RecordInformation& recordInformation, const ResourceRequest& request, const ResourceResponse& response)
 {
-    auto varyValue = response.httpHeaderField(WebCore::HTTPHeaderName::Vary);
+    auto varyValue = response.httpHeaderField(PurcFetcher::HTTPHeaderName::Vary);
     if (varyValue.isNull()) {
         recordInformation.hasVaryStar = false;
         recordInformation.varyHeaders = { };
@@ -394,7 +394,7 @@ void Cache::storeRecords(Vector<Record>&& records, RecordIdentifiersCallback&& c
 {
     auto taskCounter = AsynchronousPutTaskCounter::create(WTFMove(callback));
 
-    WebCore::CacheQueryOptions options;
+    PurcFetcher::CacheQueryOptions options;
     for (auto& record : records) {
         auto* sameURLRecords = recordsFromURL(record.request.url());
         auto matchingRecords = queryCache(sameURLRecords, record.request, options);
@@ -419,7 +419,7 @@ void Cache::put(Vector<Record>&& records, RecordIdentifiersCallback&& callback)
 {
     ASSERT(m_state == State::Open);
 
-    WebCore::CacheQueryOptions options;
+    PurcFetcher::CacheQueryOptions options;
     uint64_t spaceRequired = 0;
 
     for (auto& record : records) {
@@ -450,7 +450,7 @@ void Cache::put(Vector<Record>&& records, RecordIdentifiersCallback&& callback)
     });
 }
 
-void Cache::remove(WebCore::ResourceRequest&& request, WebCore::CacheQueryOptions&& options, RecordIdentifiersCallback&& callback)
+void Cache::remove(PurcFetcher::ResourceRequest&& request, PurcFetcher::CacheQueryOptions&& options, RecordIdentifiersCallback&& callback)
 {
     ASSERT(m_state == State::Open);
 
@@ -562,10 +562,10 @@ Storage::Record Cache::encode(const RecordInformation& recordInformation, const 
 
     Data header(encoder.buffer(), encoder.bufferSize());
     Data body;
-    WTF::switchOn(record.responseBody, [](const Ref<WebCore::FormData>& formData) {
+    WTF::switchOn(record.responseBody, [](const Ref<PurcFetcher::FormData>& formData) {
         UNUSED_PARAM(formData);
         // FIXME: Store form data body.
-    }, [&](const Ref<WebCore::SharedBuffer>& buffer) {
+    }, [&](const Ref<PurcFetcher::SharedBuffer>& buffer) {
         body = { reinterpret_cast<const uint8_t*>(buffer->data()), buffer->size() };
     }, [](const std::nullptr_t&) {
     });
@@ -573,7 +573,7 @@ Storage::Record Cache::encode(const RecordInformation& recordInformation, const 
     return { recordInformation.key, { }, header, body, { } };
 }
 
-static Optional<WebCore::DOMCacheEngine::Record> decodeDOMCacheRecord(WTF::Persistence::Decoder& decoder)
+static Optional<PurcFetcher::DOMCacheEngine::Record> decodeDOMCacheRecord(WTF::Persistence::Decoder& decoder)
 {
     Optional<FetchHeaders::Guard> requestHeadersGuard;
     decoder >> requestHeadersGuard;
@@ -638,7 +638,7 @@ Optional<Cache::DecodedRecord> Cache::decodeRecordHeader(const Storage::Record& 
     if (!size)
         return WTF::nullopt;
 
-    Optional<WebCore::DOMCacheEngine::Record> record = decodeDOMCacheRecord(decoder);
+    Optional<PurcFetcher::DOMCacheEngine::Record> record = decodeDOMCacheRecord(decoder);
     if (!record)
         return WTF::nullopt;
 
@@ -657,7 +657,7 @@ Optional<Record> Cache::decode(const Storage::Record& storage)
         return WTF::nullopt;
 
     auto record = WTFMove(result->record);
-    record.responseBody = WebCore::SharedBuffer::create(storage.body.data(), storage.body.size());
+    record.responseBody = PurcFetcher::SharedBuffer::create(storage.body.data(), storage.body.size());
 
     return record;
 }

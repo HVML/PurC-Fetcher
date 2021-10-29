@@ -34,7 +34,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class ReferrerPolicy : uint8_t {
     EmptyString,
@@ -56,18 +56,18 @@ String referrerPolicyToString(const ReferrerPolicy&);
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ReferrerPolicy> {
+template<> struct EnumTraits<PurcFetcher::ReferrerPolicy> {
     using values = EnumValues<
-        WebCore::ReferrerPolicy,
-        WebCore::ReferrerPolicy::EmptyString,
-        WebCore::ReferrerPolicy::NoReferrer,
-        WebCore::ReferrerPolicy::NoReferrerWhenDowngrade,
-        WebCore::ReferrerPolicy::SameOrigin,
-        WebCore::ReferrerPolicy::Origin,
-        WebCore::ReferrerPolicy::StrictOrigin,
-        WebCore::ReferrerPolicy::OriginWhenCrossOrigin,
-        WebCore::ReferrerPolicy::StrictOriginWhenCrossOrigin,
-        WebCore::ReferrerPolicy::UnsafeUrl
+        PurcFetcher::ReferrerPolicy,
+        PurcFetcher::ReferrerPolicy::EmptyString,
+        PurcFetcher::ReferrerPolicy::NoReferrer,
+        PurcFetcher::ReferrerPolicy::NoReferrerWhenDowngrade,
+        PurcFetcher::ReferrerPolicy::SameOrigin,
+        PurcFetcher::ReferrerPolicy::Origin,
+        PurcFetcher::ReferrerPolicy::StrictOrigin,
+        PurcFetcher::ReferrerPolicy::OriginWhenCrossOrigin,
+        PurcFetcher::ReferrerPolicy::StrictOriginWhenCrossOrigin,
+        PurcFetcher::ReferrerPolicy::UnsafeUrl
     >;
 };
 

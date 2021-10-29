@@ -30,7 +30,7 @@
 #include <array>
 #include <cstdio>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 int TextCodec::getUnencodableReplacement(UChar32 codePoint, UnencodableHandling handling, UnencodableReplacementArray& replacement)
 {
@@ -49,4 +49,4 @@ int TextCodec::getUnencodableReplacement(UChar32 codePoint, UnencodableHandling 
     return 0;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

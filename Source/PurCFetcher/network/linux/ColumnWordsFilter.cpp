@@ -51,7 +51,7 @@
 #include "ColumnWordsFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnWordsFilter::ColumnWordsFilter()
 {

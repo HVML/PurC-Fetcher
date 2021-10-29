@@ -30,7 +30,7 @@
 #include <wtf/Forward.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class IncludeSecureCookies : bool { No, Yes };
 enum class IncludeHttpOnlyCookies : bool { No, Yes };
@@ -58,4 +58,4 @@ private:
     Ref<StorageSessionProvider> m_storageSessionProvider;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

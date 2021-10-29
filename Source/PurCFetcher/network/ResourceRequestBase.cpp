@@ -35,7 +35,7 @@
 #include "SecurityPolicy.h"
 #include <wtf/PointerComparison.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 #if PLATFORM(IOS_FAMILY) || USE(CFURLCONNECTION)
 double ResourceRequestBase::s_defaultTimeoutInterval = INT_MAX;
@@ -501,7 +501,7 @@ bool ResourceRequestBase::hasUpload() const
 {
     if (auto* body = httpBody()) {
         for (auto& element : body->elements()) {
-            if (WTF::holds_alternative<WebCore::FormDataElement::EncodedFileData>(element.data) || WTF::holds_alternative<WebCore::FormDataElement::EncodedBlobData>(element.data))
+            if (WTF::holds_alternative<PurcFetcher::FormDataElement::EncodedFileData>(element.data) || WTF::holds_alternative<PurcFetcher::FormDataElement::EncodedBlobData>(element.data))
                 return true;
         }
     }

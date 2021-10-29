@@ -54,8 +54,8 @@ struct ResourceLoadInfo {
     };
     
     NetworkResourceLoadIdentifier resourceLoadID;
-    Optional<WebCore::FrameIdentifier> frameID;
-    Optional<WebCore::FrameIdentifier> parentFrameID;
+    Optional<PurcFetcher::FrameIdentifier> frameID;
+    Optional<PurcFetcher::FrameIdentifier> parentFrameID;
     URL originalURL;
     String originalHTTPMethod;
     WallTime eventTimestamp;
@@ -81,12 +81,12 @@ struct ResourceLoadInfo {
         if (!resourceLoadID)
             return WTF::nullopt;
 
-        Optional<Optional<WebCore::FrameIdentifier>> frameID;
+        Optional<Optional<PurcFetcher::FrameIdentifier>> frameID;
         decoder >> frameID;
         if (!frameID)
             return WTF::nullopt;
 
-        Optional<Optional<WebCore::FrameIdentifier>> parentFrameID;
+        Optional<Optional<PurcFetcher::FrameIdentifier>> parentFrameID;
         decoder >> parentFrameID;
         if (!parentFrameID)
             return WTF::nullopt;

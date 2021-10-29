@@ -47,7 +47,7 @@ public:
 
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
 
-    using BackendCallback = CompletionHandler<void(WebCore::ContentExtensions::ContentExtensionsBackend&)>;
+    using BackendCallback = CompletionHandler<void(PurcFetcher::ContentExtensions::ContentExtensionsBackend&)>;
     void contentExtensionsBackend(UserContentControllerIdentifier, BackendCallback&&);
 
 private:
@@ -56,7 +56,7 @@ private:
     void removeAllContentRuleLists(UserContentControllerIdentifier);
     void remove(UserContentControllerIdentifier);
 
-    HashMap<UserContentControllerIdentifier, std::unique_ptr<WebCore::ContentExtensions::ContentExtensionsBackend>> m_contentExtensionBackends;
+    HashMap<UserContentControllerIdentifier, std::unique_ptr<PurcFetcher::ContentExtensions::ContentExtensionsBackend>> m_contentExtensionBackends;
     HashMap<UserContentControllerIdentifier, Vector<BackendCallback>> m_pendingCallbacks;
     NetworkProcess& m_networkProcess;
 };

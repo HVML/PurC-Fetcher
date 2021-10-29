@@ -37,7 +37,7 @@
 #include <libsoup/soup.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 NetworkSessionSoup::NetworkSessionSoup(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
     : NetworkSession(networkProcess, parameters)

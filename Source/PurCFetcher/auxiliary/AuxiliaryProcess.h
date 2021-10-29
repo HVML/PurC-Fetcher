@@ -171,7 +171,7 @@ private:
 struct AuxiliaryProcessInitializationParameters {
     String uiProcessName;
     String clientIdentifier;
-    Optional<WebCore::ProcessIdentifier> processIdentifier;
+    Optional<PurcFetcher::ProcessIdentifier> processIdentifier;
     IPC::Connection::Identifier connectionIdentifier;
     HashMap<String, String> extraInitializationData;
     AuxiliaryProcess::ProcessType processType;

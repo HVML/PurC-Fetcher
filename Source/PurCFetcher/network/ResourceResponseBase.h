@@ -37,7 +37,7 @@
 #include <wtf/URL.h>
 #include <wtf/WallTime.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ResourceResponse;
 
@@ -430,46 +430,46 @@ bool ResourceResponseBase::decode(Decoder& decoder, ResourceResponseBase& respon
     return true;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::ResourceResponseBase::Type> {
+template<> struct EnumTraits<PurcFetcher::ResourceResponseBase::Type> {
     using values = EnumValues<
-        WebCore::ResourceResponseBase::Type,
-        WebCore::ResourceResponseBase::Type::Basic,
-        WebCore::ResourceResponseBase::Type::Cors,
-        WebCore::ResourceResponseBase::Type::Default,
-        WebCore::ResourceResponseBase::Type::Error,
-        WebCore::ResourceResponseBase::Type::Opaque,
-        WebCore::ResourceResponseBase::Type::Opaqueredirect
+        PurcFetcher::ResourceResponseBase::Type,
+        PurcFetcher::ResourceResponseBase::Type::Basic,
+        PurcFetcher::ResourceResponseBase::Type::Cors,
+        PurcFetcher::ResourceResponseBase::Type::Default,
+        PurcFetcher::ResourceResponseBase::Type::Error,
+        PurcFetcher::ResourceResponseBase::Type::Opaque,
+        PurcFetcher::ResourceResponseBase::Type::Opaqueredirect
     >;
 };
 
-template<> struct EnumTraits<WebCore::ResourceResponseBase::Tainting> {
+template<> struct EnumTraits<PurcFetcher::ResourceResponseBase::Tainting> {
     using values = EnumValues<
-        WebCore::ResourceResponseBase::Tainting,
-        WebCore::ResourceResponseBase::Tainting::Basic,
-        WebCore::ResourceResponseBase::Tainting::Cors,
-        WebCore::ResourceResponseBase::Tainting::Opaque,
-        WebCore::ResourceResponseBase::Tainting::Opaqueredirect
+        PurcFetcher::ResourceResponseBase::Tainting,
+        PurcFetcher::ResourceResponseBase::Tainting::Basic,
+        PurcFetcher::ResourceResponseBase::Tainting::Cors,
+        PurcFetcher::ResourceResponseBase::Tainting::Opaque,
+        PurcFetcher::ResourceResponseBase::Tainting::Opaqueredirect
     >;
 };
 
 
-template<> struct EnumTraits<WebCore::ResourceResponseBase::Source> {
+template<> struct EnumTraits<PurcFetcher::ResourceResponseBase::Source> {
     using values = EnumValues<
-        WebCore::ResourceResponseBase::Source,
-        WebCore::ResourceResponseBase::Source::Unknown,
-        WebCore::ResourceResponseBase::Source::Network,
-        WebCore::ResourceResponseBase::Source::DiskCache,
-        WebCore::ResourceResponseBase::Source::DiskCacheAfterValidation,
-        WebCore::ResourceResponseBase::Source::MemoryCache,
-        WebCore::ResourceResponseBase::Source::MemoryCacheAfterValidation,
-        WebCore::ResourceResponseBase::Source::ServiceWorker,
-        WebCore::ResourceResponseBase::Source::ApplicationCache,
-        WebCore::ResourceResponseBase::Source::DOMCache,
-        WebCore::ResourceResponseBase::Source::InspectorOverride
+        PurcFetcher::ResourceResponseBase::Source,
+        PurcFetcher::ResourceResponseBase::Source::Unknown,
+        PurcFetcher::ResourceResponseBase::Source::Network,
+        PurcFetcher::ResourceResponseBase::Source::DiskCache,
+        PurcFetcher::ResourceResponseBase::Source::DiskCacheAfterValidation,
+        PurcFetcher::ResourceResponseBase::Source::MemoryCache,
+        PurcFetcher::ResourceResponseBase::Source::MemoryCacheAfterValidation,
+        PurcFetcher::ResourceResponseBase::Source::ServiceWorker,
+        PurcFetcher::ResourceResponseBase::Source::ApplicationCache,
+        PurcFetcher::ResourceResponseBase::Source::DOMCache,
+        PurcFetcher::ResourceResponseBase::Source::InspectorOverride
     >;
 };
 

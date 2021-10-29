@@ -116,7 +116,7 @@ Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref
 {
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
     if (options.contains(CacheOption::SpeculativeRevalidation)) {
-        m_lowPowerModeNotifier = makeUnique<WebCore::LowPowerModeNotifier>([this](bool isLowPowerModeEnabled) {
+        m_lowPowerModeNotifier = makeUnique<PurcFetcher::LowPowerModeNotifier>([this](bool isLowPowerModeEnabled) {
             ASSERT(WTF::RunLoop::isMain());
             if (isLowPowerModeEnabled)
                 m_speculativeLoadManager = nullptr;
@@ -170,39 +170,39 @@ void Cache::updateCapacity()
     m_storage->setCapacity(newCapacity);
 }
 
-Key Cache::makeCacheKey(const WebCore::ResourceRequest& request)
+Key Cache::makeCacheKey(const PurcFetcher::ResourceRequest& request)
 {
     // FIXME: This implements minimal Range header disk cache support. We don't parse
     // ranges so only the same exact range request will be served from the cache.
-    String range = request.httpHeaderField(WebCore::HTTPHeaderName::Range);
+    String range = request.httpHeaderField(PurcFetcher::HTTPHeaderName::Range);
     return { request.cachePartition(), resourceType(), range, request.url().string(), m_storage->salt() };
 }
 
-static bool cachePolicyAllowsExpired(WebCore::ResourceRequestCachePolicy policy)
+static bool cachePolicyAllowsExpired(PurcFetcher::ResourceRequestCachePolicy policy)
 {
     switch (policy) {
-    case WebCore::ResourceRequestCachePolicy::ReturnCacheDataElseLoad:
-    case WebCore::ResourceRequestCachePolicy::ReturnCacheDataDontLoad:
+    case PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataElseLoad:
+    case PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataDontLoad:
         return true;
-    case WebCore::ResourceRequestCachePolicy::UseProtocolCachePolicy:
-    case WebCore::ResourceRequestCachePolicy::ReloadIgnoringCacheData:
-    case WebCore::ResourceRequestCachePolicy::RefreshAnyCacheData:
+    case PurcFetcher::ResourceRequestCachePolicy::UseProtocolCachePolicy:
+    case PurcFetcher::ResourceRequestCachePolicy::ReloadIgnoringCacheData:
+    case PurcFetcher::ResourceRequestCachePolicy::RefreshAnyCacheData:
         return false;
-    case WebCore::ResourceRequestCachePolicy::DoNotUseAnyCache:
+    case PurcFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache:
         ASSERT_NOT_REACHED();
         return false;
     }
     return false;
 }
 
-static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, const WebCore::ResourceResponse& response, WallTime timestamp, Optional<Seconds> maxStale)
+static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, const PurcFetcher::ResourceResponse& response, WallTime timestamp, Optional<Seconds> maxStale)
 {
     UNUSED_PARAM(networkSession);
     if (response.cacheControlContainsNoCache())
         return UseDecision::Validate;
 
-    auto age = WebCore::computeCurrentAge(response, timestamp);
-    auto lifetime = WebCore::computeFreshnessLifetimeForHTTPFamily(response, timestamp);
+    auto age = PurcFetcher::computeCurrentAge(response, timestamp);
+    auto lifetime = PurcFetcher::computeFreshnessLifetimeForHTTPFamily(response, timestamp);
 
     auto maximumStaleness = maxStale ? maxStale.value() : 0_ms;
     bool hasExpired = age - lifetime > maximumStaleness;
@@ -226,9 +226,9 @@ static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, con
     return UseDecision::Use;
 }
 
-static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, const WebCore::ResourceResponse& response, const WebCore::ResourceRequest& request, WallTime timestamp)
+static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, const PurcFetcher::ResourceResponse& response, const PurcFetcher::ResourceRequest& request, WallTime timestamp)
 {
-    auto requestDirectives = WebCore::parseCacheControlDirectives(request.httpHeaderFields());
+    auto requestDirectives = PurcFetcher::parseCacheControlDirectives(request.httpHeaderFields());
     if (requestDirectives.noCache)
         return UseDecision::Validate;
     // For requests we ignore max-age values other than zero.
@@ -238,14 +238,14 @@ static UseDecision responseNeedsRevalidation(NetworkSession& networkSession, con
     return responseNeedsRevalidation(networkSession, response, timestamp, requestDirectives.maxStale);
 }
 
-static UseDecision makeUseDecision(NetworkProcess& networkProcess, const PAL::SessionID& sessionID, const Entry& entry, const WebCore::ResourceRequest& request)
+static UseDecision makeUseDecision(NetworkProcess& networkProcess, const PAL::SessionID& sessionID, const Entry& entry, const PurcFetcher::ResourceRequest& request)
 {
     // The request is conditional so we force revalidation from the network. We merely check the disk cache
     // so we can update the cache entry.
     if (request.isConditional() && !entry.redirectRequest())
         return UseDecision::Validate;
 
-    if (!WebCore::verifyVaryingRequestHeaders(networkProcess.storageSession(sessionID), entry.varyingRequestHeaders(), request))
+    if (!PurcFetcher::verifyVaryingRequestHeaders(networkProcess.storageSession(sessionID), entry.varyingRequestHeaders(), request))
         return UseDecision::NoDueToVaryingHeaderMismatch;
 
     // We never revalidate in the case of a history navigation.
@@ -262,14 +262,14 @@ static UseDecision makeUseDecision(NetworkProcess& networkProcess, const PAL::Se
     return entry.redirectRequest() ? UseDecision::NoDueToExpiredRedirect : UseDecision::Validate;
 }
 
-static RetrieveDecision makeRetrieveDecision(const WebCore::ResourceRequest& request)
+static RetrieveDecision makeRetrieveDecision(const PurcFetcher::ResourceRequest& request)
 {
-    ASSERT(request.cachePolicy() != WebCore::ResourceRequestCachePolicy::DoNotUseAnyCache);
+    ASSERT(request.cachePolicy() != PurcFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache);
 
     // FIXME: Support HEAD requests.
     if (request.httpMethod() != "GET")
         return RetrieveDecision::NoDueToHTTPMethod;
-    if (request.cachePolicy() == WebCore::ResourceRequestCachePolicy::ReloadIgnoringCacheData && !request.isConditional())
+    if (request.cachePolicy() == PurcFetcher::ResourceRequestCachePolicy::ReloadIgnoringCacheData && !request.isConditional())
         return RetrieveDecision::NoDueToReloadIgnoringCache;
 
     return RetrieveDecision::Yes;
@@ -280,7 +280,7 @@ static bool isMediaMIMEType(const String& type)
     return startsWithLettersIgnoringASCIICase(type, "video/") || startsWithLettersIgnoringASCIICase(type, "audio/");
 }
 
-static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalRequest, const WebCore::ResourceResponse& response, size_t bodySize)
+static StoreDecision makeStoreDecision(const PurcFetcher::ResourceRequest& originalRequest, const PurcFetcher::ResourceResponse& response, size_t bodySize)
 {
     UNUSED_PARAM(bodySize);
     if (!originalRequest.url().protocolIsInHTTPFamily() || !response.isInHTTPFamily())
@@ -289,23 +289,23 @@ static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalR
     if (originalRequest.httpMethod() != "GET")
         return StoreDecision::NoDueToHTTPMethod;
 
-    auto requestDirectives = WebCore::parseCacheControlDirectives(originalRequest.httpHeaderFields());
+    auto requestDirectives = PurcFetcher::parseCacheControlDirectives(originalRequest.httpHeaderFields());
     if (requestDirectives.noStore)
         return StoreDecision::NoDueToNoStoreRequest;
 
     if (response.cacheControlContainsNoStore())
         return StoreDecision::NoDueToNoStoreResponse;
 
-    if (!WebCore::isStatusCodeCacheableByDefault(response.httpStatusCode())) {
+    if (!PurcFetcher::isStatusCodeCacheableByDefault(response.httpStatusCode())) {
         // http://tools.ietf.org/html/rfc7234#section-4.3.2
         bool hasExpirationHeaders = response.expires() || response.cacheControlMaxAge();
-        bool expirationHeadersAllowCaching = WebCore::isStatusCodePotentiallyCacheable(response.httpStatusCode()) && hasExpirationHeaders;
+        bool expirationHeadersAllowCaching = PurcFetcher::isStatusCodePotentiallyCacheable(response.httpStatusCode()) && hasExpirationHeaders;
         if (!expirationHeadersAllowCaching)
             return StoreDecision::NoDueToHTTPStatusCode;
     }
 
-    bool isMainResource = originalRequest.requester() == WebCore::ResourceRequest::Requester::Main;
-    bool storeUnconditionallyForHistoryNavigation = isMainResource || originalRequest.priority() == WebCore::ResourceLoadPriority::VeryHigh;
+    bool isMainResource = originalRequest.requester() == PurcFetcher::ResourceRequest::Requester::Main;
+    bool storeUnconditionallyForHistoryNavigation = isMainResource || originalRequest.priority() == PurcFetcher::ResourceLoadPriority::VeryHigh;
     if (!storeUnconditionallyForHistoryNavigation) {
         auto now = WallTime::now();
         Seconds allowedStale { 0_ms };
@@ -313,7 +313,7 @@ static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalR
         if (auto value = response.cacheControlStaleWhileRevalidate())
             allowedStale = value.value();
 #endif
-        bool hasNonZeroLifetime = !response.cacheControlContainsNoCache() && (WebCore::computeFreshnessLifetimeForHTTPFamily(response, now) > 0_ms || allowedStale > 0_ms);
+        bool hasNonZeroLifetime = !response.cacheControlContainsNoCache() && (PurcFetcher::computeFreshnessLifetimeForHTTPFamily(response, now) > 0_ms || allowedStale > 0_ms);
         bool possiblyReusable = response.hasCacheValidatorFields() || hasNonZeroLifetime;
         if (!possiblyReusable)
             return StoreDecision::NoDueToUnlikelyToReuse;
@@ -324,8 +324,8 @@ static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalR
     // FIXME: We should introduce a separate media cache partition that doesn't affect other resources.
     // FIXME: We should also make sure make the MSE paths are copy-free so we can use mapped buffers from disk effectively.
     auto requester = originalRequest.requester();
-    bool isDefinitelyStreamingMedia = requester == WebCore::ResourceRequest::Requester::Media;
-    bool isLikelyStreamingMedia = requester == WebCore::ResourceRequest::Requester::XHR && isMediaMIMEType(response.mimeType());
+    bool isDefinitelyStreamingMedia = requester == PurcFetcher::ResourceRequest::Requester::Media;
+    bool isLikelyStreamingMedia = requester == PurcFetcher::ResourceRequest::Requester::XHR && isMediaMIMEType(response.mimeType());
     if (isLikelyStreamingMedia || isDefinitelyStreamingMedia)
         return StoreDecision::NoDueToStreamingMedia;
 
@@ -333,23 +333,23 @@ static StoreDecision makeStoreDecision(const WebCore::ResourceRequest& originalR
 }
 
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-static bool inline canRequestUseSpeculativeRevalidation(const WebCore::ResourceRequest& request)
+static bool inline canRequestUseSpeculativeRevalidation(const PurcFetcher::ResourceRequest& request)
 {
     if (request.isConditional())
         return false;
 
-    if (request.requester() == WebCore::ResourceRequest::Requester::XHR || request.requester() == WebCore::ResourceRequest::Requester::Fetch)
+    if (request.requester() == PurcFetcher::ResourceRequest::Requester::XHR || request.requester() == PurcFetcher::ResourceRequest::Requester::Fetch)
         return false;
 
     switch (request.cachePolicy()) {
-    case WebCore::ResourceRequestCachePolicy::ReturnCacheDataElseLoad:
-    case WebCore::ResourceRequestCachePolicy::ReturnCacheDataDontLoad:
-    case WebCore::ResourceRequestCachePolicy::ReloadIgnoringCacheData:
+    case PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataElseLoad:
+    case PurcFetcher::ResourceRequestCachePolicy::ReturnCacheDataDontLoad:
+    case PurcFetcher::ResourceRequestCachePolicy::ReloadIgnoringCacheData:
         return false;
-    case WebCore::ResourceRequestCachePolicy::UseProtocolCachePolicy:
-    case WebCore::ResourceRequestCachePolicy::RefreshAnyCacheData:
+    case PurcFetcher::ResourceRequestCachePolicy::UseProtocolCachePolicy:
+    case PurcFetcher::ResourceRequestCachePolicy::RefreshAnyCacheData:
         return true;
-    case WebCore::ResourceRequestCachePolicy::DoNotUseAnyCache:
+    case PurcFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache:
         ASSERT_NOT_REACHED();
         return false;
     }
@@ -358,7 +358,7 @@ static bool inline canRequestUseSpeculativeRevalidation(const WebCore::ResourceR
 #endif
 
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
-void Cache::startAsyncRevalidationIfNeeded(const WebCore::ResourceRequest& request, const NetworkCache::Key& key, std::unique_ptr<Entry>&& entry, const GlobalFrameID& frameID, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
+void Cache::startAsyncRevalidationIfNeeded(const PurcFetcher::ResourceRequest& request, const NetworkCache::Key& key, std::unique_ptr<Entry>&& entry, const GlobalFrameID& frameID, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
 {
     m_pendingAsyncRevalidations.ensure(key, [&] {
         auto addResult = m_pendingAsyncRevalidationByPage.ensure(frameID, [] {
@@ -375,7 +375,7 @@ void Cache::startAsyncRevalidationIfNeeded(const WebCore::ResourceRequest& reque
 }
 #endif
 
-void Cache::browsingContextRemoved(WebPageProxyIdentifier webPageProxyID, WebCore::PageIdentifier webPageID, WebCore::FrameIdentifier webFrameID)
+void Cache::browsingContextRemoved(WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, PurcFetcher::FrameIdentifier webFrameID)
 {
     UNUSED_PARAM(webPageProxyID);
     UNUSED_PARAM(webPageID);
@@ -387,7 +387,7 @@ void Cache::browsingContextRemoved(WebPageProxyIdentifier webPageProxyID, WebCor
 #endif
 }
 
-void Cache::retrieve(const WebCore::ResourceRequest& request, const GlobalFrameID& frameID, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, RetrieveCompletionHandler&& completionHandler)
+void Cache::retrieve(const PurcFetcher::ResourceRequest& request, const GlobalFrameID& frameID, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, RetrieveCompletionHandler&& completionHandler)
 {
     ASSERT(request.url().protocolIsInHTTPFamily());
 
@@ -416,7 +416,7 @@ void Cache::retrieve(const WebCore::ResourceRequest& request, const GlobalFrameI
     if (canUseSpeculativeRevalidation && m_speculativeLoadManager->canRetrieve(storageKey, request, frameID)) {
         m_speculativeLoadManager->retrieve(storageKey, [networkProcess = makeRef(networkProcess()), request, completionHandler = WTFMove(completionHandler), info = WTFMove(info), sessionID = m_sessionID](std::unique_ptr<Entry> entry) mutable {
             info.wasSpeculativeLoad = true;
-            if (entry && WebCore::verifyVaryingRequestHeaders(networkProcess->storageSession(sessionID), entry->varyingRequestHeaders(), request))
+            if (entry && PurcFetcher::verifyVaryingRequestHeaders(networkProcess->storageSession(sessionID), entry->varyingRequestHeaders(), request))
                 completeRetrieve(WTFMove(completionHandler), WTFMove(entry), info);
             else
                 completeRetrieve(WTFMove(completionHandler), nullptr, info);
@@ -476,17 +476,17 @@ void Cache::completeRetrieve(RetrieveCompletionHandler&& handler, std::unique_pt
     handler(WTFMove(entry), info);
 }
     
-std::unique_ptr<Entry> Cache::makeEntry(const WebCore::ResourceRequest& request, const WebCore::ResourceResponse& response, RefPtr<WebCore::SharedBuffer>&& responseData)
+std::unique_ptr<Entry> Cache::makeEntry(const PurcFetcher::ResourceRequest& request, const PurcFetcher::ResourceResponse& response, RefPtr<PurcFetcher::SharedBuffer>&& responseData)
 {
-    return makeUnique<Entry>(makeCacheKey(request), response, WTFMove(responseData), WebCore::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), request, response));
+    return makeUnique<Entry>(makeCacheKey(request), response, WTFMove(responseData), PurcFetcher::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), request, response));
 }
 
-std::unique_ptr<Entry> Cache::makeRedirectEntry(const WebCore::ResourceRequest& request, const WebCore::ResourceResponse& response, const WebCore::ResourceRequest& redirectRequest)
+std::unique_ptr<Entry> Cache::makeRedirectEntry(const PurcFetcher::ResourceRequest& request, const PurcFetcher::ResourceResponse& response, const PurcFetcher::ResourceRequest& redirectRequest)
 {
-    return makeUnique<Entry>(makeCacheKey(request), response, redirectRequest, WebCore::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), request, response));
+    return makeUnique<Entry>(makeCacheKey(request), response, redirectRequest, PurcFetcher::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), request, response));
 }
 
-std::unique_ptr<Entry> Cache::store(const WebCore::ResourceRequest& request, const WebCore::ResourceResponse& response, RefPtr<WebCore::SharedBuffer>&& responseData, Function<void(MappedBody&)>&& completionHandler)
+std::unique_ptr<Entry> Cache::store(const PurcFetcher::ResourceRequest& request, const PurcFetcher::ResourceResponse& response, RefPtr<PurcFetcher::SharedBuffer>&& responseData, Function<void(MappedBody&)>&& completionHandler)
 {
     ASSERT(responseData);
 
@@ -532,7 +532,7 @@ std::unique_ptr<Entry> Cache::store(const WebCore::ResourceRequest& request, con
     return cacheEntry;
 }
 
-std::unique_ptr<Entry> Cache::storeRedirect(const WebCore::ResourceRequest& request, const WebCore::ResourceResponse& response, const WebCore::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap)
+std::unique_ptr<Entry> Cache::storeRedirect(const PurcFetcher::ResourceRequest& request, const PurcFetcher::ResourceResponse& response, const PurcFetcher::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap)
 {
     LOG(NetworkCache, "(NetworkProcess) storing redirect %s -> %s", request.url().string().latin1().data(), redirectRequest.url().string().latin1().data());
 
@@ -560,14 +560,14 @@ std::unique_ptr<Entry> Cache::storeRedirect(const WebCore::ResourceRequest& requ
     return cacheEntry;
 }
 
-std::unique_ptr<Entry> Cache::update(const WebCore::ResourceRequest& originalRequest, const Entry& existingEntry, const WebCore::ResourceResponse& validatingResponse)
+std::unique_ptr<Entry> Cache::update(const PurcFetcher::ResourceRequest& originalRequest, const Entry& existingEntry, const PurcFetcher::ResourceResponse& validatingResponse)
 {
     LOG(NetworkCache, "(NetworkProcess) updating %s", originalRequest.url().string().latin1().data());
 
-    WebCore::ResourceResponse response = existingEntry.response();
-    WebCore::updateResponseHeadersAfterRevalidation(response, validatingResponse);
+    PurcFetcher::ResourceResponse response = existingEntry.response();
+    PurcFetcher::updateResponseHeadersAfterRevalidation(response, validatingResponse);
 
-    auto updateEntry = makeUnique<Entry>(existingEntry.key(), response, existingEntry.buffer(), WebCore::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), originalRequest, response));
+    auto updateEntry = makeUnique<Entry>(existingEntry.key(), response, existingEntry.buffer(), PurcFetcher::collectVaryingRequestHeaders(networkProcess().storageSession(m_sessionID), originalRequest, response));
     auto updateRecord = updateEntry->encodeAsStorageRecord();
 
     m_storage->store(updateRecord, { });
@@ -580,7 +580,7 @@ void Cache::remove(const Key& key)
     m_storage->remove(key);
 }
 
-void Cache::remove(const WebCore::ResourceRequest& request)
+void Cache::remove(const PurcFetcher::ResourceRequest& request)
 {
     remove(makeCacheKey(request));
 }

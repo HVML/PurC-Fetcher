@@ -46,7 +46,7 @@ StorageManagerSet::StorageManagerSet()
     ASSERT(RunLoop::isMain());
 
     // Make sure the encoding is initialized before we start dispatching things to the queue.
-    WebCore::UTF8Encoding();
+    PurcFetcher::UTF8Encoding();
 }
 
 StorageManagerSet::~StorageManagerSet()
@@ -224,7 +224,7 @@ void StorageManagerSet::deleteSessionStorage(PAL::SessionID sessionID, DeleteCal
     });
 }
 
-void StorageManagerSet::deleteSessionStorageForOrigins(PAL::SessionID sessionID, const Vector<WebCore::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
+void StorageManagerSet::deleteSessionStorageForOrigins(PAL::SessionID sessionID, const Vector<PurcFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
 {
     ASSERT(RunLoop::isMain());
 
@@ -265,7 +265,7 @@ void StorageManagerSet::deleteLocalStorageModifiedSince(PAL::SessionID sessionID
     });
 }
 
-void StorageManagerSet::deleteLocalStorageForOrigins(PAL::SessionID sessionID, const Vector<WebCore::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
+void StorageManagerSet::deleteLocalStorageForOrigins(PAL::SessionID sessionID, const Vector<PurcFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
 {
     ASSERT(RunLoop::isMain());
 

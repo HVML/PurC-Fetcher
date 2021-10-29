@@ -38,7 +38,7 @@
 #include <wtf/text/CString.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 Ref<LocalStorageDatabaseTracker> LocalStorageDatabaseTracker::create(String&& localStorageDirectory)
 {

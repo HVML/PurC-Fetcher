@@ -30,7 +30,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 SessionStorageNamespace::SessionStorageNamespace(unsigned quotaInBytes)
     : m_quotaInBytes(quotaInBytes)

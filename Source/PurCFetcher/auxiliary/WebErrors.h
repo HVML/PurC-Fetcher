@@ -28,7 +28,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class ResourceError;
 class ResourceRequest;
 class ResourceResponse;
@@ -36,31 +36,31 @@ class ResourceResponse;
 
 namespace WebKit {
 
-WebCore::ResourceError cancelledError(const WebCore::ResourceRequest&);
-WebCore::ResourceError blockedError(const WebCore::ResourceRequest&);
-WebCore::ResourceError blockedByContentBlockerError(const WebCore::ResourceRequest&);
-WebCore::ResourceError cannotShowURLError(const WebCore::ResourceRequest&);
-WebCore::ResourceError wasBlockedByRestrictionsError(const WebCore::ResourceRequest&);
-WebCore::ResourceError interruptedForPolicyChangeError(const WebCore::ResourceRequest&);
-WebCore::ResourceError failedCustomProtocolSyncLoad(const WebCore::ResourceRequest&);
+PurcFetcher::ResourceError cancelledError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError blockedError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError blockedByContentBlockerError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError cannotShowURLError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError wasBlockedByRestrictionsError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError interruptedForPolicyChangeError(const PurcFetcher::ResourceRequest&);
+PurcFetcher::ResourceError failedCustomProtocolSyncLoad(const PurcFetcher::ResourceRequest&);
 #if ENABLE(CONTENT_FILTERING)
-WebCore::ResourceError blockedByContentFilterError(const WebCore::ResourceRequest&);
+PurcFetcher::ResourceError blockedByContentFilterError(const PurcFetcher::ResourceRequest&);
 #endif
-WebCore::ResourceError cannotShowMIMETypeError(const WebCore::ResourceResponse&);
-WebCore::ResourceError fileDoesNotExistError(const WebCore::ResourceResponse&);
-WebCore::ResourceError pluginWillHandleLoadError(const WebCore::ResourceResponse&);
-WebCore::ResourceError internalError(const URL&);
+PurcFetcher::ResourceError cannotShowMIMETypeError(const PurcFetcher::ResourceResponse&);
+PurcFetcher::ResourceError fileDoesNotExistError(const PurcFetcher::ResourceResponse&);
+PurcFetcher::ResourceError pluginWillHandleLoadError(const PurcFetcher::ResourceResponse&);
+PurcFetcher::ResourceError internalError(const URL&);
 
 #if USE(SOUP)
-WebCore::ResourceError downloadNetworkError(const URL&, const WTF::String&);
-WebCore::ResourceError downloadCancelledByUserError(const WebCore::ResourceResponse&);
-WebCore::ResourceError downloadDestinationError(const WebCore::ResourceResponse&, const WTF::String&);
+PurcFetcher::ResourceError downloadNetworkError(const URL&, const WTF::String&);
+PurcFetcher::ResourceError downloadCancelledByUserError(const PurcFetcher::ResourceResponse&);
+PurcFetcher::ResourceError downloadDestinationError(const PurcFetcher::ResourceResponse&, const WTF::String&);
 #endif
 
 #if PLATFORM(GTK) || PLATFORM(HBD)
-WebCore::ResourceError printError(const URL&, const WTF::String&);
-WebCore::ResourceError printerNotFoundError(const URL&);
-WebCore::ResourceError invalidPageRangeToPrint(const URL&);
+PurcFetcher::ResourceError printError(const URL&, const WTF::String&);
+PurcFetcher::ResourceError printerNotFoundError(const URL&);
+PurcFetcher::ResourceError invalidPageRangeToPrint(const URL&);
 #endif
 
 } // namespace WebKit

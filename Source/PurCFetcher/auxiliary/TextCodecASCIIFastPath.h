@@ -29,7 +29,7 @@
 
 #include <wtf/text/ASCIIFastPath.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 template<size_t size> struct UCharByteFiller;
 template<> struct UCharByteFiller<4> {
@@ -75,6 +75,6 @@ inline void copyASCIIMachineWord(UChar* destination, const uint8_t* source)
     UCharByteFiller<sizeof(WTF::MachineWord)>::copy(destination, source);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // TextCodecASCIIFastPath_h

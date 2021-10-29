@@ -29,7 +29,7 @@
 #include "WebCoreArgumentCoders.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 void NetworkResourceLoadParameters::encode(IPC::Encoder& encoder) const
 {

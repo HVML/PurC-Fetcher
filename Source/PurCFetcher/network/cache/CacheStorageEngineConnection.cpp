@@ -33,7 +33,7 @@
 #include "CacheQueryOptions.h"
 
 namespace WebKit {
-using namespace WebCore::DOMCacheEngine;
+using namespace PurcFetcher::DOMCacheEngine;
 using namespace CacheStorage;
 
 #undef RELEASE_LOG_IF_ALLOWED
@@ -59,7 +59,7 @@ CacheStorageEngineConnection::~CacheStorageEngineConnection()
     }
 }
 
-void CacheStorageEngineConnection::open(WebCore::ClientOrigin&& origin, String&& cacheName, CacheIdentifierCallback&& callback)
+void CacheStorageEngineConnection::open(PurcFetcher::ClientOrigin&& origin, String&& cacheName, CacheIdentifierCallback&& callback)
 {
     RELEASE_LOG_IF_ALLOWED("open cache");
     Engine::open(m_connection.networkProcess(), sessionID(), WTFMove(origin), WTFMove(cacheName), [callback = WTFMove(callback), sessionID = this->sessionID()](auto& result) mutable {
@@ -77,7 +77,7 @@ void CacheStorageEngineConnection::remove(uint64_t cacheIdentifier, CacheIdentif
     });
 }
 
-void CacheStorageEngineConnection::caches(WebCore::ClientOrigin&& origin, uint64_t updateCounter, CacheInfosCallback&& callback)
+void CacheStorageEngineConnection::caches(PurcFetcher::ClientOrigin&& origin, uint64_t updateCounter, CacheInfosCallback&& callback)
 {
     RELEASE_LOG_IF_ALLOWED("caches");
     Engine::retrieveCaches(m_connection.networkProcess(), sessionID(), WTFMove(origin), updateCounter, [callback = WTFMove(callback), origin, sessionID = this->sessionID()](auto&& result) mutable {
@@ -86,7 +86,7 @@ void CacheStorageEngineConnection::caches(WebCore::ClientOrigin&& origin, uint64
     });
 }
 
-void CacheStorageEngineConnection::retrieveRecords(uint64_t cacheIdentifier, WebCore::RetrieveRecordsOptions&& options, RecordsCallback&& callback)
+void CacheStorageEngineConnection::retrieveRecords(uint64_t cacheIdentifier, PurcFetcher::RetrieveRecordsOptions&& options, RecordsCallback&& callback)
 {
     RELEASE_LOG_IF_ALLOWED("retrieveRecords in cache %" PRIu64, cacheIdentifier);
     Engine::retrieveRecords(m_connection.networkProcess(), sessionID(), cacheIdentifier, WTFMove(options), [callback = WTFMove(callback), sessionID = this->sessionID()](auto&& result) mutable {
@@ -95,7 +95,7 @@ void CacheStorageEngineConnection::retrieveRecords(uint64_t cacheIdentifier, Web
     });
 }
 
-void CacheStorageEngineConnection::deleteMatchingRecords(uint64_t cacheIdentifier, WebCore::ResourceRequest&& request, WebCore::CacheQueryOptions&& options, RecordIdentifiersCallback&& callback)
+void CacheStorageEngineConnection::deleteMatchingRecords(uint64_t cacheIdentifier, PurcFetcher::ResourceRequest&& request, PurcFetcher::CacheQueryOptions&& options, RecordIdentifiersCallback&& callback)
 {
     RELEASE_LOG_IF_ALLOWED("deleteMatchingRecords in cache %" PRIu64, cacheIdentifier);
     Engine::deleteMatchingRecords(m_connection.networkProcess(), sessionID(), cacheIdentifier, WTFMove(request), WTFMove(options), [callback = WTFMove(callback), sessionID = this->sessionID()](auto&& result) mutable {
@@ -146,7 +146,7 @@ void CacheStorageEngineConnection::dereference(uint64_t cacheIdentifier)
     m_cachesLocks.remove(referenceResult);
 }
 
-void CacheStorageEngineConnection::clearMemoryRepresentation(WebCore::ClientOrigin&& origin, CompletionHandler<void(Optional<Error>&&)>&& completionHandler)
+void CacheStorageEngineConnection::clearMemoryRepresentation(PurcFetcher::ClientOrigin&& origin, CompletionHandler<void(Optional<Error>&&)>&& completionHandler)
 {
     Engine::clearMemoryRepresentation(m_connection.networkProcess(), sessionID(), WTFMove(origin), WTFMove(completionHandler));
 }

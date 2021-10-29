@@ -28,7 +28,7 @@
 
 #include <wtf/Noncopyable.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
     // Once disabled via one or more more calls to disableSuddenTermination(), fast shutdown
     // is not valid until enableSuddenTermination() has been called an equal number of times.
@@ -56,6 +56,6 @@ namespace WebCore {
         }
     };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // SuddenTermination_h

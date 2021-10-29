@@ -45,7 +45,7 @@ enum class WebsiteDataProcessType { Network, UI, Web };
 
 struct WebsiteData {
     struct Entry {
-        WebCore::SecurityOriginData origin;
+        PurcFetcher::SecurityOriginData origin;
         WebsiteDataType type;
         uint64_t size;
 
@@ -61,7 +61,7 @@ struct WebsiteData {
 #endif
     HashSet<String> hostNamesWithHSTSCache;
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    HashSet<WebCore::RegistrableDomain> registrableDomainsWithResourceLoadStatistics;
+    HashSet<PurcFetcher::RegistrableDomain> registrableDomainsWithResourceLoadStatistics;
 #endif
 
     void encode(IPC::Encoder&) const;

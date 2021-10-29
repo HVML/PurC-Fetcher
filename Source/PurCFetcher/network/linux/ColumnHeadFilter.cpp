@@ -51,7 +51,7 @@
 #include "ColumnHeadFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnHeadFilter::ColumnHeadFilter()
 {

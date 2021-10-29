@@ -27,13 +27,13 @@
 #pragma once
 
 #include "ArgumentCoders.h"
-#include <WebCore/FontAttributes.h>
-#include <WebCore/IntRect.h>
-#include <WebCore/WritingDirection.h>
+#include <PurcFetcher/FontAttributes.h>
+#include <PurcFetcher/IntRect.h>
+#include <PurcFetcher/WritingDirection.h>
 #include <wtf/text/WTFString.h>
 
 #if PLATFORM(IOS_FAMILY)
-#include <WebCore/SelectionRect.h>
+#include <PurcFetcher/SelectionRect.h>
 #endif
 
 namespace WTF {
@@ -79,23 +79,23 @@ struct EditorState {
     struct PostLayoutData {
         uint32_t typingAttributes { AttributeNone };
 #if PLATFORM(IOS_FAMILY) || PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(HBD)
-        WebCore::IntRect caretRectAtStart;
+        PurcFetcher::IntRect caretRectAtStart;
 #endif
 #if PLATFORM(COCOA)
-        WebCore::IntRect focusedElementRect;
+        PurcFetcher::IntRect focusedElementRect;
         uint64_t selectedTextLength { 0 };
         uint32_t textAlignment { NoAlignment };
-        WebCore::Color textColor { WebCore::Color::black };
+        PurcFetcher::Color textColor { PurcFetcher::Color::black };
         uint32_t enclosingListType { NoList };
-        WebCore::WritingDirection baseWritingDirection { WebCore::WritingDirection::Natural };
+        PurcFetcher::WritingDirection baseWritingDirection { PurcFetcher::WritingDirection::Natural };
 #endif
 #if PLATFORM(IOS_FAMILY)
-        WebCore::IntRect caretRectAtEnd;
-        Vector<WebCore::SelectionRect> selectionRects;
-        Vector<WebCore::SelectionRect> markedTextRects;
+        PurcFetcher::IntRect caretRectAtEnd;
+        Vector<PurcFetcher::SelectionRect> selectionRects;
+        Vector<PurcFetcher::SelectionRect> markedTextRects;
         String markedText;
-        WebCore::IntRect markedTextCaretRectAtStart;
-        WebCore::IntRect markedTextCaretRectAtEnd;
+        PurcFetcher::IntRect markedTextCaretRectAtStart;
+        PurcFetcher::IntRect markedTextCaretRectAtEnd;
         String wordAtSelection;
         UChar32 characterAfterSelection { 0 };
         UChar32 characterBeforeSelection { 0 };
@@ -106,7 +106,7 @@ struct EditorState {
         bool insideFixedPosition { false };
         bool hasPlainText { false };
         bool editableRootIsTransparentOrFullyClipped { false };
-        WebCore::Color caretColor;
+        PurcFetcher::Color caretColor;
         bool atStartOfSentence { false };
         bool selectionStartIsAtParagraphBoundary { false };
         bool selectionEndIsAtParagraphBoundary { false };
@@ -122,7 +122,7 @@ struct EditorState {
         uint64_t surroundingContextSelectionPosition { 0 };
 #endif
 
-        Optional<WebCore::FontAttributes> fontAttributes;
+        Optional<PurcFetcher::FontAttributes> fontAttributes;
 
         bool canCut { false };
         bool canCopy { false };

@@ -34,7 +34,7 @@
 #include <wtf/Seconds.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class SharedBuffer;
 }
 
@@ -44,8 +44,8 @@ namespace NetworkCache {
 class Entry {
     WTF_MAKE_FAST_ALLOCATED;
 public:
-    Entry(const Key&, const WebCore::ResourceResponse&, RefPtr<WebCore::SharedBuffer>&&, const Vector<std::pair<String, String>>& varyingRequestHeaders);
-    Entry(const Key&, const WebCore::ResourceResponse&, const WebCore::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders);
+    Entry(const Key&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&, const Vector<std::pair<String, String>>& varyingRequestHeaders);
+    Entry(const Key&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders);
     explicit Entry(const Storage::Record&);
     Entry(const Entry&);
 
@@ -54,11 +54,11 @@ public:
 
     const Key& key() const { return m_key; }
     WallTime timeStamp() const { return m_timeStamp; }
-    const WebCore::ResourceResponse& response() const { return m_response; }
+    const PurcFetcher::ResourceResponse& response() const { return m_response; }
     const Vector<std::pair<String, String>>& varyingRequestHeaders() const { return m_varyingRequestHeaders; }
 
-    WebCore::SharedBuffer* buffer() const;
-    const Optional<WebCore::ResourceRequest>& redirectRequest() const { return m_redirectRequest; }
+    PurcFetcher::SharedBuffer* buffer() const;
+    const Optional<PurcFetcher::ResourceRequest>& redirectRequest() const { return m_redirectRequest; }
 
 #if ENABLE(SHAREABLE_RESOURCE)
     ShareableResource::Handle& shareableResourceHandle() const;
@@ -84,11 +84,11 @@ private:
 
     Key m_key;
     WallTime m_timeStamp;
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ResourceResponse m_response;
     Vector<std::pair<String, String>> m_varyingRequestHeaders;
 
-    Optional<WebCore::ResourceRequest> m_redirectRequest;
-    mutable RefPtr<WebCore::SharedBuffer> m_buffer;
+    Optional<PurcFetcher::ResourceRequest> m_redirectRequest;
+    mutable RefPtr<PurcFetcher::SharedBuffer> m_buffer;
 #if ENABLE(SHAREABLE_RESOURCE)
     mutable ShareableResource::Handle m_shareableResourceHandle;
 #endif

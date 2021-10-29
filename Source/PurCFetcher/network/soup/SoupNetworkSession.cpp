@@ -42,7 +42,7 @@
 #include <wtf/text/Base64.h>
 #include <wtf/text/CString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static bool gIgnoreTLSErrors;
 
@@ -363,6 +363,6 @@ void SoupNetworkSession::allowSpecificHTTPSCertificateForHost(const CertificateI
     allowedCertificates().add(host, HostTLSCertificateSet()).iterator->value.add(certificateInfo.certificate());
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

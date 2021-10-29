@@ -31,7 +31,7 @@
 #include <wtf/ProcessID.h>
 #include <wtf/RunLoop.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 #if !ASSERT_MSG_DISABLED
 static bool presentingApplicationPIDOverrideWasQueried;
@@ -60,4 +60,4 @@ void setPresentingApplicationPID(int pid)
     presentingApplicationPIDOverride() = pid;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

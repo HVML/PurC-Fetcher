@@ -39,7 +39,7 @@
 #include <wtf/text/WTFString.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 const char* WebCookieManager::supplementName()
 {
@@ -88,7 +88,7 @@ void WebCookieManager::deleteAllCookiesModifiedSince(PAL::SessionID sessionID, W
     completionHandler();
 }
 
-void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&& completionHandler)
+void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
 {
     Vector<Cookie> cookies;
     if (auto* storageSession = m_process.storageSession(sessionID))
@@ -96,7 +96,7 @@ void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler
     completionHandler(WTFMove(cookies));
 }
 
-void WebCookieManager::getCookies(PAL::SessionID sessionID, const URL& url, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&& completionHandler)
+void WebCookieManager::getCookies(PAL::SessionID sessionID, const URL& url, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
 {
     Vector<Cookie> cookies;
     if (auto* storageSession = m_process.storageSession(sessionID))
@@ -129,7 +129,7 @@ void WebCookieManager::notifyCookiesDidChange(PAL::SessionID sessionID)
 void WebCookieManager::startObservingCookieChanges(PAL::SessionID sessionID)
 {
     if (auto* storageSession = m_process.storageSession(sessionID)) {
-        WebCore::startObservingCookieChanges(*storageSession, [this, sessionID] {
+        PurcFetcher::startObservingCookieChanges(*storageSession, [this, sessionID] {
             notifyCookiesDidChange(sessionID);
         });
     }
@@ -138,7 +138,7 @@ void WebCookieManager::startObservingCookieChanges(PAL::SessionID sessionID)
 void WebCookieManager::stopObservingCookieChanges(PAL::SessionID sessionID)
 {
     if (auto* storageSession = m_process.storageSession(sessionID))
-        WebCore::stopObservingCookieChanges(*storageSession);
+        PurcFetcher::stopObservingCookieChanges(*storageSession);
 }
 
 void WebCookieManager::setHTTPCookieAcceptPolicy(HTTPCookieAcceptPolicy policy, CompletionHandler<void()>&& completionHandler)

@@ -33,7 +33,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class BlobRegistryImpl;
 }
 
@@ -51,14 +51,14 @@ public:
 
     bool isAllowedToAskUserForCredentials() const;
 
-    const WebCore::ResourceRequest& currentRequest() const { return m_currentRequest; }
-    void updateRequestAfterRedirection(WebCore::ResourceRequest&) const;
+    const PurcFetcher::ResourceRequest& currentRequest() const { return m_currentRequest; }
+    void updateRequestAfterRedirection(PurcFetcher::ResourceRequest&) const;
 
     const NetworkLoadParameters& parameters() const { return m_parameters; }
 
-    void continueWillSendRequest(WebCore::ResourceRequest&&);
+    void continueWillSendRequest(PurcFetcher::ResourceRequest&&);
 
-    void convertTaskToDownload(PendingDownload&, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, ResponseCompletionHandler&&);
+    void convertTaskToDownload(PendingDownload&, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, ResponseCompletionHandler&&);
     void setPendingDownloadID(DownloadID);
     void setSuggestedFilename(const String&);
     void setPendingDownload(PendingDownload&);
@@ -72,31 +72,31 @@ private:
     void initialize(NetworkSession&);
 
     // NetworkDataTaskClient
-    void willPerformHTTPRedirection(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(WebCore::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<WebCore::SharedBuffer>&&) final;
-    void didCompleteWithError(const WebCore::ResourceError&, const WebCore::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
     void wasBlockedByRestrictions() final;
-    void didNegotiateModernTLS(const WebCore::AuthenticationChallenge&) final;
+    void didNegotiateModernTLS(const PurcFetcher::AuthenticationChallenge&) final;
 
-    void notifyDidReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
+    void notifyDidReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
     void throttleDelayCompleted();
 
     std::reference_wrapper<NetworkLoadClient> m_client;
     Ref<NetworkProcess> m_networkProcess;
     const NetworkLoadParameters m_parameters;
-    CompletionHandler<void(WebCore::ResourceRequest&&)> m_redirectCompletionHandler;
+    CompletionHandler<void(PurcFetcher::ResourceRequest&&)> m_redirectCompletionHandler;
     RefPtr<NetworkDataTask> m_task;
     
     struct Throttle;
     std::unique_ptr<Throttle> m_throttle;
     Seconds m_loadThrottleLatency;
 
-    WebCore::ResourceRequest m_currentRequest; // Updated on redirects.
+    PurcFetcher::ResourceRequest m_currentRequest; // Updated on redirects.
 };
 
 } // namespace WebKit

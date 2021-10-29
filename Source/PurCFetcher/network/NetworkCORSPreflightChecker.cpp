@@ -39,7 +39,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 NetworkCORSPreflightChecker::NetworkCORSPreflightChecker(NetworkProcess& networkProcess, NetworkResourceLoader* networkResourceLoader, Parameters&& parameters, bool shouldCaptureExtraNetworkLoadMetrics, CompletionCallback&& completionCallback)
     : m_parameters(WTFMove(parameters))
@@ -80,7 +80,7 @@ void NetworkCORSPreflightChecker::startPreflight()
         ASSERT_NOT_REACHED();
 }
 
-void NetworkCORSPreflightChecker::willPerformHTTPRedirection(WebCore::ResourceResponse&& response, WebCore::ResourceRequest&&, RedirectCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::willPerformHTTPRedirection(PurcFetcher::ResourceResponse&& response, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&& completionHandler)
 {
     if (m_shouldCaptureExtraNetworkLoadMetrics)
         m_loadInformation.response = WTFMove(response);
@@ -90,7 +90,7 @@ void NetworkCORSPreflightChecker::willPerformHTTPRedirection(WebCore::ResourceRe
     m_completionCallback(ResourceError { errorDomainWebKitInternal, 0, m_parameters.originalRequest.url(), "Preflight response is not successful"_s, ResourceError::Type::AccessControl });
 }
 
-void NetworkCORSPreflightChecker::didReceiveChallenge(WebCore::AuthenticationChallenge&& challenge, NegotiatedLegacyTLS negotiatedLegacyTLS, ChallengeCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::didReceiveChallenge(PurcFetcher::AuthenticationChallenge&& challenge, NegotiatedLegacyTLS negotiatedLegacyTLS, ChallengeCompletionHandler&& completionHandler)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveChallenge, authentication scheme: %u", challenge.protectionSpace().authenticationScheme());
 
@@ -106,7 +106,7 @@ void NetworkCORSPreflightChecker::didReceiveChallenge(WebCore::AuthenticationCha
     m_networkProcess->authenticationManager().didReceiveAuthenticationChallenge(m_parameters.sessionID, m_parameters.webPageProxyID, m_parameters.topOrigin ? &m_parameters.topOrigin->data() : nullptr, challenge, negotiatedLegacyTLS, WTFMove(completionHandler));
 }
 
-void NetworkCORSPreflightChecker::didReceiveResponse(WebCore::ResourceResponse&& response, NegotiatedLegacyTLS, ResponseCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::didReceiveResponse(PurcFetcher::ResourceResponse&& response, NegotiatedLegacyTLS, ResponseCompletionHandler&& completionHandler)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveResponse");
 
@@ -117,12 +117,12 @@ void NetworkCORSPreflightChecker::didReceiveResponse(WebCore::ResourceResponse&&
     completionHandler(PolicyAction::Use);
 }
 
-void NetworkCORSPreflightChecker::didReceiveData(Ref<WebCore::SharedBuffer>&&)
+void NetworkCORSPreflightChecker::didReceiveData(Ref<PurcFetcher::SharedBuffer>&&)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveData");
 }
 
-void NetworkCORSPreflightChecker::didCompleteWithError(const WebCore::ResourceError& preflightError, const WebCore::NetworkLoadMetrics& metrics)
+void NetworkCORSPreflightChecker::didCompleteWithError(const PurcFetcher::ResourceError& preflightError, const PurcFetcher::NetworkLoadMetrics& metrics)
 {
     if (m_shouldCaptureExtraNetworkLoadMetrics)
         m_loadInformation.metrics = metrics;

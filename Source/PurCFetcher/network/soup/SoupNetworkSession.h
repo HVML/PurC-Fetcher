@@ -40,7 +40,7 @@ typedef struct _SoupMessage SoupMessage;
 typedef struct _SoupRequest SoupRequest;
 typedef struct _SoupSession SoupSession;
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class CertificateInfo;
 class ResourceError;
@@ -83,6 +83,6 @@ private:
     PAL::SessionID m_sessionID;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

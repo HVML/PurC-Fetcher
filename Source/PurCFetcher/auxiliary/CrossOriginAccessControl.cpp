@@ -43,7 +43,7 @@
 #include <wtf/text/AtomString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 bool isOnAccessControlSimpleRequestMethodAllowlist(const String& method)
 {
@@ -316,4 +316,4 @@ Optional<ResourceError> validateRangeRequestedFlag(const ResourceRequest& reques
     return WTF::nullopt;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

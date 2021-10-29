@@ -50,7 +50,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 class BlobDataFileReference;
 class BlobPart;
 class BlobRegistryImpl;
@@ -89,13 +89,13 @@ class NetworkConnectionToWebProcess
     , public WebPaymentCoordinatorProxy::Client
 #endif
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
-    , public WebCore::CookieChangeObserver
+    , public PurcFetcher::CookieChangeObserver
 #endif
     , IPC::Connection::Client {
 public:
-    using RegistrableDomain = WebCore::RegistrableDomain;
+    using RegistrableDomain = PurcFetcher::RegistrableDomain;
 
-    static Ref<NetworkConnectionToWebProcess> create(NetworkProcess&, WebCore::ProcessIdentifier, PAL::SessionID, IPC::Connection::Identifier);
+    static Ref<NetworkConnectionToWebProcess> create(NetworkProcess&, PurcFetcher::ProcessIdentifier, PAL::SessionID, IPC::Connection::Identifier);
     virtual ~NetworkConnectionToWebProcess();
     
     PAL::SessionID sessionID() const { return m_sessionID; }
@@ -110,37 +110,37 @@ public:
 
     bool captureExtraNetworkLoadMetricsEnabled() const { return m_captureExtraNetworkLoadMetricsEnabled; }
 
-    RefPtr<WebCore::BlobDataFileReference> getBlobDataFileReferenceForPath(const String& path);
+    RefPtr<PurcFetcher::BlobDataFileReference> getBlobDataFileReferenceForPath(const String& path);
 
     void cleanupForSuspension(Function<void()>&&);
     void endSuspension();
 
-    void getNetworkLoadInformationResponse(ResourceLoadIdentifier identifier, CompletionHandler<void(const WebCore::ResourceResponse&)>&& completionHandler)
+    void getNetworkLoadInformationResponse(ResourceLoadIdentifier identifier, CompletionHandler<void(const PurcFetcher::ResourceResponse&)>&& completionHandler)
     {
         completionHandler(m_networkLoadInformationByID.get(identifier).response);
     }
 
-    void getNetworkLoadIntermediateInformation(ResourceLoadIdentifier identifier, CompletionHandler<void(const Vector<WebCore::NetworkTransactionInformation>&)>&& completionHandler)
+    void getNetworkLoadIntermediateInformation(ResourceLoadIdentifier identifier, CompletionHandler<void(const Vector<PurcFetcher::NetworkTransactionInformation>&)>&& completionHandler)
     {
         completionHandler(m_networkLoadInformationByID.get(identifier).transactions);
     }
 
-    void takeNetworkLoadInformationMetrics(ResourceLoadIdentifier identifier, CompletionHandler<void(const WebCore::NetworkLoadMetrics&)>&& completionHandler)
+    void takeNetworkLoadInformationMetrics(ResourceLoadIdentifier identifier, CompletionHandler<void(const PurcFetcher::NetworkLoadMetrics&)>&& completionHandler)
     {
         completionHandler(m_networkLoadInformationByID.take(identifier).metrics);
     }
 
-    void addNetworkLoadInformation(ResourceLoadIdentifier identifier, WebCore::NetworkLoadInformation&& information)
+    void addNetworkLoadInformation(ResourceLoadIdentifier identifier, PurcFetcher::NetworkLoadInformation&& information)
     {
         ASSERT(!m_networkLoadInformationByID.contains(identifier));
         m_networkLoadInformationByID.add(identifier, WTFMove(information));
     }
 
-    void addNetworkLoadInformationMetrics(ResourceLoadIdentifier identifier, const WebCore::NetworkLoadMetrics& metrics)
+    void addNetworkLoadInformationMetrics(ResourceLoadIdentifier identifier, const PurcFetcher::NetworkLoadMetrics& metrics)
     {
         ASSERT(m_networkLoadInformationByID.contains(identifier));
         m_networkLoadInformationByID.ensure(identifier, [] {
-            return WebCore::NetworkLoadInformation { };
+            return PurcFetcher::NetworkLoadInformation { };
         }).iterator->value.metrics = metrics;
     }
 
@@ -149,30 +149,30 @@ public:
         m_networkLoadInformationByID.remove(identifier);
     }
 
-    Optional<NetworkActivityTracker> startTrackingResourceLoad(WebCore::PageIdentifier, ResourceLoadIdentifier resourceID, bool isTopResource);
+    Optional<NetworkActivityTracker> startTrackingResourceLoad(PurcFetcher::PageIdentifier, ResourceLoadIdentifier resourceID, bool isTopResource);
     void stopTrackingResourceLoad(ResourceLoadIdentifier resourceID, NetworkActivityTracker::CompletionCode);
 
     void removeSocketChannel(WebSocketIdentifier);
 
-    WebCore::ProcessIdentifier webProcessIdentifier() const { return m_webProcessIdentifier; }
+    PurcFetcher::ProcessIdentifier webProcessIdentifier() const { return m_webProcessIdentifier; }
 
-    void checkProcessLocalPortForActivity(const WebCore::MessagePortIdentifier&, CompletionHandler<void(WebCore::MessagePortChannelProvider::HasActivity)>&&);
+    void checkProcessLocalPortForActivity(const PurcFetcher::MessagePortIdentifier&, CompletionHandler<void(PurcFetcher::MessagePortChannelProvider::HasActivity)>&&);
 
 #if ENABLE(SERVICE_WORKER)
     void serverToContextConnectionNoLongerNeeded();
     WebSWServerConnection& swConnection();
-    std::unique_ptr<ServiceWorkerFetchTask> createFetchTask(NetworkResourceLoader&, const WebCore::ResourceRequest&);
+    std::unique_ptr<ServiceWorkerFetchTask> createFetchTask(NetworkResourceLoader&, const PurcFetcher::ResourceRequest&);
 #endif
 
     NetworkSchemeRegistry& schemeRegistry() { return m_schemeRegistry.get(); }
 
-    void cookieAcceptPolicyChanged(WebCore::HTTPCookieAcceptPolicy);
+    void cookieAcceptPolicyChanged(PurcFetcher::HTTPCookieAcceptPolicy);
 
 private:
-    NetworkConnectionToWebProcess(NetworkProcess&, WebCore::ProcessIdentifier, PAL::SessionID, IPC::Connection::Identifier);
+    NetworkConnectionToWebProcess(NetworkProcess&, PurcFetcher::ProcessIdentifier, PAL::SessionID, IPC::Connection::Identifier);
 
-    void didFinishPreconnection(uint64_t preconnectionIdentifier, const WebCore::ResourceError&);
-    WebCore::NetworkStorageSession* storageSession();
+    void didFinishPreconnection(uint64_t preconnectionIdentifier, const PurcFetcher::ResourceError&);
+    PurcFetcher::NetworkStorageSession* storageSession();
 
     // IPC::Connection::Client
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
@@ -192,42 +192,42 @@ private:
     void preconnectTo(Optional<uint64_t> preconnectionIdentifier, NetworkResourceLoadParameters&&);
 
     void removeLoadIdentifier(ResourceLoadIdentifier);
-    void pageLoadCompleted(WebCore::PageIdentifier);
-    void browsingContextRemoved(WebPageProxyIdentifier, WebCore::PageIdentifier, WebCore::FrameIdentifier);
+    void pageLoadCompleted(PurcFetcher::PageIdentifier);
+    void browsingContextRemoved(WebPageProxyIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::FrameIdentifier);
     void crossOriginRedirectReceived(ResourceLoadIdentifier, const URL& redirectURL);
-    void startDownload(DownloadID, const WebCore::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
-    void convertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, DownloadID, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&, Optional<NavigatingToAppBoundDomain>);
+    void startDownload(DownloadID, const PurcFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
+    void convertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, DownloadID, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, Optional<NavigatingToAppBoundDomain>);
 
     void registerURLSchemesAsCORSEnabled(Vector<String>&& schemes);
 
-    void cookiesForDOM(const URL& firstParty, const WebCore::SameSiteInfo&, const URL&, WebCore::FrameIdentifier, WebCore::PageIdentifier, WebCore::IncludeSecureCookies, WebCore::ShouldAskITP, WebCore::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(String cookieString, bool secureCookiesAccessed)>&&);
-    void setCookiesFromDOM(const URL& firstParty, const WebCore::SameSiteInfo&, const URL&, WebCore::FrameIdentifier, WebCore::PageIdentifier, WebCore::ShouldAskITP, const String&, WebCore::ShouldRelaxThirdPartyCookieBlocking);
-    void cookieRequestHeaderFieldValue(const URL& firstParty, const WebCore::SameSiteInfo&, const URL&, Optional<WebCore::FrameIdentifier>, Optional<WebCore::PageIdentifier>, WebCore::IncludeSecureCookies, WebCore::ShouldAskITP, WebCore::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(String cookieString, bool secureCookiesAccessed)>&&);
-    void getRawCookies(const URL& firstParty, const WebCore::SameSiteInfo&, const URL&, Optional<WebCore::FrameIdentifier>, Optional<WebCore::PageIdentifier>, WebCore::ShouldAskITP, WebCore::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&&);
-    void setRawCookie(const WebCore::Cookie&);
+    void cookiesForDOM(const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::IncludeSecureCookies, PurcFetcher::ShouldAskITP, PurcFetcher::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(String cookieString, bool secureCookiesAccessed)>&&);
+    void setCookiesFromDOM(const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::ShouldAskITP, const String&, PurcFetcher::ShouldRelaxThirdPartyCookieBlocking);
+    void cookieRequestHeaderFieldValue(const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, Optional<PurcFetcher::FrameIdentifier>, Optional<PurcFetcher::PageIdentifier>, PurcFetcher::IncludeSecureCookies, PurcFetcher::ShouldAskITP, PurcFetcher::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(String cookieString, bool secureCookiesAccessed)>&&);
+    void getRawCookies(const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, Optional<PurcFetcher::FrameIdentifier>, Optional<PurcFetcher::PageIdentifier>, PurcFetcher::ShouldAskITP, PurcFetcher::ShouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&&);
+    void setRawCookie(const PurcFetcher::Cookie&);
     void deleteCookie(const URL&, const String& cookieName);
 
     void setCaptureExtraNetworkLoadMetricsEnabled(bool);
 
     void createSocketStream(URL&&, String cachePartition, WebSocketIdentifier);
 
-    void createSocketChannel(const WebCore::ResourceRequest&, const String& protocol, WebSocketIdentifier);
-    void updateQuotaBasedOnSpaceUsageForTesting(const WebCore::ClientOrigin&);
+    void createSocketChannel(const PurcFetcher::ResourceRequest&, const String& protocol, WebSocketIdentifier);
+    void updateQuotaBasedOnSpaceUsageForTesting(const PurcFetcher::ClientOrigin&);
 
 #if ENABLE(SERVICE_WORKER)
     void establishSWServerConnection();
-    void establishSWContextConnection(WebCore::RegistrableDomain&&, CompletionHandler<void()>&&);
+    void establishSWContextConnection(PurcFetcher::RegistrableDomain&&, CompletionHandler<void()>&&);
     void closeSWContextConnection();
     void unregisterSWConnection();
 #endif
 
-    void createNewMessagePortChannel(const WebCore::MessagePortIdentifier& port1, const WebCore::MessagePortIdentifier& port2);
-    void entangleLocalPortInThisProcessToRemote(const WebCore::MessagePortIdentifier& local, const WebCore::MessagePortIdentifier& remote);
-    void messagePortDisentangled(const WebCore::MessagePortIdentifier&);
-    void messagePortClosed(const WebCore::MessagePortIdentifier&);
-    void takeAllMessagesForPort(const WebCore::MessagePortIdentifier&, CompletionHandler<void(Vector<WebCore::MessageWithMessagePorts>&&, uint64_t)>&&);
-    void postMessageToRemote(WebCore::MessageWithMessagePorts&&, const WebCore::MessagePortIdentifier&);
-    void checkRemotePortForActivity(const WebCore::MessagePortIdentifier, CompletionHandler<void(bool)>&&);
+    void createNewMessagePortChannel(const PurcFetcher::MessagePortIdentifier& port1, const PurcFetcher::MessagePortIdentifier& port2);
+    void entangleLocalPortInThisProcessToRemote(const PurcFetcher::MessagePortIdentifier& local, const PurcFetcher::MessagePortIdentifier& remote);
+    void messagePortDisentangled(const PurcFetcher::MessagePortIdentifier&);
+    void messagePortClosed(const PurcFetcher::MessagePortIdentifier&);
+    void takeAllMessagesForPort(const PurcFetcher::MessagePortIdentifier&, CompletionHandler<void(Vector<PurcFetcher::MessageWithMessagePorts>&&, uint64_t)>&&);
+    void postMessageToRemote(PurcFetcher::MessageWithMessagePorts&&, const PurcFetcher::MessagePortIdentifier&);
+    void checkRemotePortForActivity(const PurcFetcher::MessagePortIdentifier, CompletionHandler<void(bool)>&&);
     void didDeliverMessagePortMessages(uint64_t messageBatchIdentifier);
 
 #if USE(LIBWEBRTC)
@@ -240,14 +240,14 @@ private:
     CacheStorageEngineConnection& cacheStorageConnection();
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    void removeStorageAccessForFrame(WebCore::FrameIdentifier, WebCore::PageIdentifier);
-    void clearPageSpecificDataForResourceLoadStatistics(WebCore::PageIdentifier);
+    void removeStorageAccessForFrame(PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier);
+    void clearPageSpecificDataForResourceLoadStatistics(PurcFetcher::PageIdentifier);
 
     void logUserInteraction(const RegistrableDomain&);
-    void resourceLoadStatisticsUpdated(Vector<WebCore::ResourceLoadStatistics>&&);
-    void hasStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, WebCore::FrameIdentifier, WebCore::PageIdentifier, CompletionHandler<void(bool)>&&);
-    void requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, WebCore::FrameIdentifier, WebCore::PageIdentifier, WebPageProxyIdentifier, WebCore::StorageAccessScope, CompletionHandler<void(WebCore::RequestStorageAccessResult)>&&);
-    void requestStorageAccessUnderOpener(WebCore::RegistrableDomain&& domainInNeedOfStorageAccess, WebCore::PageIdentifier openerPageID, WebCore::RegistrableDomain&& openerDomain);
+    void resourceLoadStatisticsUpdated(Vector<PurcFetcher::ResourceLoadStatistics>&&);
+    void hasStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, CompletionHandler<void(bool)>&&);
+    void requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, WebPageProxyIdentifier, PurcFetcher::StorageAccessScope, CompletionHandler<void(PurcFetcher::RequestStorageAccessResult)>&&);
+    void requestStorageAccessUnderOpener(PurcFetcher::RegistrableDomain&& domainInNeedOfStorageAccess, PurcFetcher::PageIdentifier openerPageID, PurcFetcher::RegistrableDomain&& openerDomain);
 #endif
 
     void addOriginAccessWhitelistEntry(const String& sourceOrigin, const String& destinationProtocol, const String& destinationHost, bool allowDestinationSubdomains);
@@ -256,14 +256,14 @@ private:
 
     uint64_t nextMessageBatchIdentifier(Function<void()>&&);
 
-    void domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<WebCore::Cookie>&)>&&);
+    void domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<PurcFetcher::Cookie>&)>&&);
 
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
     void unsubscribeFromCookieChangeNotifications(const HashSet<String>& hosts);
 
-    // WebCore::CookieChangeObserver.
-    void cookiesAdded(const String& host, const Vector<WebCore::Cookie>&) final;
-    void cookiesDeleted(const String& host, const Vector<WebCore::Cookie>&) final;
+    // PurcFetcher::CookieChangeObserver.
+    void cookiesAdded(const String& host, const Vector<PurcFetcher::Cookie>&) final;
+    void cookiesDeleted(const String& host, const Vector<PurcFetcher::Cookie>&) final;
     void allCookiesDeleted() final;
 #endif
 
@@ -271,29 +271,29 @@ private:
         ResourceNetworkActivityTracker() = default;
         ResourceNetworkActivityTracker(const ResourceNetworkActivityTracker&) = default;
         ResourceNetworkActivityTracker(ResourceNetworkActivityTracker&&) = default;
-        ResourceNetworkActivityTracker(WebCore::PageIdentifier pageID)
+        ResourceNetworkActivityTracker(PurcFetcher::PageIdentifier pageID)
             : pageID { pageID }
             , isRootActivity { true }
             , networkActivity { NetworkActivityTracker::Label::LoadPage }
         {
         }
 
-        ResourceNetworkActivityTracker(WebCore::PageIdentifier pageID, ResourceLoadIdentifier resourceID)
+        ResourceNetworkActivityTracker(PurcFetcher::PageIdentifier pageID, ResourceLoadIdentifier resourceID)
             : pageID { pageID }
             , resourceID { resourceID }
             , networkActivity { NetworkActivityTracker::Label::LoadResource }
         {
         }
 
-        WebCore::PageIdentifier pageID;
+        PurcFetcher::PageIdentifier pageID;
         ResourceLoadIdentifier resourceID { 0 };
         bool isRootActivity { false };
         NetworkActivityTracker networkActivity;
     };
 
     void stopAllNetworkActivityTracking();
-    void stopAllNetworkActivityTrackingForPage(WebCore::PageIdentifier);
-    size_t findRootNetworkActivity(WebCore::PageIdentifier);
+    void stopAllNetworkActivityTrackingForPage(PurcFetcher::PageIdentifier);
+    size_t findRootNetworkActivity(PurcFetcher::PageIdentifier);
     size_t findNetworkActivityTracker(ResourceLoadIdentifier resourceID);
 
     void hasUploadStateChanged(bool);
@@ -322,7 +322,7 @@ private:
     NetworkResourceLoadMap m_networkResourceLoaders;
     Vector<ResourceNetworkActivityTracker> m_networkActivityTrackers;
 
-    HashMap<ResourceLoadIdentifier, WebCore::NetworkLoadInformation> m_networkLoadInformationByID;
+    HashMap<ResourceLoadIdentifier, PurcFetcher::NetworkLoadInformation> m_networkLoadInformationByID;
 
 
 #if USE(LIBWEBRTC)
@@ -347,9 +347,9 @@ private:
 #if ENABLE(APPLE_PAY_REMOTE_UI)
     std::unique_ptr<WebPaymentCoordinatorProxy> m_paymentCoordinator;
 #endif
-    const WebCore::ProcessIdentifier m_webProcessIdentifier;
+    const PurcFetcher::ProcessIdentifier m_webProcessIdentifier;
 
-    HashSet<WebCore::MessagePortIdentifier> m_processEntangledPorts;
+    HashSet<PurcFetcher::MessagePortIdentifier> m_processEntangledPorts;
     HashMap<uint64_t, Function<void()>> m_messageBatchDeliveryCompletionHandlers;
     Ref<NetworkSchemeRegistry> m_schemeRegistry;
 };

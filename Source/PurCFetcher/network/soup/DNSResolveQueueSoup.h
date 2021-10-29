@@ -32,13 +32,13 @@
 
 typedef struct _SoupSession SoupSession;
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class NetworkStorageSession;
 
 class DNSResolveQueueSoup final : public DNSResolveQueue {
 public:
-    using CompletionAndCancelHandlers = std::pair<WebCore::DNSCompletionHandler, GRefPtr<GCancellable>>;
+    using CompletionAndCancelHandlers = std::pair<PurcFetcher::DNSCompletionHandler, GRefPtr<GCancellable>>;
 
     DNSResolveQueueSoup() = default;
     static void setGlobalDefaultSoupSessionAccessor(Function<SoupSession*()>&&);

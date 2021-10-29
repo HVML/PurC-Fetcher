@@ -29,7 +29,7 @@
 #include "ProtectionSpace.h"
 #include <wtf/HashTraits.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct ProtectionSpaceHash {
     static unsigned hash(const ProtectionSpace& protectionSpace)
@@ -53,14 +53,14 @@ struct ProtectionSpaceHash {
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-    template<> struct HashTraits<WebCore::ProtectionSpace> : SimpleClassHashTraits<WebCore::ProtectionSpace> { };
+    template<> struct HashTraits<PurcFetcher::ProtectionSpace> : SimpleClassHashTraits<PurcFetcher::ProtectionSpace> { };
 
-    template<> struct DefaultHash<WebCore::ProtectionSpace> {
-        using Hash = WebCore::ProtectionSpaceHash;
+    template<> struct DefaultHash<PurcFetcher::ProtectionSpace> {
+        using Hash = PurcFetcher::ProtectionSpaceHash;
     };
 
 } // namespace WTF

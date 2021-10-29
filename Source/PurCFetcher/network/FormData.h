@@ -26,7 +26,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SharedBuffer;
 class TextEncoding;
@@ -300,5 +300,5 @@ RefPtr<FormData> FormData::decode(Decoder& decoder)
     return data;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

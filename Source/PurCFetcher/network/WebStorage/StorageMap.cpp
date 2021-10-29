@@ -28,7 +28,7 @@
 
 #include <wtf/SetForScope.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 Ref<StorageMap> StorageMap::create(unsigned quota)
 {

@@ -27,7 +27,7 @@
 
 #include "TextCodecUTF8.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextCodecReplacement : public TextCodecUTF8 {
 public:
@@ -41,4 +41,4 @@ private:
 
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

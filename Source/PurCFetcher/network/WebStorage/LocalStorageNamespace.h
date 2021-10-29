@@ -48,13 +48,13 @@ public:
     StorageManager* storageManager() const { return &m_storageManager; }
 
     enum class IsEphemeral : bool { No, Yes };
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, IsEphemeral, Ref<WorkQueue>&&);
+    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, IsEphemeral, Ref<WorkQueue>&&);
 
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
-    void flushAndClose(const WebCore::SecurityOriginData&);
+    void flushAndClose(const PurcFetcher::SecurityOriginData&);
 
-    Vector<WebCore::SecurityOriginData> ephemeralOrigins() const;
+    Vector<PurcFetcher::SecurityOriginData> ephemeralOrigins() const;
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
 
@@ -62,7 +62,7 @@ private:
     StorageManager& m_storageManager;
     unsigned m_quotaInBytes { 0 };
 
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
 } // namespace WebKit

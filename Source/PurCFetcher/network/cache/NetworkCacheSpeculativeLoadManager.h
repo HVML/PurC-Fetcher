@@ -49,19 +49,19 @@ public:
     explicit SpeculativeLoadManager(Cache&, Storage&);
     ~SpeculativeLoadManager();
 
-    void registerLoad(const GlobalFrameID&, const WebCore::ResourceRequest&, const Key& resourceKey, Optional<NavigatingToAppBoundDomain>);
-    void registerMainResourceLoadResponse(const GlobalFrameID&, const WebCore::ResourceRequest&, const WebCore::ResourceResponse&);
+    void registerLoad(const GlobalFrameID&, const PurcFetcher::ResourceRequest&, const Key& resourceKey, Optional<NavigatingToAppBoundDomain>);
+    void registerMainResourceLoadResponse(const GlobalFrameID&, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
 
     typedef Function<void (std::unique_ptr<Entry>)> RetrieveCompletionHandler;
 
-    bool canRetrieve(const Key& storageKey, const WebCore::ResourceRequest&, const GlobalFrameID&) const;
+    bool canRetrieve(const Key& storageKey, const PurcFetcher::ResourceRequest&, const GlobalFrameID&) const;
     void retrieve(const Key& storageKey, RetrieveCompletionHandler&&);
 
 private:
     class PreloadedEntry;
 
-    static bool shouldRegisterLoad(const WebCore::ResourceRequest&);
-    void addPreloadedEntry(std::unique_ptr<Entry>, const GlobalFrameID&, Optional<WebCore::ResourceRequest>&& revalidationRequest = WTF::nullopt);
+    static bool shouldRegisterLoad(const PurcFetcher::ResourceRequest&);
+    void addPreloadedEntry(std::unique_ptr<Entry>, const GlobalFrameID&, Optional<PurcFetcher::ResourceRequest>&& revalidationRequest = WTF::nullopt);
     void preloadEntry(const Key&, const SubresourceInfo&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
     void retrieveEntryFromStorage(const SubresourceInfo&, RetrieveCompletionHandler&&);
     void revalidateSubresource(const SubresourceInfo&, std::unique_ptr<Entry>, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
@@ -70,8 +70,8 @@ private:
     void retrieveSubresourcesEntry(const Key& storageKey, WTF::Function<void (std::unique_ptr<SubresourcesEntry>)>&&);
     void startSpeculativeRevalidation(const GlobalFrameID&, SubresourcesEntry&, Optional<NavigatingToAppBoundDomain>);
 
-    static bool canUsePreloadedEntry(const PreloadedEntry&, const WebCore::ResourceRequest& actualRequest);
-    static bool canUsePendingPreload(const SpeculativeLoad&, const WebCore::ResourceRequest& actualRequest);
+    static bool canUsePreloadedEntry(const PreloadedEntry&, const PurcFetcher::ResourceRequest& actualRequest);
+    static bool canUsePendingPreload(const SpeculativeLoad&, const PurcFetcher::ResourceRequest& actualRequest);
 
     Cache& m_cache;
     Storage& m_storage;

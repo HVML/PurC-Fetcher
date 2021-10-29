@@ -184,11 +184,11 @@ private:
     static const int maximumRetrievePriority = 4;
     Deque<std::unique_ptr<ReadOperation>> m_pendingReadOperationsByPriority[maximumRetrievePriority + 1];
     HashSet<std::unique_ptr<ReadOperation>> m_activeReadOperations;
-    WebCore::Timer m_readOperationTimeoutTimer;
+    PurcFetcher::Timer m_readOperationTimeoutTimer;
 
     Deque<std::unique_ptr<WriteOperation>> m_pendingWriteOperations;
     HashSet<std::unique_ptr<WriteOperation>> m_activeWriteOperations;
-    WebCore::Timer m_writeOperationDispatchTimer;
+    PurcFetcher::Timer m_writeOperationDispatchTimer;
 
     struct TraverseOperation;
     HashSet<std::unique_ptr<TraverseOperation>> m_activeTraverseOperations;

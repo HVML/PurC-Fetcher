@@ -42,8 +42,8 @@ class NetworkSchemeRegistry;
 
 class PingLoad final : public CanMakeWeakPtr<PingLoad>, private NetworkDataTaskClient {
 public:
-    PingLoad(NetworkProcess&, PAL::SessionID, NetworkResourceLoadParameters&&, CompletionHandler<void(const WebCore::ResourceError&, const WebCore::ResourceResponse&)>&&);
-    PingLoad(NetworkConnectionToWebProcess&, NetworkResourceLoadParameters&&, CompletionHandler<void(const WebCore::ResourceError&, const WebCore::ResourceResponse&)>&&);
+    PingLoad(NetworkProcess&, PAL::SessionID, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)>&&);
+    PingLoad(NetworkConnectionToWebProcess&, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)>&&);
 
 private:
     ~PingLoad();
@@ -51,26 +51,26 @@ private:
 
     const URL& currentURL() const;
 
-    void willPerformHTTPRedirection(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(WebCore::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(WebCore::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<WebCore::SharedBuffer>&&) final;
-    void didCompleteWithError(const WebCore::ResourceError&, const WebCore::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
     void wasBlockedByRestrictions() final;
     void timeoutTimerFired();
 
-    void loadRequest(NetworkProcess&, WebCore::ResourceRequest&&);
+    void loadRequest(NetworkProcess&, PurcFetcher::ResourceRequest&&);
 
-    void didFinish(const WebCore::ResourceError& = { }, const WebCore::ResourceResponse& response = { });
+    void didFinish(const PurcFetcher::ResourceError& = { }, const PurcFetcher::ResourceResponse& response = { });
     
     PAL::SessionID m_sessionID;
     NetworkResourceLoadParameters m_parameters;
-    CompletionHandler<void(const WebCore::ResourceError&, const WebCore::ResourceResponse&)> m_completionHandler;
+    CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)> m_completionHandler;
     RefPtr<NetworkDataTask> m_task;
-    WebCore::Timer m_timeoutTimer;
+    PurcFetcher::Timer m_timeoutTimer;
     UniqueRef<NetworkLoadChecker> m_networkLoadChecker;
 };
 

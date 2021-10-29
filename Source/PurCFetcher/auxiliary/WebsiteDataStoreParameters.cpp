@@ -83,7 +83,7 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
         return WTF::nullopt;
     parameters.cookieStoragePathExtensionHandle = WTFMove(*cookieStoragePathExtensionHandle);
 
-    Optional<Vector<WebCore::Cookie>> pendingCookies;
+    Optional<Vector<PurcFetcher::Cookie>> pendingCookies;
     decoder >> pendingCookies;
     if (!pendingCookies)
         return WTF::nullopt;

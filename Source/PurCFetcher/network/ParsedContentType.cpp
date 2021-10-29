@@ -36,7 +36,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static void skipSpaces(StringView input, unsigned& startIndex)
 {

@@ -33,23 +33,23 @@
 namespace WebKit {
 namespace NetworkCache {
 
-static inline WebCore::ResourceRequest constructRevalidationRequest(const Key& key, const WebCore::ResourceRequest& request, const Entry& entry)
+static inline PurcFetcher::ResourceRequest constructRevalidationRequest(const Key& key, const PurcFetcher::ResourceRequest& request, const Entry& entry)
 {
-    WebCore::ResourceRequest revalidationRequest = request;
+    PurcFetcher::ResourceRequest revalidationRequest = request;
     if (!key.partition().isEmpty())
         revalidationRequest.setCachePartition(key.partition());
     ASSERT_WITH_MESSAGE(key.range().isEmpty(), "range is not supported");
 
     revalidationRequest.makeUnconditional();
-    auto eTag = entry.response().httpHeaderField(WebCore::HTTPHeaderName::ETag);
+    auto eTag = entry.response().httpHeaderField(PurcFetcher::HTTPHeaderName::ETag);
     if (!eTag.isEmpty())
-        revalidationRequest.setHTTPHeaderField(WebCore::HTTPHeaderName::IfNoneMatch, eTag);
+        revalidationRequest.setHTTPHeaderField(PurcFetcher::HTTPHeaderName::IfNoneMatch, eTag);
 
-    auto lastModified = entry.response().httpHeaderField(WebCore::HTTPHeaderName::LastModified);
+    auto lastModified = entry.response().httpHeaderField(PurcFetcher::HTTPHeaderName::LastModified);
     if (!lastModified.isEmpty())
-        revalidationRequest.setHTTPHeaderField(WebCore::HTTPHeaderName::IfModifiedSince, lastModified);
+        revalidationRequest.setHTTPHeaderField(PurcFetcher::HTTPHeaderName::IfModifiedSince, lastModified);
 
-    revalidationRequest.setPriority(WebCore::ResourceLoadPriority::Low);
+    revalidationRequest.setPriority(PurcFetcher::ResourceLoadPriority::Low);
 
     return revalidationRequest;
 }
@@ -66,14 +66,14 @@ void AsyncRevalidation::staleWhileRevalidateEnding()
         m_completionHandler(Result::Timeout);
 }
 
-AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID, const WebCore::ResourceRequest& request, std::unique_ptr<NetworkCache::Entry>&& entry, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, CompletionHandler<void(Result)>&& handler)
+AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID, const PurcFetcher::ResourceRequest& request, std::unique_ptr<NetworkCache::Entry>&& entry, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, CompletionHandler<void(Result)>&& handler)
     : m_timer(*this, &AsyncRevalidation::staleWhileRevalidateEnding)
     , m_completionHandler(WTFMove(handler))
 {
     auto key = entry->key();
     auto revalidationRequest = constructRevalidationRequest(key, request, *entry.get());
-    auto age = WebCore::computeCurrentAge(entry->response(), entry->timeStamp());
-    auto lifetime = WebCore::computeFreshnessLifetimeForHTTPFamily(entry->response(), entry->timeStamp());
+    auto age = PurcFetcher::computeCurrentAge(entry->response(), entry->timeStamp());
+    auto lifetime = PurcFetcher::computeFreshnessLifetimeForHTTPFamily(entry->response(), entry->timeStamp());
     auto responseMaxStaleness = entry->response().cacheControlStaleWhileRevalidate();
     ASSERT(responseMaxStaleness);
     m_timer.startOneShot(*responseMaxStaleness + (lifetime - age));

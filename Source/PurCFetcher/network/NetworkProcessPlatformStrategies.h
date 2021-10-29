@@ -30,15 +30,15 @@
 
 namespace WebKit {
 
-class NetworkProcessPlatformStrategies : public WebCore::PlatformStrategies {
+class NetworkProcessPlatformStrategies : public PurcFetcher::PlatformStrategies {
 public:
     static void initialize();
     
 private:
-    // WebCore::PlatformStrategies
-    WebCore::LoaderStrategy* createLoaderStrategy() override;
-    WebCore::PasteboardStrategy* createPasteboardStrategy() override;
-    WebCore::MediaStrategy* createMediaStrategy() override;
+    // PurcFetcher::PlatformStrategies
+    PurcFetcher::LoaderStrategy* createLoaderStrategy() override;
+    PurcFetcher::PasteboardStrategy* createPasteboardStrategy() override;
+    PurcFetcher::MediaStrategy* createMediaStrategy() override;
 };
 
 } // namespace WebKit

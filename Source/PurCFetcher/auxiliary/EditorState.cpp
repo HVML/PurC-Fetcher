@@ -31,7 +31,7 @@
 #include <wtf/text/TextStream.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 void EditorState::encode(IPC::Encoder& encoder) const
 {
@@ -284,7 +284,7 @@ TextStream& operator<<(TextStream& ts, const EditorState& editorState)
         ts.dumpProperty("textColor", editorState.postLayoutData().textColor);
     if (editorState.postLayoutData().enclosingListType != NoList)
         ts.dumpProperty("enclosingListType", editorState.postLayoutData().enclosingListType);
-    if (editorState.postLayoutData().baseWritingDirection != WebCore::WritingDirection::Natural)
+    if (editorState.postLayoutData().baseWritingDirection != PurcFetcher::WritingDirection::Natural)
         ts.dumpProperty("baseWritingDirection", static_cast<uint8_t>(editorState.postLayoutData().baseWritingDirection));
 #endif // PLATFORM(COCOA)
 #if PLATFORM(IOS_FAMILY)

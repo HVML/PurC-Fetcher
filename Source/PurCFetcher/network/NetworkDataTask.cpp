@@ -59,7 +59,7 @@
 #endif
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDataTaskClient& client, const NetworkLoadParameters& parameters)
 {
@@ -202,12 +202,12 @@ NetworkSession* NetworkDataTask::networkSession()
     return m_session.get();
 }
 
-bool NetworkDataTask::isThirdPartyRequest(const WebCore::ResourceRequest& request) const
+bool NetworkDataTask::isThirdPartyRequest(const PurcFetcher::ResourceRequest& request) const
 {
-    return !WebCore::areRegistrableDomainsEqual(request.url(), request.firstPartyForCookies());
+    return !PurcFetcher::areRegistrableDomainsEqual(request.url(), request.firstPartyForCookies());
 }
 
-void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(WebCore::ResourceRequest& request)
+void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(PurcFetcher::ResourceRequest& request)
 {
     UNUSED_PARAM(request);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)

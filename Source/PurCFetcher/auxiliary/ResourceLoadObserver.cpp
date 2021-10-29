@@ -27,7 +27,7 @@
 #include "ResourceLoadObserver.h"
 #include <wtf/NeverDestroyed.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 static ResourceLoadObserver*& sharedObserver()
 {
@@ -54,4 +54,4 @@ ResourceLoadObserver* ResourceLoadObserver::sharedIfExists()
     return sharedObserver();
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

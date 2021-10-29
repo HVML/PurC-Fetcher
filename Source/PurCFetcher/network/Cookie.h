@@ -39,7 +39,7 @@
 typedef struct _SoupCookie SoupCookie;
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct Cookie {
     Cookie() = default;
@@ -170,23 +170,23 @@ Optional<Cookie> Cookie::decode(Decoder& decoder)
 
 namespace WTF {
     template<typename T> struct DefaultHash;
-    template<> struct DefaultHash<WebCore::Cookie> {
-        typedef WebCore::CookieHash Hash;
+    template<> struct DefaultHash<PurcFetcher::Cookie> {
+        typedef PurcFetcher::CookieHash Hash;
     };
-    template<> struct HashTraits<WebCore::Cookie> : GenericHashTraits<WebCore::Cookie> {
-        static WebCore::Cookie emptyValue() { return { }; }
-        static void constructDeletedValue(WebCore::Cookie& slot) { slot = WebCore::Cookie(WTF::HashTableDeletedValue); }
-        static bool isDeletedValue(const WebCore::Cookie& slot) { return slot.name.isHashTableDeletedValue(); }
+    template<> struct HashTraits<PurcFetcher::Cookie> : GenericHashTraits<PurcFetcher::Cookie> {
+        static PurcFetcher::Cookie emptyValue() { return { }; }
+        static void constructDeletedValue(PurcFetcher::Cookie& slot) { slot = PurcFetcher::Cookie(WTF::HashTableDeletedValue); }
+        static bool isDeletedValue(const PurcFetcher::Cookie& slot) { return slot.name.isHashTableDeletedValue(); }
 
         static const bool hasIsEmptyValueFunction = true;
-        static bool isEmptyValue(const WebCore::Cookie& slot) { return slot.isNull(); }
+        static bool isEmptyValue(const PurcFetcher::Cookie& slot) { return slot.isNull(); }
     };
-    template<> struct EnumTraits<WebCore::Cookie::SameSitePolicy> {
+    template<> struct EnumTraits<PurcFetcher::Cookie::SameSitePolicy> {
     using values = EnumValues<
-        WebCore::Cookie::SameSitePolicy,
-        WebCore::Cookie::SameSitePolicy::None,
-        WebCore::Cookie::SameSitePolicy::Lax,
-        WebCore::Cookie::SameSitePolicy::Strict
+        PurcFetcher::Cookie::SameSitePolicy,
+        PurcFetcher::Cookie::SameSitePolicy::None,
+        PurcFetcher::Cookie::SameSitePolicy::Lax,
+        PurcFetcher::Cookie::SameSitePolicy::Strict
     >;
 };
 }

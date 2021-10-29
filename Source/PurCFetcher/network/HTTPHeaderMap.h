@@ -32,7 +32,7 @@
 #include <wtf/Optional.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // FIXME: Not every header fits into a map. Notably, multiple Set-Cookie header fields are needed to set multiple cookies.
 
@@ -278,4 +278,4 @@ bool HTTPHeaderMap::decode(Decoder& decoder, HTTPHeaderMap& headerMap)
     return true;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

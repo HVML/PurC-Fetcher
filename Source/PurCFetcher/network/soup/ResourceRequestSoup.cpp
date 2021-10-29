@@ -33,7 +33,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 #if 0
 static uint64_t appendEncodedBlobItemToSoupMessageBody(SoupMessage* soupMessage, const BlobDataItem& blobItem)

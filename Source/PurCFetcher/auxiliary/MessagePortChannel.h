@@ -33,7 +33,7 @@
 #include <wtf/RefCounted.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class MessagePortChannelRegistry;
 
@@ -79,4 +79,4 @@ private:
     MessagePortChannelRegistry& m_registry;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

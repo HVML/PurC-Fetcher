@@ -31,7 +31,7 @@
 
 #include "HTTPParsers.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // https://fetch.spec.whatwg.org/#concept-headers-remove-privileged-no-cors-request-headers
 static void removePrivilegedNoCORSRequestHeaders(HTTPHeaderMap& headers)
@@ -242,4 +242,4 @@ FetchHeaders::Iterator::Iterator(FetchHeaders& headers)
     std::sort(m_keys.begin(), m_keys.end(), WTF::codePointCompareLessThan);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

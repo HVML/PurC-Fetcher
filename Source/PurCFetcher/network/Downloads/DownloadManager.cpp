@@ -36,7 +36,7 @@
 #include <wtf/StdLibExtras.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 DownloadManager::DownloadManager(Client& client)
     : m_client(client)
@@ -71,7 +71,7 @@ void DownloadManager::dataTaskBecameDownloadTask(DownloadID downloadID, std::uni
     m_downloads.add(downloadID, WTFMove(download));
 }
 
-void DownloadManager::continueWillSendRequest(DownloadID downloadID, WebCore::ResourceRequest&& request)
+void DownloadManager::continueWillSendRequest(DownloadID downloadID, PurcFetcher::ResourceRequest&& request)
 {
     auto* pendingDownload = m_pendingDownloads.get(downloadID);
     ASSERT(pendingDownload);

@@ -27,7 +27,7 @@
 
 #include "TextCodec.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextCodecUTF16 : public TextCodec {
 public:
@@ -45,4 +45,4 @@ private:
     unsigned char m_bufferedByte;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -27,7 +27,7 @@
 
 #include <wtf/ThreadSafeRefCounted.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class NetworkStorageSession;
 
@@ -38,4 +38,4 @@ public:
     virtual ~StorageSessionProvider() { }
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

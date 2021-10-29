@@ -29,7 +29,7 @@
 #include <unicode/utf8.h>
 #include <wtf/text/LChar.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextCodecUTF8 : public TextCodec {
 public:
@@ -49,5 +49,5 @@ private:
     
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

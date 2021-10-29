@@ -29,7 +29,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct TypeExtensionPair {
     ASCIILiteral type;
@@ -154,4 +154,4 @@ private:
 
 PURCFETCHER_EXPORT const String& defaultMIMEType();
 
-} // namespace WebCore
+} // namespace PurcFetcher

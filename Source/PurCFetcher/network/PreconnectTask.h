@@ -40,7 +40,7 @@ class NetworkProcess;
 
 class PreconnectTask final : public NetworkLoadClient {
 public:
-    PreconnectTask(NetworkProcess&, PAL::SessionID, NetworkLoadParameters&&, CompletionHandler<void(const WebCore::ResourceError&)>&& completionHandler = { });
+    PreconnectTask(NetworkProcess&, PAL::SessionID, NetworkLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&)>&& completionHandler = { });
     ~PreconnectTask();
 
 private:
@@ -48,17 +48,17 @@ private:
     bool isSynchronous() const final { return false; }
     bool isAllowedToAskUserForCredentials() const final { return false; }
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) final;
-    void willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse) final;
-    void didReceiveResponse(WebCore::ResourceResponse&&, ResponseCompletionHandler&&) final;
-    void didReceiveBuffer(Ref<WebCore::SharedBuffer>&&, int reportedEncodedDataLength) final;
-    void didFinishLoading(const WebCore::NetworkLoadMetrics&) final;
-    void didFailLoading(const WebCore::ResourceError&) final;
+    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) final;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
+    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
+    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) final;
+    void didFailLoading(const PurcFetcher::ResourceError&) final;
 
-    void didFinish(const WebCore::ResourceError&);
+    void didFinish(const PurcFetcher::ResourceError&);
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
-    CompletionHandler<void(const WebCore::ResourceError&)> m_completionHandler;
-    WebCore::Timer m_timeoutTimer;
+    CompletionHandler<void(const PurcFetcher::ResourceError&)> m_completionHandler;
+    PurcFetcher::Timer m_timeoutTimer;
 };
 
 } // namespace WebKit

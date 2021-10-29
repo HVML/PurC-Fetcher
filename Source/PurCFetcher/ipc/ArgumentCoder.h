@@ -27,7 +27,7 @@
 
 #include <wtf/Optional.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class IntConstraint;
 class DoubleConstraint;
 class ResourceResponse;
@@ -84,14 +84,14 @@ public:
 };
 
 // ResourceResponseBase has the legacy decode template, not ResourceResponse.
-template<> class UsesModernDecoder<WebCore::ResourceResponse> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<WebCore::ResourceResponse> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurcFetcher::ResourceResponse> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurcFetcher::ResourceResponse> : public DefaultDecoderValues<std::true_type> { };
 
 // IntConstraint and DoubleConstraint have their legacy decoder templates in NumericConstraint.
-template<> class UsesModernDecoder<WebCore::IntConstraint> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<WebCore::IntConstraint> : public DefaultDecoderValues<std::true_type> { };
-template<> class UsesModernDecoder<WebCore::DoubleConstraint> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<WebCore::DoubleConstraint> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurcFetcher::IntConstraint> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurcFetcher::IntConstraint> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurcFetcher::DoubleConstraint> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurcFetcher::DoubleConstraint> : public DefaultDecoderValues<std::true_type> { };
 
 template<typename T> struct ArgumentCoder {
     static void encode(Encoder& encoder, const T& t)

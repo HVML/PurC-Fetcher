@@ -27,7 +27,7 @@
 
 #include <wtf/Function.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class NetworkStorageSession;
 

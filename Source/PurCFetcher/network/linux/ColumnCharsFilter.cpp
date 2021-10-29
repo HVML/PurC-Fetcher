@@ -51,7 +51,7 @@
 #include "ColumnCharsFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnCharsFilter::ColumnCharsFilter()
 {

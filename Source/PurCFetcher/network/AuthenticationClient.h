@@ -26,7 +26,7 @@
 #ifndef AuthenticationClient_h
 #define AuthenticationClient_h
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class AuthenticationChallenge;
 class Credential;

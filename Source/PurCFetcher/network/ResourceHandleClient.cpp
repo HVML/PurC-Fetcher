@@ -30,7 +30,7 @@
 #include "ResourceRequest.h"
 #include "SharedBuffer.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 ResourceHandleClient::ResourceHandleClient() = default;
 

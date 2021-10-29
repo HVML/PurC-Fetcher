@@ -44,7 +44,7 @@
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/CString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 const size_t maxEncodingNameLength = 63;
 
@@ -325,4 +325,4 @@ String defaultTextEncodingNameForSystemLanguage()
 #endif
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

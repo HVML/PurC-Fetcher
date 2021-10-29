@@ -36,7 +36,7 @@
 #include <wtf/Optional.h>
 #include <wtf/Variant.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class IPAddress {
 public:

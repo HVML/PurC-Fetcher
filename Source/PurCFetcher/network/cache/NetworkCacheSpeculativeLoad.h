@@ -46,11 +46,11 @@ class SpeculativeLoad final : public NetworkLoadClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     using RevalidationCompletionHandler = CompletionHandler<void(std::unique_ptr<NetworkCache::Entry>)>;
-    SpeculativeLoad(Cache&, const GlobalFrameID&, const WebCore::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>, Optional<NavigatingToAppBoundDomain>, RevalidationCompletionHandler&&);
+    SpeculativeLoad(Cache&, const GlobalFrameID&, const PurcFetcher::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>, Optional<NavigatingToAppBoundDomain>, RevalidationCompletionHandler&&);
 
     virtual ~SpeculativeLoad();
 
-    const WebCore::ResourceRequest& originalRequest() const { return m_originalRequest; }
+    const PurcFetcher::ResourceRequest& originalRequest() const { return m_originalRequest; }
 
     void cancel();
 
@@ -59,28 +59,28 @@ private:
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) override { }
     bool isSynchronous() const override { return false; }
     bool isAllowedToAskUserForCredentials() const final { return false; }
-    void willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse) override;
-    void didReceiveResponse(WebCore::ResourceResponse&&, ResponseCompletionHandler&&) override;
-    void didReceiveBuffer(Ref<WebCore::SharedBuffer>&&, int reportedEncodedDataLength) override;
-    void didFinishLoading(const WebCore::NetworkLoadMetrics&) override;
-    void didFailLoading(const WebCore::ResourceError&) override;
+    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) override;
+    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
+    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) override;
+    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) override;
+    void didFailLoading(const PurcFetcher::ResourceError&) override;
 
     void didComplete();
 
     Ref<Cache> m_cache;
     RevalidationCompletionHandler m_completionHandler;
-    WebCore::ResourceRequest m_originalRequest;
+    PurcFetcher::ResourceRequest m_originalRequest;
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
 
-    WebCore::ResourceResponse m_response;
+    PurcFetcher::ResourceResponse m_response;
 
-    RefPtr<WebCore::SharedBuffer> m_bufferedDataForCache;
+    RefPtr<PurcFetcher::SharedBuffer> m_bufferedDataForCache;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntry;
     bool m_didComplete { false };
 };
 
-bool requestsHeadersMatch(const WebCore::ResourceRequest& speculativeValidationRequest, const WebCore::ResourceRequest& actualRequest);
+bool requestsHeadersMatch(const PurcFetcher::ResourceRequest& speculativeValidationRequest, const PurcFetcher::ResourceRequest& actualRequest);
 
 } // namespace NetworkCache
 } // namespace WebKit

@@ -38,7 +38,7 @@
 #include <wtf/unicode/CharacterNames.h>
 #include <wtf/unicode/icu/ICUHelpers.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 const size_t ConversionBufferSize = 16384;
 
@@ -466,4 +466,4 @@ Vector<uint8_t> TextCodecICU::encode(StringView string, UnencodableHandling hand
     return result;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

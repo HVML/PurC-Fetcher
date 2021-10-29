@@ -30,7 +30,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/MainThread.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 MessagePortChannelRegistry::MessagePortChannelRegistry(CheckProcessLocalPortForActivityCallback&& checkProcessLocalPortForActivityCallback)
     : m_checkProcessLocalPortForActivityCallback(WTFMove(checkProcessLocalPortForActivityCallback))
@@ -183,4 +183,4 @@ void MessagePortChannelRegistry::checkProcessLocalPortForActivity(const MessageP
     m_checkProcessLocalPortForActivityCallback(messagePortIdentifier, processIdentifier, WTFMove(callback));
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

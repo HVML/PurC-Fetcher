@@ -32,7 +32,7 @@
 #include <wtf/text/WTFString.h>
 #include <wtf/unicode/CharacterNames.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 using namespace WTF::Unicode;
 
@@ -446,4 +446,4 @@ Vector<uint8_t> TextCodecUTF8::encode(StringView string, UnencodableHandling)
     return bytes;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

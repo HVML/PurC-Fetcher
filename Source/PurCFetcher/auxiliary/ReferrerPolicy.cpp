@@ -28,7 +28,7 @@
 #include "HTTPParsers.h"
 #include <wtf/Optional.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class ShouldParseLegacyKeywords { No, Yes };
 
@@ -115,4 +115,4 @@ String referrerPolicyToString(const ReferrerPolicy& referrerPolicy)
     return { };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

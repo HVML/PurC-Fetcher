@@ -57,7 +57,7 @@ typedef const struct __CFURLStorageSession* CFURLStorageSessionRef;
 // Cocoa-exception-free (either simple Foundation classes or
 // WebCoreResourceLoaderImp which avoids doing work in dealloc).
 
-namespace WebCore {
+namespace PurcFetcher {
 
 DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(ResourceHandleInternal);
 class ResourceHandleInternal {
@@ -143,4 +143,4 @@ public:
     Timer m_failureTimer;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

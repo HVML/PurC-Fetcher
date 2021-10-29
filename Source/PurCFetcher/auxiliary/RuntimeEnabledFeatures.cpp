@@ -38,7 +38,7 @@
 #include <JavaScriptCore/Options.h>
 #include <wtf/NeverDestroyed.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 RuntimeEnabledFeatures::RuntimeEnabledFeatures()
 {
@@ -67,4 +67,4 @@ bool RuntimeEnabledFeatures::touchEventsEnabled() const
 }
 #endif
 
-} // namespace WebCore
+} // namespace PurcFetcher

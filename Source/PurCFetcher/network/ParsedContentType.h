@@ -34,7 +34,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class Mode {
     Rfc2045,

@@ -35,7 +35,7 @@
 #include <wtf/HashSet.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class SecurityOrigin;
 }
 
@@ -61,13 +61,13 @@ public:
     void destroySessionStorageNamespace(StorageNamespaceIdentifier);
     void cloneSessionStorageNamespace(StorageNamespaceIdentifier oldStorageNamespaceID, StorageNamespaceIdentifier newStorageNamespaceID);
 
-    HashSet<WebCore::SecurityOriginData> getSessionStorageOriginsCrossThreadCopy() const;
+    HashSet<PurcFetcher::SecurityOriginData> getSessionStorageOriginsCrossThreadCopy() const;
     void deleteSessionStorageOrigins();
-    void deleteSessionStorageEntriesForOrigins(const Vector<WebCore::SecurityOriginData>&);
+    void deleteSessionStorageEntriesForOrigins(const Vector<PurcFetcher::SecurityOriginData>&);
 
-    HashSet<WebCore::SecurityOriginData> getLocalStorageOriginsCrossThreadCopy() const;
+    HashSet<PurcFetcher::SecurityOriginData> getLocalStorageOriginsCrossThreadCopy() const;
     void deleteLocalStorageOriginsModifiedSince(WallTime);
-    void deleteLocalStorageEntriesForOrigins(const Vector<WebCore::SecurityOriginData>&);
+    void deleteLocalStorageEntriesForOrigins(const Vector<PurcFetcher::SecurityOriginData>&);
     Vector<LocalStorageDatabaseTracker::OriginDetails> getLocalStorageOriginDetailsCrossThreadCopy() const;
     void renameOrigin(const URL&, const URL&);
 
@@ -80,20 +80,20 @@ public:
     
     static const unsigned localStorageDatabaseQuotaInBytes;
 
-    StorageArea* createLocalStorageArea(StorageNamespaceIdentifier, WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    StorageArea* createTransientLocalStorageArea(StorageNamespaceIdentifier, WebCore::SecurityOriginData&&, WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
-    StorageArea* createSessionStorageArea(StorageNamespaceIdentifier, WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createLocalStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createTransientLocalStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createSessionStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
 
     Vector<StorageAreaIdentifier> allStorageAreaIdentifiers() const;
 
 private:
     LocalStorageNamespace* getOrCreateLocalStorageNamespace(StorageNamespaceIdentifier);
-    TransientLocalStorageNamespace* getOrCreateTransientLocalStorageNamespace(StorageNamespaceIdentifier, WebCore::SecurityOriginData&& topLevelOrigin);
+    TransientLocalStorageNamespace* getOrCreateTransientLocalStorageNamespace(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&& topLevelOrigin);
     SessionStorageNamespace* getOrCreateSessionStorageNamespace(StorageNamespaceIdentifier);
 
     RefPtr<LocalStorageDatabaseTracker> m_localStorageDatabaseTracker;
     HashMap<StorageNamespaceIdentifier, std::unique_ptr<LocalStorageNamespace>> m_localStorageNamespaces;
-    HashMap<std::pair<StorageNamespaceIdentifier, WebCore::SecurityOriginData>, std::unique_ptr<TransientLocalStorageNamespace>> m_transientLocalStorageNamespaces;
+    HashMap<std::pair<StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData>, std::unique_ptr<TransientLocalStorageNamespace>> m_transientLocalStorageNamespaces;
     HashMap<StorageNamespaceIdentifier, std::unique_ptr<SessionStorageNamespace>> m_sessionStorageNamespaces;
 };
 

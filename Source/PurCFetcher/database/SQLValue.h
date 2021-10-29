@@ -32,7 +32,7 @@
 #include <wtf/Variant.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 using SQLValue = Variant<std::nullptr_t, String, double>;
 using SQLValueH = Variant<std::nullptr_t, String, double, int>;

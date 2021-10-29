@@ -31,7 +31,7 @@ namespace WTF {
 class URL;
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 WTF::URL soupURIToURL(SoupURI*);
 GUniquePtr<SoupURI> urlToSoupURI(const WTF::URL&);
-} // namespace WebCore
+} // namespace PurcFetcher

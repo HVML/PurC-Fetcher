@@ -26,7 +26,7 @@
 #ifndef SQLiteDatabaseTrackerClient_h
 #define SQLiteDatabaseTrackerClient_h
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SQLiteDatabaseTrackerClient {
 public:
@@ -36,6 +36,6 @@ public:
     virtual void didFinishLastTransaction() = 0;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // SQLiteDatabaseTrackerClient_h

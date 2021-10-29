@@ -28,7 +28,7 @@
 #include <wtf/FileSystem.h>
 #include <wtf/text/LineEnding.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 inline FormData::FormData()
 {
@@ -285,4 +285,4 @@ bool FormDataElement::EncodedFileData::fileModificationTimeMatchesExpectation() 
     return true;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

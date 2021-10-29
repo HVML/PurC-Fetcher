@@ -27,7 +27,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class PURCFETCHER_EXPORT HTTPHeaderField {
 public:
@@ -79,4 +79,4 @@ bool isQuotedPairSecondOctet(UChar);
 bool isDelimiter(UChar);
 } // namespace RFC7230
 
-} // namespace WebCore
+} // namespace PurcFetcher

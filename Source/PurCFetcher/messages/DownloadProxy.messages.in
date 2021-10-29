@@ -21,15 +21,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> DownloadProxy {
-    DidStart(WebCore::ResourceRequest request, AtomString suggestedFilename)
-    DidReceiveAuthenticationChallenge(WebCore::AuthenticationChallenge challenge, uint64_t challengeID)
-    WillSendRequest(WebCore::ResourceRequest redirectRequest, WebCore::ResourceResponse redirectResponse))
+    DidStart(PurcFetcher::ResourceRequest request, AtomString suggestedFilename)
+    DidReceiveAuthenticationChallenge(PurcFetcher::AuthenticationChallenge challenge, uint64_t challengeID)
+    WillSendRequest(PurcFetcher::ResourceRequest redirectRequest, PurcFetcher::ResourceResponse redirectResponse))
     DecideDestinationWithSuggestedFilenameAsync(WebKit::DownloadID downloadID, String suggestedFilename)
 
-    DidReceiveResponse(WebCore::ResourceResponse response)
+    DidReceiveResponse(PurcFetcher::ResourceResponse response)
     DidReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite)
     DidCreateDestination(String path)
     DidFinish()
-    DidFail(WebCore::ResourceError error, IPC::DataReference resumeData)
+    DidFail(PurcFetcher::ResourceError error, IPC::DataReference resumeData)
     DidCancel(IPC::DataReference resumeData)
 }

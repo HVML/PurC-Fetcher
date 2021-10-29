@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class HTTPCookieAcceptPolicy : uint8_t {
     AlwaysAccept = 0,
@@ -38,13 +38,13 @@ enum class HTTPCookieAcceptPolicy : uint8_t {
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::HTTPCookieAcceptPolicy> {
+template<> struct EnumTraits<PurcFetcher::HTTPCookieAcceptPolicy> {
     using values = EnumValues<
-        WebCore::HTTPCookieAcceptPolicy,
-        WebCore::HTTPCookieAcceptPolicy::AlwaysAccept,
-        WebCore::HTTPCookieAcceptPolicy::Never,
-        WebCore::HTTPCookieAcceptPolicy::OnlyFromMainDocumentDomain,
-        WebCore::HTTPCookieAcceptPolicy::ExclusivelyFromMainDocumentDomain
+        PurcFetcher::HTTPCookieAcceptPolicy,
+        PurcFetcher::HTTPCookieAcceptPolicy::AlwaysAccept,
+        PurcFetcher::HTTPCookieAcceptPolicy::Never,
+        PurcFetcher::HTTPCookieAcceptPolicy::OnlyFromMainDocumentDomain,
+        PurcFetcher::HTTPCookieAcceptPolicy::ExclusivelyFromMainDocumentDomain
     >;
 };
 

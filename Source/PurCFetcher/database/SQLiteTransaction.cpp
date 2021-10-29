@@ -32,7 +32,7 @@
 #include "SQLiteDatabaseTracker.h"
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 SQLiteTransaction::SQLiteTransaction(SQLiteDatabase& db, bool readOnly)
     : m_db(db)
@@ -121,4 +121,4 @@ bool SQLiteTransaction::wasRolledBackBySqlite() const
     return m_inProgress && m_db.isAutoCommitOn();
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

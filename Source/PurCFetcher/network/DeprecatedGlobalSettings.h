@@ -28,7 +28,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class DeprecatedGlobalSettings {
 public:
@@ -183,4 +183,4 @@ inline bool DeprecatedGlobalSettings::isPostBackgroundingMemoryUsageMeasurementE
 #endif
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

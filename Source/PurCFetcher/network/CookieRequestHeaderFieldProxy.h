@@ -31,7 +31,7 @@
 #include "SameSiteInfo.h"
 #include <wtf/URL.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct CookieRequestHeaderFieldProxy {
     URL firstParty;
@@ -88,4 +88,4 @@ Optional<CookieRequestHeaderFieldProxy> CookieRequestHeaderFieldProxy::decode(De
     return CookieRequestHeaderFieldProxy { WTFMove(firstParty), WTFMove(sameSiteInfo), WTFMove(url), *frameID, *pageID, includeSecureCookies };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

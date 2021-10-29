@@ -39,7 +39,7 @@
 
 #include "SessionID.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SocketStreamError;
 class SocketStreamHandleClient;
@@ -74,6 +74,6 @@ private:
     }
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // USE(SOUP)

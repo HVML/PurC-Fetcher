@@ -32,16 +32,16 @@ namespace IPC {
 class SharedBufferDataReference {
 public:
     SharedBufferDataReference() = default;
-    SharedBufferDataReference(RefPtr<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(Ref<WebCore::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
-    SharedBufferDataReference(const WebCore::SharedBuffer& buffer)
-        : m_buffer(WebCore::SharedBuffer::create())
+    SharedBufferDataReference(RefPtr<PurcFetcher::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
+    SharedBufferDataReference(Ref<PurcFetcher::SharedBuffer>&& buffer) : m_buffer(WTFMove(buffer)) { }
+    SharedBufferDataReference(const PurcFetcher::SharedBuffer& buffer)
+        : m_buffer(PurcFetcher::SharedBuffer::create())
     {
         m_buffer->append(buffer);
     }
 
-    RefPtr<WebCore::SharedBuffer>& buffer() { return m_buffer; }
-    const RefPtr<WebCore::SharedBuffer>& buffer() const { return m_buffer; }
+    RefPtr<PurcFetcher::SharedBuffer>& buffer() { return m_buffer; }
+    const RefPtr<PurcFetcher::SharedBuffer>& buffer() const { return m_buffer; }
 
     const char* data() const { return m_buffer ? m_buffer->data() : nullptr; }
     size_t size() const { return m_buffer ? m_buffer->size() : 0; }
@@ -54,7 +54,7 @@ public:
 
     static Optional<SharedBufferDataReference> decode(Decoder& decoder)
     {
-        Optional<RefPtr<WebCore::SharedBuffer>> buffer;
+        Optional<RefPtr<PurcFetcher::SharedBuffer>> buffer;
         decoder >> buffer;
         if (!buffer)
             return WTF::nullopt;
@@ -62,7 +62,7 @@ public:
     }
 
 private:
-    RefPtr<WebCore::SharedBuffer> m_buffer;
+    RefPtr<PurcFetcher::SharedBuffer> m_buffer;
 };
 
 }

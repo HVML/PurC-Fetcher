@@ -39,7 +39,7 @@
 
 struct sqlite3;
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class DatabaseAuthorizer;
 class SQLiteStatement;
@@ -180,4 +180,4 @@ private:
     int m_lastChangesCount { 0 };
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

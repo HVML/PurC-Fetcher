@@ -44,13 +44,13 @@ public:
 
     bool isEmpty() const { return m_storageAreaMap.isEmpty(); }
 
-    StorageArea& getOrCreateStorageArea(WebCore::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
 
     void cloneTo(SessionStorageNamespace& newSessionStorageNamespace);
 
-    Vector<WebCore::SecurityOriginData> origins() const;
+    Vector<PurcFetcher::SecurityOriginData> origins() const;
 
-    void clearStorageAreasMatchingOrigin(const WebCore::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
@@ -58,7 +58,7 @@ public:
 private:
     unsigned m_quotaInBytes { 0 };
 
-    HashMap<WebCore::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
 } // namespace WebKit

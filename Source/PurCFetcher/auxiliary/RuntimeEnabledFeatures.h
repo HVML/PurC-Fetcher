@@ -35,7 +35,7 @@
 #include <wtf/Noncopyable.h>
 #include <wtf/Optional.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // A class that stores static enablers for all experimental features. Note that
 // the method names must line up with the JavaScript method they enable for code
@@ -648,4 +648,4 @@ private:
     friend class WTF::NeverDestroyed<RuntimeEnabledFeatures>;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -29,7 +29,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct PURCFETCHER_EXPORT CustomHeaderFields {
     Vector<HTTPHeaderField> fields;
@@ -64,4 +64,4 @@ Optional<CustomHeaderFields> CustomHeaderFields::decode(Decoder& decoder)
     return {{ WTFMove(*fields), WTFMove(*thirdPartyDomains) }};
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

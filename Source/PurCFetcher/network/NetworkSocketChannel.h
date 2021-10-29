@@ -32,7 +32,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class ResourceRequest;
 }
 
@@ -52,9 +52,9 @@ class NetworkSession;
 class NetworkSocketChannel : public IPC::MessageSender, public IPC::MessageReceiver {
     WTF_MAKE_FAST_ALLOCATED;
 public:
-    static std::unique_ptr<NetworkSocketChannel> create(NetworkConnectionToWebProcess&, PAL::SessionID, const WebCore::ResourceRequest&, const String& protocol, WebSocketIdentifier);
+    static std::unique_ptr<NetworkSocketChannel> create(NetworkConnectionToWebProcess&, PAL::SessionID, const PurcFetcher::ResourceRequest&, const String& protocol, WebSocketIdentifier);
 
-    NetworkSocketChannel(NetworkConnectionToWebProcess&, NetworkSession*, const WebCore::ResourceRequest&, const String& protocol, WebSocketIdentifier);
+    NetworkSocketChannel(NetworkConnectionToWebProcess&, NetworkSession*, const PurcFetcher::ResourceRequest&, const String& protocol, WebSocketIdentifier);
     ~NetworkSocketChannel();
 
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
@@ -67,8 +67,8 @@ private:
     void didReceiveBinaryData(const uint8_t* data, size_t length);
     void didClose(unsigned short code, const String& reason);
     void didReceiveMessageError(const String&);
-    void didSendHandshakeRequest(WebCore::ResourceRequest&&);
-    void didReceiveHandshakeResponse(WebCore::ResourceResponse&&);
+    void didSendHandshakeRequest(PurcFetcher::ResourceRequest&&);
+    void didReceiveHandshakeResponse(PurcFetcher::ResourceResponse&&);
 
     void sendString(const String&, CompletionHandler<void()>&&);
     void sendData(const IPC::DataReference&, CompletionHandler<void()>&&);

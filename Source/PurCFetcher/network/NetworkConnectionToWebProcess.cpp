@@ -93,14 +93,14 @@
 } while (0)
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
-Ref<NetworkConnectionToWebProcess> NetworkConnectionToWebProcess::create(NetworkProcess& networkProcess, WebCore::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
+Ref<NetworkConnectionToWebProcess> NetworkConnectionToWebProcess::create(NetworkProcess& networkProcess, PurcFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
 {
     return adoptRef(*new NetworkConnectionToWebProcess(networkProcess, webProcessIdentifier, sessionID, connectionIdentifier));
 }
 
-NetworkConnectionToWebProcess::NetworkConnectionToWebProcess(NetworkProcess& networkProcess, WebCore::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
+NetworkConnectionToWebProcess::NetworkConnectionToWebProcess(NetworkProcess& networkProcess, PurcFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
     : m_connection(IPC::Connection::createServerConnection(connectionIdentifier, *this))
     , m_networkProcess(networkProcess)
     , m_sessionID(sessionID)
@@ -365,7 +365,7 @@ void NetworkConnectionToWebProcess::didReceiveInvalidMessage(IPC::Connection&, I
 void NetworkConnectionToWebProcess::createSocketStream(URL&& url, String cachePartition, WebSocketIdentifier identifier)
 {
     ASSERT(!m_networkSocketStreams.contains(identifier));
-    WebCore::SourceApplicationAuditToken token = { };
+    PurcFetcher::SourceApplicationAuditToken token = { };
 #if PLATFORM(COCOA)
     token = { m_networkProcess->sourceApplicationAuditData() };
 #endif
@@ -616,7 +616,7 @@ void NetworkConnectionToWebProcess::cookiesForDOM(const URL& firstParty, const S
     completionHandler(WTFMove(result.first), result.second);
 }
 
-void NetworkConnectionToWebProcess::setCookiesFromDOM(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, WebCore::FrameIdentifier frameID, PageIdentifier pageID, ShouldAskITP shouldAskITP, const String& cookieString, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
+void NetworkConnectionToWebProcess::setCookiesFromDOM(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, PurcFetcher::FrameIdentifier frameID, PageIdentifier pageID, ShouldAskITP shouldAskITP, const String& cookieString, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
@@ -639,17 +639,17 @@ void NetworkConnectionToWebProcess::cookieRequestHeaderFieldValue(const URL& fir
     completionHandler(WTFMove(result.first), result.second);
 }
 
-void NetworkConnectionToWebProcess::getRawCookies(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&& completionHandler)
+void NetworkConnectionToWebProcess::getRawCookies(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
         return completionHandler({ });
-    Vector<WebCore::Cookie> result;
+    Vector<PurcFetcher::Cookie> result;
     networkStorageSession->getRawCookies(firstParty, sameSiteInfo, url, frameID, pageID, shouldAskITP, shouldRelaxThirdPartyCookieBlocking, result);
     completionHandler(WTFMove(result));
 }
 
-void NetworkConnectionToWebProcess::setRawCookie(const WebCore::Cookie& cookie)
+void NetworkConnectionToWebProcess::setRawCookie(const PurcFetcher::Cookie& cookie)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
@@ -666,7 +666,7 @@ void NetworkConnectionToWebProcess::deleteCookie(const URL& url, const String& c
     networkStorageSession->deleteCookie(url, cookieName);
 }
 
-void NetworkConnectionToWebProcess::domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<WebCore::Cookie>&)>&& completionHandler)
+void NetworkConnectionToWebProcess::domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<PurcFetcher::Cookie>&)>&& completionHandler)
 {
     NETWORK_PROCESS_MESSAGE_CHECK_COMPLETION(HashSet<String>::isValidValue(host), completionHandler({ }));
 
@@ -698,12 +698,12 @@ void NetworkConnectionToWebProcess::unsubscribeFromCookieChangeNotifications(con
         networkStorageSession->stopListeningForCookieChangeNotifications(*this, hosts);
 }
 
-void NetworkConnectionToWebProcess::cookiesAdded(const String& host, const Vector<WebCore::Cookie>& cookies)
+void NetworkConnectionToWebProcess::cookiesAdded(const String& host, const Vector<PurcFetcher::Cookie>& cookies)
 {
     connection().send(Messages::NetworkProcessConnection::CookiesAdded(host, cookies), 0);
 }
 
-void NetworkConnectionToWebProcess::cookiesDeleted(const String& host, const Vector<WebCore::Cookie>& cookies)
+void NetworkConnectionToWebProcess::cookiesDeleted(const String& host, const Vector<PurcFetcher::Cookie>& cookies)
 {
     connection().send(Messages::NetworkProcessConnection::CookiesDeleted(host, cookies), 0);
 }
@@ -772,7 +772,7 @@ void NetworkConnectionToWebProcess::hasStorageAccess(const RegistrableDomain& su
     completionHandler(false);
 }
 
-void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, FrameIdentifier frameID, PageIdentifier webPageID, WebPageProxyIdentifier webPageProxyID, StorageAccessScope scope, CompletionHandler<void(WebCore::RequestStorageAccessResult result)>&& completionHandler)
+void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, FrameIdentifier frameID, PageIdentifier webPageID, WebPageProxyIdentifier webPageProxyID, StorageAccessScope scope, CompletionHandler<void(PurcFetcher::RequestStorageAccessResult result)>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession()) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics()) {
@@ -781,10 +781,10 @@ void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain
         }
     }
 
-    completionHandler({ WebCore::StorageAccessWasGranted::Yes, WebCore::StorageAccessPromptWasShown::No, scope, topFrameDomain, subFrameDomain });
+    completionHandler({ PurcFetcher::StorageAccessWasGranted::Yes, PurcFetcher::StorageAccessPromptWasShown::No, scope, topFrameDomain, subFrameDomain });
 }
 
-void NetworkConnectionToWebProcess::requestStorageAccessUnderOpener(WebCore::RegistrableDomain&& domainInNeedOfStorageAccess, PageIdentifier openerPageID, WebCore::RegistrableDomain&& openerDomain)
+void NetworkConnectionToWebProcess::requestStorageAccessUnderOpener(PurcFetcher::RegistrableDomain&& domainInNeedOfStorageAccess, PageIdentifier openerPageID, PurcFetcher::RegistrableDomain&& openerDomain)
 {
     if (auto* networkSession = this->networkSession()) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics())
@@ -1016,7 +1016,7 @@ void NetworkConnectionToWebProcess::postMessageToRemote(MessageWithMessagePorts&
     }
 }
 
-void NetworkConnectionToWebProcess::checkRemotePortForActivity(const WebCore::MessagePortIdentifier port, CompletionHandler<void(bool)>&& callback)
+void NetworkConnectionToWebProcess::checkRemotePortForActivity(const PurcFetcher::MessagePortIdentifier port, CompletionHandler<void(bool)>&& callback)
 {
     networkProcess().messagePortChannelRegistry().checkRemotePortForActivity(port, [callback = WTFMove(callback)](auto hasActivity) mutable {
         callback(hasActivity == MessagePortChannelProvider::HasActivity::Yes);

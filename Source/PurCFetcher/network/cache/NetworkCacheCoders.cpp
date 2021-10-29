@@ -31,7 +31,7 @@ namespace Persistence {
 
 // Store common HTTP headers as strings instead of using their value in the HTTPHeaderName enumeration
 // so that the headers stored in the cache stays valid even after HTTPHeaderName.in gets updated.
-void Coder<WebCore::HTTPHeaderMap>::encode(Encoder& encoder, const WebCore::HTTPHeaderMap& headers)
+void Coder<PurcFetcher::HTTPHeaderMap>::encode(Encoder& encoder, const PurcFetcher::HTTPHeaderMap& headers)
 {
     encoder << static_cast<uint64_t>(headers.size());
     for (auto& keyValue : headers) {
@@ -40,14 +40,14 @@ void Coder<WebCore::HTTPHeaderMap>::encode(Encoder& encoder, const WebCore::HTTP
     }
 }
 
-Optional<WebCore::HTTPHeaderMap> Coder<WebCore::HTTPHeaderMap>::decode(Decoder& decoder)
+Optional<PurcFetcher::HTTPHeaderMap> Coder<PurcFetcher::HTTPHeaderMap>::decode(Decoder& decoder)
 {
     Optional<uint64_t> headersSize;
     decoder >> headersSize;
     if (!headersSize)
         return WTF::nullopt;
 
-    WebCore::HTTPHeaderMap headers;
+    PurcFetcher::HTTPHeaderMap headers;
     for (uint64_t i = 0; i < *headersSize; ++i) {
         Optional<String> name;
         decoder >> name;

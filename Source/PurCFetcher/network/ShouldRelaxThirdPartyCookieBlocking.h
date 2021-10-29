@@ -25,8 +25,8 @@
 
 #pragma once
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class ShouldRelaxThirdPartyCookieBlocking : bool { No, Yes };
 
-} // namespace WebCore
+} // namespace PurcFetcher

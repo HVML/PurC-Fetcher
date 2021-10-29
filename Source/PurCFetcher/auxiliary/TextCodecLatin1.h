@@ -27,7 +27,7 @@
 
 #include "TextCodec.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextCodecLatin1 final : public TextCodec {
 public:
@@ -39,5 +39,5 @@ private:
     Vector<uint8_t> encode(StringView, UnencodableHandling) final;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

@@ -30,7 +30,7 @@
 #include "ResourceResponse.h"
 #include "ResourceError.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class AuthenticationChallenge;
 

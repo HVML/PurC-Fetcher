@@ -51,7 +51,7 @@
 #include "LineHeadFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 LineHeadFilter::LineHeadFilter()
 {

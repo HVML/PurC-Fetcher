@@ -30,12 +30,12 @@
 
 #include "APIError.h"
 #include "Logging.h"
-#include <WebCore/LocalizedStrings.h>
-#include <WebCore/ResourceRequest.h>
-#include <WebCore/ResourceResponse.h>
+#include <PurcFetcher/LocalizedStrings.h>
+#include <PurcFetcher/ResourceRequest.h>
+#include <PurcFetcher/ResourceResponse.h>
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ResourceError blockedError(const ResourceRequest& request)
 {

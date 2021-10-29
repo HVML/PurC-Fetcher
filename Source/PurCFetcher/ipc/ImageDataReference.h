@@ -26,20 +26,20 @@
 #pragma once
 
 #include "WebCoreArgumentCoders.h"
-#include <WebCore/ImageBuffer.h>
+#include <PurcFetcher/ImageBuffer.h>
 
 namespace IPC {
 
 class ImageDataReference {
 public:
     ImageDataReference() = default;
-    ImageDataReference(RefPtr<WebCore::ImageData>&& imageData)
+    ImageDataReference(RefPtr<PurcFetcher::ImageData>&& imageData)
         : m_imageData(WTFMove(imageData))
     {
     }
 
-    RefPtr<WebCore::ImageData>& buffer() { return m_imageData; }
-    const RefPtr<WebCore::ImageData>& buffer() const { return m_imageData; }
+    RefPtr<PurcFetcher::ImageData>& buffer() { return m_imageData; }
+    const RefPtr<PurcFetcher::ImageData>& buffer() const { return m_imageData; }
 
     void encode(Encoder& encoder) const
     {
@@ -48,7 +48,7 @@ public:
 
     static Optional<ImageDataReference> decode(Decoder& decoder)
     {
-        Optional<RefPtr<WebCore::ImageData>> imageData;
+        Optional<RefPtr<PurcFetcher::ImageData>> imageData;
         decoder >> imageData;
         if (!imageData)
             return WTF::nullopt;
@@ -56,7 +56,7 @@ public:
     }
 
 private:
-    RefPtr<WebCore::ImageData> m_imageData;
+    RefPtr<PurcFetcher::ImageData> m_imageData;
 };
 
 }

@@ -37,7 +37,7 @@
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/StringView.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 bool isScriptAllowedByNosniff(const ResourceResponse& response)
 {
@@ -365,7 +365,7 @@ void ResourceResponseBase::setHTTPVersion(const String& versionText)
 
 static bool isSafeRedirectionResponseHeader(HTTPHeaderName name)
 {
-    // WebCore needs to keep location and cache related headers as it does caching.
+    // PurcFetcher needs to keep location and cache related headers as it does caching.
     // We also keep CORS/ReferrerPolicy headers until CORS checks/Referrer computation are done in NetworkProcess.
     return name == HTTPHeaderName::Location
         || name == HTTPHeaderName::ReferrerPolicy
@@ -629,7 +629,7 @@ void ResourceResponseBase::parseCacheControlDirectives() const
 
     lazyInit(CommonFieldsOnly);
 
-    m_cacheControlDirectives = WebCore::parseCacheControlDirectives(m_httpHeaderFields);
+    m_cacheControlDirectives = PurcFetcher::parseCacheControlDirectives(m_httpHeaderFields);
     m_haveParsedCacheControlHeader = true;
 }
     

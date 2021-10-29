@@ -34,7 +34,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 StorageArea::StorageArea(LocalStorageNamespace* localStorageNamespace, const SecurityOriginData& securityOrigin, unsigned quotaInBytes, Ref<WorkQueue>&& queue)
     : m_localStorageNamespace(makeWeakPtr(localStorageNamespace))

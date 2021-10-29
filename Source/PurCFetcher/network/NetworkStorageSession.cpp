@@ -39,7 +39,7 @@
 #endif
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 bool NetworkStorageSession::m_processMayUseCookieAPI = false;
 

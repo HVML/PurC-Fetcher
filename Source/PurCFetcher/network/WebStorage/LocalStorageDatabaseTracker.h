@@ -39,16 +39,16 @@ public:
     static Ref<LocalStorageDatabaseTracker> create(String&& localStorageDirectory);
     ~LocalStorageDatabaseTracker();
 
-    String databasePath(const WebCore::SecurityOriginData&) const;
+    String databasePath(const PurcFetcher::SecurityOriginData&) const;
 
-    void didOpenDatabaseWithOrigin(const WebCore::SecurityOriginData&);
-    void deleteDatabaseWithOrigin(const WebCore::SecurityOriginData&);
+    void didOpenDatabaseWithOrigin(const PurcFetcher::SecurityOriginData&);
+    void deleteDatabaseWithOrigin(const PurcFetcher::SecurityOriginData&);
     void deleteAllDatabases();
 
     // Returns a vector of the origins whose databases should be deleted.
-    Vector<WebCore::SecurityOriginData> databasesModifiedSince(WallTime);
+    Vector<PurcFetcher::SecurityOriginData> databasesModifiedSince(WallTime);
 
-    Vector<WebCore::SecurityOriginData> origins() const;
+    Vector<PurcFetcher::SecurityOriginData> origins() const;
 
     struct OriginDetails {
         String originIdentifier;

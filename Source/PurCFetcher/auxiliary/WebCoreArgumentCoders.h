@@ -31,7 +31,7 @@
 #include "StoredCredentialsPolicy.h"
 #include <wtf/EnumTraits.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class AuthenticationChallenge;
 class CertificateInfo;
@@ -48,90 +48,90 @@ struct SoupNetworkProxySettings;
 #endif
 
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace IPC {
 
-template<> struct ArgumentCoder<WebCore::AuthenticationChallenge> {
-    static void encode(Encoder&, const WebCore::AuthenticationChallenge&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::AuthenticationChallenge&);
+template<> struct ArgumentCoder<PurcFetcher::AuthenticationChallenge> {
+    static void encode(Encoder&, const PurcFetcher::AuthenticationChallenge&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::AuthenticationChallenge&);
 };
 
-template<> struct ArgumentCoder<WebCore::ProtectionSpace> {
-    static void encode(Encoder&, const WebCore::ProtectionSpace&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ProtectionSpace&);
-    static void encodePlatformData(Encoder&, const WebCore::ProtectionSpace&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ProtectionSpace&);
+template<> struct ArgumentCoder<PurcFetcher::ProtectionSpace> {
+    static void encode(Encoder&, const PurcFetcher::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ProtectionSpace&);
+    static void encodePlatformData(Encoder&, const PurcFetcher::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ProtectionSpace&);
 };
 
-template<> struct ArgumentCoder<WebCore::Credential> {
-    static void encode(Encoder&, const WebCore::Credential&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::Credential&);
-    static void encodePlatformData(Encoder&, const WebCore::Credential&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::Credential&);
+template<> struct ArgumentCoder<PurcFetcher::Credential> {
+    static void encode(Encoder&, const PurcFetcher::Credential&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::Credential&);
+    static void encodePlatformData(Encoder&, const PurcFetcher::Credential&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::Credential&);
 };
 
-template<> struct ArgumentCoder<WebCore::CertificateInfo> {
-    static void encode(Encoder&, const WebCore::CertificateInfo&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::CertificateInfo&);
+template<> struct ArgumentCoder<PurcFetcher::CertificateInfo> {
+    static void encode(Encoder&, const PurcFetcher::CertificateInfo&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::CertificateInfo&);
 };
 
-template<> struct ArgumentCoder<RefPtr<WebCore::SharedBuffer>> {
-    static void encode(Encoder&, const RefPtr<WebCore::SharedBuffer>&);
-    static Optional<RefPtr<WebCore::SharedBuffer>> decode(Decoder&);
+template<> struct ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>> {
+    static void encode(Encoder&, const RefPtr<PurcFetcher::SharedBuffer>&);
+    static Optional<RefPtr<PurcFetcher::SharedBuffer>> decode(Decoder&);
 };
 
-template<> struct ArgumentCoder<Ref<WebCore::SharedBuffer>> {
-    static void encode(Encoder&, const Ref<WebCore::SharedBuffer>&);
-    static Optional<Ref<WebCore::SharedBuffer>> decode(Decoder&);
+template<> struct ArgumentCoder<Ref<PurcFetcher::SharedBuffer>> {
+    static void encode(Encoder&, const Ref<PurcFetcher::SharedBuffer>&);
+    static Optional<Ref<PurcFetcher::SharedBuffer>> decode(Decoder&);
 };
 
-template<> struct ArgumentCoder<WebCore::ResourceError> {
-    static void encode(Encoder&, const WebCore::ResourceError&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ResourceError&);
-    static void encodePlatformData(Encoder&, const WebCore::ResourceError&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ResourceError&);
+template<> struct ArgumentCoder<PurcFetcher::ResourceError> {
+    static void encode(Encoder&, const PurcFetcher::ResourceError&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ResourceError&);
+    static void encodePlatformData(Encoder&, const PurcFetcher::ResourceError&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ResourceError&);
 };
 
-template<> struct ArgumentCoder<WebCore::ResourceRequest> {
-    static void encode(Encoder&, const WebCore::ResourceRequest&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::ResourceRequest&);
-    static void encodePlatformData(Encoder&, const WebCore::ResourceRequest&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, WebCore::ResourceRequest&);
+template<> struct ArgumentCoder<PurcFetcher::ResourceRequest> {
+    static void encode(Encoder&, const PurcFetcher::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ResourceRequest&);
+    static void encodePlatformData(Encoder&, const PurcFetcher::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ResourceRequest&);
 };
 
 #if USE(SOUP)
-template<> struct ArgumentCoder<WebCore::SoupNetworkProxySettings> {
-    static void encode(Encoder&, const WebCore::SoupNetworkProxySettings&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, WebCore::SoupNetworkProxySettings&);
+template<> struct ArgumentCoder<PurcFetcher::SoupNetworkProxySettings> {
+    static void encode(Encoder&, const PurcFetcher::SoupNetworkProxySettings&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::SoupNetworkProxySettings&);
 };
 #endif
 
-template<> struct ArgumentCoder<Vector<RefPtr<WebCore::SecurityOrigin>>> {
-    static void encode(Encoder&, const Vector<RefPtr<WebCore::SecurityOrigin>>&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<WebCore::SecurityOrigin>>&);
+template<> struct ArgumentCoder<Vector<RefPtr<PurcFetcher::SecurityOrigin>>> {
+    static void encode(Encoder&, const Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
 };
 
 } // namespace IPC
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::NetworkLoadPriority> {
+template<> struct EnumTraits<PurcFetcher::NetworkLoadPriority> {
     using values = EnumValues<
-        WebCore::NetworkLoadPriority,
-        WebCore::NetworkLoadPriority::Low,
-        WebCore::NetworkLoadPriority::Medium,
-        WebCore::NetworkLoadPriority::High,
-        WebCore::NetworkLoadPriority::Unknown
+        PurcFetcher::NetworkLoadPriority,
+        PurcFetcher::NetworkLoadPriority::Low,
+        PurcFetcher::NetworkLoadPriority::Medium,
+        PurcFetcher::NetworkLoadPriority::High,
+        PurcFetcher::NetworkLoadPriority::Unknown
     >;
 };
 
-template<> struct EnumTraits<WebCore::StoredCredentialsPolicy> {
+template<> struct EnumTraits<PurcFetcher::StoredCredentialsPolicy> {
     using values = EnumValues<
-        WebCore::StoredCredentialsPolicy,
-        WebCore::StoredCredentialsPolicy::DoNotUse,
-        WebCore::StoredCredentialsPolicy::Use,
-        WebCore::StoredCredentialsPolicy::EphemeralStateless
+        PurcFetcher::StoredCredentialsPolicy,
+        PurcFetcher::StoredCredentialsPolicy::DoNotUse,
+        PurcFetcher::StoredCredentialsPolicy::Use,
+        PurcFetcher::StoredCredentialsPolicy::EphemeralStateless
     >;
 };
 

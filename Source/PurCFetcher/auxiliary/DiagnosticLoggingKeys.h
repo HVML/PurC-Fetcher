@@ -27,7 +27,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class DiagnosticLoggingKeys {
 public:
@@ -195,4 +195,4 @@ public:
     PURCFETCHER_EXPORT static String resourceLoadStatisticsTelemetryKey();
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

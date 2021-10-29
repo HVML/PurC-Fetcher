@@ -37,7 +37,7 @@
 #include "SoupCookiePersistentStorageType.h"
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 struct Cookie;
 enum class HTTPCookieAcceptPolicy : uint8_t;
 }
@@ -55,7 +55,7 @@ public:
 
     static const char* supplementName();
 
-    void setHTTPCookieAcceptPolicy(WebCore::HTTPCookieAcceptPolicy, CompletionHandler<void()>&&);
+    void setHTTPCookieAcceptPolicy(PurcFetcher::HTTPCookieAcceptPolicy, CompletionHandler<void()>&&);
 
 #if USE(SOUP)
     void setCookiePersistentStorage(PAL::SessionID, const String& storagePath, SoupCookiePersistentStorageType);
@@ -69,18 +69,18 @@ private:
 
     void getHostnamesWithCookies(PAL::SessionID, CompletionHandler<void(Vector<String>&&)>&&);
 
-    void deleteCookie(PAL::SessionID, const WebCore::Cookie&, CompletionHandler<void()>&&);
+    void deleteCookie(PAL::SessionID, const PurcFetcher::Cookie&, CompletionHandler<void()>&&);
     void deleteCookiesForHostnames(PAL::SessionID, const Vector<String>&);
     void deleteAllCookies(PAL::SessionID);
     void deleteAllCookiesModifiedSince(PAL::SessionID, WallTime, CompletionHandler<void()>&&);
 
-    void setCookie(PAL::SessionID, const Vector<WebCore::Cookie>&, CompletionHandler<void()>&&);
-    void setCookies(PAL::SessionID, const Vector<WebCore::Cookie>&, const URL&, const URL& mainDocumentURL, CompletionHandler<void()>&&);
-    void getAllCookies(PAL::SessionID, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&&);
-    void getCookies(PAL::SessionID, const URL&, CompletionHandler<void(Vector<WebCore::Cookie>&&)>&&);
+    void setCookie(PAL::SessionID, const Vector<PurcFetcher::Cookie>&, CompletionHandler<void()>&&);
+    void setCookies(PAL::SessionID, const Vector<PurcFetcher::Cookie>&, const URL&, const URL& mainDocumentURL, CompletionHandler<void()>&&);
+    void getAllCookies(PAL::SessionID, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&&);
+    void getCookies(PAL::SessionID, const URL&, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&&);
 
-    void platformSetHTTPCookieAcceptPolicy(WebCore::HTTPCookieAcceptPolicy);
-    void getHTTPCookieAcceptPolicy(CompletionHandler<void(WebCore::HTTPCookieAcceptPolicy)>&&);
+    void platformSetHTTPCookieAcceptPolicy(PurcFetcher::HTTPCookieAcceptPolicy);
+    void getHTTPCookieAcceptPolicy(CompletionHandler<void(PurcFetcher::HTTPCookieAcceptPolicy)>&&);
 
     void startObservingCookieChanges(PAL::SessionID);
     void stopObservingCookieChanges(PAL::SessionID);

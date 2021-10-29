@@ -33,7 +33,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class ResourceRequest;
 };
 
@@ -51,7 +51,7 @@ public:
         Timeout,
         Success,
     };
-    AsyncRevalidation(Cache&, const GlobalFrameID&, const WebCore::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>&&, Optional<NavigatingToAppBoundDomain>, CompletionHandler<void(Result)>&&);
+    AsyncRevalidation(Cache&, const GlobalFrameID&, const PurcFetcher::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>&&, Optional<NavigatingToAppBoundDomain>, CompletionHandler<void(Result)>&&);
     void cancel();
 
     const SpeculativeLoad& load() const { return *m_load; }
@@ -60,7 +60,7 @@ private:
     void staleWhileRevalidateEnding();
 
     std::unique_ptr<SpeculativeLoad> m_load;
-    WebCore::Timer m_timer;
+    PurcFetcher::Timer m_timer;
     CompletionHandler<void(Result)> m_completionHandler;
 };
 

@@ -43,13 +43,13 @@ struct ResourceLoadStatisticsParameters {
     bool shouldIncludeLocalhost { true };
     bool enableDebugMode { false };
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    WebCore::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode { WebCore::ThirdPartyCookieBlockingMode::All };
-    WebCore::SameSiteStrictEnforcementEnabled sameSiteStrictEnforcementEnabled { WebCore::SameSiteStrictEnforcementEnabled::No };
+    PurcFetcher::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode { PurcFetcher::ThirdPartyCookieBlockingMode::All };
+    PurcFetcher::SameSiteStrictEnforcementEnabled sameSiteStrictEnforcementEnabled { PurcFetcher::SameSiteStrictEnforcementEnabled::No };
 #endif
-    WebCore::FirstPartyWebsiteDataRemovalMode firstPartyWebsiteDataRemovalMode { WebCore::FirstPartyWebsiteDataRemovalMode::AllButCookies };
-    WebCore::RegistrableDomain standaloneApplicationDomain;
-    HashSet<WebCore::RegistrableDomain> appBoundDomains;
-    WebCore::RegistrableDomain manualPrevalentResource;
+    PurcFetcher::FirstPartyWebsiteDataRemovalMode firstPartyWebsiteDataRemovalMode { PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies };
+    PurcFetcher::RegistrableDomain standaloneApplicationDomain;
+    HashSet<PurcFetcher::RegistrableDomain> appBoundDomains;
+    PurcFetcher::RegistrableDomain manualPrevalentResource;
     
     void encode(IPC::Encoder& encoder) const
     {
@@ -108,33 +108,33 @@ struct ResourceLoadStatisticsParameters {
             return WTF::nullopt;
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-        Optional<WebCore::ThirdPartyCookieBlockingMode> thirdPartyCookieBlockingMode;
+        Optional<PurcFetcher::ThirdPartyCookieBlockingMode> thirdPartyCookieBlockingMode;
         decoder >> thirdPartyCookieBlockingMode;
         if (!thirdPartyCookieBlockingMode)
             return WTF::nullopt;
 
-        Optional<WebCore::SameSiteStrictEnforcementEnabled> sameSiteStrictEnforcementEnabled;
+        Optional<PurcFetcher::SameSiteStrictEnforcementEnabled> sameSiteStrictEnforcementEnabled;
         decoder >> sameSiteStrictEnforcementEnabled;
         if (!sameSiteStrictEnforcementEnabled)
             return WTF::nullopt;
 #endif
 
-        Optional<WebCore::FirstPartyWebsiteDataRemovalMode> firstPartyWebsiteDataRemovalMode;
+        Optional<PurcFetcher::FirstPartyWebsiteDataRemovalMode> firstPartyWebsiteDataRemovalMode;
         decoder >> firstPartyWebsiteDataRemovalMode;
         if (!firstPartyWebsiteDataRemovalMode)
             return WTF::nullopt;
 
-        Optional<WebCore::RegistrableDomain> standaloneApplicationDomain;
+        Optional<PurcFetcher::RegistrableDomain> standaloneApplicationDomain;
         decoder >> standaloneApplicationDomain;
         if (!standaloneApplicationDomain)
             return WTF::nullopt;
 
-        Optional<HashSet<WebCore::RegistrableDomain>> appBoundDomains;
+        Optional<HashSet<PurcFetcher::RegistrableDomain>> appBoundDomains;
         decoder >> appBoundDomains;
         if (!appBoundDomains)
             return WTF::nullopt;
 
-        Optional<WebCore::RegistrableDomain> manualPrevalentResource;
+        Optional<PurcFetcher::RegistrableDomain> manualPrevalentResource;
         decoder >> manualPrevalentResource;
         if (!manualPrevalentResource)
             return WTF::nullopt;

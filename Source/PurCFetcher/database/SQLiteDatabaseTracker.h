@@ -28,7 +28,7 @@
 
 #include "SQLiteDatabaseTrackerClient.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 namespace SQLiteDatabaseTracker {
 
@@ -53,6 +53,6 @@ public:
     }
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // SQLiteDatabaseTracker_h

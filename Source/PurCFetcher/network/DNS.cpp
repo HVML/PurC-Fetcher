@@ -30,7 +30,7 @@
 #include "DNSResolveQueue.h"
 #include <wtf/MainThread.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 void prefetchDNS(const String& hostname)
 {
@@ -47,12 +47,12 @@ void resolveDNS(const String& hostname, uint64_t identifier, DNSCompletionHandle
     if (hostname.isEmpty())
         return;
 
-    WebCore::DNSResolveQueue::singleton().resolve(hostname, identifier, WTFMove(completionHandler));
+    PurcFetcher::DNSResolveQueue::singleton().resolve(hostname, identifier, WTFMove(completionHandler));
 }
 
 void stopResolveDNS(uint64_t identifier)
 {
-    WebCore::DNSResolveQueue::singleton().stopResolve(identifier);
+    PurcFetcher::DNSResolveQueue::singleton().stopResolve(identifier);
 }
 
 }

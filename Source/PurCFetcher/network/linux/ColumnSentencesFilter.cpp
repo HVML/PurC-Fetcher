@@ -51,7 +51,7 @@
 #include "ColumnSentencesFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 extern String enPunctuation;
 extern String cnPunctuation;

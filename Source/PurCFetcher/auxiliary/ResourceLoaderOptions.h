@@ -40,7 +40,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class SendCallbackPolicy : uint8_t {
     SendCallbacks,
@@ -241,25 +241,25 @@ struct ResourceLoaderOptions : public FetchOptions {
 #endif
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::PreflightPolicy> {
+template<> struct EnumTraits<PurcFetcher::PreflightPolicy> {
     using values = EnumValues<
-        WebCore::PreflightPolicy,
-        WebCore::PreflightPolicy::Consider,
-        WebCore::PreflightPolicy::Force,
-        WebCore::PreflightPolicy::Prevent
+        PurcFetcher::PreflightPolicy,
+        PurcFetcher::PreflightPolicy::Consider,
+        PurcFetcher::PreflightPolicy::Force,
+        PurcFetcher::PreflightPolicy::Prevent
     >;
 };
 
-template<> struct EnumTraits<WebCore::ServiceWorkersMode> {
+template<> struct EnumTraits<PurcFetcher::ServiceWorkersMode> {
     using values = EnumValues<
-        WebCore::ServiceWorkersMode,
-        WebCore::ServiceWorkersMode::All,
-        WebCore::ServiceWorkersMode::None,
-        WebCore::ServiceWorkersMode::Only
+        PurcFetcher::ServiceWorkersMode,
+        PurcFetcher::ServiceWorkersMode::All,
+        PurcFetcher::ServiceWorkersMode::None,
+        PurcFetcher::ServiceWorkersMode::Only
     >;
 };
 

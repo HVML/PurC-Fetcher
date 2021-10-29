@@ -32,7 +32,7 @@
 #include "StorageSessionProvider.h"
 #include <wtf/SystemTracing.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 
 Ref<CookieJar> CookieJar::create(Ref<StorageSessionProvider>&& storageSessionProvider)

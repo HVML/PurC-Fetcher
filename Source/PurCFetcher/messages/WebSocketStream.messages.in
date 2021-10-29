@@ -26,7 +26,7 @@ messages -> WebSocketStream {
     DidReceiveSocketStreamData(IPC::DataReference data)
     DidFailToReceiveSocketStreamData()
     DidUpdateBufferedAmount(uint64_t bufferedAmount)
-    DidFailSocketStream(WebCore::SocketStreamError error)
+    DidFailSocketStream(PurcFetcher::SocketStreamError error)
 
     DidSendData(uint64_t identifier, bool success)
     DidSendHandshake(uint64_t identifier, bool success, bool didAccessSecureCookies)

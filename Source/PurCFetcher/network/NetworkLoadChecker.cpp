@@ -43,7 +43,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 static inline bool isSameOrigin(const URL& url, const SecurityOrigin* origin)
 {
@@ -298,7 +298,7 @@ void NetworkLoadChecker::continueCheckingRequestOrDoSyntheticRedirect(ResourceRe
     this->continueCheckingRequest(WTFMove(currentRequest), WTFMove(handler));
 }
 
-bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, WebCore::ContentSecurityPolicyClient* client)
+bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, PurcFetcher::ContentSecurityPolicyClient* client)
 {
     auto* contentSecurityPolicy = this->contentSecurityPolicy();
     contentSecurityPolicy->setClient(client);
@@ -494,7 +494,7 @@ void NetworkLoadChecker::processContentRuleListsForLoad(ResourceRequest&& reques
         }
 
         auto results = backend.processContentRuleListsForPingLoad(request.url(), m_mainDocumentURL);
-        WebCore::ContentExtensions::applyResultsToRequest(ContentRuleListResults { results }, nullptr, request);
+        PurcFetcher::ContentExtensions::applyResultsToRequest(ContentRuleListResults { results }, nullptr, request);
         callback(ContentExtensionResult { WTFMove(request), results });
     });
 }

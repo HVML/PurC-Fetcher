@@ -35,7 +35,7 @@
 #include "WebSocketTask.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 std::unique_ptr<NetworkSocketChannel> NetworkSocketChannel::create(NetworkConnectionToWebProcess& connection, PAL::SessionID sessionID, const ResourceRequest& request, const String& protocol, WebSocketIdentifier identifier)
 {

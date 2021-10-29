@@ -30,7 +30,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class CertificateInfoBase {
 public:
@@ -48,4 +48,4 @@ public:
     bool isEmpty() const { return true; };
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

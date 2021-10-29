@@ -34,7 +34,7 @@
 #include <wtf/HashSet.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class DNSResolveQueue {
     friend NeverDestroyed<DNSResolveQueue>;

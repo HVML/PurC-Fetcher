@@ -29,7 +29,7 @@
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 class AuthenticationChallenge;
 class NetworkLoadMetrics;
 class SharedBuffer;
@@ -38,7 +38,7 @@ enum class PolicyAction : uint8_t;
 
 namespace WebKit {
 
-using ResponseCompletionHandler = CompletionHandler<void(WebCore::PolicyAction)>;
+using ResponseCompletionHandler = CompletionHandler<void(PurcFetcher::PolicyAction)>;
 
 class NetworkLoadClient {
 public:
@@ -49,13 +49,13 @@ public:
     virtual bool isAllowedToAskUserForCredentials() const = 0;
 
     virtual void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) = 0;
-    virtual void willSendRedirectedRequest(WebCore::ResourceRequest&&, WebCore::ResourceRequest&& redirectRequest, WebCore::ResourceResponse&& redirectResponse) = 0;
-    virtual void didReceiveResponse(WebCore::ResourceResponse&&, ResponseCompletionHandler&&) = 0;
-    virtual void didReceiveBuffer(Ref<WebCore::SharedBuffer>&&, int reportedEncodedDataLength) = 0;
-    virtual void didFinishLoading(const WebCore::NetworkLoadMetrics&) = 0;
-    virtual void didFailLoading(const WebCore::ResourceError&) = 0;
+    virtual void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) = 0;
+    virtual void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) = 0;
+    virtual void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) = 0;
+    virtual void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) = 0;
+    virtual void didFailLoading(const PurcFetcher::ResourceError&) = 0;
     virtual void didBlockAuthenticationChallenge() { };
-    virtual void didReceiveChallenge(const WebCore::AuthenticationChallenge&) { };
+    virtual void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&) { };
     virtual bool shouldCaptureExtraNetworkLoadMetrics() const { return false; }
 };
 

@@ -29,7 +29,7 @@
 #include <wtf/FastMalloc.h>
 #include <wtf/Noncopyable.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SQLiteDatabase;
 
@@ -55,6 +55,6 @@ private:
     bool m_readOnly;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // SQLiteTransation_H

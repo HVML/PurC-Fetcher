@@ -33,7 +33,7 @@
 #include <ResourceResponse.h>
 #include <libsoup/soup.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 CertificateInfo::CertificateInfo()
     : m_tlsErrors(static_cast<GTlsCertificateFlags>(0))
@@ -60,6 +60,6 @@ CertificateInfo::CertificateInfo(GTlsCertificate* certificate, GTlsCertificateFl
 
 CertificateInfo::~CertificateInfo() = default;
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif

@@ -28,7 +28,7 @@
 #include <wtf/Forward.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class UserContentURLPattern {
 public:
@@ -67,4 +67,4 @@ private:
     bool m_matchSubdomains;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

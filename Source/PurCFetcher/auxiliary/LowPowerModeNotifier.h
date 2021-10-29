@@ -37,7 +37,7 @@ OBJC_CLASS WebLowPowerModeObserver;
 typedef struct _GDBusProxy GDBusProxy;
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class LowPowerModeNotifier {
     WTF_MAKE_FAST_ALLOCATED;

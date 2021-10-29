@@ -170,7 +170,7 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     if (!cookiePersistentStorageFile)
         return WTF::nullopt;
 
-    Optional<WebCore::CurlProxySettings> proxySettings;
+    Optional<PurcFetcher::CurlProxySettings> proxySettings;
     decoder >> proxySettings;
     if (!proxySettings)
         return WTF::nullopt;

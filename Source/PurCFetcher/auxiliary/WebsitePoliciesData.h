@@ -46,15 +46,15 @@ class Encoder;
 namespace WebKit {
 
 struct WebsitePoliciesData {
-//    static void applyToDocumentLoader(WebsitePoliciesData&&, WebCore::DocumentLoader&);
+//    static void applyToDocumentLoader(WebsitePoliciesData&&, PurcFetcher::DocumentLoader&);
 
     bool contentBlockersEnabled { true };
     OptionSet<WebsiteAutoplayQuirk> allowedAutoplayQuirks;
     WebsiteAutoplayPolicy autoplayPolicy { WebsiteAutoplayPolicy::Default };
 #if ENABLE(DEVICE_ORIENTATION)
-    WebCore::DeviceOrientationOrMotionPermissionState deviceOrientationAndMotionAccessState;
+    PurcFetcher::DeviceOrientationOrMotionPermissionState deviceOrientationAndMotionAccessState;
 #endif
-    Vector<WebCore::CustomHeaderFields> customHeaderFields;
+    Vector<PurcFetcher::CustomHeaderFields> customHeaderFields;
     WebsitePopUpPolicy popUpPolicy { WebsitePopUpPolicy::Default };
     String customUserAgent;
     String customUserAgentAsSiteSpecificQuirks;
@@ -65,7 +65,7 @@ struct WebsitePoliciesData {
     WebsiteLegacyOverflowScrollingTouchPolicy legacyOverflowScrollingTouchPolicy { WebsiteLegacyOverflowScrollingTouchPolicy::Default };
     bool allowContentChangeObserverQuirk { false };
     bool allowsContentJavaScript { true };
-//    WebCore::MouseEventPolicy mouseEventPolicy { WebCore::MouseEventPolicy::Default };
+//    PurcFetcher::MouseEventPolicy mouseEventPolicy { PurcFetcher::MouseEventPolicy::Default };
     bool idempotentModeAutosizingOnlyHonorsPercentages { false };
 
     void encode(IPC::Encoder&) const;

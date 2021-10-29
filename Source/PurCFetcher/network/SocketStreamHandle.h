@@ -34,7 +34,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/URL.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct CookieRequestHeaderFieldProxy;
 class SocketStreamHandleClient;
@@ -71,4 +71,4 @@ protected:
     SocketStreamState m_state;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

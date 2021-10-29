@@ -33,7 +33,7 @@
 #include <wtf/Markable.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct FetchOptions {
     enum class Destination : uint8_t { EmptyString, Audio, Document, Embed, Font, Image, Manifest, Object, Report, Script, Serviceworker, Sharedworker, Style, Track, Video, Worker, Xslt };
@@ -100,72 +100,72 @@ inline bool isScriptLikeDestination(FetchOptions::Destination destination)
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::FetchOptions::Destination> {
+template<> struct EnumTraits<PurcFetcher::FetchOptions::Destination> {
     using values = EnumValues<
-        WebCore::FetchOptions::Destination,
-        WebCore::FetchOptions::Destination::EmptyString,
-        WebCore::FetchOptions::Destination::Audio,
-        WebCore::FetchOptions::Destination::Document,
-        WebCore::FetchOptions::Destination::Embed,
-        WebCore::FetchOptions::Destination::Font,
-        WebCore::FetchOptions::Destination::Image,
-        WebCore::FetchOptions::Destination::Manifest,
-        WebCore::FetchOptions::Destination::Object,
-        WebCore::FetchOptions::Destination::Report,
-        WebCore::FetchOptions::Destination::Script,
-        WebCore::FetchOptions::Destination::Serviceworker,
-        WebCore::FetchOptions::Destination::Sharedworker,
-        WebCore::FetchOptions::Destination::Style,
-        WebCore::FetchOptions::Destination::Track,
-        WebCore::FetchOptions::Destination::Video,
-        WebCore::FetchOptions::Destination::Worker,
-        WebCore::FetchOptions::Destination::Xslt
+        PurcFetcher::FetchOptions::Destination,
+        PurcFetcher::FetchOptions::Destination::EmptyString,
+        PurcFetcher::FetchOptions::Destination::Audio,
+        PurcFetcher::FetchOptions::Destination::Document,
+        PurcFetcher::FetchOptions::Destination::Embed,
+        PurcFetcher::FetchOptions::Destination::Font,
+        PurcFetcher::FetchOptions::Destination::Image,
+        PurcFetcher::FetchOptions::Destination::Manifest,
+        PurcFetcher::FetchOptions::Destination::Object,
+        PurcFetcher::FetchOptions::Destination::Report,
+        PurcFetcher::FetchOptions::Destination::Script,
+        PurcFetcher::FetchOptions::Destination::Serviceworker,
+        PurcFetcher::FetchOptions::Destination::Sharedworker,
+        PurcFetcher::FetchOptions::Destination::Style,
+        PurcFetcher::FetchOptions::Destination::Track,
+        PurcFetcher::FetchOptions::Destination::Video,
+        PurcFetcher::FetchOptions::Destination::Worker,
+        PurcFetcher::FetchOptions::Destination::Xslt
     >;
 };
 
-template<> struct EnumTraits<WebCore::FetchOptions::Mode> {
+template<> struct EnumTraits<PurcFetcher::FetchOptions::Mode> {
     using values = EnumValues<
-        WebCore::FetchOptions::Mode,
-        WebCore::FetchOptions::Mode::Navigate,
-        WebCore::FetchOptions::Mode::SameOrigin,
-        WebCore::FetchOptions::Mode::NoCors,
-        WebCore::FetchOptions::Mode::Cors
+        PurcFetcher::FetchOptions::Mode,
+        PurcFetcher::FetchOptions::Mode::Navigate,
+        PurcFetcher::FetchOptions::Mode::SameOrigin,
+        PurcFetcher::FetchOptions::Mode::NoCors,
+        PurcFetcher::FetchOptions::Mode::Cors
     >;
 };
 
-template<> struct EnumTraits<WebCore::FetchOptions::Credentials> {
+template<> struct EnumTraits<PurcFetcher::FetchOptions::Credentials> {
     using values = EnumValues<
-        WebCore::FetchOptions::Credentials,
-        WebCore::FetchOptions::Credentials::Omit,
-        WebCore::FetchOptions::Credentials::SameOrigin,
-        WebCore::FetchOptions::Credentials::Include
+        PurcFetcher::FetchOptions::Credentials,
+        PurcFetcher::FetchOptions::Credentials::Omit,
+        PurcFetcher::FetchOptions::Credentials::SameOrigin,
+        PurcFetcher::FetchOptions::Credentials::Include
     >;
 };
 
-template<> struct EnumTraits<WebCore::FetchOptions::Cache> {
+template<> struct EnumTraits<PurcFetcher::FetchOptions::Cache> {
     using values = EnumValues<
-        WebCore::FetchOptions::Cache,
-        WebCore::FetchOptions::Cache::Default,
-        WebCore::FetchOptions::Cache::NoStore,
-        WebCore::FetchOptions::Cache::Reload,
-        WebCore::FetchOptions::Cache::NoCache,
-        WebCore::FetchOptions::Cache::ForceCache,
-        WebCore::FetchOptions::Cache::OnlyIfCached
+        PurcFetcher::FetchOptions::Cache,
+        PurcFetcher::FetchOptions::Cache::Default,
+        PurcFetcher::FetchOptions::Cache::NoStore,
+        PurcFetcher::FetchOptions::Cache::Reload,
+        PurcFetcher::FetchOptions::Cache::NoCache,
+        PurcFetcher::FetchOptions::Cache::ForceCache,
+        PurcFetcher::FetchOptions::Cache::OnlyIfCached
     >;
 };
 
-template<> struct EnumTraits<WebCore::FetchOptions::Redirect> {
+template<> struct EnumTraits<PurcFetcher::FetchOptions::Redirect> {
     using values = EnumValues<
-        WebCore::FetchOptions::Redirect,
-        WebCore::FetchOptions::Redirect::Follow,
-        WebCore::FetchOptions::Redirect::Error,
-        WebCore::FetchOptions::Redirect::Manual
+        PurcFetcher::FetchOptions::Redirect,
+        PurcFetcher::FetchOptions::Redirect::Follow,
+        PurcFetcher::FetchOptions::Redirect::Error,
+        PurcFetcher::FetchOptions::Redirect::Manual
     >;
 };
 
 }
 
-namespace WebCore {
+namespace PurcFetcher {
 
 template<class Encoder>
 inline void FetchOptions::encodePersistent(Encoder& encoder) const
@@ -259,4 +259,4 @@ inline Optional<FetchOptions> FetchOptions::decode(Decoder& decoder)
     return options;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

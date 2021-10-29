@@ -29,7 +29,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/Vector.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ScriptExecutionContext;
 struct MessagePortIdentifier;
@@ -63,15 +63,15 @@ private:
 
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::MessagePortChannelProvider::HasActivity> {
+template<> struct EnumTraits<PurcFetcher::MessagePortChannelProvider::HasActivity> {
     using values = EnumValues<
-        WebCore::MessagePortChannelProvider::HasActivity,
-        WebCore::MessagePortChannelProvider::HasActivity::No,
-        WebCore::MessagePortChannelProvider::HasActivity::Yes
+        PurcFetcher::MessagePortChannelProvider::HasActivity,
+        PurcFetcher::MessagePortChannelProvider::HasActivity::No,
+        PurcFetcher::MessagePortChannelProvider::HasActivity::Yes
     >;
 };
 

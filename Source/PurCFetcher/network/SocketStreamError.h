@@ -33,7 +33,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SocketStreamError {
 public:

@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum FetchIdentifierType { };
 using FetchIdentifier = ObjectIdentifier<FetchIdentifierType>;

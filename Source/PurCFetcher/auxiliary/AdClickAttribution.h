@@ -34,7 +34,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class AdClickAttribution {
 public:
@@ -347,26 +347,26 @@ Optional<AdClickAttribution::Conversion> AdClickAttribution::Conversion::decode(
     return Conversion { WTFMove(*data), Priority { *priority }, *wasSent };
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 template<typename T> struct DefaultHash;
 
-template<> struct DefaultHash<WebCore::AdClickAttribution::Source> {
-    typedef WebCore::AdClickAttribution::SourceHash Hash;
+template<> struct DefaultHash<PurcFetcher::AdClickAttribution::Source> {
+    typedef PurcFetcher::AdClickAttribution::SourceHash Hash;
 };
-template<> struct HashTraits<WebCore::AdClickAttribution::Source> : GenericHashTraits<WebCore::AdClickAttribution::Source> {
-    static WebCore::AdClickAttribution::Source emptyValue() { return { }; }
-    static void constructDeletedValue(WebCore::AdClickAttribution::Source& slot) { WebCore::AdClickAttribution::Source::constructDeletedValue(slot); }
-    static bool isDeletedValue(const WebCore::AdClickAttribution::Source& slot) { return slot.isDeletedValue(); }
+template<> struct HashTraits<PurcFetcher::AdClickAttribution::Source> : GenericHashTraits<PurcFetcher::AdClickAttribution::Source> {
+    static PurcFetcher::AdClickAttribution::Source emptyValue() { return { }; }
+    static void constructDeletedValue(PurcFetcher::AdClickAttribution::Source& slot) { PurcFetcher::AdClickAttribution::Source::constructDeletedValue(slot); }
+    static bool isDeletedValue(const PurcFetcher::AdClickAttribution::Source& slot) { return slot.isDeletedValue(); }
 };
 
-template<> struct DefaultHash<WebCore::AdClickAttribution::Destination> {
-    typedef WebCore::AdClickAttribution::DestinationHash Hash;
+template<> struct DefaultHash<PurcFetcher::AdClickAttribution::Destination> {
+    typedef PurcFetcher::AdClickAttribution::DestinationHash Hash;
 };
-template<> struct HashTraits<WebCore::AdClickAttribution::Destination> : GenericHashTraits<WebCore::AdClickAttribution::Destination> {
-    static WebCore::AdClickAttribution::Destination emptyValue() { return { }; }
-    static void constructDeletedValue(WebCore::AdClickAttribution::Destination& slot) { WebCore::AdClickAttribution::Destination::constructDeletedValue(slot); }
-    static bool isDeletedValue(const WebCore::AdClickAttribution::Destination& slot) { return slot.isDeletedValue(); }
+template<> struct HashTraits<PurcFetcher::AdClickAttribution::Destination> : GenericHashTraits<PurcFetcher::AdClickAttribution::Destination> {
+    static PurcFetcher::AdClickAttribution::Destination emptyValue() { return { }; }
+    static void constructDeletedValue(PurcFetcher::AdClickAttribution::Destination& slot) { PurcFetcher::AdClickAttribution::Destination::constructDeletedValue(slot); }
+    static bool isDeletedValue(const PurcFetcher::AdClickAttribution::Destination& slot) { return slot.isDeletedValue(); }
 };
 }

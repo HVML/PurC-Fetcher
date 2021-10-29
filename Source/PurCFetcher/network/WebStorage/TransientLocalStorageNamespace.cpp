@@ -31,7 +31,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 TransientLocalStorageNamespace::TransientLocalStorageNamespace()
     : m_quotaInBytes(StorageManager::localStorageDatabaseQuotaInBytes)

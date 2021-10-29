@@ -34,9 +34,9 @@
 namespace WebKit {
 
 struct PolicyDecision {
-    WebCore::PolicyCheckIdentifier identifier { };
+    PurcFetcher::PolicyCheckIdentifier identifier { };
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { WTF::nullopt };
-    WebCore::PolicyAction policyAction { WebCore::PolicyAction::Ignore };
+    PurcFetcher::PolicyAction policyAction { PurcFetcher::PolicyAction::Ignore };
     uint64_t navigationID { 0 };
     DownloadID downloadID { 0 };
     Optional<WebsitePoliciesData> websitePoliciesData { WTF::nullopt };
@@ -57,7 +57,7 @@ struct PolicyDecision {
     template<class Decoder>
     static Optional<PolicyDecision> decode(Decoder& decoder)
     {
-        Optional<WebCore::PolicyCheckIdentifier> decodedIdentifier;
+        Optional<PurcFetcher::PolicyCheckIdentifier> decodedIdentifier;
         decoder >> decodedIdentifier;
         if (!decodedIdentifier)
             return WTF::nullopt;
@@ -67,7 +67,7 @@ struct PolicyDecision {
         if (!decodedIsNavigatingToAppBoundDomain)
             return WTF::nullopt;
 
-        Optional<WebCore::PolicyAction> decodedPolicyAction;
+        Optional<PurcFetcher::PolicyAction> decodedPolicyAction;
         decoder >> decodedPolicyAction;
         if (!decodedPolicyAction)
             return WTF::nullopt;

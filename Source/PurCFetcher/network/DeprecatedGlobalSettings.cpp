@@ -29,7 +29,7 @@
 #include "RuntimeApplicationChecks.h"
 #include <wtf/NeverDestroyed.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 #if USE(AVFOUNDATION)
 bool DeprecatedGlobalSettings::gAVFoundationEnabled = true;
@@ -216,4 +216,4 @@ bool DeprecatedGlobalSettings::allowsAnySSLCertificate()
     return gAllowsAnySSLCertificate;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

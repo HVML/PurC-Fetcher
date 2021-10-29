@@ -31,7 +31,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/ThreadSafeRefCounted.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct ClientOrigin;
 
@@ -62,4 +62,4 @@ protected:
     HashMap<uint64_t, uint64_t> m_opaqueResponseToSizeWithPaddingMap;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

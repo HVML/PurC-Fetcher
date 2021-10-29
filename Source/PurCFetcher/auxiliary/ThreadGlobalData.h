@@ -30,7 +30,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ThreadTimers;
 
@@ -86,6 +86,6 @@ PURCFETCHER_EXPORT ThreadGlobalData& threadGlobalData();
 PURCFETCHER_EXPORT ThreadGlobalData& threadGlobalData() PURE_FUNCTION;
 #endif
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // ThreadGlobalData_h

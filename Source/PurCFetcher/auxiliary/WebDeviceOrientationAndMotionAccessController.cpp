@@ -34,7 +34,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 void WebDeviceOrientationAndMotionAccessController::shouldAllowAccess(WebPageProxy& page, WebFrameProxy& frame, FrameInfoData&& frameInfo, bool mayPrompt, CompletionHandler<void(DeviceOrientationOrMotionPermissionState)>&& completionHandler)
 {
@@ -44,7 +44,7 @@ void WebDeviceOrientationAndMotionAccessController::shouldAllowAccess(WebPagePro
         return completionHandler(currentPermission);
 
     auto& pendingRequests = m_pendingRequests.ensure(originData, [] {
-        return Vector<CompletionHandler<void(WebCore::DeviceOrientationOrMotionPermissionState)>> { };
+        return Vector<CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>> { };
     }).iterator->value;
     pendingRequests.append(WTFMove(completionHandler));
     if (pendingRequests.size() > 1)

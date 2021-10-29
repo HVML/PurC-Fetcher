@@ -31,7 +31,7 @@
 #include <wtf/URL.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class RegistrableDomain {
     WTF_MAKE_FAST_ALLOCATED;
@@ -159,11 +159,11 @@ inline bool areRegistrableDomainsEqual(const URL& a, const URL& b)
     return RegistrableDomain(a).matches(b);
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
-template<> struct DefaultHash<WebCore::RegistrableDomain> {
-    using Hash = WebCore::RegistrableDomain::RegistrableDomainHash;
+template<> struct DefaultHash<PurcFetcher::RegistrableDomain> {
+    using Hash = PurcFetcher::RegistrableDomain::RegistrableDomainHash;
 };
-template<> struct HashTraits<WebCore::RegistrableDomain> : SimpleClassHashTraits<WebCore::RegistrableDomain> { };
+template<> struct HashTraits<PurcFetcher::RegistrableDomain> : SimpleClassHashTraits<PurcFetcher::RegistrableDomain> { };
 }

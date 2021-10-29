@@ -51,7 +51,7 @@
 #include "ColumnTailFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnTailFilter::ColumnTailFilter()
 {

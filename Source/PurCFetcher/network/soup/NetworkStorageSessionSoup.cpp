@@ -55,7 +55,7 @@
 #include <libsecret/secret.h>
 #endif
 
-namespace WebCore {
+namespace PurcFetcher {
 
 NetworkStorageSession::NetworkStorageSession(PAL::SessionID sessionID)
     : m_sessionID(sessionID)
@@ -443,7 +443,7 @@ Vector<Cookie> NetworkStorageSession::getAllCookies()
     GUniquePtr<GSList> cookiesList(soup_cookie_jar_all_cookies(cookieStorage()));
     for (GSList* item = cookiesList.get(); item; item = g_slist_next(item)) {
         GUniquePtr<SoupCookie> soupCookie(static_cast<SoupCookie*>(item->data));
-        cookies.append(WebCore::Cookie(soupCookie.get()));
+        cookies.append(PurcFetcher::Cookie(soupCookie.get()));
     }
     return cookies;
 }
@@ -458,7 +458,7 @@ Vector<Cookie> NetworkStorageSession::getCookies(const URL& url)
     GUniquePtr<GSList> cookiesList(soup_cookie_jar_get_cookie_list(cookieStorage(), uri.get(), TRUE));
     for (GSList* item = cookiesList.get(); item; item = g_slist_next(item)) {
         GUniquePtr<SoupCookie> soupCookie(static_cast<SoupCookie*>(item->data));
-        cookies.append(WebCore::Cookie(soupCookie.get()));
+        cookies.append(PurcFetcher::Cookie(soupCookie.get()));
     }
 
     return cookies;
@@ -599,6 +599,6 @@ void NetworkStorageSession::flushCookieStore()
     // FIXME: Implement for WK2 to use.
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // USE(SOUP)

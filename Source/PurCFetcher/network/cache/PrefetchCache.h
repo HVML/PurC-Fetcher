@@ -47,19 +47,19 @@ public:
 
     struct Entry {
         WTF_MAKE_STRUCT_FAST_ALLOCATED;
-        Entry(WebCore::ResourceResponse&&, RefPtr<WebCore::SharedBuffer>&&);
-        Entry(WebCore::ResourceResponse&&, WebCore::ResourceRequest&&);
+        Entry(PurcFetcher::ResourceResponse&&, RefPtr<PurcFetcher::SharedBuffer>&&);
+        Entry(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&);
 
-        Ref<WebCore::SharedBuffer> releaseBuffer() { return buffer.releaseNonNull(); }
+        Ref<PurcFetcher::SharedBuffer> releaseBuffer() { return buffer.releaseNonNull(); }
 
-        WebCore::ResourceResponse response;
-        RefPtr<WebCore::SharedBuffer> buffer;
-        WebCore::ResourceRequest redirectRequest;
+        PurcFetcher::ResourceResponse response;
+        RefPtr<PurcFetcher::SharedBuffer> buffer;
+        PurcFetcher::ResourceRequest redirectRequest;
     };
 
     std::unique_ptr<Entry> take(const URL&);
-    void store(const URL&, WebCore::ResourceResponse&&, RefPtr<WebCore::SharedBuffer>&&);
-    void storeRedirect(const URL&, WebCore::ResourceResponse&&, WebCore::ResourceRequest&&);
+    void store(const URL&, PurcFetcher::ResourceResponse&&, RefPtr<PurcFetcher::SharedBuffer>&&);
+    void storeRedirect(const URL&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&);
 
 private:
     void clearExpiredEntries();
@@ -70,7 +70,7 @@ private:
     using SessionPrefetchExpirationList = Deque<std::tuple<URL, WallTime>>;
     SessionPrefetchExpirationList m_sessionExpirationList;
 
-    WebCore::Timer m_expirationTimer;
+    PurcFetcher::Timer m_expirationTimer;
 };
 
 } // namespace WebKit

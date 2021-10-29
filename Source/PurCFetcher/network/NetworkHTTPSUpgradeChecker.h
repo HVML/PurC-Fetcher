@@ -30,7 +30,7 @@
 #include <wtf/UniqueRef.h>
 #include <wtf/WorkQueue.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 class SQLiteDatabase;
 class SQLiteStatement;
 }
@@ -55,8 +55,8 @@ public:
 
 private:
     Ref<WorkQueue> m_workQueue;
-    std::unique_ptr<WebCore::SQLiteDatabase> m_database;
-    std::unique_ptr<WebCore::SQLiteStatement> m_statement;
+    std::unique_ptr<PurcFetcher::SQLiteDatabase> m_database;
+    std::unique_ptr<PurcFetcher::SQLiteStatement> m_statement;
     std::atomic<bool> m_didSetupCompleteSuccessfully { false };
 };
 

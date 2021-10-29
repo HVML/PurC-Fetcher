@@ -46,7 +46,7 @@
 // FIXME: Seems like we could use std::tuple to cut down the code below a lot!
 
 namespace IPC {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 static void encodeSharedBuffer(Encoder& encoder, const SharedBuffer* buffer)
 {
@@ -225,12 +225,12 @@ bool ArgumentCoder<Credential>::decode(Decoder& decoder, Credential& credential)
     return true;
 }
 
-void ArgumentCoder<RefPtr<WebCore::SharedBuffer>>::encode(Encoder& encoder, const RefPtr<WebCore::SharedBuffer>& buffer)
+void ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>>::encode(Encoder& encoder, const RefPtr<PurcFetcher::SharedBuffer>& buffer)
 {
     encodeSharedBuffer(encoder, buffer.get());
 }
 
-Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<WebCore::SharedBuffer>>::decode(Decoder& decoder)
+Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>>::decode(Decoder& decoder)
 {
     RefPtr<SharedBuffer> buffer;
     if (!decodeSharedBuffer(decoder, buffer))
@@ -239,12 +239,12 @@ Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<WebCore::SharedBuffer>>::dec
     return buffer;
 }
 
-void ArgumentCoder<Ref<WebCore::SharedBuffer>>::encode(Encoder& encoder, const Ref<WebCore::SharedBuffer>& buffer)
+void ArgumentCoder<Ref<PurcFetcher::SharedBuffer>>::encode(Encoder& encoder, const Ref<PurcFetcher::SharedBuffer>& buffer)
 {
     encodeSharedBuffer(encoder, buffer.ptr());
 }
 
-Optional<Ref<SharedBuffer>> ArgumentCoder<Ref<WebCore::SharedBuffer>>::decode(Decoder& decoder)
+Optional<Ref<SharedBuffer>> ArgumentCoder<Ref<PurcFetcher::SharedBuffer>>::decode(Decoder& decoder)
 {
     RefPtr<SharedBuffer> buffer;
     if (!decodeSharedBuffer(decoder, buffer) || !buffer)

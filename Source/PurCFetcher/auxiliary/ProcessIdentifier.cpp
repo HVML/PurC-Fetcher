@@ -28,7 +28,7 @@
 
 #include <wtf/MainThread.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 namespace Process {
 
 static Optional<ProcessIdentifier> globalIdentifier;
@@ -51,4 +51,4 @@ ProcessIdentifier identifier()
 }
 
 } // namespace Process
-} // namespace WebCore
+} // namespace PurcFetcher

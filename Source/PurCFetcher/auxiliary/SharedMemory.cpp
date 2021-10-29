@@ -30,7 +30,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
 {

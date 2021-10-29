@@ -33,7 +33,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SecurityOrigin : public ThreadSafeRefCounted<SecurityOrigin> {
 public:
@@ -307,16 +307,16 @@ template<class Decoder> inline RefPtr<SecurityOrigin> SecurityOrigin::decode(Dec
     return origin;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::SecurityOrigin::StorageBlockingPolicy> {
+template<> struct EnumTraits<PurcFetcher::SecurityOrigin::StorageBlockingPolicy> {
     using values = EnumValues<
-        WebCore::SecurityOrigin::StorageBlockingPolicy,
-        WebCore::SecurityOrigin::StorageBlockingPolicy::AllowAllStorage,
-        WebCore::SecurityOrigin::StorageBlockingPolicy::BlockThirdPartyStorage,
-        WebCore::SecurityOrigin::StorageBlockingPolicy::BlockAllStorage
+        PurcFetcher::SecurityOrigin::StorageBlockingPolicy,
+        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::AllowAllStorage,
+        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::BlockThirdPartyStorage,
+        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::BlockAllStorage
     >;
 };
 

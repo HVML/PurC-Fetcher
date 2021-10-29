@@ -37,7 +37,7 @@
 
 namespace WebKit {
 
-using namespace WebCore;
+using namespace PurcFetcher;
 
 PreconnectTask::PreconnectTask(NetworkProcess& networkProcess, PAL::SessionID sessionID, NetworkLoadParameters&& parameters, CompletionHandler<void(const ResourceError&)>&& completionHandler)
     : m_completionHandler(WTFMove(completionHandler))

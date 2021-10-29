@@ -31,7 +31,7 @@
 #include "ProcessIdentifier.h"
 #include <wtf/EnumTraits.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum FrameState {
     FrameStateProvisional,
@@ -194,63 +194,63 @@ enum class AllowsContentJavaScript : bool {
     Yes,
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebCore::FrameLoadType> {
+template<> struct EnumTraits<PurcFetcher::FrameLoadType> {
     using values = EnumValues<
-        WebCore::FrameLoadType,
-        WebCore::FrameLoadType::Standard,
-        WebCore::FrameLoadType::Back,
-        WebCore::FrameLoadType::Forward,
-        WebCore::FrameLoadType::IndexedBackForward,
-        WebCore::FrameLoadType::Reload,
-        WebCore::FrameLoadType::Same,
-        WebCore::FrameLoadType::RedirectWithLockedBackForwardList,
-        WebCore::FrameLoadType::Replace,
-        WebCore::FrameLoadType::ReloadFromOrigin,
-        WebCore::FrameLoadType::ReloadExpiredOnly
+        PurcFetcher::FrameLoadType,
+        PurcFetcher::FrameLoadType::Standard,
+        PurcFetcher::FrameLoadType::Back,
+        PurcFetcher::FrameLoadType::Forward,
+        PurcFetcher::FrameLoadType::IndexedBackForward,
+        PurcFetcher::FrameLoadType::Reload,
+        PurcFetcher::FrameLoadType::Same,
+        PurcFetcher::FrameLoadType::RedirectWithLockedBackForwardList,
+        PurcFetcher::FrameLoadType::Replace,
+        PurcFetcher::FrameLoadType::ReloadFromOrigin,
+        PurcFetcher::FrameLoadType::ReloadExpiredOnly
     >;
 };
 
-template<> struct EnumTraits<WebCore::NavigationType> {
+template<> struct EnumTraits<PurcFetcher::NavigationType> {
     using values = EnumValues<
-        WebCore::NavigationType,
-        WebCore::NavigationType::LinkClicked,
-        WebCore::NavigationType::FormSubmitted,
-        WebCore::NavigationType::BackForward,
-        WebCore::NavigationType::Reload,
-        WebCore::NavigationType::FormResubmitted,
-        WebCore::NavigationType::Other
+        PurcFetcher::NavigationType,
+        PurcFetcher::NavigationType::LinkClicked,
+        PurcFetcher::NavigationType::FormSubmitted,
+        PurcFetcher::NavigationType::BackForward,
+        PurcFetcher::NavigationType::Reload,
+        PurcFetcher::NavigationType::FormResubmitted,
+        PurcFetcher::NavigationType::Other
     >;
 };
 
-template<> struct EnumTraits<WebCore::PolicyAction> {
+template<> struct EnumTraits<PurcFetcher::PolicyAction> {
     using values = EnumValues<
-        WebCore::PolicyAction,
-        WebCore::PolicyAction::Use,
-        WebCore::PolicyAction::Download,
-        WebCore::PolicyAction::Ignore,
-        WebCore::PolicyAction::StopAllLoads
+        PurcFetcher::PolicyAction,
+        PurcFetcher::PolicyAction::Use,
+        PurcFetcher::PolicyAction::Download,
+        PurcFetcher::PolicyAction::Ignore,
+        PurcFetcher::PolicyAction::StopAllLoads
     >;
 };
 
-template<> struct EnumTraits<WebCore::ShouldOpenExternalURLsPolicy> {
+template<> struct EnumTraits<PurcFetcher::ShouldOpenExternalURLsPolicy> {
     using values = EnumValues<
-        WebCore::ShouldOpenExternalURLsPolicy,
-        WebCore::ShouldOpenExternalURLsPolicy::ShouldNotAllow,
-        WebCore::ShouldOpenExternalURLsPolicy::ShouldAllowExternalSchemes,
-        WebCore::ShouldOpenExternalURLsPolicy::ShouldAllow
+        PurcFetcher::ShouldOpenExternalURLsPolicy,
+        PurcFetcher::ShouldOpenExternalURLsPolicy::ShouldNotAllow,
+        PurcFetcher::ShouldOpenExternalURLsPolicy::ShouldAllowExternalSchemes,
+        PurcFetcher::ShouldOpenExternalURLsPolicy::ShouldAllow
     >;
 };
 
-template<> struct EnumTraits<WebCore::WebGLLoadPolicy> {
+template<> struct EnumTraits<PurcFetcher::WebGLLoadPolicy> {
     using values = EnumValues<
-        WebCore::WebGLLoadPolicy,
-        WebCore::WebGLLoadPolicy::WebGLBlockCreation,
-        WebCore::WebGLLoadPolicy::WebGLAllowCreation,
-        WebCore::WebGLLoadPolicy::WebGLPendingCreation
+        PurcFetcher::WebGLLoadPolicy,
+        PurcFetcher::WebGLLoadPolicy::WebGLBlockCreation,
+        PurcFetcher::WebGLLoadPolicy::WebGLAllowCreation,
+        PurcFetcher::WebGLLoadPolicy::WebGLPendingCreation
     >;
 };
 

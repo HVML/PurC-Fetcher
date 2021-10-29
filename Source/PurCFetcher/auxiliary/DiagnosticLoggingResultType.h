@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum DiagnosticLoggingResultType {
     DiagnosticLoggingResultPass,
@@ -33,4 +33,4 @@ enum DiagnosticLoggingResultType {
     DiagnosticLoggingResultNoop,
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

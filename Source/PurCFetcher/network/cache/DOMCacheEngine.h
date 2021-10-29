@@ -33,7 +33,7 @@
 #include "SharedBuffer.h"
 #include <wtf/CompletionHandler.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 struct CacheQueryOptions;
 
@@ -156,17 +156,17 @@ template<class Decoder> inline Optional<CacheIdentifierOperationResult> CacheIde
 
 } // namespace DOMCacheEngine
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 namespace WTF {
-template<> struct EnumTraits<WebCore::DOMCacheEngine::Error> {
+template<> struct EnumTraits<PurcFetcher::DOMCacheEngine::Error> {
     using values = EnumValues<
-        WebCore::DOMCacheEngine::Error,
-        WebCore::DOMCacheEngine::Error::NotImplemented,
-        WebCore::DOMCacheEngine::Error::ReadDisk,
-        WebCore::DOMCacheEngine::Error::WriteDisk,
-        WebCore::DOMCacheEngine::Error::QuotaExceeded,
-        WebCore::DOMCacheEngine::Error::Internal
+        PurcFetcher::DOMCacheEngine::Error,
+        PurcFetcher::DOMCacheEngine::Error::NotImplemented,
+        PurcFetcher::DOMCacheEngine::Error::ReadDisk,
+        PurcFetcher::DOMCacheEngine::Error::WriteDisk,
+        PurcFetcher::DOMCacheEngine::Error::QuotaExceeded,
+        PurcFetcher::DOMCacheEngine::Error::Internal
     >;
 };
 }

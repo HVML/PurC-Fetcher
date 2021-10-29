@@ -95,13 +95,13 @@ Optional<SubresourceInfo> SubresourceInfo::decode(WTF::Persistence::Decoder& dec
         return WTF::nullopt;
     info.m_firstPartyForCookies = WTFMove(*firstPartyForCookies);
 
-    Optional<WebCore::HTTPHeaderMap> requestHeaders;
+    Optional<PurcFetcher::HTTPHeaderMap> requestHeaders;
     decoder >> requestHeaders;
     if (!requestHeaders)
         return WTF::nullopt;
     info.m_requestHeaders = WTFMove(*requestHeaders);
 
-    Optional<WebCore::ResourceLoadPriority> priority;
+    Optional<PurcFetcher::ResourceLoadPriority> priority;
     decoder >> priority;
     if (!priority)
         return WTF::nullopt;
@@ -112,7 +112,7 @@ Optional<SubresourceInfo> SubresourceInfo::decode(WTF::Persistence::Decoder& dec
 
 bool SubresourceInfo::isFirstParty() const
 {
-    WebCore::RegistrableDomain firstPartyDomain { m_firstPartyForCookies };
+    PurcFetcher::RegistrableDomain firstPartyDomain { m_firstPartyForCookies };
     return firstPartyDomain.matches(URL(URL(), key().identifier()));
 }
 
@@ -152,7 +152,7 @@ SubresourcesEntry::SubresourcesEntry(const Storage::Record& storageEntry)
     ASSERT(m_key.type() == "SubResources");
 }
 
-SubresourceInfo::SubresourceInfo(const Key& key, const WebCore::ResourceRequest& request, const SubresourceInfo* previousInfo)
+SubresourceInfo::SubresourceInfo(const Key& key, const PurcFetcher::ResourceRequest& request, const SubresourceInfo* previousInfo)
     : m_key(key)
     , m_lastSeen(WallTime::now())
     , m_firstSeen(previousInfo ? previousInfo->firstSeen() : m_lastSeen)

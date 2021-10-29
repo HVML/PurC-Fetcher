@@ -61,7 +61,7 @@
 #include <wtf/text/TextPosition.h>
 
 
-namespace WebCore {
+namespace PurcFetcher {
 using namespace Inspector;
 
 static String consoleMessageForViolation(const char* effectiveViolatedDirective, const ContentSecurityPolicyDirective& violatedDirective, const URL& blockedURL, const char* prefix, const char* subject = "it")

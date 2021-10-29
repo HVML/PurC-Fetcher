@@ -34,7 +34,7 @@
 #include <wtf/MainThread.h>
 #include <wtf/NeverDestroyed.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 // These values are at the discretion of the user agent.
 static const auto defaultPreflightCacheTimeout = 5_s;
@@ -146,4 +146,4 @@ void CrossOriginPreflightResultCache::clear()
     m_preflightHashMap.clear();
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

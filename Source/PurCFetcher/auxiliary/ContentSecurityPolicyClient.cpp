@@ -26,11 +26,11 @@
 #include "config.h"
 #include "ContentSecurityPolicyClient.h"
 
-namespace WebCore {
+namespace PurcFetcher {
 
 void ContentSecurityPolicyClient::willSendCSPViolationReport(CSPInfo&)
 {
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher
 

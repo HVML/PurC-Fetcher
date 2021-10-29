@@ -28,8 +28,8 @@
 
 #include "ArgumentCoders.h"
 #include "WebProcess.h"
-#include <WebCore/Frame.h>
-#include <WebCore/Page.h>
+#include <PurcFetcher/Frame.h>
+#include <PurcFetcher/Page.h>
 
 namespace WebKit {
 
@@ -69,7 +69,7 @@ Optional<WebsitePoliciesData> WebsitePoliciesData::decode(IPC::Decoder& decoder)
         return WTF::nullopt;
 
 #if ENABLE(DEVICE_ORIENTATION)
-    Optional<WebCore::DeviceOrientationOrMotionPermissionState> deviceOrientationAndMotionAccessState;
+    Optional<PurcFetcher::DeviceOrientationOrMotionPermissionState> deviceOrientationAndMotionAccessState;
     decoder >> deviceOrientationAndMotionAccessState;
     if (!deviceOrientationAndMotionAccessState)
         return WTF::nullopt;
@@ -80,7 +80,7 @@ Optional<WebsitePoliciesData> WebsitePoliciesData::decode(IPC::Decoder& decoder)
     if (!allowedAutoplayQuirks)
         return WTF::nullopt;
     
-    Optional<Vector<WebCore::CustomHeaderFields>> customHeaderFields;
+    Optional<Vector<PurcFetcher::CustomHeaderFields>> customHeaderFields;
     decoder >> customHeaderFields;
     if (!customHeaderFields)
         return WTF::nullopt;
@@ -130,12 +130,12 @@ Optional<WebsitePoliciesData> WebsitePoliciesData::decode(IPC::Decoder& decoder)
     if (!allowContentChangeObserverQuirk)
         return WTF::nullopt;
 
-    Optional<WebCore::AllowsContentJavaScript> allowsContentJavaScript;
+    Optional<PurcFetcher::AllowsContentJavaScript> allowsContentJavaScript;
     decoder >> allowsContentJavaScript;
     if (!allowsContentJavaScript)
         return WTF::nullopt;
 
-    Optional<WebCore::MouseEventPolicy> mouseEventPolicy;
+    Optional<PurcFetcher::MouseEventPolicy> mouseEventPolicy;
     decoder >> mouseEventPolicy;
     if (!mouseEventPolicy)
         return WTF::nullopt;
@@ -168,7 +168,7 @@ Optional<WebsitePoliciesData> WebsitePoliciesData::decode(IPC::Decoder& decoder)
     } };
 }
 
-void WebsitePoliciesData::applyToDocumentLoader(WebsitePoliciesData&& websitePolicies, WebCore::DocumentLoader& documentLoader)
+void WebsitePoliciesData::applyToDocumentLoader(WebsitePoliciesData&& websitePolicies, PurcFetcher::DocumentLoader& documentLoader)
 {
     documentLoader.setCustomHeaderFields(WTFMove(websitePolicies.customHeaderFields));
     documentLoader.setCustomUserAgent(websitePolicies.customUserAgent);
@@ -183,105 +183,105 @@ void WebsitePoliciesData::applyToDocumentLoader(WebsitePoliciesData&& websitePol
     if (documentLoader.userContentExtensionsEnabled())
         documentLoader.setUserContentExtensionsEnabled(websitePolicies.contentBlockersEnabled);
 
-    OptionSet<WebCore::AutoplayQuirk> quirks;
+    OptionSet<PurcFetcher::AutoplayQuirk> quirks;
     const auto& allowedQuirks = websitePolicies.allowedAutoplayQuirks;
     
     if (allowedQuirks.contains(WebsiteAutoplayQuirk::InheritedUserGestures))
-        quirks.add(WebCore::AutoplayQuirk::InheritedUserGestures);
+        quirks.add(PurcFetcher::AutoplayQuirk::InheritedUserGestures);
     
     if (allowedQuirks.contains(WebsiteAutoplayQuirk::SynthesizedPauseEvents))
-        quirks.add(WebCore::AutoplayQuirk::SynthesizedPauseEvents);
+        quirks.add(PurcFetcher::AutoplayQuirk::SynthesizedPauseEvents);
     
     if (allowedQuirks.contains(WebsiteAutoplayQuirk::ArbitraryUserGestures))
-        quirks.add(WebCore::AutoplayQuirk::ArbitraryUserGestures);
+        quirks.add(PurcFetcher::AutoplayQuirk::ArbitraryUserGestures);
 
     if (allowedQuirks.contains(WebsiteAutoplayQuirk::PerDocumentAutoplayBehavior))
-        quirks.add(WebCore::AutoplayQuirk::PerDocumentAutoplayBehavior);
+        quirks.add(PurcFetcher::AutoplayQuirk::PerDocumentAutoplayBehavior);
 
     documentLoader.setAllowedAutoplayQuirks(quirks);
 
     switch (websitePolicies.autoplayPolicy) {
     case WebsiteAutoplayPolicy::Default:
-        documentLoader.setAutoplayPolicy(WebCore::AutoplayPolicy::Default);
+        documentLoader.setAutoplayPolicy(PurcFetcher::AutoplayPolicy::Default);
         break;
     case WebsiteAutoplayPolicy::Allow:
-        documentLoader.setAutoplayPolicy(WebCore::AutoplayPolicy::Allow);
+        documentLoader.setAutoplayPolicy(PurcFetcher::AutoplayPolicy::Allow);
         break;
     case WebsiteAutoplayPolicy::AllowWithoutSound:
-        documentLoader.setAutoplayPolicy(WebCore::AutoplayPolicy::AllowWithoutSound);
+        documentLoader.setAutoplayPolicy(PurcFetcher::AutoplayPolicy::AllowWithoutSound);
         break;
     case WebsiteAutoplayPolicy::Deny:
-        documentLoader.setAutoplayPolicy(WebCore::AutoplayPolicy::Deny);
+        documentLoader.setAutoplayPolicy(PurcFetcher::AutoplayPolicy::Deny);
         break;
     }
 
     switch (websitePolicies.popUpPolicy) {
     case WebsitePopUpPolicy::Default:
-        documentLoader.setPopUpPolicy(WebCore::PopUpPolicy::Default);
+        documentLoader.setPopUpPolicy(PurcFetcher::PopUpPolicy::Default);
         break;
     case WebsitePopUpPolicy::Allow:
-        documentLoader.setPopUpPolicy(WebCore::PopUpPolicy::Allow);
+        documentLoader.setPopUpPolicy(PurcFetcher::PopUpPolicy::Allow);
         break;
     case WebsitePopUpPolicy::Block:
-        documentLoader.setPopUpPolicy(WebCore::PopUpPolicy::Block);
+        documentLoader.setPopUpPolicy(PurcFetcher::PopUpPolicy::Block);
         break;
     }
 
     switch (websitePolicies.metaViewportPolicy) {
     case WebsiteMetaViewportPolicy::Default:
-        documentLoader.setMetaViewportPolicy(WebCore::MetaViewportPolicy::Default);
+        documentLoader.setMetaViewportPolicy(PurcFetcher::MetaViewportPolicy::Default);
         break;
     case WebsiteMetaViewportPolicy::Respect:
-        documentLoader.setMetaViewportPolicy(WebCore::MetaViewportPolicy::Respect);
+        documentLoader.setMetaViewportPolicy(PurcFetcher::MetaViewportPolicy::Respect);
         break;
     case WebsiteMetaViewportPolicy::Ignore:
-        documentLoader.setMetaViewportPolicy(WebCore::MetaViewportPolicy::Ignore);
+        documentLoader.setMetaViewportPolicy(PurcFetcher::MetaViewportPolicy::Ignore);
         break;
     }
 
     switch (websitePolicies.mediaSourcePolicy) {
     case WebsiteMediaSourcePolicy::Default:
-        documentLoader.setMediaSourcePolicy(WebCore::MediaSourcePolicy::Default);
+        documentLoader.setMediaSourcePolicy(PurcFetcher::MediaSourcePolicy::Default);
         break;
     case WebsiteMediaSourcePolicy::Disable:
-        documentLoader.setMediaSourcePolicy(WebCore::MediaSourcePolicy::Disable);
+        documentLoader.setMediaSourcePolicy(PurcFetcher::MediaSourcePolicy::Disable);
         break;
     case WebsiteMediaSourcePolicy::Enable:
-        documentLoader.setMediaSourcePolicy(WebCore::MediaSourcePolicy::Enable);
+        documentLoader.setMediaSourcePolicy(PurcFetcher::MediaSourcePolicy::Enable);
         break;
     }
 
     switch (websitePolicies.simulatedMouseEventsDispatchPolicy) {
     case WebsiteSimulatedMouseEventsDispatchPolicy::Default:
-        documentLoader.setSimulatedMouseEventsDispatchPolicy(WebCore::SimulatedMouseEventsDispatchPolicy::Default);
+        documentLoader.setSimulatedMouseEventsDispatchPolicy(PurcFetcher::SimulatedMouseEventsDispatchPolicy::Default);
         break;
     case WebsiteSimulatedMouseEventsDispatchPolicy::Allow:
-        documentLoader.setSimulatedMouseEventsDispatchPolicy(WebCore::SimulatedMouseEventsDispatchPolicy::Allow);
+        documentLoader.setSimulatedMouseEventsDispatchPolicy(PurcFetcher::SimulatedMouseEventsDispatchPolicy::Allow);
         break;
     case WebsiteSimulatedMouseEventsDispatchPolicy::Deny:
-        documentLoader.setSimulatedMouseEventsDispatchPolicy(WebCore::SimulatedMouseEventsDispatchPolicy::Deny);
+        documentLoader.setSimulatedMouseEventsDispatchPolicy(PurcFetcher::SimulatedMouseEventsDispatchPolicy::Deny);
         break;
     }
 
     switch (websitePolicies.legacyOverflowScrollingTouchPolicy) {
     case WebsiteLegacyOverflowScrollingTouchPolicy::Default:
-        documentLoader.setLegacyOverflowScrollingTouchPolicy(WebCore::LegacyOverflowScrollingTouchPolicy::Default);
+        documentLoader.setLegacyOverflowScrollingTouchPolicy(PurcFetcher::LegacyOverflowScrollingTouchPolicy::Default);
         break;
     case WebsiteLegacyOverflowScrollingTouchPolicy::Disable:
-        documentLoader.setLegacyOverflowScrollingTouchPolicy(WebCore::LegacyOverflowScrollingTouchPolicy::Disable);
+        documentLoader.setLegacyOverflowScrollingTouchPolicy(PurcFetcher::LegacyOverflowScrollingTouchPolicy::Disable);
         break;
     case WebsiteLegacyOverflowScrollingTouchPolicy::Enable:
-        documentLoader.setLegacyOverflowScrollingTouchPolicy(WebCore::LegacyOverflowScrollingTouchPolicy::Enable);
+        documentLoader.setLegacyOverflowScrollingTouchPolicy(PurcFetcher::LegacyOverflowScrollingTouchPolicy::Enable);
         break;
     }
 
     switch (websitePolicies.mouseEventPolicy) {
-    case WebCore::MouseEventPolicy::Default:
-        documentLoader.setMouseEventPolicy(WebCore::MouseEventPolicy::Default);
+    case PurcFetcher::MouseEventPolicy::Default:
+        documentLoader.setMouseEventPolicy(PurcFetcher::MouseEventPolicy::Default);
         break;
 #if ENABLE(IOS_TOUCH_EVENTS)
-    case WebCore::MouseEventPolicy::SynthesizeTouchEvents:
-        documentLoader.setMouseEventPolicy(WebCore::MouseEventPolicy::SynthesizeTouchEvents);
+    case PurcFetcher::MouseEventPolicy::SynthesizeTouchEvents:
+        documentLoader.setMouseEventPolicy(PurcFetcher::MouseEventPolicy::SynthesizeTouchEvents);
         break;
 #endif
     }

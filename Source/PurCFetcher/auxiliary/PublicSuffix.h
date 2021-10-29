@@ -29,12 +29,12 @@
 
 #if ENABLE(PUBLIC_SUFFIX_LIST)
 
-namespace WebCore {
+namespace PurcFetcher {
 
 PURCFETCHER_EXPORT bool isPublicSuffix(const String& domain);
 PURCFETCHER_EXPORT String topPrivatelyControlledDomain(const String& domain);
 String decodeHostName(const String& domain);
 
-} // namespace WebCore
+} // namespace PurcFetcher
 
 #endif // ENABLE(PUBLIC_SUFFIX_LIST)

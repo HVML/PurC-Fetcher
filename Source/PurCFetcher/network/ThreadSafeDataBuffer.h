@@ -28,7 +28,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/Vector.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class ThreadSafeDataBuffer;
 
@@ -143,4 +143,4 @@ bool ThreadSafeDataBuffer::decode(Decoder& decoder, ThreadSafeDataBuffer& result
     return true;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -32,7 +32,7 @@
 #pragma once
 
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class SocketStreamError;
 class SocketStreamHandle;
@@ -49,4 +49,4 @@ public:
     virtual void didFailSocketStream(SocketStreamHandle&, const SocketStreamError&) = 0;
 };
 
-} // namespace WebCore
+} // namespace PurcFetcher

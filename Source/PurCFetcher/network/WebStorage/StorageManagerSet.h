@@ -33,7 +33,7 @@
 #include "SessionID.h"
 #include <wtf/WeakPtr.h>
 
-using WebCore::SecurityOriginData;
+using PurcFetcher::SecurityOriginData;
 
 namespace WebKit {
 
@@ -41,7 +41,7 @@ class SandboxExtension;
 
 using ConnectToStorageAreaCallback = CompletionHandler<void(const Optional<StorageAreaIdentifier>&)>;
 using GetValuesCallback = CompletionHandler<void(const HashMap<String, String>&)>;
-using GetOriginsCallback = CompletionHandler<void(HashSet<WebCore::SecurityOriginData>&&)>;
+using GetOriginsCallback = CompletionHandler<void(HashSet<PurcFetcher::SecurityOriginData>&&)>;
 using GetOriginDetailsCallback = CompletionHandler<void(Vector<LocalStorageDatabaseTracker::OriginDetails>&&)>;
 using DeleteCallback = CompletionHandler<void()>;
 
@@ -64,10 +64,10 @@ public:
 
     void getSessionStorageOrigins(PAL::SessionID, GetOriginsCallback&&);
     void deleteSessionStorage(PAL::SessionID, DeleteCallback&&);
-    void deleteSessionStorageForOrigins(PAL::SessionID, const Vector<WebCore::SecurityOriginData>&, DeleteCallback&&);
+    void deleteSessionStorageForOrigins(PAL::SessionID, const Vector<PurcFetcher::SecurityOriginData>&, DeleteCallback&&);
     void getLocalStorageOrigins(PAL::SessionID, GetOriginsCallback&&);
     void deleteLocalStorageModifiedSince(PAL::SessionID, WallTime, DeleteCallback&&);
-    void deleteLocalStorageForOrigins(PAL::SessionID, const Vector<WebCore::SecurityOriginData>&, DeleteCallback&&);
+    void deleteLocalStorageForOrigins(PAL::SessionID, const Vector<PurcFetcher::SecurityOriginData>&, DeleteCallback&&);
     void getLocalStorageOriginDetails(PAL::SessionID, GetOriginDetailsCallback&&);
     void renameOrigin(PAL::SessionID, const URL&, const URL&, CompletionHandler<void()>&&);
 

@@ -24,7 +24,7 @@
 #include "FormData.h"
 #include <wtf/Forward.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 class TextEncoding;
 

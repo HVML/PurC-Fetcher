@@ -51,7 +51,7 @@
 #include "ColumnPickFilter.h"
 
 namespace WebKit {
-using namespace WebCore;
+using namespace PurcFetcher;
 
 ColumnPickFilter::ColumnPickFilter()
 {

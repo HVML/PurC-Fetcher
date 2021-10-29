@@ -32,7 +32,7 @@
 #include <wtf/Variant.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebCore {
+namespace PurcFetcher {
 
 enum class ShouldSample : bool { No, Yes };
 
@@ -63,4 +63,4 @@ inline bool DiagnosticLoggingClient::shouldLogAfterSampling(ShouldSample shouldS
     return randomNumber() <= selectionProbability;
 }
 
-} // namespace WebCore
+} // namespace PurcFetcher

@@ -38,10 +38,10 @@ macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
             ${_outputs}
         MAIN_DEPENDENCY ${TOOLS_DIR}/Scripts/generate-message-receiver.py
         DEPENDS
-            ${TOOLS_DIR}/Scripts/webkit/__init__.py
-            ${TOOLS_DIR}/Scripts/webkit/messages.py
-            ${TOOLS_DIR}/Scripts/webkit/model.py
-            ${TOOLS_DIR}/Scripts/webkit/parser.py
+            ${TOOLS_DIR}/Scripts/generator/__init__.py
+            ${TOOLS_DIR}/Scripts/generator/messages.py
+            ${TOOLS_DIR}/Scripts/generator/model.py
+            ${TOOLS_DIR}/Scripts/generator/parser.py
             ${_input_files}
             COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/Scripts/generate-message-receiver.py ${PURCFETCHER_DIR} ${_inputs}
         WORKING_DIRECTORY ${MESSAGES_DERIVED_SOURCES_DIR}

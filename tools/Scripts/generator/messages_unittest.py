@@ -31,8 +31,8 @@ else:
     from StringIO import StringIO
 
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
-from webkit import messages
-from webkit import parser
+from generator import messages
+from generator import parser
 
 script_directory = os.path.dirname(os.path.realpath(__file__))
 

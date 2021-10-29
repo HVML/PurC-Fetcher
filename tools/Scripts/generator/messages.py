@@ -25,7 +25,7 @@ import collections
 import re
 import sys
 
-from webkit import parser
+from generator import parser
 
 WANTS_CONNECTION_ATTRIBUTE = 'WantsConnection'
 WANTS_DISPATCH_MESSAGE_ATTRIBUTE = 'WantsDispatchMessage'

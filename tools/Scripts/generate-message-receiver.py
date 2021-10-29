@@ -25,8 +25,8 @@
 from __future__ import with_statement
 import sys
 
-import webkit.messages
-import webkit.parser
+import generator.messages
+import generator.parser
 
 
 def main(argv):
@@ -47,23 +47,23 @@ def main(argv):
         receiver_name = parameter.rsplit('/', 1).pop()
 
         with open('%s/%s.messages.in' % (base_dir, parameter)) as source_file:
-            receiver = webkit.parser.parse(source_file)
+            receiver = generator.parser.parse(source_file)
         receivers.append(receiver)
 
         with open('%sMessageReceiver.cpp' % receiver_name, "w+") as implementation_output:
-            implementation_output.write(webkit.messages.generate_message_handler(receiver))
+            implementation_output.write(generator.messages.generate_message_handler(receiver))
 
         with open('%sMessages.h' % receiver_name, "w+") as header_output:
-            header_output.write(webkit.messages.generate_messages_header(receiver))
+            header_output.write(generator.messages.generate_messages_header(receiver))
 
         with open('%sMessagesReplies.h' % receiver_name, "w+") as reply_header_output:
-            reply_header_output.write(webkit.messages.generate_messages_reply_header(receiver))
+            reply_header_output.write(generator.messages.generate_messages_reply_header(receiver))
 
     with open('MessageNames.h', "w+") as message_names_header_output:
-        message_names_header_output.write(webkit.messages.generate_message_names_header(receivers))
+        message_names_header_output.write(generator.messages.generate_message_names_header(receivers))
 
     with open('MessageNames.cpp', "w+") as message_names_implementation_output:
-        message_names_implementation_output.write(webkit.messages.generate_message_names_implementation(receivers))
+        message_names_implementation_output.write(generator.messages.generate_message_names_implementation(receivers))
 
     return 0
 

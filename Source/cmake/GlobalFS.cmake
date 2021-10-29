@@ -13,6 +13,7 @@ endif ()
 
 set(DERIVED_SOURCES_DIR "${CMAKE_BINARY_DIR}/DerivedSources")
 set(WTF_DERIVED_SOURCES_DIR "${CMAKE_BINARY_DIR}/DerivedSources/WTF")
+set(MESSAGES_DERIVED_SOURCES_DIR "${CMAKE_BINARY_DIR}/DerivedSources/messages")
 set(PurCFetcher_DERIVED_SOURCES_DIR "${CMAKE_BINARY_DIR}/DerivedSources/PurCFetcher")
 set(PurCFetcherTestRunner_DERIVED_SOURCES_DIR "${CMAKE_BINARY_DIR}/DerivedSources/PurCFetcherTestRunner")
 

@@ -22,8 +22,8 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/network/cache"
     "${PURCFETCHER_DIR}/network/Cookies"
     "${PURCFETCHER_DIR}/network/glib"
-    "${PURCFETCHER_DIR}/messages"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
+    "${MESSAGES_DERIVED_SOURCES_DIR}"
     "${FORWARDING_HEADERS_DIR}"
     "${CMAKE_BINARY_DIR}/src/purc_fetcher"
 )
@@ -61,8 +61,25 @@ list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES
 
 set(PurCFetcher_MESSAGES_IN_FILES
     messages/AuxiliaryProcess
+    messages/CacheStorageEngineConnection
+    messages/DownloadProxy
+    messages/NetworkConnectionToWebProcess
+    messages/NetworkProcessConnection
+    messages/NetworkProcess
+    messages/NetworkProcessProxy
+    messages/NetworkResourceLoader
+    messages/NetworkSocketChannel
+    messages/NetworkSocketStream
+    messages/StorageAreaMap
+    messages/StorageManagerSet
+    messages/WebCookieManager
+    messages/WebCookieManagerProxy
+    messages/WebProcessPool
+    messages/WebResourceLoader
+    messages/WebSocketChannel
+    messages/WebSocketStream
 )
-#GENERATE_MESSAGE_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MESSAGES_IN_FILES}")
+GENERATE_MESSAGE_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MESSAGES_IN_FILES}")
 
 set(PurCFetcher_LIBRARIES)
 

@@ -18,22 +18,23 @@ endmacro()
 macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
     unset(_input_files)
     unset(_outputs)
+    file(MAKE_DIRECTORY "${MESSAGES_DERIVED_SOURCES_DIR}")
     foreach (_file IN ITEMS ${_inputs})
         get_filename_component(_name ${_file} NAME_WE)
         list(APPEND _input_files ${PURCFETCHER_DIR}/${_file}.messages.in)
         list(APPEND _outputs
-            ${DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp
-            ${DERIVED_SOURCES_DIR}/${_name}Messages.h
-            ${DERIVED_SOURCES_DIR}/${_name}MessagesReplies.h
+            ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp
+            ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}Messages.h
+            ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessagesReplies.h
         )
-        list(APPEND ${_output_source} ${DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp)
+#        list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp)
     endforeach ()
-    list(APPEND ${_output_source} ${DERIVED_SOURCES_DIR}/MessageNames.cpp)
+    list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.cpp)
 
     add_custom_command(
         OUTPUT
-            ${DERIVED_SOURCES_DIR}/MessageNames.cpp
-            ${DERIVED_SOURCES_DIR}/MessageNames.h
+            ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.cpp
+            ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.h
             ${_outputs}
         MAIN_DEPENDENCY ${TOOLS_DIR}/Scripts/generate-message-receiver.py
         DEPENDS
@@ -43,7 +44,7 @@ macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
             ${TOOLS_DIR}/Scripts/webkit/parser.py
             ${_input_files}
             COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/Scripts/generate-message-receiver.py ${PURCFETCHER_DIR} ${_inputs}
-        WORKING_DIRECTORY ${DERIVED_SOURCES_DIR}
+        WORKING_DIRECTORY ${MESSAGES_DERIVED_SOURCES_DIR}
         VERBATIM
     )
 endmacro()

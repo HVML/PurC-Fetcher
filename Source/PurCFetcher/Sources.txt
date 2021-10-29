@@ -8,8 +8,6 @@ ipc/MessageReceiverMap.cpp @no-unify
 ipc/MessageSender.cpp @no-unify
 ipc/StringReference.cpp @no-unify
 
-ipc/MessageNames.cpp @no-unify
-
 database/DatabaseAuthorizer.cpp
 database/SQLiteAuthorizer.cpp
 database/SQLiteDatabase.cpp

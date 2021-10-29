@@ -48,7 +48,7 @@ namespace PurcFetcher {
 struct RetrieveRecordsOptions;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -162,4 +162,4 @@ private:
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

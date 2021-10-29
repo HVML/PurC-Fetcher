@@ -39,7 +39,7 @@ namespace PurcFetcher {
 class SecurityOrigin;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class LocalStorageDatabaseTracker;
 class LocalStorageNamespace;
@@ -97,4 +97,4 @@ private:
     HashMap<StorageNamespaceIdentifier, std::unique_ptr<SessionStorageNamespace>> m_sessionStorageNamespaces;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

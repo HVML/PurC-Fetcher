@@ -39,7 +39,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 typedef uint64_t ResourceLoadIdentifier;
 
@@ -79,4 +79,4 @@ public:
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -32,7 +32,7 @@
 #include "NetworkProcessProxyMessages.h"
 #include "WebCompiledContentRuleList.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 NetworkContentRuleListManager::NetworkContentRuleListManager(NetworkProcess& networkProcess)
@@ -106,6 +106,6 @@ void NetworkContentRuleListManager::remove(UserContentControllerIdentifier ident
     m_contentExtensionBackends.remove(identifier);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

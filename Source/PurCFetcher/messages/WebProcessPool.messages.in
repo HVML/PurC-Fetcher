@@ -21,8 +21,8 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> WebProcessPool {
-    HandleMessage(String messageName, WebKit::UserData messageBody) WantsConnection
-    HandleSynchronousMessage(String messageName, WebKit::UserData messageBody) -> (WebKit::UserData returnData) Synchronous WantsConnection
+    HandleMessage(String messageName, PurcFetcher::UserData messageBody) WantsConnection
+    HandleSynchronousMessage(String messageName, PurcFetcher::UserData messageBody) -> (PurcFetcher::UserData returnData) Synchronous WantsConnection
 
 #if ENABLE(GAMEPAD)
     StartedUsingGamepads() WantsConnection

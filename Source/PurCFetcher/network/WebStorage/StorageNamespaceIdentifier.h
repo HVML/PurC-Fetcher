@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum StorageNamespaceIdentifierType { };
 using StorageNamespaceIdentifier = ObjectIdentifier<StorageNamespaceIdentifierType>;

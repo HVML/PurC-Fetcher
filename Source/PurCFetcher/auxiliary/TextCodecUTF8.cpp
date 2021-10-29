@@ -46,7 +46,7 @@ void TextCodecUTF8::registerEncodingNames(EncodingNameRegistrar registrar)
     registrar("unicode-1-1-utf-8", "UTF-8");
 
     // Additional aliases that originally were present in the encoding
-    // table in WebKit on Macintosh, and subsequently added by
+    // table in PurcFetcher on Macintosh, and subsequently added by
     // TextCodecICU. Perhaps we can prove some are not used on the web
     // and remove them.
     registrar("unicode11utf8", "UTF-8");

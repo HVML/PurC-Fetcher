@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class ColumnSentencesFilter : public FilterBase {
 public:
@@ -71,4 +71,4 @@ private:
     String m_lang;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

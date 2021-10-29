@@ -75,7 +75,7 @@
 #include "SOAuthorizationCoordinator.h"
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 
 static bool allowsWebsiteDataRecordsForAllOrigins;
 void WebsiteDataStore::allowWebsiteDataRecordsForAllOrigins()
@@ -105,7 +105,7 @@ WebsiteDataStore::WebsiteDataStore(Ref<WebsiteDataStoreConfiguration>&& configur
     , m_resolvedConfiguration(WTFMove(configuration))
     , m_configuration(m_resolvedConfiguration->copy())
     , m_deviceIdHashSaltStorage(DeviceIdHashSaltStorage::create(isPersistent() ? m_configuration->deviceIdHashSaltsStorageDirectory() : String()))
-    , m_queue(WorkQueue::create("com.apple.WebKit.WebsiteDataStore"))
+    , m_queue(WorkQueue::create("com.apple.PurcFetcher.WebsiteDataStore"))
 #if ENABLE(WEB_AUTHN)
     , m_authenticatorManager(makeUniqueRef<AuthenticatorManager>())
 #endif

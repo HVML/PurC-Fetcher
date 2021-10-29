@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class ColumnPickFilter : public FilterBase {
 public:
@@ -65,4 +65,4 @@ private:
     virtual Vector<String> doFilterInner(Vector<String> lines, String param);
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

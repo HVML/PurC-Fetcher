@@ -31,7 +31,7 @@
 #include <wtf/Seconds.h>
 #include <wtf/StdLibExtras.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void calculateMemoryCacheSizes(CacheModel cacheModel, unsigned& cacheTotalCapacity, unsigned& cacheMinDeadCapacity, unsigned& cacheMaxDeadCapacity, Seconds& deadDecodedDataDeletionInterval, unsigned& backForwardCacheCapacity)
 {
@@ -204,4 +204,4 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
     };
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

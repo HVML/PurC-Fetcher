@@ -46,7 +46,7 @@ class ResourceRequest;
 class SharedBuffer;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 struct GlobalFrameID {
@@ -79,26 +79,26 @@ inline bool operator==(const GlobalFrameID& a, const GlobalFrameID& b)
 namespace WTF {
 
 struct GlobalFrameIDHash {
-    static unsigned hash(const WebKit::NetworkCache::GlobalFrameID& key) { return key.hash(); }
-    static bool equal(const WebKit::NetworkCache::GlobalFrameID& a, const WebKit::NetworkCache::GlobalFrameID& b) { return a == b; }
+    static unsigned hash(const PurcFetcher::NetworkCache::GlobalFrameID& key) { return key.hash(); }
+    static bool equal(const PurcFetcher::NetworkCache::GlobalFrameID& a, const PurcFetcher::NetworkCache::GlobalFrameID& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
 
-template<> struct HashTraits<WebKit::NetworkCache::GlobalFrameID> : GenericHashTraits<WebKit::NetworkCache::GlobalFrameID> {
-    static WebKit::NetworkCache::GlobalFrameID emptyValue() { return { }; }
+template<> struct HashTraits<PurcFetcher::NetworkCache::GlobalFrameID> : GenericHashTraits<PurcFetcher::NetworkCache::GlobalFrameID> {
+    static PurcFetcher::NetworkCache::GlobalFrameID emptyValue() { return { }; }
 
-    static void constructDeletedValue(WebKit::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<PurcFetcher::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
+    static void constructDeletedValue(PurcFetcher::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<PurcFetcher::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
 
-    static bool isDeletedValue(const WebKit::NetworkCache::GlobalFrameID& slot) { return slot.webPageID.toUInt64() == std::numeric_limits<uint64_t>::max(); }
+    static bool isDeletedValue(const PurcFetcher::NetworkCache::GlobalFrameID& slot) { return slot.webPageID.toUInt64() == std::numeric_limits<uint64_t>::max(); }
 };
 
-template<> struct DefaultHash<WebKit::NetworkCache::GlobalFrameID> {
+template<> struct DefaultHash<PurcFetcher::NetworkCache::GlobalFrameID> {
     typedef GlobalFrameIDHash Hash;
 };
 
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -245,4 +245,4 @@ private:
 };
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -27,12 +27,12 @@
 
 #if !PLATFORM(COCOA)
 
-//#include <WebKit/WKBase.h>
+//#include <PurcFetcher/WKBase.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 PURCFETCHER_EXPORT int NetworkProcessMain(int argc, char** argv);
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // !PLATFORM(COCOA)

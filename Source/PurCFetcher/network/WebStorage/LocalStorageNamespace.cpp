@@ -30,7 +30,7 @@
 #include "StorageManager.h"
 #include "SecurityOriginData.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -99,4 +99,4 @@ Vector<StorageAreaIdentifier> LocalStorageNamespace::storageAreaIdentifiers() co
     return identifiers;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineSplitFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LineSplitFilter::LineSplitFilter()
@@ -120,5 +120,5 @@ Vector<Row> LineSplitFilter::splitRowByUChar(Row& row, UChar uc)
     return rowVec;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

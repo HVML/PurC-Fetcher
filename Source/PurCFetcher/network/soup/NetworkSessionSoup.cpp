@@ -36,7 +36,7 @@
 #include "SoupNetworkSession.h"
 #include <libsoup/soup.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 NetworkSessionSoup::NetworkSessionSoup(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
@@ -127,4 +127,4 @@ std::unique_ptr<WebSocketTask> NetworkSessionSoup::createWebSocketTask(NetworkSo
     return makeUnique<WebSocketTask>(channel, soupSession(), soupMessage.get(), protocol);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -37,7 +37,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsiteDataType : uint32_t;
 

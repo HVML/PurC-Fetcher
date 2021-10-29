@@ -46,7 +46,7 @@ class ResourceResponse;
 class SharedBuffer;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkLoadParameters;
 class NetworkSession;
@@ -172,4 +172,4 @@ protected:
     bool m_dataTaskIsForMainFrameNavigation { false };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

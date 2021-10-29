@@ -110,7 +110,7 @@
 #include "WebSWServerToContextConnectionMessages.h"
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 static void callExitSoon(IPC::Connection*)
@@ -119,7 +119,7 @@ static void callExitSoon(IPC::Connection*)
     // the process will exit forcibly.
     auto watchdogDelay = 10_s;
 
-    WorkQueue::create("com.apple.WebKit.NetworkProcess.WatchDogQueue")->dispatchAfter(watchdogDelay, [] {
+    WorkQueue::create("com.apple.PurcFetcher.NetworkProcess.WatchDogQueue")->dispatchAfter(watchdogDelay, [] {
         // We use _exit here since the watchdog callback is called from another thread and we don't want
         // global destructors or atexit handlers to be called from this thread while the main thread is busy
         // doing its thing.
@@ -479,7 +479,7 @@ std::unique_ptr<PurcFetcher::NetworkStorageSession> NetworkProcess::newTestingSe
 {
 #if PLATFORM(COCOA)
     // Session name should be short enough for shared memory region name to be under the limit, otherwise sandbox rules won't work (see <rdar://problem/13642852>).
-    String sessionName = makeString("WebKit Test-", getCurrentProcessID());
+    String sessionName = makeString("PurcFetcher Test-", getCurrentProcessID());
 
     auto session = adoptCF(PurcFetcher::createPrivateStorageSession(sessionName.createCFString().get()));
 
@@ -2118,7 +2118,7 @@ void NetworkProcess::downloadRequest(PAL::SessionID sessionID, DownloadID downlo
     downloadManager().startDownload(sessionID, downloadID, request, isNavigatingToAppBoundDomain, suggestedFilename);
 }
 
-void NetworkProcess::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, WebKit::SandboxExtension::Handle&& sandboxExtensionHandle)
+void NetworkProcess::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, PurcFetcher::SandboxExtension::Handle&& sandboxExtensionHandle)
 {
     downloadManager().resumeDownload(sessionID, downloadID, resumeData, path, WTFMove(sandboxExtensionHandle));
 }
@@ -2782,4 +2782,4 @@ void NetworkProcess::clearBundleIdentifier(CompletionHandler<void()>&& completio
     completionHandler();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

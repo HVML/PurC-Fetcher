@@ -21,25 +21,25 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> NetworkProcessProxy LegacyReceiver NotRefCounted {
-    DidReceiveAuthenticationChallenge(PAL::SessionID sessionID, WebKit::WebPageProxyIdentifier pageID, Optional<PurcFetcher::SecurityOriginData> topOrigin, PurcFetcher::AuthenticationChallenge challenge, bool negotiatedLegacyTLS, uint64_t challengeID)
-    NegotiatedLegacyTLS(WebKit::WebPageProxyIdentifier pageID)
-    DidNegotiateModernTLS(WebKit::WebPageProxyIdentifier pageID, PurcFetcher::AuthenticationChallenge challenge)
+    DidReceiveAuthenticationChallenge(PAL::SessionID sessionID, PurcFetcher::WebPageProxyIdentifier pageID, Optional<PurcFetcher::SecurityOriginData> topOrigin, PurcFetcher::AuthenticationChallenge challenge, bool negotiatedLegacyTLS, uint64_t challengeID)
+    NegotiatedLegacyTLS(PurcFetcher::WebPageProxyIdentifier pageID)
+    DidNegotiateModernTLS(PurcFetcher::WebPageProxyIdentifier pageID, PurcFetcher::AuthenticationChallenge challenge)
 
-    DidFetchWebsiteData(WebKit::CallbackID callbackID, struct WebKit::WebsiteData websiteData)
-    DidDeleteWebsiteData(WebKit::CallbackID callbackID)
-    DidDeleteWebsiteDataForOrigins(WebKit::CallbackID callbackID)
+    DidFetchWebsiteData(PurcFetcher::CallbackID callbackID, struct PurcFetcher::WebsiteData websiteData)
+    DidDeleteWebsiteData(PurcFetcher::CallbackID callbackID)
+    DidDeleteWebsiteDataForOrigins(PurcFetcher::CallbackID callbackID)
 
     DidSyncAllCookies()
 
-    TestProcessIncomingSyncMessagesWhenWaitingForSyncReply(WebKit::WebPageProxyIdentifier pageID) -> (bool handled) Synchronous
+    TestProcessIncomingSyncMessagesWhenWaitingForSyncReply(PurcFetcher::WebPageProxyIdentifier pageID) -> (bool handled) Synchronous
     TerminateUnresponsiveServiceWorkerProcesses(PurcFetcher::ProcessIdentifier processIdentifier)
 
     SetIsHoldingLockedFiles(bool isHoldingLockedFiles)
 
     # Diagnostic messages logging
-    LogDiagnosticMessage(WebKit::WebPageProxyIdentifier pageID, String message, String description, enum:bool PurcFetcher::ShouldSample shouldSample)
-    LogDiagnosticMessageWithResult(WebKit::WebPageProxyIdentifier pageID, String message, String description, uint32_t result, enum:bool PurcFetcher::ShouldSample shouldSample)
-    LogDiagnosticMessageWithValue(WebKit::WebPageProxyIdentifier pageID, String message, String description, double value, unsigned significantFigures, enum:bool PurcFetcher::ShouldSample shouldSample)
+    LogDiagnosticMessage(PurcFetcher::WebPageProxyIdentifier pageID, String message, String description, enum:bool PurcFetcher::ShouldSample shouldSample)
+    LogDiagnosticMessageWithResult(PurcFetcher::WebPageProxyIdentifier pageID, String message, String description, uint32_t result, enum:bool PurcFetcher::ShouldSample shouldSample)
+    LogDiagnosticMessageWithValue(PurcFetcher::WebPageProxyIdentifier pageID, String message, String description, double value, unsigned significantFigures, enum:bool PurcFetcher::ShouldSample shouldSample)
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     LogTestingEvent(PAL::SessionID sessionID, String event)
@@ -47,13 +47,13 @@ messages -> NetworkProcessProxy LegacyReceiver NotRefCounted {
     NotifyWebsiteDataDeletionForRegistrableDomainsFinished()
     NotifyWebsiteDataScanForRegistrableDomainsFinished()
     NotifyResourceLoadStatisticsTelemetryFinished(unsigned numberOfPrevalentResources, unsigned numberOfPrevalentResourcesWithUserInteraction, unsigned numberOfPrevalentResourcesWithoutUserInteraction, unsigned topPrevalentResourceWithUserInteractionDaysSinceUserInteraction, unsigned medianDaysSinceUserInteractionPrevalentResourceWithUserInteraction, unsigned top3NumberOfPrevalentResourcesWithUI, unsigned top3MedianSubFrameWithoutUI, unsigned top3MedianSubResourceWithoutUI, unsigned top3MedianUniqueRedirectsWithoutUI, unsigned top3MedianDataRecordsRemovedWithoutUI)
-    RequestStorageAccessConfirm(WebKit::WebPageProxyIdentifier pageID, PurcFetcher::FrameIdentifier frameID, PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> (bool userDidGrantAccess) Async
-    DeleteWebsiteDataInUIProcessForRegistrableDomains(PAL::SessionID sessionID, OptionSet<WebKit::WebsiteDataType> dataTypes, OptionSet<WebKit::WebsiteDataFetchOption> fetchOptions, Vector<PurcFetcher::RegistrableDomain> domains) -> (HashSet<PurcFetcher::RegistrableDomain> domainsWithMatchingDataRecords) Async
-    DidCommitCrossSiteLoadWithDataTransferFromPrevalentResource(WebKit::WebPageProxyIdentifier pageID)
+    RequestStorageAccessConfirm(PurcFetcher::WebPageProxyIdentifier pageID, PurcFetcher::FrameIdentifier frameID, PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> (bool userDidGrantAccess) Async
+    DeleteWebsiteDataInUIProcessForRegistrableDomains(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> dataTypes, OptionSet<PurcFetcher::WebsiteDataFetchOption> fetchOptions, Vector<PurcFetcher::RegistrableDomain> domains) -> (HashSet<PurcFetcher::RegistrableDomain> domainsWithMatchingDataRecords) Async
+    DidCommitCrossSiteLoadWithDataTransferFromPrevalentResource(PurcFetcher::WebPageProxyIdentifier pageID)
     SetDomainsWithUserInteraction(HashSet<PurcFetcher::RegistrableDomain> domains)
 #endif
 #if ENABLE(CONTENT_EXTENSIONS)
-    ContentExtensionRules(WebKit::UserContentControllerIdentifier identifier)
+    ContentExtensionRules(PurcFetcher::UserContentControllerIdentifier identifier)
 #endif
 
     RetrieveCacheStorageParameters(PAL::SessionID sessionID)
@@ -73,9 +73,9 @@ messages -> NetworkProcessProxy LegacyReceiver NotRefCounted {
 
     RequestStorageSpace(PAL::SessionID sessionID, struct PurcFetcher::ClientOrigin origin, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired) -> (Optional<uint64_t> newQuota) Async
     
-    ResourceLoadDidSendRequest(WebKit::WebPageProxyIdentifier pageIdentifier, struct WebKit::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceRequest request, Optional<IPC::FormDataReference> httpBody)
-    ResourceLoadDidPerformHTTPRedirection(WebKit::WebPageProxyIdentifier pageIdentifier, struct WebKit::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse resourceResponse, PurcFetcher::ResourceRequest request)
-    ResourceLoadDidReceiveChallenge(WebKit::WebPageProxyIdentifier pageIdentifier, struct WebKit::ResourceLoadInfo resourceLoadInfo, PurcFetcher::AuthenticationChallenge challenge)
-    ResourceLoadDidReceiveResponse(WebKit::WebPageProxyIdentifier pageIdentifier, struct WebKit::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse response)
-    ResourceLoadDidCompleteWithError(WebKit::WebPageProxyIdentifier pageIdentifier, struct WebKit::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse response, PurcFetcher::ResourceError error)
+    ResourceLoadDidSendRequest(PurcFetcher::WebPageProxyIdentifier pageIdentifier, struct PurcFetcher::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceRequest request, Optional<IPC::FormDataReference> httpBody)
+    ResourceLoadDidPerformHTTPRedirection(PurcFetcher::WebPageProxyIdentifier pageIdentifier, struct PurcFetcher::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse resourceResponse, PurcFetcher::ResourceRequest request)
+    ResourceLoadDidReceiveChallenge(PurcFetcher::WebPageProxyIdentifier pageIdentifier, struct PurcFetcher::ResourceLoadInfo resourceLoadInfo, PurcFetcher::AuthenticationChallenge challenge)
+    ResourceLoadDidReceiveResponse(PurcFetcher::WebPageProxyIdentifier pageIdentifier, struct PurcFetcher::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse response)
+    ResourceLoadDidCompleteWithError(PurcFetcher::WebPageProxyIdentifier pageIdentifier, struct PurcFetcher::ResourceLoadInfo resourceLoadInfo, PurcFetcher::ResourceResponse response, PurcFetcher::ResourceError error)
 }

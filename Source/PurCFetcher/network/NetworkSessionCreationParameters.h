@@ -44,7 +44,7 @@ extern "C" CFStringRef const WebKit2HTTPProxyDefaultsKey;
 extern "C" CFStringRef const WebKit2HTTPSProxyDefaultsKey;
 #endif
     
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class AllowsCellularAccess : bool { No, Yes };
 
@@ -96,4 +96,4 @@ struct NetworkSessionCreationParameters {
     ResourceLoadStatisticsParameters resourceLoadStatisticsParameters;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

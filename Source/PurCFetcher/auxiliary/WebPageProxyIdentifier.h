@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum WebPageProxyIdentifierType { };
 using WebPageProxyIdentifier = ObjectIdentifier<WebPageProxyIdentifierType>;

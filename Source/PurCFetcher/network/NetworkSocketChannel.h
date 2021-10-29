@@ -42,7 +42,7 @@ class Decoder;
 class DataReference;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class WebSocketTask;
 class NetworkConnectionToWebProcess;
@@ -90,4 +90,4 @@ private:
     State m_state { State::Open };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

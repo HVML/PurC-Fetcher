@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class ColumnLettersFilter : public FilterBase {
 public:
@@ -68,4 +68,4 @@ private:
     Vector<Row> splitRow(Row& row, String param);
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -55,13 +55,13 @@ public:
             return WTF::holds_alternative<PurcFetcher::FormDataElement::EncodedFileData>(element.data);
         });
 
-        WebKit::SandboxExtension::HandleArray sandboxExtensionHandles;
+        PurcFetcher::SandboxExtension::HandleArray sandboxExtensionHandles;
         sandboxExtensionHandles.allocate(fileCount);
         size_t extensionIndex = 0;
         for (auto& element : elements) {
             if (auto* fileData = WTF::get_if<PurcFetcher::FormDataElement::EncodedFileData>(element.data)) {
                 const String& path = fileData->filename;
-                WebKit::SandboxExtension::createHandle(path, WebKit::SandboxExtension::Type::ReadOnly, sandboxExtensionHandles[extensionIndex++]);
+                PurcFetcher::SandboxExtension::createHandle(path, PurcFetcher::SandboxExtension::Type::ReadOnly, sandboxExtensionHandles[extensionIndex++]);
             }
         }
         encoder << sandboxExtensionHandles;
@@ -80,12 +80,12 @@ public:
         if (!formData)
             return WTF::nullopt;
 
-        Optional<WebKit::SandboxExtension::HandleArray> sandboxExtensionHandles;
+        Optional<PurcFetcher::SandboxExtension::HandleArray> sandboxExtensionHandles;
         decoder >> sandboxExtensionHandles;
         if (!sandboxExtensionHandles)
             return WTF::nullopt;
 
-        WebKit::SandboxExtension::consumePermanently(*sandboxExtensionHandles);
+        PurcFetcher::SandboxExtension::consumePermanently(*sandboxExtensionHandles);
 
         return FormDataReference { formData.releaseNonNull() };
     }

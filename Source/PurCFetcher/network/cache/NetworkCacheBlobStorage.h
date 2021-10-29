@@ -30,7 +30,7 @@
 #include "NetworkCacheKey.h"
 #include <wtf/SHA1.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 // BlobStorage deduplicates the data using SHA1 hash computed over the blob bytes.

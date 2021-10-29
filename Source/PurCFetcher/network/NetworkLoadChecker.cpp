@@ -41,7 +41,7 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkLoadChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -507,6 +507,6 @@ void NetworkLoadChecker::storeRedirectionIfNeeded(const ResourceRequest& request
     m_loadInformation.transactions.append(NetworkTransactionInformation { NetworkTransactionInformation::Type::Redirection, ResourceRequest { request }, ResourceResponse { response }, { } });
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

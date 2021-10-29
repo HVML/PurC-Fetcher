@@ -228,41 +228,41 @@ def types_that_cannot_be_forward_declared():
         'PurcFetcher::SharedStringHash',
         'PurcFetcher::SleepDisablerIdentifier',
         'PurcFetcher::SWServerConnectionIdentifier',
-        'WebKit::ActivityStateChangeID',
-        'WebKit::AudioMediaStreamTrackRendererIdentifier',
-        'WebKit::ContentWorldIdentifier',
-        'WebKit::DisplayLinkObserverID',
-        'WebKit::GeolocationIdentifier',
-        'WebKit::ImageBufferBackendHandle',
-        'WebKit::ImageBufferFlushIdentifier',
-        'WebKit::ImageBufferIdentifier',
-        'WebKit::LayerHostingContextID',
-        'WebKit::LegacyCustomProtocolID',
-        'WebKit::LibWebRTCResolverIdentifier',
-        'WebKit::MDNSRegisterIdentifier',
-        'WebKit::MediaPlayerPrivateRemoteIdentifier',
-        'WebKit::MediaRecorderIdentifier',
-        'WebKit::PluginProcessType',
-        'WebKit::RemoteAudioDestinationIdentifier',
-        'WebKit::RemoteAudioSessionIdentifier',
-        'WebKit::RemoteCDMIdentifier',
-        'WebKit::RemoteCDMInstanceIdentifier',
-        'WebKit::RemoteCDMInstanceSessionIdentifier',
-        'WebKit::RemoteLegacyCDMIdentifier',
-        'WebKit::RemoteLegacyCDMSessionIdentifier',
-        'WebKit::RemoteMediaResourceIdentifier',
-        'WebKit::RenderingBackendIdentifier',
-        'WebKit::RTCDecoderIdentifier',
-        'WebKit::RTCEncoderIdentifier',
-        'WebKit::SampleBufferDisplayLayerIdentifier',
-        'WebKit::StorageAreaIdentifier',
-        'WebKit::StorageAreaImplIdentifier',
-        'WebKit::StorageNamespaceIdentifier',
-        'WebKit::TrackPrivateRemoteIdentifier',
-        'WebKit::TransactionID',
-        'WebKit::UserContentControllerIdentifier',
-        'WebKit::WebPageProxyIdentifier',
-        'WebKit::WebSocketIdentifier',
+        'PurcFetcher::ActivityStateChangeID',
+        'PurcFetcher::AudioMediaStreamTrackRendererIdentifier',
+        'PurcFetcher::ContentWorldIdentifier',
+        'PurcFetcher::DisplayLinkObserverID',
+        'PurcFetcher::GeolocationIdentifier',
+        'PurcFetcher::ImageBufferBackendHandle',
+        'PurcFetcher::ImageBufferFlushIdentifier',
+        'PurcFetcher::ImageBufferIdentifier',
+        'PurcFetcher::LayerHostingContextID',
+        'PurcFetcher::LegacyCustomProtocolID',
+        'PurcFetcher::LibWebRTCResolverIdentifier',
+        'PurcFetcher::MDNSRegisterIdentifier',
+        'PurcFetcher::MediaPlayerPrivateRemoteIdentifier',
+        'PurcFetcher::MediaRecorderIdentifier',
+        'PurcFetcher::PluginProcessType',
+        'PurcFetcher::RemoteAudioDestinationIdentifier',
+        'PurcFetcher::RemoteAudioSessionIdentifier',
+        'PurcFetcher::RemoteCDMIdentifier',
+        'PurcFetcher::RemoteCDMInstanceIdentifier',
+        'PurcFetcher::RemoteCDMInstanceSessionIdentifier',
+        'PurcFetcher::RemoteLegacyCDMIdentifier',
+        'PurcFetcher::RemoteLegacyCDMSessionIdentifier',
+        'PurcFetcher::RemoteMediaResourceIdentifier',
+        'PurcFetcher::RenderingBackendIdentifier',
+        'PurcFetcher::RTCDecoderIdentifier',
+        'PurcFetcher::RTCEncoderIdentifier',
+        'PurcFetcher::SampleBufferDisplayLayerIdentifier',
+        'PurcFetcher::StorageAreaIdentifier',
+        'PurcFetcher::StorageAreaImplIdentifier',
+        'PurcFetcher::StorageNamespaceIdentifier',
+        'PurcFetcher::TrackPrivateRemoteIdentifier',
+        'PurcFetcher::TransactionID',
+        'PurcFetcher::UserContentControllerIdentifier',
+        'PurcFetcher::WebPageProxyIdentifier',
+        'PurcFetcher::WebSocketIdentifier',
     ])
 
 
@@ -549,7 +549,7 @@ def argument_coder_headers_for_type(type):
 
     special_cases = {
         'String': '"ArgumentCoders.h"',
-        'WebKit::ScriptMessageHandlerHandle': '"WebScriptMessageHandler.h"',
+        'PurcFetcher::ScriptMessageHandlerHandle': '"WebScriptMessageHandler.h"',
     }
 
     headers = []
@@ -589,7 +589,7 @@ def headers_for_type(type):
         'PurcFetcher::AutoplayEventFlags': ['<AutoplayEvent.h>'],
         'PurcFetcher::DOMPasteAccessResponse': ['<DOMPasteAccess.h>'],
         'PurcFetcher::DocumentOrWorkerIdentifier': ['<ServiceWorkerTypes.h>'],
-        'WebKit::DocumentEditingContextRequest': ['"DocumentEditingContext.h"'],
+        'PurcFetcher::DocumentEditingContextRequest': ['"DocumentEditingContext.h"'],
         'PurcFetcher::DragHandlingMethod': ['<DragActions.h>'],
         'PurcFetcher::DragOperation': ['<DragActions.h>'],
         'PurcFetcher::DragSourceAction': ['<DragActions.h>'],
@@ -657,34 +657,34 @@ def headers_for_type(type):
         'PurcFetcher::WebGLLoadPolicy': ['<FrameLoaderTypes.h>'],
         'PurcFetcher::WillContinueLoading': ['<FrameLoaderTypes.h>'],
         'PurcFetcher::SelectionRect': ['"EditorState.h"'],
-        'WebKit::ActivityStateChangeID': ['"DrawingAreaInfo.h"'],
-        'WebKit::BackForwardListItemState': ['"SessionState.h"'],
-        'WebKit::ContentWorldIdentifier': ['"ContentWorldShared.h"'],
-        'WebKit::GestureRecognizerState': ['"GestureTypes.h"'],
-        'WebKit::GestureType': ['"GestureTypes.h"'],
-        'WebKit::LayerHostingContextID': ['"LayerHostingContext.h"'],
-        'WebKit::LayerHostingMode': ['"LayerTreeContext.h"'],
-        'WebKit::PageState': ['"SessionState.h"'],
-        'WebKit::PaymentSetupConfiguration': ['"PaymentSetupConfigurationWebKit.h"'],
-        'WebKit::PaymentSetupFeatures': ['"ApplePayPaymentSetupFeaturesWebKit.h"'],
-        'WebKit::PluginProcessType': ['"PluginProcessAttributes.h"'],
-        'WebKit::RespectSelectionAnchor': ['"GestureTypes.h"'],
-        'WebKit::SelectionFlags': ['"GestureTypes.h"'],
-        'WebKit::SelectionTouch': ['"GestureTypes.h"'],
-        'WebKit::WebGestureEvent': ['"WebEvent.h"'],
-        'WebKit::WebKeyboardEvent': ['"WebEvent.h"'],
-        'WebKit::WebMouseEvent': ['"WebEvent.h"'],
-        'WebKit::WebTouchEvent': ['"WebEvent.h"'],
-        'WebKit::WebWheelEvent': ['"WebEvent.h"'],
+        'PurcFetcher::ActivityStateChangeID': ['"DrawingAreaInfo.h"'],
+        'PurcFetcher::BackForwardListItemState': ['"SessionState.h"'],
+        'PurcFetcher::ContentWorldIdentifier': ['"ContentWorldShared.h"'],
+        'PurcFetcher::GestureRecognizerState': ['"GestureTypes.h"'],
+        'PurcFetcher::GestureType': ['"GestureTypes.h"'],
+        'PurcFetcher::LayerHostingContextID': ['"LayerHostingContext.h"'],
+        'PurcFetcher::LayerHostingMode': ['"LayerTreeContext.h"'],
+        'PurcFetcher::PageState': ['"SessionState.h"'],
+        'PurcFetcher::PaymentSetupConfiguration': ['"PaymentSetupConfigurationPurcFetcher.h"'],
+        'PurcFetcher::PaymentSetupFeatures': ['"ApplePayPaymentSetupFeaturesPurcFetcher.h"'],
+        'PurcFetcher::PluginProcessType': ['"PluginProcessAttributes.h"'],
+        'PurcFetcher::RespectSelectionAnchor': ['"GestureTypes.h"'],
+        'PurcFetcher::SelectionFlags': ['"GestureTypes.h"'],
+        'PurcFetcher::SelectionTouch': ['"GestureTypes.h"'],
+        'PurcFetcher::WebGestureEvent': ['"WebEvent.h"'],
+        'PurcFetcher::WebKeyboardEvent': ['"WebEvent.h"'],
+        'PurcFetcher::WebMouseEvent': ['"WebEvent.h"'],
+        'PurcFetcher::WebTouchEvent': ['"WebEvent.h"'],
+        'PurcFetcher::WebWheelEvent': ['"WebEvent.h"'],
         'PurcFetcher::MediaEngineSupportParameters': ['<MediaPlayer.h>'],
         'PurcFetcher::ISOWebVTTCue': ['<ISOVTTCue.h>'],
         'struct PurcFetcher::Cookie': ['<Cookie.h>'],
         'struct PurcFetcher::ElementContext': ['<ElementContext.h>'],
-        'struct WebKit::WebUserScriptData': ['"WebUserContentControllerDataTypes.h"'],
-        'struct WebKit::WebUserStyleSheetData': ['"WebUserContentControllerDataTypes.h"'],
-        'struct WebKit::WebScriptMessageHandlerData': ['"WebUserContentControllerDataTypes.h"'],
-        'webrtc::WebKitEncodedFrameInfo': ['<webrtc/sdk/WebKit/WebKitEncoder.h>'],
-        'webrtc::WebKitRTPFragmentationHeader': ['<webrtc/sdk/WebKit/WebKitEncoder.h>'],
+        'struct PurcFetcher::WebUserScriptData': ['"WebUserContentControllerDataTypes.h"'],
+        'struct PurcFetcher::WebUserStyleSheetData': ['"WebUserContentControllerDataTypes.h"'],
+        'struct PurcFetcher::WebScriptMessageHandlerData': ['"WebUserContentControllerDataTypes.h"'],
+        'webrtc::WebKitEncodedFrameInfo': ['<webrtc/sdk/PurcFetcher/WebKitEncoder.h>'],
+        'webrtc::WebKitRTPFragmentationHeader': ['<webrtc/sdk/PurcFetcher/WebKitEncoder.h>'],
     }
 
     headers = []
@@ -702,7 +702,7 @@ def headers_for_type(type):
         if len(split) < 2:
             continue
 
-        if split[0] == 'WebKit' or split[0] == 'IPC':
+        if split[0] == 'PurcFetcher' or split[0] == 'IPC':
             headers.append('"%s.h"' % split[1])
         else:
             headers.append('<%s.h>' % split[1])
@@ -821,7 +821,7 @@ def generate_message_handler(receiver):
 
         result.append('} // namespace %s\n\n} // namespace Messages\n\n' % receiver.name)
 
-    result.append('namespace WebKit {\n\n')
+    result.append('namespace PurcFetcher {\n\n')
 
     async_messages = []
     sync_messages = []
@@ -865,7 +865,7 @@ def generate_message_handler(receiver):
         result.append('    ASSERT_NOT_REACHED();\n')
         result.append('}\n')
 
-    result.append('\n} // namespace WebKit\n\n')
+    result.append('\n} // namespace PurcFetcher\n\n')
 
     if receiver.condition:
         result.append('\n#endif // %s\n' % receiver.condition)

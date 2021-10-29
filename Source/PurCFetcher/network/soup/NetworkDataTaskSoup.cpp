@@ -46,7 +46,7 @@
 #include <wtf/MainThread.h>
 #include <wtf/glib/RunLoopSourcePriority.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 static const size_t gDefaultReadBufferSize = 8192;
@@ -1178,5 +1178,5 @@ void NetworkDataTaskSoup::didRestart()
     m_networkLoadMetrics = { };
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

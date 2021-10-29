@@ -46,7 +46,7 @@ enum class ShouldSample : bool;
 struct SecurityOriginData;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkDataTask;
 class NetworkProcess;
@@ -179,4 +179,4 @@ protected:
 #endif
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

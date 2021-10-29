@@ -22,7 +22,7 @@
 
 messages -> NetworkProcess LegacyReceiver {
     # Initializes the network process.
-    InitializeNetworkProcess(struct WebKit::NetworkProcessCreationParameters processCreationParameters)
+    InitializeNetworkProcess(struct PurcFetcher::NetworkProcessCreationParameters processCreationParameters)
 
     # Creates a connection for communication with a WebProcess
     CreateNetworkConnectionToWebProcess(PurcFetcher::ProcessIdentifier processIdentifier, PAL::SessionID sessionID) -> (Optional<IPC::Attachment> connectionIdentifier, enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy) Async
@@ -40,25 +40,25 @@ messages -> NetworkProcess LegacyReceiver {
 
     ClearCachedCredentials()
 
-    AddWebsiteDataStore(struct WebKit::WebsiteDataStoreParameters websiteDataStoreParameters);
+    AddWebsiteDataStore(struct PurcFetcher::WebsiteDataStoreParameters websiteDataStoreParameters);
     DestroySession(PAL::SessionID sessionID)
 
-    FetchWebsiteData(PAL::SessionID sessionID, OptionSet<WebKit::WebsiteDataType> websiteDataTypes, OptionSet<WebKit::WebsiteDataFetchOption> fetchOptions, WebKit::CallbackID callbackID)
-    DeleteWebsiteData(PAL::SessionID sessionID, OptionSet<WebKit::WebsiteDataType> websiteDataTypes, WallTime modifiedSince, WebKit::CallbackID callbackID)
-    DeleteWebsiteDataForOrigins(PAL::SessionID sessionID, OptionSet<WebKit::WebsiteDataType> websiteDataTypes, Vector<PurcFetcher::SecurityOriginData> origins, Vector<String> cookieHostNames, Vector<String> HSTSCacheHostNames, Vector<PurcFetcher::RegistrableDomain> registrableDomains, WebKit::CallbackID callbackID)
-    RenameOriginInWebsiteData(PAL::SessionID sessionID, URL oldDomain, URL newDomain, OptionSet<WebKit::WebsiteDataType> websiteDataTypes) -> () Async
+    FetchWebsiteData(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, OptionSet<PurcFetcher::WebsiteDataFetchOption> fetchOptions, PurcFetcher::CallbackID callbackID)
+    DeleteWebsiteData(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, WallTime modifiedSince, PurcFetcher::CallbackID callbackID)
+    DeleteWebsiteDataForOrigins(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, Vector<PurcFetcher::SecurityOriginData> origins, Vector<String> cookieHostNames, Vector<String> HSTSCacheHostNames, Vector<PurcFetcher::RegistrableDomain> registrableDomains, PurcFetcher::CallbackID callbackID)
+    RenameOriginInWebsiteData(PAL::SessionID sessionID, URL oldDomain, URL newDomain, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes) -> () Async
 
-    DownloadRequest(PAL::SessionID sessionID, WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedFilename)
-    ResumeDownload(PAL::SessionID sessionID, WebKit::DownloadID downloadID, IPC::DataReference resumeData, String path, WebKit::SandboxExtension::Handle sandboxExtensionHandle)
-    CancelDownload(WebKit::DownloadID downloadID)
+    DownloadRequest(PAL::SessionID sessionID, PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedFilename)
+    ResumeDownload(PAL::SessionID sessionID, PurcFetcher::DownloadID downloadID, IPC::DataReference resumeData, String path, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle)
+    CancelDownload(PurcFetcher::DownloadID downloadID)
 #if PLATFORM(COCOA)
-    PublishDownloadProgress(WebKit::DownloadID downloadID, URL url, WebKit::SandboxExtension::Handle sandboxExtensionHandle)
+    PublishDownloadProgress(PurcFetcher::DownloadID downloadID, URL url, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle)
 #endif
     ApplicationDidEnterBackground()
     ApplicationWillEnterForeground()
 
-    ContinueWillSendRequest(WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request)
-    ContinueDecidePendingDownloadDestination(WebKit::DownloadID downloadID, String destination, WebKit::SandboxExtension::Handle sandboxExtensionHandle, bool allowOverwrite)
+    ContinueWillSendRequest(PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request)
+    ContinueDecidePendingDownloadDestination(PurcFetcher::DownloadID downloadID, String destination, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle, bool allowOverwrite)
 
 #if PLATFORM(COCOA)
     SetQOS(int latencyQOS, int throughputQOS)
@@ -70,8 +70,8 @@ messages -> NetworkProcess LegacyReceiver {
 
     AllowSpecificHTTPSCertificateForHost(PurcFetcher::CertificateInfo certificate, String host)
 
-    SetCacheModel(enum:uint8_t WebKit::CacheModel cacheModel)
-    SetCacheModelSynchronouslyForTesting(enum:uint8_t WebKit::CacheModel cacheModel) -> () Synchronous
+    SetCacheModel(enum:uint8_t PurcFetcher::CacheModel cacheModel)
+    SetCacheModelSynchronouslyForTesting(enum:uint8_t PurcFetcher::CacheModel cacheModel) -> () Synchronous
 
     ProcessDidTransitionToBackground()
     ProcessDidTransitionToForeground()
@@ -80,7 +80,7 @@ messages -> NetworkProcess LegacyReceiver {
     PrepareToSuspend(bool isSuspensionImminent) -> () Async
     ProcessDidResume()
 
-    PreconnectTo(PAL::SessionID sessionID, WebKit::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, URL url, String userAgent, enum:uint8_t PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain);
+    PreconnectTo(PAL::SessionID sessionID, PurcFetcher::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, URL url, String userAgent, enum:uint8_t PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain);
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     ClearPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
@@ -110,7 +110,7 @@ messages -> NetworkProcess LegacyReceiver {
     LogFrameNavigation(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain targetDomain, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain sourceDomain, bool isRedirect, bool isMainFrame, Seconds delayAfterMainFrameDocumentLoad, bool wasPotentiallyInitiatedByUser)
     LogUserInteraction(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain) -> () Async
     ResetParametersToDefaultValues(PAL::SessionID sessionID) -> () Async
-    ScheduleClearInMemoryAndPersistent(PAL::SessionID sessionID, Optional<WallTime> modifiedSince, enum:bool WebKit::ShouldGrandfatherStatistics shouldGrandfather) -> () Async
+    ScheduleClearInMemoryAndPersistent(PAL::SessionID sessionID, Optional<WallTime> modifiedSince, enum:bool PurcFetcher::ShouldGrandfatherStatistics shouldGrandfather) -> () Async
     ScheduleCookieBlockingUpdate(PAL::SessionID sessionID) -> () Async
     ScheduleStatisticsAndDataRecordsProcessing(PAL::SessionID sessionID) -> () Async
     StatisticsDatabaseHasAllTables(PAL::SessionID sessionID) -> (bool hasAllTables) Async
@@ -136,7 +136,7 @@ messages -> NetworkProcess LegacyReceiver {
     SetTopFrameUniqueRedirectTo(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain redirectedToDomain) -> () Async
     SetTopFrameUniqueRedirectFrom(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain redirectedFromDomain) -> () Async
     ResetCacheMaxAgeCapForPrevalentResources(PAL::SessionID sessionID) -> () Async
-    DidCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain fromDomain, PurcFetcher::RegistrableDomain toDomain, OptionSet<PurcFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, WebKit::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID)
+    DidCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain fromDomain, PurcFetcher::RegistrableDomain toDomain, OptionSet<PurcFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, PurcFetcher::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID)
     SetCrossSiteLoadWithLinkDecorationForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain fromDomain, PurcFetcher::RegistrableDomain toDomain) -> () Async
     ResetCrossSiteLoadsWithLinkDecorationForTesting(PAL::SessionID sessionID) -> () Async
     DeleteCookiesForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain domain, bool includeHttpOnlyCookies) -> () Async
@@ -158,7 +158,7 @@ messages -> NetworkProcess LegacyReceiver {
     RegisterURLSchemeAsLocal(String scheme)
     RegisterURLSchemeAsNoAccess(String scheme)
 
-    SetCacheStorageParameters(PAL::SessionID sessionID, String cacheStorageDirectory, WebKit::SandboxExtension::Handle handle);
+    SetCacheStorageParameters(PAL::SessionID sessionID, String cacheStorageDirectory, PurcFetcher::SandboxExtension::Handle handle);
 
     SyncLocalStorage() -> () Synchronous
     ClearLegacyPrivateBrowsingLocalStorage()
@@ -169,7 +169,7 @@ messages -> NetworkProcess LegacyReceiver {
     SetAdClickAttributionOverrideTimerForTesting(PAL::SessionID sessionID, bool value) -> () Async
     SetAdClickAttributionConversionURLForTesting(PAL::SessionID sessionID, URL url) -> () Async
     MarkAdClickAttributionsAsExpiredForTesting(PAL::SessionID sessionID) -> () Async
-    GetLocalStorageOriginDetails(PAL::SessionID sessionID) -> (Vector<WebKit::LocalStorageDatabaseTracker::OriginDetails> details) Async
+    GetLocalStorageOriginDetails(PAL::SessionID sessionID) -> (Vector<PurcFetcher::LocalStorageDatabaseTracker::OriginDetails> details) Async
 
     SetServiceWorkerFetchTimeoutForTesting(Seconds seconds) -> () Synchronous
     ResetServiceWorkerFetchTimeoutForTesting() -> () Synchronous

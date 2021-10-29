@@ -31,7 +31,7 @@
 #include "SessionID.h"
 #include <wtf/WeakPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkStorageSessionProvider final : public PurcFetcher::StorageSessionProvider {
 public:

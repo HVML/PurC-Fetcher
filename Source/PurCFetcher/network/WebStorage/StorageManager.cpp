@@ -43,7 +43,7 @@
 #include <wtf/FileSystem.h>
 #include <wtf/WorkQueue.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 // Suggested by https://www.w3.org/TR/webstorage/#disk-space
@@ -312,4 +312,4 @@ Vector<StorageAreaIdentifier> StorageManager::allStorageAreaIdentifiers() const
     return identifiers;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

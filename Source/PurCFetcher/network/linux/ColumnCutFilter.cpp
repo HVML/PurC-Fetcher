@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnCutFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnCutFilter::ColumnCutFilter()
@@ -129,5 +129,5 @@ Vector<Row> ColumnCutFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

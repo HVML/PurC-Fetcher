@@ -37,7 +37,7 @@
 #include "SharedBuffer.h"
 #include <wtf/Seconds.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -297,4 +297,4 @@ String NetworkLoad::description() const
     return emptyString();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

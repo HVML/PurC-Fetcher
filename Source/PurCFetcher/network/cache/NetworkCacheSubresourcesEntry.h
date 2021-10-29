@@ -32,7 +32,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/URL.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 class SubresourceInfo {
@@ -104,7 +104,7 @@ private:
     Vector<SubresourceInfo> m_subresources;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 } // namespace NetworkCache
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

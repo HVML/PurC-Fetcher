@@ -39,7 +39,7 @@ class ResourceError;
 class SecurityOrigin;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 class NetworkResourceLoader;
@@ -88,4 +88,4 @@ private:
     WeakPtr<NetworkResourceLoader> m_networkResourceLoader;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

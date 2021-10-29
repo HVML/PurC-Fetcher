@@ -23,10 +23,10 @@
 #if ENABLE(CONTENT_EXTENSIONS)
 
 messages -> NetworkContentRuleListManager NotRefCounted {
-    Remove(WebKit::UserContentControllerIdentifier identifier)
-    AddContentRuleLists(WebKit::UserContentControllerIdentifier identifier, Vector<std::pair<String, WebKit::WebCompiledContentRuleListData>> contentFilters)
-    RemoveContentRuleList(WebKit::UserContentControllerIdentifier identifier, String name)
-    RemoveAllContentRuleLists(WebKit::UserContentControllerIdentifier identifier)
+    Remove(PurcFetcher::UserContentControllerIdentifier identifier)
+    AddContentRuleLists(PurcFetcher::UserContentControllerIdentifier identifier, Vector<std::pair<String, PurcFetcher::WebCompiledContentRuleListData>> contentFilters)
+    RemoveContentRuleList(PurcFetcher::UserContentControllerIdentifier identifier, String name)
+    RemoveAllContentRuleLists(PurcFetcher::UserContentControllerIdentifier identifier)
 }
 
 #endif

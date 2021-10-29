@@ -32,7 +32,7 @@
 #include "StorageManager.h"
 #include "StorageMap.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -218,4 +218,4 @@ void StorageArea::close()
     m_localStorageDatabase->close();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -50,7 +50,7 @@
 #include "config.h"
 #include "FormatArray.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 FormatArray::FormatArray()
 {
@@ -110,4 +110,4 @@ Ref<JSON::Value> FormatArray::doFormat(Vector<String> lineColumns, String param)
     return array;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

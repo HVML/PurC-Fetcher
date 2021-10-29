@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnTailFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnTailFilter::ColumnTailFilter()
@@ -97,5 +97,5 @@ Vector<Row> ColumnTailFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

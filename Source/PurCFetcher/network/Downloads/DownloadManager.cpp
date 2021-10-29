@@ -35,7 +35,7 @@
 #include "SessionID.h"
 #include <wtf/StdLibExtras.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 DownloadManager::DownloadManager(Client& client)
@@ -212,4 +212,4 @@ void DownloadManager::applicationWillEnterForeground()
         download->applicationWillEnterForeground();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

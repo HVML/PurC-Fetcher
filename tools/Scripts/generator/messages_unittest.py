@@ -76,14 +76,14 @@ _expected_results = {
         {
             'name': 'TouchEvent',
             'parameters': (
-                ('WebKit::WebTouchEvent', 'event'),
+                ('PurcFetcher::WebTouchEvent', 'event'),
             ),
             'conditions': ('(ENABLE(TOUCH_EVENTS) && (NESTED_MESSAGE_CONDITION || SOME_OTHER_MESSAGE_CONDITION))'),
         },
         {
             'name': 'AddEvent',
             'parameters': (
-                ('WebKit::WebTouchEvent', 'event'),
+                ('PurcFetcher::WebTouchEvent', 'event'),
             ),
             'conditions': ('(ENABLE(TOUCH_EVENTS) && (NESTED_MESSAGE_CONDITION && SOME_OTHER_MESSAGE_CONDITION))'),
         },
@@ -111,7 +111,7 @@ _expected_results = {
         {
             'name': 'PreferencesDidChange',
             'parameters': (
-                ('WebKit::WebPreferencesStore', 'store'),
+                ('PurcFetcher::WebPreferencesStore', 'store'),
             ),
             'conditions': (None),
         },
@@ -135,7 +135,7 @@ _expected_results = {
             'name': 'CreatePlugin',
             'parameters': (
                 ('uint64_t', 'pluginInstanceID'),
-                ('WebKit::Plugin::Parameters', 'parameters')
+                ('PurcFetcher::Plugin::Parameters', 'parameters')
             ),
             'reply_parameters': (
                 ('bool', 'result'),
@@ -206,7 +206,7 @@ _expected_results = {
             'name': 'DidCreateWebProcessConnection',
             'parameters': (
                 ('IPC::MachPort', 'connectionIdentifier'),
-                ('OptionSet<WebKit::SelectionFlags>', 'flags'),
+                ('OptionSet<PurcFetcher::SelectionFlags>', 'flags'),
             ),
             'conditions': ('PLATFORM(MAC)'),
         },
@@ -252,7 +252,7 @@ _expected_superclass_results = {
         {
             'name': 'TestAsyncMessage',
             'parameters': (
-                ('WebKit::TestTwoStateEnum', 'twoStateEnum'),
+                ('PurcFetcher::TestTwoStateEnum', 'twoStateEnum'),
             ),
             'reply_parameters': (
                 ('uint64_t', 'result'),
@@ -300,7 +300,7 @@ _expected_superclass_results = {
                 ('bool', 'value'),
             ),
             'reply_parameters': (
-                ('Optional<WebKit::TestClassName>', 'optionalReply'),
+                ('Optional<PurcFetcher::TestClassName>', 'optionalReply'),
             ),
             'conditions': (None),
         },

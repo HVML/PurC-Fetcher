@@ -26,7 +26,7 @@
 #include "config.h"
 #include "NetworkSchemeRegistry.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void NetworkSchemeRegistry::registerURLSchemeAsCORSEnabled(String&& scheme)
 {
@@ -40,4 +40,4 @@ bool NetworkSchemeRegistry::shouldTreatURLSchemeAsCORSEnabled(StringView scheme)
     return m_corsEnabledSchemes.contains(scheme.toStringWithoutCopying());
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

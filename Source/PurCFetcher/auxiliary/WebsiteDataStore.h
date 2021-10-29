@@ -69,7 +69,7 @@ class SecurityOrigin;
 struct MockWebAuthenticationConfiguration;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class AuthenticatorManager;
 class SecKeyProxyStore;

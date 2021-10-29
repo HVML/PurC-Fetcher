@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineCharsFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LineCharsFilter::LineCharsFilter()
@@ -114,6 +114,6 @@ Vector<Row> LineCharsFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 

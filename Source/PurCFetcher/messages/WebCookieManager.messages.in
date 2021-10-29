@@ -42,6 +42,6 @@ messages -> WebCookieManager NotRefCounted {
     void StopObservingCookieChanges(PAL::SessionID sessionID)
 
 #if USE(SOUP)
-    void SetCookiePersistentStorage(PAL::SessionID sessionID, String storagePath, enum:bool WebKit::SoupCookiePersistentStorageType storageType)
+    void SetCookiePersistentStorage(PAL::SessionID sessionID, String storagePath, enum:bool PurcFetcher::SoupCookiePersistentStorageType storageType)
 #endif
 }

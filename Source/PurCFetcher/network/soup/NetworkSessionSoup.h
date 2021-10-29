@@ -34,7 +34,7 @@ namespace PurcFetcher {
 class SoupNetworkSession;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkSocketChannel;
 class WebSocketTask;
@@ -61,4 +61,4 @@ private:
     std::unique_ptr<PurcFetcher::SoupNetworkSession> m_networkSession;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

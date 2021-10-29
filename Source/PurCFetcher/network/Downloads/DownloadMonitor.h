@@ -28,7 +28,7 @@
 #include "Timer.h"
 #include <wtf/Deque.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class Download;
 
@@ -58,4 +58,4 @@ private:
     size_t m_interval { 0 };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

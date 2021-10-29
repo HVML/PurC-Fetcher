@@ -34,7 +34,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/Vector.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace NetworkCache {
 
@@ -90,7 +90,7 @@ private:
 
 } // namespace NetworkCache
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
 

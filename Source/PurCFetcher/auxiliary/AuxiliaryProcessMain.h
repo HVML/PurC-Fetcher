@@ -30,7 +30,7 @@
 #include "AuxiliaryProcess.h"
 #include <wtf/RunLoop.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class AuxiliaryProcessMainBase {
 public:
@@ -72,6 +72,6 @@ int AuxiliaryProcessMain(int argc, char** argv)
     return EXIT_SUCCESS;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // !PLATFORM(COCOA)

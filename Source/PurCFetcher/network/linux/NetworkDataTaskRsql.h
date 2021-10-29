@@ -61,7 +61,7 @@
 #include <wtf/glib/GRefPtr.h>
 #include <mysql/mysql.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using PurcFetcher::SQLValueH;
 
@@ -132,6 +132,6 @@ private:
     String m_sqlQuery;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(RSQL)

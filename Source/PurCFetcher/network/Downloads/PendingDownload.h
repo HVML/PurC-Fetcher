@@ -37,7 +37,7 @@ namespace PurcFetcher {
 class ResourceResponse;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class Download;
 class DownloadID;

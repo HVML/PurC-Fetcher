@@ -30,7 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 bool AuxiliaryProcessMainBase::parseCommandLine(int argc, char** argv)
 {
@@ -43,4 +43,4 @@ bool AuxiliaryProcessMainBase::parseCommandLine(int argc, char** argv)
     return true;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

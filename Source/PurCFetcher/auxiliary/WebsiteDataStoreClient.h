@@ -34,7 +34,7 @@ namespace PurcFetcher {
 struct SecurityOriginData;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class WebsiteDataStoreClient {
     WTF_MAKE_FAST_ALLOCATED;
@@ -52,4 +52,4 @@ public:
     }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

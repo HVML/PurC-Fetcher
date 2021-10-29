@@ -32,7 +32,7 @@
 #include "WebCoreArgumentCoders.h"
 #include "CacheQueryOptions.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher::DOMCacheEngine;
 using namespace CacheStorage;
 

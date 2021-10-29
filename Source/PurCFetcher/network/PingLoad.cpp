@@ -36,7 +36,7 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - PingLoad::" fmt, this, ##__VA_ARGS__)
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -212,6 +212,6 @@ const URL& PingLoad::currentURL() const
     return m_networkLoadChecker->url();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

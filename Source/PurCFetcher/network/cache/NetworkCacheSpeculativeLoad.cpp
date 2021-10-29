@@ -37,7 +37,7 @@
 #include <pal/SessionID.h>
 #include <wtf/RunLoop.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 using namespace PurcFetcher;
@@ -202,6 +202,6 @@ bool requestsHeadersMatch(const ResourceRequest& speculativeValidationRequest, c
 }
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION) || ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

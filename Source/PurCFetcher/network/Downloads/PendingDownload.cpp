@@ -33,7 +33,7 @@
 #include "NetworkProcess.h"
 #include "WebCoreArgumentCoders.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 PendingDownload::PendingDownload(IPC::Connection* parentProcessConnection, NetworkLoadParameters&& parameters, DownloadID downloadID, NetworkSession& networkSession, const String& suggestedName)

@@ -54,7 +54,7 @@ class MachSendRight;
 }
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SharedMemory : public RefCounted<SharedMemory> {
 public:

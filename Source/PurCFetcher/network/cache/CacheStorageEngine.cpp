@@ -40,7 +40,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace CacheStorage {
 
@@ -267,7 +267,7 @@ Engine::Engine(PAL::SessionID sessionID, NetworkProcess& process, String&& rootP
     , m_rootPath(WTFMove(rootPath))
 {
     if (!m_rootPath.isNull())
-        m_ioQueue = WorkQueue::create("com.apple.WebKit.CacheStorageEngine.serial.default", WorkQueue::Type::Serial, WorkQueue::QOS::Default);
+        m_ioQueue = WorkQueue::create("com.apple.PurcFetcher.CacheStorageEngine.serial.default", WorkQueue::Type::Serial, WorkQueue::QOS::Default);
 }
 
 void Engine::open(const PurcFetcher::ClientOrigin& origin, const String& cacheName, CacheIdentifierCallback&& callback)
@@ -833,4 +833,4 @@ String Engine::representation()
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

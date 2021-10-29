@@ -51,7 +51,7 @@ class Credential;
 struct SecurityOriginData;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class Download;
 class DownloadID;
@@ -102,4 +102,4 @@ private:
     HashMap<uint64_t, Challenge> m_challenges;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

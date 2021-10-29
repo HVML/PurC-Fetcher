@@ -35,7 +35,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SandboxInitializationParameters;
 struct AuxiliaryProcessInitializationParameters;
@@ -91,7 +91,7 @@ public:
     IPC::MessageReceiverMap& messageReceiverMap() { return m_messageReceiverMap; }
 
 #if PLATFORM(MAC)
-    static bool isSystemWebKit();
+    static bool isSystemPurcFetcher();
 #endif
     
 #if PLATFORM(COCOA)
@@ -180,5 +180,5 @@ struct AuxiliaryProcessInitializationParameters {
 #endif
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

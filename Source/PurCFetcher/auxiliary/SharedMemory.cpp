@@ -28,7 +28,7 @@
 
 #include "SharedBuffer.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -53,4 +53,4 @@ RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
     return sharedMemory;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

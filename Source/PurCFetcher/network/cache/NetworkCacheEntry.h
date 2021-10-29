@@ -38,7 +38,7 @@ namespace PurcFetcher {
 class SharedBuffer;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 class Entry {

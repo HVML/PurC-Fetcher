@@ -56,7 +56,7 @@ class MIMETypeRegistry {
 public:
     PURCFETCHER_EXPORT static String getMIMETypeForExtension(const String& extension);
 
-    // FIXME: WebKit coding style says we should not have the word "get" in the names of these functions.
+    // FIXME: PurcFetcher coding style says we should not have the word "get" in the names of these functions.
     static Vector<String> getExtensionsForMIMEType(const String& type);
     PURCFETCHER_EXPORT static String getPreferredExtensionForMIMEType(const String& type);
     PURCFETCHER_EXPORT static String getMediaMIMETypeForExtension(const String& extension);
@@ -140,7 +140,7 @@ public:
     PURCFETCHER_EXPORT static const HashSet<String, ASCIICaseInsensitiveHash>& unsupportedTextMIMETypes();
     PURCFETCHER_EXPORT static const HashSet<String, ASCIICaseInsensitiveHash>& systemPreviewMIMETypes();
 
-    // FIXME: WebKit coding style says we should not have the word "get" in the name of this function.
+    // FIXME: PurcFetcher coding style says we should not have the word "get" in the name of this function.
     // FIXME: Unclear what the concept of a normalized MIME type is; currently it's a platform-specific notion.
     static String getNormalizedMIMEType(const String&);
 

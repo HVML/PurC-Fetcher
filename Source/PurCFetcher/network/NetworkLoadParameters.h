@@ -37,7 +37,7 @@
 #include <wtf/EnumTraits.h>
 #include <wtf/ProcessID.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class PreconnectOnly : bool { No, Yes };
 
@@ -66,4 +66,4 @@ public:
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

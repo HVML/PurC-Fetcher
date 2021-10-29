@@ -28,7 +28,7 @@
 
 #include <wtf/NeverDestroyed.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 void NetworkProcessPlatformStrategies::initialize()

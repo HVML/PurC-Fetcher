@@ -31,7 +31,7 @@
 #include <PurcFetcher/Frame.h>
 #include <PurcFetcher/Page.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void WebsitePoliciesData::encode(IPC::Encoder& encoder) const
 {

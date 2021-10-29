@@ -32,7 +32,7 @@
 #include "NetworkCacheCoders.h"
 #include "RegistrableDomain.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 void SubresourceInfo::encode(WTF::Persistence::Encoder& encoder) const
@@ -210,7 +210,7 @@ void SubresourcesEntry::updateSubresourceLoads(const Vector<std::unique_ptr<Subr
     m_subresources = makeSubresourceInfoVector(subresourceLoads, &m_subresources);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 } // namespace NetworkCache
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

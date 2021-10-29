@@ -47,7 +47,7 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(isAlwaysOnLoggingAllowed(), Network, "%p - Download::" fmt, this, ##__VA_ARGS__)
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 Download::Download(DownloadManager& downloadManager, DownloadID downloadID, NetworkDataTask& download, NetworkSession& session, const String& suggestedName)
@@ -199,6 +199,6 @@ void Download::platformDestroyDownload()
 }
 #endif
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

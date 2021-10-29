@@ -61,7 +61,7 @@
 #include <wtf/glib/GRefPtr.h>
 #include "CmdFilterManager.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using PurcFetcher::SQLValueH;
 
 class SqlResult {
@@ -137,6 +137,6 @@ private:
     String m_sqlQuery;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(LSQL)

@@ -21,14 +21,14 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> StorageManagerSet {
-    ConnectToLocalStorageArea(PAL::SessionID sessionID, WebKit::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<WebKit::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
-    ConnectToTransientLocalStorageArea(PAL::SessionID sessionID, WebKit::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData topLevelSecurityOriginData, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<WebKit::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
-    ConnectToSessionStorageArea(PAL::SessionID sessionID, WebKit::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<WebKit::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
-    DisconnectFromStorageArea(WebKit::StorageAreaIdentifier storageAreaID) WantsConnection
-    GetValues(WebKit::StorageAreaIdentifier storageAreaID) -> (HashMap<String, String> values) Synchronous WantsConnection
-    CloneSessionStorageNamespace(PAL::SessionID sessionID, WebKit::StorageNamespaceIdentifier fromStorageNamespaceID, WebKit::StorageNamespaceIdentifier toStorageNamespaceID) WantsConnection
+    ConnectToLocalStorageArea(PAL::SessionID sessionID, PurcFetcher::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<PurcFetcher::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
+    ConnectToTransientLocalStorageArea(PAL::SessionID sessionID, PurcFetcher::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData topLevelSecurityOriginData, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<PurcFetcher::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
+    ConnectToSessionStorageArea(PAL::SessionID sessionID, PurcFetcher::StorageNamespaceIdentifier storageNamespaceID, struct PurcFetcher::SecurityOriginData securityOriginData) -> (Optional<PurcFetcher::StorageAreaIdentifier> storageAreaID) Synchronous WantsConnection
+    DisconnectFromStorageArea(PurcFetcher::StorageAreaIdentifier storageAreaID) WantsConnection
+    GetValues(PurcFetcher::StorageAreaIdentifier storageAreaID) -> (HashMap<String, String> values) Synchronous WantsConnection
+    CloneSessionStorageNamespace(PAL::SessionID sessionID, PurcFetcher::StorageNamespaceIdentifier fromStorageNamespaceID, PurcFetcher::StorageNamespaceIdentifier toStorageNamespaceID) WantsConnection
 
-    SetItem(WebKit::StorageAreaIdentifier storageAreaID, WebKit::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String key, String value, String urlString) WantsConnection
-    RemoveItem(WebKit::StorageAreaIdentifier storageAreaID, WebKit::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String key, String urlString) WantsConnection
-    Clear(WebKit::StorageAreaIdentifier storageAreaID, WebKit::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String urlString) WantsConnection
+    SetItem(PurcFetcher::StorageAreaIdentifier storageAreaID, PurcFetcher::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String key, String value, String urlString) WantsConnection
+    RemoveItem(PurcFetcher::StorageAreaIdentifier storageAreaID, PurcFetcher::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String key, String urlString) WantsConnection
+    Clear(PurcFetcher::StorageAreaIdentifier storageAreaID, PurcFetcher::StorageAreaImplIdentifier storageAreaImplID, uint64_t storageMapSeed, String urlString) WantsConnection
 }

@@ -51,7 +51,7 @@
 #include <notify.h>
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 using namespace FileSystem;
@@ -132,9 +132,9 @@ Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref
 
     if (options.contains(CacheOption::RegisterNotify)) {
 #if PLATFORM(COCOA)
-        // Triggers with "notifyutil -p com.apple.WebKit.Cache.dump".
+        // Triggers with "notifyutil -p com.apple.PurcFetcher.Cache.dump".
         int token;
-        notify_register_dispatch("com.apple.WebKit.Cache.dump", &token, dispatch_get_main_queue(), ^(int) {
+        notify_register_dispatch("com.apple.PurcFetcher.Cache.dump", &token, dispatch_get_main_queue(), ^(int) {
             dumpContentsToFile();
         });
 #endif
@@ -675,7 +675,7 @@ void Cache::dumpContentsToFile()
 
 void Cache::deleteDumpFile()
 {
-    WorkQueue::create("com.apple.WebKit.Cache.delete")->dispatch([path = dumpFilePath().isolatedCopy()] {
+    WorkQueue::create("com.apple.PurcFetcher.Cache.delete")->dispatch([path = dumpFilePath().isolatedCopy()] {
         deleteFile(path);
     });
 }

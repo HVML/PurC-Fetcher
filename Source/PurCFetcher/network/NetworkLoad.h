@@ -37,7 +37,7 @@ namespace PurcFetcher {
 class BlobRegistryImpl;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -99,4 +99,4 @@ private:
     PurcFetcher::ResourceRequest m_currentRequest; // Updated on redirects.
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

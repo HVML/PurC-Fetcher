@@ -32,7 +32,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkLoad;
 class NetworkLoadParameters;
@@ -61,6 +61,6 @@ private:
     PurcFetcher::Timer m_timeoutTimer;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(SERVER_PRECONNECT)

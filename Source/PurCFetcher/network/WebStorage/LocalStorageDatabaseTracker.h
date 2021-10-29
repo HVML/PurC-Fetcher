@@ -32,7 +32,7 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class LocalStorageDatabaseTracker : public RefCounted<LocalStorageDatabaseTracker> {
 public:
@@ -105,4 +105,4 @@ Optional<LocalStorageDatabaseTracker::OriginDetails> LocalStorageDatabaseTracker
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

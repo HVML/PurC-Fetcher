@@ -36,7 +36,7 @@ namespace PurcFetcher {
 class SharedBuffer;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
     
 class ShareableResource : public RefCounted<ShareableResource> {
 public:
@@ -88,7 +88,7 @@ private:
     unsigned m_size;    
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(SHAREABLE_RESOURCE)
 

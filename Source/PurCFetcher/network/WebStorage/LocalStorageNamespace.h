@@ -33,7 +33,7 @@
 #include <wtf/WeakPtr.h>
 #include <wtf/WorkQueue.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class StorageArea;
 class StorageManager;
@@ -65,4 +65,4 @@ private:
     HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

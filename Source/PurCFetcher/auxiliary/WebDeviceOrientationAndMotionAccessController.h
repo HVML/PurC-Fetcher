@@ -32,7 +32,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class WebPageProxy;
 class WebFrameProxy;

@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class LineTailFilter : public FilterBase {
 public:
@@ -63,4 +63,4 @@ public:
     virtual Vector<Row> doFilter(Vector<Row> lines, String param);
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsiteMetaViewportPolicy {
     Default,
@@ -39,12 +39,12 @@ enum class WebsiteMetaViewportPolicy {
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::WebsiteMetaViewportPolicy> {
+template<> struct EnumTraits<PurcFetcher::WebsiteMetaViewportPolicy> {
     using values = EnumValues<
-        WebKit::WebsiteMetaViewportPolicy,
-        WebKit::WebsiteMetaViewportPolicy::Default,
-        WebKit::WebsiteMetaViewportPolicy::Respect,
-        WebKit::WebsiteMetaViewportPolicy::Ignore
+        PurcFetcher::WebsiteMetaViewportPolicy,
+        PurcFetcher::WebsiteMetaViewportPolicy::Default,
+        PurcFetcher::WebsiteMetaViewportPolicy::Respect,
+        PurcFetcher::WebsiteMetaViewportPolicy::Ignore
     >;
 };
 

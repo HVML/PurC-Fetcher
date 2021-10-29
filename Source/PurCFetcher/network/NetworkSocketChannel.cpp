@@ -34,7 +34,7 @@
 #include "WebSocketChannelMessages.h"
 #include "WebSocketTask.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 std::unique_ptr<NetworkSocketChannel> NetworkSocketChannel::create(NetworkConnectionToWebProcess& connection, PAL::SessionID sessionID, const ResourceRequest& request, const String& protocol, WebSocketIdentifier identifier)
@@ -145,4 +145,4 @@ NetworkSession* NetworkSocketChannel::session()
     return m_session.get();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

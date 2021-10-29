@@ -27,7 +27,7 @@
 
 #include <wtf/FileSystem.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 enum class DirectoryEntryType { Directory, File };

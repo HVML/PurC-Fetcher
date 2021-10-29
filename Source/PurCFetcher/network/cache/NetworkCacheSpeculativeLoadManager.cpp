@@ -42,7 +42,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/Seconds.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace NetworkCache {
 
@@ -619,6 +619,6 @@ void SpeculativeLoadManager::retrieveSubresourcesEntry(const Key& storageKey, WT
 
 } // namespace NetworkCache
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

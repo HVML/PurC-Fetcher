@@ -26,7 +26,7 @@
 
 #pragma once
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 struct WebsiteDataStoreParameters;

@@ -58,7 +58,7 @@
 #include "NetworkDataTaskCurl.h"
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDataTaskClient& client, const NetworkLoadParameters& parameters)
@@ -216,4 +216,4 @@ void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(PurcFetcher::Resou
 #endif
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

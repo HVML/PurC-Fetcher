@@ -75,7 +75,7 @@
 #include "SQLiteStatement.h"
 
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 #define  DEFAULT_READBUFFER_SIZE 8192
@@ -709,6 +709,6 @@ void NetworkDataTaskLsql::parseSqlQuery(String sqlQuery)
     }
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(LSQL)

@@ -40,7 +40,7 @@ namespace WTF {
 class TextStream;
 };
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum TypingAttributes {
     AttributeNone = 0,
@@ -156,4 +156,4 @@ inline auto EditorState::postLayoutData() const -> const PostLayoutData&
 
 WTF::TextStream& operator<<(WTF::TextStream&, const EditorState&);
 
-} // namespace WebKit
+} // namespace PurcFetcher

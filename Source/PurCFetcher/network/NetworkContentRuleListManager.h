@@ -36,7 +36,7 @@ class Connection;
 class Decoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -61,6 +61,6 @@ private:
     NetworkProcess& m_networkProcess;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

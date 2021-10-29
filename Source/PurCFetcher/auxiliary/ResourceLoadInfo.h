@@ -31,7 +31,7 @@
 #include <wtf/URL.h>
 #include <wtf/WallTime.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 struct ResourceLoadInfo {
 
@@ -129,28 +129,28 @@ struct ResourceLoadInfo {
     }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::ResourceLoadInfo::Type> {
+template<> struct EnumTraits<PurcFetcher::ResourceLoadInfo::Type> {
     using values = EnumValues<
-        WebKit::ResourceLoadInfo::Type,
-        WebKit::ResourceLoadInfo::Type::ApplicationManifest,
-        WebKit::ResourceLoadInfo::Type::Beacon,
-        WebKit::ResourceLoadInfo::Type::CSPReport,
-        WebKit::ResourceLoadInfo::Type::Document,
-        WebKit::ResourceLoadInfo::Type::Fetch,
-        WebKit::ResourceLoadInfo::Type::Font,
-        WebKit::ResourceLoadInfo::Type::Image,
-        WebKit::ResourceLoadInfo::Type::Media,
-        WebKit::ResourceLoadInfo::Type::Object,
-        WebKit::ResourceLoadInfo::Type::Other,
-        WebKit::ResourceLoadInfo::Type::Ping,
-        WebKit::ResourceLoadInfo::Type::Script,
-        WebKit::ResourceLoadInfo::Type::Stylesheet,
-        WebKit::ResourceLoadInfo::Type::XMLHTTPRequest,
-        WebKit::ResourceLoadInfo::Type::XSLT
+        PurcFetcher::ResourceLoadInfo::Type,
+        PurcFetcher::ResourceLoadInfo::Type::ApplicationManifest,
+        PurcFetcher::ResourceLoadInfo::Type::Beacon,
+        PurcFetcher::ResourceLoadInfo::Type::CSPReport,
+        PurcFetcher::ResourceLoadInfo::Type::Document,
+        PurcFetcher::ResourceLoadInfo::Type::Fetch,
+        PurcFetcher::ResourceLoadInfo::Type::Font,
+        PurcFetcher::ResourceLoadInfo::Type::Image,
+        PurcFetcher::ResourceLoadInfo::Type::Media,
+        PurcFetcher::ResourceLoadInfo::Type::Object,
+        PurcFetcher::ResourceLoadInfo::Type::Other,
+        PurcFetcher::ResourceLoadInfo::Type::Ping,
+        PurcFetcher::ResourceLoadInfo::Type::Script,
+        PurcFetcher::ResourceLoadInfo::Type::Stylesheet,
+        PurcFetcher::ResourceLoadInfo::Type::XMLHTTPRequest,
+        PurcFetcher::ResourceLoadInfo::Type::XSLT
     >;
 };
 

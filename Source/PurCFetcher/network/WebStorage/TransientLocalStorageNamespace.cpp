@@ -29,7 +29,7 @@
 #include "StorageArea.h"
 #include "StorageManager.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -88,4 +88,4 @@ Vector<StorageAreaIdentifier> TransientLocalStorageNamespace::storageAreaIdentif
     return identifiers;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

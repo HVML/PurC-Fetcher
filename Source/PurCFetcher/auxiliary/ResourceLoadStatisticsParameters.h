@@ -31,7 +31,7 @@
 #include "RegistrableDomain.h"
 #include <wtf/text/WTFString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 struct ResourceLoadStatisticsParameters {
 
@@ -159,4 +159,4 @@ struct ResourceLoadStatisticsParameters {
     }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

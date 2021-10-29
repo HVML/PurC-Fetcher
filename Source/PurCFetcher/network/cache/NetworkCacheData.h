@@ -44,7 +44,7 @@
 #include <wtf/Variant.h>
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SharedMemory;
 

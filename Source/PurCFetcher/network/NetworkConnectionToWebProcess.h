@@ -65,7 +65,7 @@ enum class HTTPCookieAcceptPolicy : uint8_t;
 enum class IncludeSecureCookies : bool;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkSchemeRegistry;
 class NetworkProcess;
@@ -354,4 +354,4 @@ private:
     Ref<NetworkSchemeRegistry> m_schemeRegistry;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

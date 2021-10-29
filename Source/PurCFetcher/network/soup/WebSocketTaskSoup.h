@@ -32,7 +32,7 @@ namespace IPC {
 class DataReference;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 class NetworkSocketChannel;
 
 class WebSocketTask {
@@ -67,4 +67,4 @@ private:
     bool m_receivedDidClose { false };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

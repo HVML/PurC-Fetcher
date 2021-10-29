@@ -37,7 +37,7 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_parameters.sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkCORSPreflightChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -178,6 +178,6 @@ NetworkTransactionInformation NetworkCORSPreflightChecker::takeInformation()
     return WTFMove(m_loadInformation);
 }
 
-} // Namespace WebKit
+} // Namespace PurcFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

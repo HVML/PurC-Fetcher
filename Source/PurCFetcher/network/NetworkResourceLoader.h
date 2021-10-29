@@ -48,7 +48,7 @@ class NetworkStorageSession;
 class ResourceRequest;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkConnectionToWebProcess;
 class NetworkLoad;
@@ -253,4 +253,4 @@ private:
     PurcFetcher::ResourceResponse m_redirectResponse;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

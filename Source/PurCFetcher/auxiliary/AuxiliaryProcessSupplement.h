@@ -29,7 +29,7 @@ namespace IPC {
 class Connection;
 } // namespace IPC
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class AuxiliaryProcessSupplement {
 public:
@@ -42,4 +42,4 @@ public:
     }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

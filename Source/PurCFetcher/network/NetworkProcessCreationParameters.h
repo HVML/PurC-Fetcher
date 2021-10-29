@@ -43,7 +43,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 struct NetworkProcessCreationParameters {
     NetworkProcessCreationParameters();
@@ -97,4 +97,4 @@ struct NetworkProcessCreationParameters {
     SandboxExtension::Handle hstsStorageDirectoryExtensionHandle;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

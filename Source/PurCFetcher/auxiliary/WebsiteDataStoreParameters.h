@@ -38,7 +38,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 struct WebsiteDataStoreParameters {
     WebsiteDataStoreParameters() = default;
@@ -78,4 +78,4 @@ struct WebsiteDataStoreParameters {
     uint64_t perThirdPartyOriginStorageQuota { PurcFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

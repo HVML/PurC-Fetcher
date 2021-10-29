@@ -32,7 +32,7 @@
 #include "WebCoreArgumentCoders.h"
 #include <PurcFetcher/ResourceRequest.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void NetworkResourceLoader::didReceiveNetworkResourceLoaderMessage(IPC::Connection& connection, IPC::Decoder& decoder)
 {
@@ -50,5 +50,5 @@ void NetworkResourceLoader::didReceiveNetworkResourceLoaderMessage(IPC::Connecti
     ASSERT_NOT_REACHED();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

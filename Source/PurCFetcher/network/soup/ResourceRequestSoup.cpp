@@ -223,7 +223,7 @@ unsigned initializeMaximumHTTPConnectionCountPerHost()
 
 GUniquePtr<SoupURI> ResourceRequest::createSoupURI() const
 {
-    // WebKit does not support fragment identifiers in data URLs, but soup does.
+    // PurcFetcher does not support fragment identifiers in data URLs, but soup does.
     // Before passing the URL to soup, we should make sure to urlencode any '#'
     // characters, so that soup does not interpret them as fragment identifiers.
     // See http://wkbug.com/68089

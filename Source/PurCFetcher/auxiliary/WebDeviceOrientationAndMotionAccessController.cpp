@@ -32,7 +32,7 @@
 #include "FrameInfoData.h"
 #include "WebPageProxy.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -76,6 +76,6 @@ void WebDeviceOrientationAndMotionAccessController::clearPermissions()
     m_deviceOrientationPermissionDecisions.clear();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(DEVICE_ORIENTATION)

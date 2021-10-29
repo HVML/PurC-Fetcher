@@ -35,7 +35,7 @@ namespace API {
 class WebsitePolicies;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SafeBrowsingWarning;
 
@@ -69,4 +69,4 @@ private:
     Reply m_reply;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

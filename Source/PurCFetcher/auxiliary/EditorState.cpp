@@ -30,7 +30,7 @@
 #include "WebCoreArgumentCoders.h"
 #include <wtf/text/TextStream.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 void EditorState::encode(IPC::Encoder& encoder) const
@@ -338,4 +338,4 @@ TextStream& operator<<(TextStream& ts, const EditorState& editorState)
     return ts;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

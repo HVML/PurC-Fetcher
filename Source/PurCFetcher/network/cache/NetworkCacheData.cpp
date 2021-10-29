@@ -35,7 +35,7 @@
 #include <unistd.h>
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 Data Data::mapToFile(const String& path) const
@@ -169,4 +169,4 @@ Optional<Salt> readOrMakeSalt(const String& path)
 }
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher

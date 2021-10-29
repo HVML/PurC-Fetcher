@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineSentencesFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 String enPunctuation = ".!?";
@@ -180,5 +180,5 @@ Vector<Row> LineSentencesFilter::splitRow(Row& row, String)
     return rowVec;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

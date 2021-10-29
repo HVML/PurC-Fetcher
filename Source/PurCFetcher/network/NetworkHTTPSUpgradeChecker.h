@@ -39,7 +39,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkHTTPSUpgradeChecker {
     WTF_MAKE_FAST_ALLOCATED;
@@ -60,5 +60,5 @@ private:
     std::atomic<bool> m_didSetupCompleteSuccessfully { false };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

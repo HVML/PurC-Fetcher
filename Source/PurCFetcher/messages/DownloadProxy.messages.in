@@ -24,7 +24,7 @@ messages -> DownloadProxy {
     DidStart(PurcFetcher::ResourceRequest request, AtomString suggestedFilename)
     DidReceiveAuthenticationChallenge(PurcFetcher::AuthenticationChallenge challenge, uint64_t challengeID)
     WillSendRequest(PurcFetcher::ResourceRequest redirectRequest, PurcFetcher::ResourceResponse redirectResponse))
-    DecideDestinationWithSuggestedFilenameAsync(WebKit::DownloadID downloadID, String suggestedFilename)
+    DecideDestinationWithSuggestedFilenameAsync(PurcFetcher::DownloadID downloadID, String suggestedFilename)
 
     DidReceiveResponse(PurcFetcher::ResourceResponse response)
     DidReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite)

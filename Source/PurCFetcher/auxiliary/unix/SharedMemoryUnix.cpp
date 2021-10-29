@@ -49,7 +49,7 @@
 #include <sys/syscall.h>
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 
 SharedMemory::Handle::Handle()
 {
@@ -242,7 +242,7 @@ unsigned SharedMemory::systemPageSize()
     return pageSize;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif
 

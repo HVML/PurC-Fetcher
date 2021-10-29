@@ -36,7 +36,7 @@
 #include "SharedBuffer.h"
 #include <wtf/CompletionHandler.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkLoad;
 
@@ -83,6 +83,6 @@ private:
 bool requestsHeadersMatch(const PurcFetcher::ResourceRequest& speculativeValidationRequest, const PurcFetcher::ResourceRequest& actualRequest);
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION) || ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

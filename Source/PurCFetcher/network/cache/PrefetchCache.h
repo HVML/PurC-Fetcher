@@ -34,7 +34,7 @@
 #include <wtf/URLHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class PrefetchCache {
     WTF_MAKE_NONCOPYABLE(PrefetchCache);
@@ -73,4 +73,4 @@ private:
     PurcFetcher::Timer m_expirationTimer;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

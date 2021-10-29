@@ -41,7 +41,7 @@ namespace PurcFetcher {
 class SQLiteDatabase;
 
 // A class that abstracts the file system related operations required
-// by the WebKit database code.
+// by the PurcFetcher database code.
 class SQLiteFileSystem {
 public:
     // Creates an absolute file path given a directory and a file name.

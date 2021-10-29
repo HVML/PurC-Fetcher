@@ -52,7 +52,7 @@ class Connection;
 class DataReference;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class AuthenticationManager;
 class Download;
@@ -119,4 +119,4 @@ private:
     DownloadMap m_downloads;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsitePopUpPolicy {
     Default,
@@ -39,12 +39,12 @@ enum class WebsitePopUpPolicy {
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::WebsitePopUpPolicy> {
+template<> struct EnumTraits<PurcFetcher::WebsitePopUpPolicy> {
     using values = EnumValues<
-        WebKit::WebsitePopUpPolicy,
-        WebKit::WebsitePopUpPolicy::Default,
-        WebKit::WebsitePopUpPolicy::Allow,
-        WebKit::WebsitePopUpPolicy::Block
+        PurcFetcher::WebsitePopUpPolicy,
+        PurcFetcher::WebsitePopUpPolicy::Default,
+        PurcFetcher::WebsitePopUpPolicy::Allow,
+        PurcFetcher::WebsitePopUpPolicy::Block
     >;
 };
 

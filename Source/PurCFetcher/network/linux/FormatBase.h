@@ -52,7 +52,7 @@
 #include "FilterBase.h"
 #include <wtf/JSONValues.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class FormatBase : public FilterBase {
 public:
@@ -60,4 +60,4 @@ public:
     virtual Ref<JSON::Value> doFormat(Vector<String> lineColumns, String param) = 0;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

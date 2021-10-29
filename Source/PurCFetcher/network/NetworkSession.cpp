@@ -51,7 +51,7 @@
 #include "NetworkSessionCurl.h"
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 std::unique_ptr<NetworkSession> NetworkSession::create(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
@@ -109,7 +109,7 @@ NetworkSession::NetworkSession(NetworkProcess& networkProcess, const NetworkSess
             m_cache = NetworkCache::Cache::open(networkProcess, networkCacheDirectory, cacheOptions, m_sessionID);
 
             if (!m_cache)
-                RELEASE_LOG_ERROR(NetworkCache, "Failed to initialize the WebKit network disk cache");
+                RELEASE_LOG_ERROR(NetworkCache, "Failed to initialize the PurcFetcher network disk cache");
         }
 
         if (!parameters.resourceLoadStatisticsParameters.directory.isEmpty())
@@ -326,4 +326,4 @@ std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocket
     return nullptr;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -36,7 +36,7 @@ class SharedBuffer;
 enum class PolicyAction : uint8_t;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using ResponseCompletionHandler = CompletionHandler<void(PurcFetcher::PolicyAction)>;
 
@@ -59,4 +59,4 @@ public:
     virtual bool shouldCaptureExtraNetworkLoadMetrics() const { return false; }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

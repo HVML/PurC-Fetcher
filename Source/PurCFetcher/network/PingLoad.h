@@ -33,7 +33,7 @@
 #include <wtf/UniqueRef.h>
 #include <wtf/WeakPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkConnectionToWebProcess;
 class NetworkLoadChecker;

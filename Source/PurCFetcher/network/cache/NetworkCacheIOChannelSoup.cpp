@@ -32,7 +32,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/glib/RunLoopSourcePriority.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 static const size_t gDefaultReadBufferSize = 4096;
@@ -276,4 +276,4 @@ void IOChannel::write(size_t offset, const Data& data, WorkQueue* queue, Functio
 }
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher

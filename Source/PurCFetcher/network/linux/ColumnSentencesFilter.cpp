@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnSentencesFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 extern String enPunctuation;
@@ -169,5 +169,5 @@ Vector<Row> ColumnSentencesFilter::splitRow(Row& row, String)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

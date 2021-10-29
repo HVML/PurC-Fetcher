@@ -49,7 +49,7 @@
 #include "config.h"
 #include "FilterBase.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 Vector<String> FilterBase::splitUTF8(const char* source, const char* sourceEnd)
 {
@@ -107,4 +107,4 @@ void UCharBreaker::doUStrGetBreaks()
     m_breakOppsCount = UStrGetBreaks(LANGCODE_unknown, CTR_NONE, WBR_NORMAL, LBP_NORMAL, m_uchar, m_ucharLen, &m_breakOpps);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

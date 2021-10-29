@@ -32,7 +32,7 @@
 #include <PurcFetcher/SecurityOriginData.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void WebsiteData::Entry::encode(IPC::Encoder& encoder) const
 {

@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LinePickFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LinePickFilter::LinePickFilter()
@@ -105,5 +105,5 @@ Vector<Row> LinePickFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

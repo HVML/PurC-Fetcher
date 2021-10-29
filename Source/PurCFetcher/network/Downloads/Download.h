@@ -57,7 +57,7 @@ class ResourceRequest;
 class ResourceResponse;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class DownloadMonitor;
 class NetworkDataTask;
@@ -128,4 +128,4 @@ private:
     unsigned m_testSpeedMultiplier { 1 };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

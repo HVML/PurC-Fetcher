@@ -28,7 +28,7 @@
 #include "LoaderStrategy.h"
 #include "PlatformStrategies.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcessPlatformStrategies : public PurcFetcher::PlatformStrategies {
 public:
@@ -41,4 +41,4 @@ private:
     PurcFetcher::MediaStrategy* createMediaStrategy() override;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

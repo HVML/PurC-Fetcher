@@ -34,7 +34,7 @@ class ResourceRequest;
 class ResourceResponse;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 PurcFetcher::ResourceError cancelledError(const PurcFetcher::ResourceRequest&);
 PurcFetcher::ResourceError blockedError(const PurcFetcher::ResourceRequest&);
@@ -63,4 +63,4 @@ PurcFetcher::ResourceError printerNotFoundError(const URL&);
 PurcFetcher::ResourceError invalidPageRangeToPrint(const URL&);
 #endif
 
-} // namespace WebKit
+} // namespace PurcFetcher

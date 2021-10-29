@@ -34,7 +34,7 @@ enum class HTTPCookieAcceptPolicy : uint8_t {
     ExclusivelyFromMainDocumentDomain = 3,
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 namespace WTF {
 

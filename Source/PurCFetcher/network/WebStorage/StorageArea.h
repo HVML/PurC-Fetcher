@@ -36,7 +36,7 @@ namespace PurcFetcher {
 class StorageMap;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class LocalStorageDatabase;
 class LocalStorageNamespace;
@@ -91,4 +91,4 @@ private:
     Ref<WorkQueue> m_queue;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

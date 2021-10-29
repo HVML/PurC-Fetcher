@@ -42,7 +42,7 @@ struct Cookie;
 enum class HTTPCookieAcceptPolicy : uint8_t;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -88,4 +88,4 @@ private:
     NetworkProcess& m_process;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

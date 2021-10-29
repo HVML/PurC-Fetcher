@@ -58,7 +58,7 @@
 #include <wtf/glib/GRefPtr.h>
 #include "CmdFilterManager.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkDataTaskLcmd final : public NetworkDataTask {
 public:
@@ -115,6 +115,6 @@ private:
     String m_cmdLine;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(LCMD)

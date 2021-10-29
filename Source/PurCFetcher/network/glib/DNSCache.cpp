@@ -28,7 +28,7 @@
 
 #include <wtf/glib/RunLoopSourcePriority.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 static const Seconds expireInterval = 60_s;
 static const unsigned maxCacheSize = 400;
@@ -137,4 +137,4 @@ void DNSCache::clear()
 #endif
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

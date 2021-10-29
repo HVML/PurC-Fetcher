@@ -45,7 +45,7 @@ OBJC_CLASS BKSProcessAssertion;
 #endif
 #endif // PLATFORM(IOS_FAMILY)
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class ProcessAssertionType {
     Suspended,
@@ -117,4 +117,4 @@ using ProcessAndUIAssertion = ProcessAssertion;
 
 #endif // PLATFORM(IOS_FAMILY)
     
-} // namespace WebKit
+} // namespace PurcFetcher

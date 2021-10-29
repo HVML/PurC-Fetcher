@@ -176,7 +176,7 @@ bool Connection::processMessage()
     }
 
     Vector<Attachment> attachments(attachmentCount);
-    RefPtr<WebKit::SharedMemory> oolMessageBody;
+    RefPtr<PurcFetcher::SharedMemory> oolMessageBody;
 
     size_t fdIndex = 0;
     for (size_t i = 0; i < attachmentCount; ++i) {
@@ -207,10 +207,10 @@ bool Connection::processMessage()
             return false;
         }
 
-        WebKit::SharedMemory::Handle handle;
+        PurcFetcher::SharedMemory::Handle handle;
         handle.adoptAttachment(IPC::Attachment(m_fileDescriptors[attachmentFileDescriptorCount - 1], attachmentInfo[attachmentCount].size()));
 
-        oolMessageBody = WebKit::SharedMemory::map(handle, WebKit::SharedMemory::Protection::ReadOnly);
+        oolMessageBody = PurcFetcher::SharedMemory::map(handle, PurcFetcher::SharedMemory::Protection::ReadOnly);
         if (!oolMessageBody) {
             ASSERT_NOT_REACHED();
             return false;
@@ -419,12 +419,12 @@ bool Connection::sendOutgoingMessage(std::unique_ptr<Encoder> encoder)
 
     size_t messageSizeWithBodyInline = sizeof(MessageInfo) + (outputMessage.attachments().size() * sizeof(AttachmentInfo)) + outputMessage.bodySize();
     if (messageSizeWithBodyInline > messageMaxSize && outputMessage.bodySize()) {
-        RefPtr<WebKit::SharedMemory> oolMessageBody = WebKit::SharedMemory::allocate(encoder->bufferSize());
+        RefPtr<PurcFetcher::SharedMemory> oolMessageBody = PurcFetcher::SharedMemory::allocate(encoder->bufferSize());
         if (!oolMessageBody)
             return false;
 
-        WebKit::SharedMemory::Handle handle;
-        if (!oolMessageBody->createHandle(handle, WebKit::SharedMemory::Protection::ReadOnly))
+        PurcFetcher::SharedMemory::Handle handle;
+        if (!oolMessageBody->createHandle(handle, PurcFetcher::SharedMemory::Protection::ReadOnly))
             return false;
 
         outputMessage.messageInfo().setBodyOutOfLine();

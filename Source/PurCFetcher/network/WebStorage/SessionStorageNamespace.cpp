@@ -28,7 +28,7 @@
 
 #include "StorageArea.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -96,4 +96,4 @@ Vector<StorageAreaIdentifier> SessionStorageNamespace::storageAreaIdentifiers() 
     return identifiers;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

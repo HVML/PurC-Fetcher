@@ -29,7 +29,7 @@
 #include "WebCoreArgumentCoders.h"
 #include "WebsiteDataStore.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 WebsiteDataStoreParameters::~WebsiteDataStoreParameters()
 {
@@ -170,4 +170,4 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     return parameters;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

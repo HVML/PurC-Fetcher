@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineHeadFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LineHeadFilter::LineHeadFilter()
@@ -81,5 +81,5 @@ Vector<Row>  LineHeadFilter::doFilter(Vector<Row> lines, String param)
     return lines;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

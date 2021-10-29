@@ -35,7 +35,7 @@
 #include <wtf/UUID.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace CacheStorage {
 using namespace PurcFetcher::DOMCacheEngine;
@@ -711,4 +711,4 @@ uint64_t Caches::storageSize() const
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

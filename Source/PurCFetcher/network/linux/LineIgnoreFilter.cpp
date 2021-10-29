@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineIgnoreFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LineIgnoreFilter::LineIgnoreFilter()
@@ -118,5 +118,5 @@ Vector<Row> LineIgnoreFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

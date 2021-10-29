@@ -31,7 +31,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/WorkQueue.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class StorageArea;
 
@@ -55,4 +55,4 @@ private:
     HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

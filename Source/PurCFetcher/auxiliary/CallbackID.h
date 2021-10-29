@@ -34,7 +34,7 @@ struct CallbackIDHash;
 
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class CallbackID {
 public:
@@ -102,7 +102,7 @@ private:
     template <typename CallbackType> friend class SpecificCallbackMap;
     friend class OptionalCallbackID;
     friend struct WTF::CallbackIDHash;
-    friend HashTraits<WebKit::CallbackID>;
+    friend HashTraits<PurcFetcher::CallbackID>;
 
     uint64_t m_id { HashTraits<uint64_t>::emptyValue() };
 };
@@ -112,16 +112,16 @@ private:
 namespace WTF {
 
 struct CallbackIDHash {
-    static unsigned hash(const WebKit::CallbackID& callbackID) { return intHash(callbackID.m_id); }
-    static bool equal(const WebKit::CallbackID& a, const WebKit::CallbackID& b) { return a.m_id == b.m_id; }
+    static unsigned hash(const PurcFetcher::CallbackID& callbackID) { return intHash(callbackID.m_id); }
+    static bool equal(const PurcFetcher::CallbackID& a, const PurcFetcher::CallbackID& b) { return a.m_id == b.m_id; }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
-template<> struct HashTraits<WebKit::CallbackID> : GenericHashTraits<WebKit::CallbackID> {
-    static WebKit::CallbackID emptyValue() { return WebKit::CallbackID(); }
-    static void constructDeletedValue(WebKit::CallbackID& slot) { slot = WebKit::CallbackID(std::numeric_limits<uint64_t>::max()); }
-    static bool isDeletedValue(const WebKit::CallbackID& slot) { return slot.m_id == std::numeric_limits<uint64_t>::max(); }
+template<> struct HashTraits<PurcFetcher::CallbackID> : GenericHashTraits<PurcFetcher::CallbackID> {
+    static PurcFetcher::CallbackID emptyValue() { return PurcFetcher::CallbackID(); }
+    static void constructDeletedValue(PurcFetcher::CallbackID& slot) { slot = PurcFetcher::CallbackID(std::numeric_limits<uint64_t>::max()); }
+    static bool isDeletedValue(const PurcFetcher::CallbackID& slot) { return slot.m_id == std::numeric_limits<uint64_t>::max(); }
 };
-template<> struct DefaultHash<WebKit::CallbackID> {
+template<> struct DefaultHash<PurcFetcher::CallbackID> {
     typedef CallbackIDHash Hash;
 };
 

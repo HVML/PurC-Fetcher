@@ -28,7 +28,7 @@
 
 #include "HTTPHeaderNames.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 PrefetchCache::Entry::Entry(PurcFetcher::ResourceResponse&& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer)
     : response(WTFMove(response)), buffer(WTFMove(buffer))

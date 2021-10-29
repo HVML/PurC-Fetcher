@@ -30,7 +30,7 @@
 #include <wtf/Forward.h>
 #include <wtf/Seconds.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class CacheModel : uint8_t {
     DocumentViewer,
@@ -41,16 +41,16 @@ enum class CacheModel : uint8_t {
 void calculateMemoryCacheSizes(CacheModel, unsigned& cacheTotalCapacity, unsigned& cacheMinDeadCapacity, unsigned& cacheMaxDeadCapacity, Seconds& deadDecodedDataDeletionInterval, unsigned& backForwardCacheCapacity);
 void calculateURLCacheSizes(CacheModel, uint64_t diskFreeSize, unsigned& urlCacheMemoryCapacity, uint64_t& urlCacheDiskCapacity);
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::CacheModel> {
+template<> struct EnumTraits<PurcFetcher::CacheModel> {
     using values = EnumValues<
-    WebKit::CacheModel,
-    WebKit::CacheModel::DocumentViewer,
-    WebKit::CacheModel::DocumentBrowser,
-    WebKit::CacheModel::PrimaryWebBrowser
+    PurcFetcher::CacheModel,
+    PurcFetcher::CacheModel::DocumentViewer,
+    PurcFetcher::CacheModel::DocumentBrowser,
+    PurcFetcher::CacheModel::PrimaryWebBrowser
     >;
 };
 

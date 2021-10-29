@@ -25,22 +25,22 @@
 
 #pragma once
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsiteDataFetchOption : uint8_t {
     ComputeSizes = 1 << 0,
     DoNotCreateProcesses = 1 << 1,
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::WebsiteDataFetchOption> {
+template<> struct EnumTraits<PurcFetcher::WebsiteDataFetchOption> {
     using values = EnumValues<
-        WebKit::WebsiteDataFetchOption,
-        WebKit::WebsiteDataFetchOption::ComputeSizes,
-        WebKit::WebsiteDataFetchOption::DoNotCreateProcesses
+        PurcFetcher::WebsiteDataFetchOption,
+        PurcFetcher::WebsiteDataFetchOption::ComputeSizes,
+        PurcFetcher::WebsiteDataFetchOption::DoNotCreateProcesses
     >;
 };
 

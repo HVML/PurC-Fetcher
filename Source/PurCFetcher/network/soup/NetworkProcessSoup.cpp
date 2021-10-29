@@ -46,7 +46,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 static CString buildAcceptLanguages(const Vector<String>& languages)
@@ -191,4 +191,4 @@ void NetworkProcess::platformProcessDidTransitionToBackground()
     notImplemented();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

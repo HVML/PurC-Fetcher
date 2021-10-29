@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnWordsFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnWordsFilter::ColumnWordsFilter()
@@ -167,5 +167,5 @@ Vector<Row> ColumnWordsFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

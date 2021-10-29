@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnIgnoreFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnIgnoreFilter::ColumnIgnoreFilter()
@@ -132,5 +132,5 @@ Vector<Row> ColumnIgnoreFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

@@ -35,7 +35,7 @@ namespace PurcFetcher {
 class StorageQuotaManager;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace CacheStorage {
 
@@ -118,4 +118,4 @@ private:
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

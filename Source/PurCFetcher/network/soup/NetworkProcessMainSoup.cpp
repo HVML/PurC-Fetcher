@@ -31,7 +31,7 @@
 #include "NetworkProcess.h"
 #include "NetworkStorageSession.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 static RefPtr<NetworkProcess> globalNetworkProcess;
 
@@ -57,4 +57,4 @@ int NetworkProcessMain(int argc, char** argv)
     return AuxiliaryProcessMain<NetworkProcess, NetworkProcessMainSoup>(argc, argv);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

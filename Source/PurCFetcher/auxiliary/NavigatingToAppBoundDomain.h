@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class NavigatingToAppBoundDomain : bool { Yes, No };
 

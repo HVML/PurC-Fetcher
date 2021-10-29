@@ -50,7 +50,7 @@
 #include <wtf/glib/GRefPtr.h>
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 void traverseDirectory(const String& path, const Function<void (const String&, DirectoryEntryType)>& function)

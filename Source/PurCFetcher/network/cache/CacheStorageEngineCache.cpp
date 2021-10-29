@@ -45,7 +45,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/StringHash.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace CacheStorage {
 
@@ -674,4 +674,4 @@ Vector<Key> Cache::keys() const
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

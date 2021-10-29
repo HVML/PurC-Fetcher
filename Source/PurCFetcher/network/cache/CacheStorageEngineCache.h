@@ -34,7 +34,7 @@ namespace PurcFetcher {
 struct RetrieveRecordsOptions;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 namespace CacheStorage {
 
@@ -130,4 +130,4 @@ private:
 
 } // namespace CacheStorage
 
-} // namespace WebKit
+} // namespace PurcFetcher

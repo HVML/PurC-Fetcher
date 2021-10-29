@@ -30,7 +30,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/glib/WTFGType.h>
 
-using namespace WebKit;
+using namespace PurcFetcher;
 
 typedef struct {
     GRefPtr<GResolver> wrappedResolver;

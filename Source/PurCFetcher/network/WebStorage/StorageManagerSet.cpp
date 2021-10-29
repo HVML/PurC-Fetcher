@@ -33,7 +33,7 @@
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/threads/BinarySemaphore.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 Ref<StorageManagerSet> StorageManagerSet::create()
 {
@@ -41,7 +41,7 @@ Ref<StorageManagerSet> StorageManagerSet::create()
 }
 
 StorageManagerSet::StorageManagerSet()
-    : m_queue(WorkQueue::create("com.apple.WebKit.WebStorage"))
+    : m_queue(WorkQueue::create("com.apple.PurcFetcher.WebStorage"))
 {
     ASSERT(RunLoop::isMain());
 
@@ -450,4 +450,4 @@ void StorageManagerSet::cloneSessionStorageNamespace(IPC::Connection&, PAL::Sess
         storageManager->cloneSessionStorageNamespace(fromStorageNamespaceID, toStorageNamespaceID);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

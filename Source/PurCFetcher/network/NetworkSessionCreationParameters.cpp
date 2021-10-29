@@ -36,7 +36,7 @@
 #include "WebCoreArgumentCoders.h"
 #endif
 
-namespace WebKit {
+namespace PurcFetcher {
 
 void NetworkSessionCreationParameters::encode(IPC::Encoder& encoder) const
 {
@@ -295,4 +295,4 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     }};
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

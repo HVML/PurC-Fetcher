@@ -35,7 +35,7 @@
 
 using PurcFetcher::SecurityOriginData;
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SandboxExtension;
 
@@ -105,4 +105,4 @@ private:
     Condition m_stateChangeCondition;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

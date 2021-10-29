@@ -34,7 +34,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkDataTaskSoup final : public NetworkDataTask {
 public:
@@ -152,4 +152,4 @@ private:
     RunLoop::Timer<NetworkDataTaskSoup> m_timeoutSource;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

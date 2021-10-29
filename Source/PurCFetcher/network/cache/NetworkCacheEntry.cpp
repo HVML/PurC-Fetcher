@@ -34,7 +34,7 @@
 #include "SharedBuffer.h"
 #include <wtf/text/StringBuilder.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 Entry::Entry(const Key& key, const PurcFetcher::ResourceResponse& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer, const Vector<std::pair<String, String>>& varyingRequestHeaders)

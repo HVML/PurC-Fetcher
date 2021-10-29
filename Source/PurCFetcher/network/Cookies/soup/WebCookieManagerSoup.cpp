@@ -34,7 +34,7 @@
 #include "SoupNetworkSession.h"
 #include <libsoup/soup.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 void WebCookieManager::platformSetHTTPCookieAcceptPolicy(HTTPCookieAcceptPolicy policy)
@@ -66,4 +66,4 @@ void WebCookieManager::setCookiePersistentStorage(PAL::SessionID sessionID, cons
         static_cast<NetworkSessionSoup&>(*networkSession).setCookiePersistentStorage(storagePath, storageType);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

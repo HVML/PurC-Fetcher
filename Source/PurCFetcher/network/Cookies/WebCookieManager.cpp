@@ -38,7 +38,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 const char* WebCookieManager::supplementName()
@@ -154,4 +154,4 @@ void WebCookieManager::getHTTPCookieAcceptPolicy(CompletionHandler<void(HTTPCook
     completionHandler(m_process.defaultStorageSession().cookieAcceptPolicy());
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

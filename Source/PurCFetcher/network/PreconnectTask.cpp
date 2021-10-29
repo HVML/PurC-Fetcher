@@ -35,7 +35,7 @@
 #include "WebErrors.h"
 #include "ResourceError.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 using namespace PurcFetcher;
 
@@ -102,6 +102,6 @@ void PreconnectTask::didFinish(const ResourceError& error)
     delete this;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(SERVER_PRECONNECT)

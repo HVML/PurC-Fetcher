@@ -37,7 +37,7 @@ namespace PurcFetcher {
 class ResourceRequest;
 };
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class SpeculativeLoad;
 
@@ -65,6 +65,6 @@ private:
 };
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

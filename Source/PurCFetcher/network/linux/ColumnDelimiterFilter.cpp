@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnDelimiterFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnDelimiterFilter::ColumnDelimiterFilter()
@@ -109,5 +109,5 @@ Vector<Row> ColumnDelimiterFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

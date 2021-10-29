@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnPickFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ColumnPickFilter::ColumnPickFilter()
@@ -119,5 +119,5 @@ Vector<Row> ColumnPickFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

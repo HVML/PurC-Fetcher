@@ -97,7 +97,7 @@ struct SoupNetworkProxySettings;
 struct ServiceWorkerClientIdentifier;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class AuthenticationManager;
 class NetworkConnectionToWebProcess;
@@ -559,7 +559,7 @@ private:
     WebSQLiteDatabaseTracker m_webSQLiteDatabaseTracker;
 #endif
 
-    Ref<WorkQueue> m_storageTaskQueue { WorkQueue::create("com.apple.WebKit.StorageTask") };
+    Ref<WorkQueue> m_storageTaskQueue { WorkQueue::create("com.apple.PurcFetcher.StorageTask") };
 
 #if ENABLE(INDEXED_DATABASE)
     HashMap<PAL::SessionID, String> m_idbDatabasePaths;
@@ -596,4 +596,4 @@ private:
     Seconds m_serviceWorkerFetchTimeout { defaultServiceWorkerFetchTimeout };
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

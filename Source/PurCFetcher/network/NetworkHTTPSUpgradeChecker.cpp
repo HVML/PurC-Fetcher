@@ -39,7 +39,7 @@
 #define RELEASE_LOG_IF_ALLOWED(sessionID, fmt, ...) RELEASE_LOG_IF(sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkHTTPSUpgradeChecker::" fmt, this, ##__VA_ARGS__)
 #define RELEASE_LOG_ERROR_IF_ALLOWED(sessionID, fmt, ...) RELEASE_LOG_ERROR_IF(sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkHTTPSUpgradeChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace WebKit {
+namespace PurcFetcher {
 
 constexpr auto httpsUpgradeCheckerQuery = "SELECT host FROM hosts WHERE host = ?"_s;
 
@@ -48,7 +48,7 @@ static const String& networkHTTPSUpgradeCheckerDatabasePath()
     static NeverDestroyed<String> networkHTTPSUpgradeCheckerDatabasePath;
 #if PLATFORM(COCOA)
     if (networkHTTPSUpgradeCheckerDatabasePath.get().isNull()) {
-        CFBundleRef webKitBundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.WebKit"));
+        CFBundleRef webKitBundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.PurcFetcher"));
         auto resourceURL = adoptCF(CFBundleCopyResourceURL(webKitBundle, CFSTR("HTTPSUpgradeList"), CFSTR("db"), nullptr));
         if (resourceURL)
             networkHTTPSUpgradeCheckerDatabasePath.get() = CFURLGetString(resourceURL.get());
@@ -133,5 +133,5 @@ void NetworkHTTPSUpgradeChecker::query(String&& host, PAL::SessionID sessionID, 
     });
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

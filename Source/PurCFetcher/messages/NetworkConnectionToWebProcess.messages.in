@@ -22,18 +22,18 @@
 
 messages -> NetworkConnectionToWebProcess LegacyReceiver {
 
-    ScheduleResourceLoad(WebKit::NetworkResourceLoadParameters resourceLoadParameters)
-    PerformSynchronousLoad(WebKit::NetworkResourceLoadParameters resourceLoadParameters) -> (PurcFetcher::ResourceError error, PurcFetcher::ResourceResponse response, Vector<char> data) Synchronous
-    TestProcessIncomingSyncMessagesWhenWaitingForSyncReply(WebKit::WebPageProxyIdentifier pageID) -> (bool handled) Synchronous
-    LoadPing(WebKit::NetworkResourceLoadParameters resourceLoadParameters)
+    ScheduleResourceLoad(PurcFetcher::NetworkResourceLoadParameters resourceLoadParameters)
+    PerformSynchronousLoad(PurcFetcher::NetworkResourceLoadParameters resourceLoadParameters) -> (PurcFetcher::ResourceError error, PurcFetcher::ResourceResponse response, Vector<char> data) Synchronous
+    TestProcessIncomingSyncMessagesWhenWaitingForSyncReply(PurcFetcher::WebPageProxyIdentifier pageID) -> (bool handled) Synchronous
+    LoadPing(PurcFetcher::NetworkResourceLoadParameters resourceLoadParameters)
     RemoveLoadIdentifier(uint64_t resourceLoadIdentifier)
     PageLoadCompleted(PurcFetcher::PageIdentifier webPageID)
-    BrowsingContextRemoved(WebKit::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, PurcFetcher::FrameIdentifier webFrameID)
+    BrowsingContextRemoved(PurcFetcher::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, PurcFetcher::FrameIdentifier webFrameID)
     PrefetchDNS(String hostname)
-    PreconnectTo(Optional<uint64_t> preconnectionIdentifier, WebKit::NetworkResourceLoadParameters loadParameters);
+    PreconnectTo(Optional<uint64_t> preconnectionIdentifier, PurcFetcher::NetworkResourceLoadParameters loadParameters);
 
-    StartDownload(WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedName)
-    ConvertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, WebKit::DownloadID downloadID, PurcFetcher::ResourceRequest request, PurcFetcher::ResourceResponse response, enum:bool Optional<WebKit::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
+    StartDownload(PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedName)
+    ConvertMainResourceLoadToDownload(uint64_t mainResourceLoadIdentifier, PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request, PurcFetcher::ResourceResponse response, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
 
     CookiesForDOM(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, enum:bool PurcFetcher::IncludeSecureCookies includeSecureCookies, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking) -> (String cookieString, bool didAccessSecureCookies) Synchronous
     SetCookiesFromDOM(URL firstParty, struct PurcFetcher::SameSiteInfo sameSiteInfo, URL url, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, enum:bool PurcFetcher::ShouldAskITP shouldAskITP, String cookieString, enum:bool PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
@@ -48,8 +48,8 @@ messages -> NetworkConnectionToWebProcess LegacyReceiver {
 
     SetCaptureExtraNetworkLoadMetricsEnabled(bool enabled)
 
-    CreateSocketStream(URL url, String cachePartition, WebKit::WebSocketIdentifier identifier)
-    CreateSocketChannel(PurcFetcher::ResourceRequest request, String protocol, WebKit::WebSocketIdentifier identifier)
+    CreateSocketStream(URL url, String cachePartition, PurcFetcher::WebSocketIdentifier identifier)
+    CreateSocketChannel(PurcFetcher::ResourceRequest request, String protocol, PurcFetcher::WebSocketIdentifier identifier)
 
     AddOriginAccessWhitelistEntry(String sourceOrigin, String destinationProtocol, String destinationHost, bool allowDestinationSubdomains);
     RemoveOriginAccessWhitelistEntry(String sourceOrigin, String destinationProtocol, String destinationHost, bool allowDestinationSubdomains);

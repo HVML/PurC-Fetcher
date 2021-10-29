@@ -92,7 +92,7 @@
     } \
 } while (0)
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 Ref<NetworkConnectionToWebProcess> NetworkConnectionToWebProcess::create(NetworkProcess& networkProcess, PurcFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
@@ -1028,7 +1028,7 @@ void NetworkConnectionToWebProcess::checkProcessLocalPortForActivity(const Messa
     connection().sendWithAsyncReply(Messages::NetworkProcessConnection::CheckProcessLocalPortForActivity { port }, WTFMove(callback), 0);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #undef NETWORK_PROCESS_MESSAGE_CHECK_COMPLETION
 #undef NETWORK_PROCESS_MESSAGE_CHECK

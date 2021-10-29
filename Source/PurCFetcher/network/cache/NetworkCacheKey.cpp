@@ -33,7 +33,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 Key::Key(const Key& o)

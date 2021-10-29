@@ -39,7 +39,7 @@
 #include "WebPageProxyMessages.h"
 #include <PurcFetcher/AuthenticationChallenge.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 static uint64_t generateAuthenticationChallengeID()
@@ -154,4 +154,4 @@ void AuthenticationManager::negotiatedLegacyTLS(WebPageProxyIdentifier pageID) c
     m_process.send(Messages::NetworkProcessProxy::NegotiatedLegacyTLS(pageID));
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

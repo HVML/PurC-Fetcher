@@ -31,7 +31,7 @@
 #include "ArgumentCoders.h"
 #include <PurcFetcher/SharedBuffer.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 ShareableResource::Handle::Handle()
@@ -161,6 +161,6 @@ unsigned ShareableResource::size() const
     return m_size;
 }
     
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(SHAREABLE_RESOURCE)

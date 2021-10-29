@@ -38,7 +38,7 @@ class StorageMap;
 class SuddenTerminationDisabler;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class LocalStorageDatabaseTracker;
 
@@ -96,4 +96,4 @@ private:
 };
 
 
-} // namespace WebKit
+} // namespace PurcFetcher

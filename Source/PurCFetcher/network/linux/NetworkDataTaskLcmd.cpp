@@ -74,7 +74,7 @@
 #include <unistd.h>
 
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 #define  DEFAULT_READBUFFER_SIZE 8192
@@ -516,6 +516,6 @@ String NetworkDataTaskLcmd::parseCmdLine(String cmdLine)
     return resultSb.toString();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(LCMD)

@@ -75,7 +75,7 @@
 #include "FormatKeys.h"
 #include "FormatArray.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 CmdFilterManager::CmdFilterManager()
 {
@@ -220,4 +220,4 @@ void CmdFilterManager::initNameFilterMap()
     }
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

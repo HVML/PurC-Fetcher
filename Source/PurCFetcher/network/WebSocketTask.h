@@ -31,7 +31,7 @@
 #include "WebSocketTaskSoup.h"
 #else
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class WebSocketTask {
     WTF_MAKE_FAST_ALLOCATED;
@@ -46,6 +46,6 @@ public:
     void resume() { }
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif

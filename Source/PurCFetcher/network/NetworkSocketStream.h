@@ -38,7 +38,7 @@ class Decoder;
 class DataReference;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkProcess;
 
@@ -72,4 +72,4 @@ private:
     Ref<PurcFetcher::SocketStreamHandleImpl> m_impl;
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

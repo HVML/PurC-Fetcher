@@ -31,7 +31,7 @@
 #include "Download.h"
 #include "Logging.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 
 Download* DownloadMap::get(DownloadID downloadID) const
@@ -61,8 +61,8 @@ DownloadMap::DownloadMapType::AddResult DownloadMap::add(DownloadID downloadID, 
     auto result = m_downloads.add(downloadID, WTFMove(download));
     if (m_downloads.size() == 1) {
         ASSERT(!m_downloadAssertion);
-        m_downloadAssertion = makeUnique<ProcessAssertion>(getpid(), "WebKit downloads"_s, ProcessAssertionType::UnboundedNetworking);
-        RELEASE_LOG(ProcessSuspension, "Took 'WebKit downloads' assertion in NetworkProcess");
+        m_downloadAssertion = makeUnique<ProcessAssertion>(getpid(), "PurcFetcher downloads"_s, ProcessAssertionType::UnboundedNetworking);
+        RELEASE_LOG(ProcessSuspension, "Took 'PurcFetcher downloads' assertion in NetworkProcess");
     }
 
     return result;
@@ -76,7 +76,7 @@ bool DownloadMap::remove(DownloadID downloadID)
     if (m_downloads.isEmpty()) {
         ASSERT(m_downloadAssertion);
         m_downloadAssertion = nullptr;
-        RELEASE_LOG(ProcessSuspension, "Dropped 'WebKit downloads' assertion in NetworkProcess");
+        RELEASE_LOG(ProcessSuspension, "Dropped 'PurcFetcher downloads' assertion in NetworkProcess");
     }
     
     return result;
@@ -87,6 +87,6 @@ auto DownloadMap::values() -> DownloadMapType::ValuesIteratorRange
     return m_downloads.values();
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(TAKE_UNBOUNDED_NETWORKING_ASSERTION)

@@ -37,7 +37,7 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/CString.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 Ref<LocalStorageDatabaseTracker> LocalStorageDatabaseTracker::create(String&& localStorageDirectory)
@@ -168,4 +168,4 @@ String LocalStorageDatabaseTracker::databasePath(const String& filename) const
     return SQLiteFileSystem::appendDatabaseFileNameToPath(localStorageDirectory, filename);
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -50,7 +50,7 @@ template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::RecordsOrError> {
 
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkConnectionToWebProcess;
 

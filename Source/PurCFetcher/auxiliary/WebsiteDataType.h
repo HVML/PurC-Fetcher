@@ -27,7 +27,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsiteDataType : uint32_t {
     Cookies = 1 << 0,
@@ -57,37 +57,37 @@ enum class WebsiteDataType : uint32_t {
 #endif
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::WebsiteDataType> {
+template<> struct EnumTraits<PurcFetcher::WebsiteDataType> {
     using values = EnumValues<
-        WebKit::WebsiteDataType,
-        WebKit::WebsiteDataType::Cookies,
-        WebKit::WebsiteDataType::DiskCache,
-        WebKit::WebsiteDataType::MemoryCache,
-        WebKit::WebsiteDataType::OfflineWebApplicationCache,
-        WebKit::WebsiteDataType::SessionStorage,
-        WebKit::WebsiteDataType::LocalStorage,
-        WebKit::WebsiteDataType::WebSQLDatabases,
-        WebKit::WebsiteDataType::IndexedDBDatabases,
-        WebKit::WebsiteDataType::MediaKeys,
-        WebKit::WebsiteDataType::HSTSCache,
-        WebKit::WebsiteDataType::SearchFieldRecentSearches,
+        PurcFetcher::WebsiteDataType,
+        PurcFetcher::WebsiteDataType::Cookies,
+        PurcFetcher::WebsiteDataType::DiskCache,
+        PurcFetcher::WebsiteDataType::MemoryCache,
+        PurcFetcher::WebsiteDataType::OfflineWebApplicationCache,
+        PurcFetcher::WebsiteDataType::SessionStorage,
+        PurcFetcher::WebsiteDataType::LocalStorage,
+        PurcFetcher::WebsiteDataType::WebSQLDatabases,
+        PurcFetcher::WebsiteDataType::IndexedDBDatabases,
+        PurcFetcher::WebsiteDataType::MediaKeys,
+        PurcFetcher::WebsiteDataType::HSTSCache,
+        PurcFetcher::WebsiteDataType::SearchFieldRecentSearches,
 #if ENABLE(NETSCAPE_PLUGIN_API)
-        WebKit::WebsiteDataType::PlugInData,
+        PurcFetcher::WebsiteDataType::PlugInData,
 #endif
-        WebKit::WebsiteDataType::ResourceLoadStatistics,
-        WebKit::WebsiteDataType::Credentials,
+        PurcFetcher::WebsiteDataType::ResourceLoadStatistics,
+        PurcFetcher::WebsiteDataType::Credentials,
 #if ENABLE(SERVICE_WORKER)
-        WebKit::WebsiteDataType::ServiceWorkerRegistrations,
+        PurcFetcher::WebsiteDataType::ServiceWorkerRegistrations,
 #endif
-        WebKit::WebsiteDataType::DOMCache,
-        WebKit::WebsiteDataType::DeviceIdHashSalt,
-        WebKit::WebsiteDataType::AdClickAttributions
+        PurcFetcher::WebsiteDataType::DOMCache,
+        PurcFetcher::WebsiteDataType::DeviceIdHashSalt,
+        PurcFetcher::WebsiteDataType::AdClickAttributions
 #if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-        , WebKit::WebsiteDataType::AlternativeServices
+        , PurcFetcher::WebsiteDataType::AlternativeServices
 #endif
     >;
 };

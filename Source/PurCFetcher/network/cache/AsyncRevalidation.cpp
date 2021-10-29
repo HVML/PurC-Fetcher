@@ -30,7 +30,7 @@
 #include "CacheValidation.h"
 #include "ResourceRequest.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 namespace NetworkCache {
 
 static inline PurcFetcher::ResourceRequest constructRevalidationRequest(const Key& key, const PurcFetcher::ResourceRequest& request, const Entry& entry)
@@ -86,6 +86,6 @@ AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID,
 }
 
 } // namespace NetworkCache
-} // namespace WebKit
+} // namespace PurcFetcher
 
 #endif // ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

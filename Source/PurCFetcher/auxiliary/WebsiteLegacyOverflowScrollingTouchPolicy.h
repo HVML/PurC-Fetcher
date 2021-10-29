@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace WebKit {
+namespace PurcFetcher {
 
 enum class WebsiteLegacyOverflowScrollingTouchPolicy : uint8_t {
     Default,
@@ -39,12 +39,12 @@ enum class WebsiteLegacyOverflowScrollingTouchPolicy : uint8_t {
 
 namespace WTF {
 
-template<> struct EnumTraits<WebKit::WebsiteLegacyOverflowScrollingTouchPolicy> {
+template<> struct EnumTraits<PurcFetcher::WebsiteLegacyOverflowScrollingTouchPolicy> {
     using values = EnumValues<
-    WebKit::WebsiteLegacyOverflowScrollingTouchPolicy,
-    WebKit::WebsiteLegacyOverflowScrollingTouchPolicy::Default,
-    WebKit::WebsiteLegacyOverflowScrollingTouchPolicy::Disable,
-    WebKit::WebsiteLegacyOverflowScrollingTouchPolicy::Enable
+    PurcFetcher::WebsiteLegacyOverflowScrollingTouchPolicy,
+    PurcFetcher::WebsiteLegacyOverflowScrollingTouchPolicy::Default,
+    PurcFetcher::WebsiteLegacyOverflowScrollingTouchPolicy::Disable,
+    PurcFetcher::WebsiteLegacyOverflowScrollingTouchPolicy::Enable
     >;
 };
 

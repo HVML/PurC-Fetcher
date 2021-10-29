@@ -51,7 +51,7 @@
 #include "NetworkDataTask.h"
 #include "FormatBase.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class FormatArray : public FormatBase {
 public:
@@ -62,4 +62,4 @@ public:
     virtual Ref<JSON::Value> doFormat(Vector<String> lineColumns, String param);
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "ColumnLettersFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 extern String punctuation;
@@ -135,5 +135,5 @@ Vector<Row> ColumnLettersFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

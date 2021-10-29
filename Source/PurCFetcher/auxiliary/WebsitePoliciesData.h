@@ -43,7 +43,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 struct WebsitePoliciesData {
 //    static void applyToDocumentLoader(WebsitePoliciesData&&, PurcFetcher::DocumentLoader&);
@@ -72,4 +72,4 @@ struct WebsitePoliciesData {
     static Optional<WebsitePoliciesData> decode(IPC::Decoder&);
 };
 
-} // namespace WebKit
+} // namespace PurcFetcher

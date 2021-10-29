@@ -46,7 +46,7 @@ enum class PreflightPolicy : uint8_t;
 enum class StoredCredentialsPolicy : uint8_t;
 }
 
-namespace WebKit {
+namespace PurcFetcher {
 
 class NetworkCORSPreflightChecker;
 class NetworkProcess;

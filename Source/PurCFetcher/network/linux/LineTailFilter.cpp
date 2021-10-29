@@ -50,7 +50,7 @@
 #include <stdio.h>
 #include "LineTailFilter.h"
 
-namespace WebKit {
+namespace PurcFetcher {
 using namespace PurcFetcher;
 
 LineTailFilter::LineTailFilter()
@@ -83,5 +83,5 @@ Vector<Row> LineTailFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace WebKit
+} // namespace PurcFetcher
 

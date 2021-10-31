@@ -102,6 +102,18 @@ if (ENABLE_RSQL)
     list(APPEND PurCFetcher_LIBRARIES ${MYSQLCLIENT_LIBRARIES})
 endif ()
 
+if (UNIX)
+    check_function_exists(shm_open SHM_OPEN_EXISTS)
+    if (NOT SHM_OPEN_EXISTS)
+        set(CMAKE_REQUIRED_LIBRARIES rt)
+        check_function_exists(shm_open SHM_OPEN_REQUIRES_LIBRT)
+        if (SHM_OPEN_REQUIRES_LIBRT)
+            list(APPEND PurCFetcher_LIBRARIES rt)
+        endif ()
+        unset(CMAKE_REQUIRED_LIBRARIES)
+    endif ()
+endif ()
+
 set(PurCFetcher_INTERFACE_LIBRARIES PurCFetcher)
 set(PurCFetcher_INTERFACE_INCLUDE_DIRECTORIES ${PurCFetcher_PRIVATE_FRAMEWORK_HEADERS_DIR})
 

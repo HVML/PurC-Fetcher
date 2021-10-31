@@ -35,6 +35,7 @@ if (ENABLE_SOCKET_STREAM)
 
     list(APPEND PurCFetcher_LIBRARIES
         ${GLIB_GIO_LIBRARIES}
+        ${GLIB_GOBJECT_LIBRARIES}
         ${GLIB_LIBRARIES}
     )
 endif ()

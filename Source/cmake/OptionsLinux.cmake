@@ -15,7 +15,7 @@ set(PURCFETCHER_HEADER_INSTALL_DIR "${CMAKE_INSTALL_INCLUDEDIR}/purc_fetcher" CA
 add_definitions(-DBUILDING_LINUX__=1)
 add_definitions(-DPURCFETCHER_API_VERSION_STRING="${PURCFETCHER_API_VERSION}")
 
-find_package(GLIB 2.44.0 COMPONENTS gio gio-unix)
+find_package(GLIB 2.44.0 COMPONENTS gio gio-unix gobject)
 # find_package(HiBus 100)
 find_package(LibXml2 2.8.0)
 find_package(LibSoup 2.54.0)

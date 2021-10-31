@@ -14,6 +14,7 @@ if (ENABLE_API_TESTS)
 #    add_subdirectory(test)
 endif ()
 
-#add_subdirectory(samples)
+add_subdirectory(third-party/xdgmime)
+add_subdirectory(samples)
 
 PURCFETCHER_INCLUDE_CONFIG_FILES_IF_EXISTS()

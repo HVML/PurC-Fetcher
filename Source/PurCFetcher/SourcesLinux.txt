@@ -6,6 +6,7 @@ auxiliary/unix/SharedMemoryUnix.cpp
 auxiliary/crypto/gcrypt/CryptoDigestGCrypt.cpp
 auxiliary/soup/PublicSuffixSoup.cpp
 auxiliary/soup/SharedBufferSoup.cpp
+auxiliary/MIMETypeRegistryXdg.cpp
 
 network/soup/AuthenticationChallengeSoup.cpp
 network/soup/CertificateInfoSoup.cpp

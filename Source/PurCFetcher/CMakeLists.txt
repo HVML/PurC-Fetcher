@@ -94,6 +94,9 @@ endif ()
 
 list(APPEND PurCFetcher_LIBRARIES PurCFetcher::WTF)
 
+list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES "${THIRDPARTY_DIR}/xdgmime/src")
+list(APPEND PurCFetcher_LIBRARIES xdgmime)
+
 set(PurCFetcher_INTERFACE_LIBRARIES PurCFetcher)
 set(PurCFetcher_INTERFACE_INCLUDE_DIRECTORIES ${PurCFetcher_PRIVATE_FRAMEWORK_HEADERS_DIR})
 

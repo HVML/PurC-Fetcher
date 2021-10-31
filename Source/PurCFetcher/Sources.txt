@@ -140,3 +140,6 @@ network/WebStorage/TransientLocalStorageNamespace.cpp
 
 auxiliary/CrossOriginAccessControl.cpp
 auxiliary/AuxiliaryProcess.cpp
+auxiliary/WebErrors.cpp
+auxiliary/APIError.cpp
+auxiliary/APIObject.cpp

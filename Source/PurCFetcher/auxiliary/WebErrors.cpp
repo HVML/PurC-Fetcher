@@ -30,9 +30,11 @@
 
 #include "APIError.h"
 #include "Logging.h"
-#include <PurcFetcher/LocalizedStrings.h>
-#include <PurcFetcher/ResourceRequest.h>
-#include <PurcFetcher/ResourceResponse.h>
+//#include "LocalizedStrings.h"
+#include "ResourceRequest.h"
+#include "ResourceResponse.h"
+
+#define WEB_UI_STRING(string, description)  string
 
 namespace PurcFetcher {
 using namespace PurcFetcher;

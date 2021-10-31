@@ -45,6 +45,7 @@ auxiliary/Timer.cpp
 auxiliary/UserActivity.cpp
 auxiliary/WebCoreArgumentCoders.cpp
 auxiliary/Logging.cpp
+auxiliary/SharedBufferGlib.cpp
 
 network/AuthenticationChallengeBase.cpp
 network/CachedResourceRequestInitiators.cpp
@@ -96,6 +97,7 @@ network/SecurityPolicy.cpp
 network/SessionID.cpp
 network/SocketStreamHandle.cpp
 network/UserContentURLPattern.cpp
+network/ProtectionSpaceBase.cpp
 
 network/cache/AsyncRevalidation.cpp
 network/cache/CacheStorageConnection.cpp

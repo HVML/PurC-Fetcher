@@ -25,14 +25,8 @@
 
 #pragma once
 
-#if !PLATFORM(COCOA)
-
-//#include <PurcFetcher/WKBase.h>
-
-namespace PurcFetcher {
+WTF_EXTERN_C_BEGIN
 
 PURCFETCHER_EXPORT int NetworkProcessMain(int argc, char** argv);
 
-} // namespace PurcFetcher
-
-#endif // !PLATFORM(COCOA)
+WTF_EXTERN_C_END

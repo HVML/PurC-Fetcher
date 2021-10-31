@@ -34,7 +34,7 @@ using namespace PurcFetcher;
 void NetworkProcessPlatformStrategies::initialize()
 {
     static NeverDestroyed<NetworkProcessPlatformStrategies> platformStrategies;
-    setPlatformStrategies(&platformStrategies.get());
+    //setPlatformStrategies(&platformStrategies.get());
 }
 
 LoaderStrategy* NetworkProcessPlatformStrategies::createLoaderStrategy()

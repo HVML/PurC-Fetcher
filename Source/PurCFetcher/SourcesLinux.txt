@@ -36,6 +36,7 @@ network/cache/NetworkCacheIOChannelSoup.cpp
 
 network/glib/DNSCache.cpp
 network/glib/WebKitCachedResolver.cpp
+network/glib/NetworkStateNotifierGLib.cpp
 
 
 network/linux/CmdFilterManager.cpp
@@ -66,3 +67,4 @@ network/linux/NetworkDataTaskLcmd.cpp
 network/linux/NetworkDataTaskLsql.cpp
 network/linux/NetworkDataTaskRsql.cpp
 
+auxiliary/soup/WebErrorsSoup.cpp

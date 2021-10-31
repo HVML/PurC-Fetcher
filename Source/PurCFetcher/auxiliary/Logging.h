@@ -11,6 +11,8 @@
      M(NetworkCache) \
      M(NetworkCacheStorage) \
      M(Network) \
+     M(NotYetImplemented) \
+     M(MessagePorts) \
 
 #undef DECLARE_LOG_CHANNEL
 #define DECLARE_LOG_CHANNEL(name) \

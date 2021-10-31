@@ -28,8 +28,8 @@
 
 #include "ArgumentCoders.h"
 #include "WebsiteDataType.h"
-#include <PurcFetcher/RegistrableDomain.h>
-#include <PurcFetcher/SecurityOriginData.h>
+#include "RegistrableDomain.h"
+#include "SecurityOriginData.h"
 #include <wtf/text/StringHash.h>
 
 namespace PurcFetcher {

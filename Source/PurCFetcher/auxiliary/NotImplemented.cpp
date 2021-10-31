@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2012 Apple Inc. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,35 +23,20 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#include "config.h"
+#include "NotImplemented.h"
 
-#include "AuthenticationChallengeDisposition.h"
-//#include "AuthenticationChallengeProxy.h"
-//#include "AuthenticationDecisionListener.h"
-#include <wtf/CompletionHandler.h>
+#include "Logging.h"
 
 namespace PurcFetcher {
-struct SecurityOriginData;
+
+#if !LOG_DISABLED
+
+WTFLogChannel* notImplementedLoggingChannel()
+{
+    return &LogNotYetImplemented;
 }
 
-namespace PurcFetcher {
-
-class WebsiteDataStoreClient {
-    WTF_MAKE_FAST_ALLOCATED;
-public:
-    virtual ~WebsiteDataStoreClient() { }
-
-    virtual void requestStorageSpace(const PurcFetcher::SecurityOriginData& topOrigin, const PurcFetcher::SecurityOriginData& frameOrigin, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&& completionHandler)
-    {
-        completionHandler({ });
-    }
-
-#if 0
-    virtual void didReceiveAuthenticationChallenge(Ref<AuthenticationChallengeProxy>&& challenge)
-    {
-        challenge->listener().completeChallenge(AuthenticationChallengeDisposition::PerformDefaultHandling);
-    }
 #endif
-};
 
-} // namespace PurcFetcher
+}

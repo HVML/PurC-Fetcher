@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2017 Igalia S.L.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -23,35 +23,31 @@
  * THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#pragma once
+#include "config.h"
+#include "WebErrors.h"
 
-#include "AuthenticationChallengeDisposition.h"
-//#include "AuthenticationChallengeProxy.h"
-//#include "AuthenticationDecisionListener.h"
-#include <wtf/CompletionHandler.h>
+#include "APIError.h"
+#include "ResourceError.h"
+#include "ResourceResponse.h"
+
+#define WEB_UI_STRING(string, description)  string
 
 namespace PurcFetcher {
-struct SecurityOriginData;
+using namespace PurcFetcher;
+
+ResourceError downloadNetworkError(const URL& failingURL, const String& localizedDescription)
+{
+    return ResourceError(API::Error::webKitDownloadErrorDomain(), API::Error::Download::Transport, failingURL, localizedDescription);
 }
 
-namespace PurcFetcher {
+ResourceError downloadCancelledByUserError(const ResourceResponse& response)
+{
+    return ResourceError(API::Error::webKitDownloadErrorDomain(), API::Error::Download::CancelledByUser, response.url(), WEB_UI_STRING("User cancelled the download", "The download was cancelled by the user"));
+}
 
-class WebsiteDataStoreClient {
-    WTF_MAKE_FAST_ALLOCATED;
-public:
-    virtual ~WebsiteDataStoreClient() { }
-
-    virtual void requestStorageSpace(const PurcFetcher::SecurityOriginData& topOrigin, const PurcFetcher::SecurityOriginData& frameOrigin, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&& completionHandler)
-    {
-        completionHandler({ });
-    }
-
-#if 0
-    virtual void didReceiveAuthenticationChallenge(Ref<AuthenticationChallengeProxy>&& challenge)
-    {
-        challenge->listener().completeChallenge(AuthenticationChallengeDisposition::PerformDefaultHandling);
-    }
-#endif
-};
+ResourceError downloadDestinationError(const ResourceResponse& response, const String& localizedDescription)
+{
+    return ResourceError(API::Error::webKitDownloadErrorDomain(), API::Error::Download::Destination, response.url(), localizedDescription);
+}
 
 } // namespace PurcFetcher

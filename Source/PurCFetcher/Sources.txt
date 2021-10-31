@@ -143,3 +143,7 @@ auxiliary/AuxiliaryProcess.cpp
 auxiliary/WebErrors.cpp
 auxiliary/APIError.cpp
 auxiliary/APIObject.cpp
+auxiliary/NotImplemented.cpp
+
+auxiliary/WebsiteData.cpp
+auxiliary/MessagePortChannelRegistry.cpp

@@ -147,3 +147,4 @@ auxiliary/NotImplemented.cpp
 
 auxiliary/WebsiteData.cpp
 auxiliary/MessagePortChannelRegistry.cpp
+auxiliary/MessagePortChannel.cpp

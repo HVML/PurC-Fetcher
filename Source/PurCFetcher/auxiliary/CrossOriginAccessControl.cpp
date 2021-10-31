@@ -27,12 +27,11 @@
 #include "config.h"
 #include "CrossOriginAccessControl.h"
 
-#include "CachedResourceRequest.h"
 #include "CrossOriginPreflightResultCache.h"
 #include "HTTPHeaderNames.h"
 #include "HTTPParsers.h"
 #include "LegacySchemeRegistry.h"
-#include "Page.h"
+#include "ResourceError.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
 #include "RuntimeApplicationChecks.h"
@@ -118,48 +117,6 @@ ResourceRequest createAccessControlPreflightRequest(const ResourceRequest& reque
     }
 
     return preflightRequest;
-}
-
-// https://html.spec.whatwg.org/multipage/urls-and-fetching.html#create-a-potential-cors-request
-CachedResourceRequest createPotentialAccessControlRequest(ResourceRequest&& request, ResourceLoaderOptions&& options, Document& document, const String& crossOriginAttribute, SameOriginFlag sameOriginFlag)
-{
-    ASSERT(options.mode == FetchOptions::Mode::NoCors);
-    if (!crossOriginAttribute.isNull())
-        options.mode = FetchOptions::Mode::Cors;
-    else if (sameOriginFlag == SameOriginFlag::Yes)
-        options.mode = FetchOptions::Mode::SameOrigin;
-
-    if (options.mode != FetchOptions::Mode::NoCors) {
-        if (auto* page = document.page()) {
-            if (page->shouldDisableCorsForRequestTo(request.url()))
-                options.mode = FetchOptions::Mode::NoCors;
-        }
-    }
-
-    if (crossOriginAttribute.isNull()) {
-        CachedResourceRequest cachedRequest { WTFMove(request), WTFMove(options) };
-        cachedRequest.setOrigin(document.securityOrigin());
-        return cachedRequest;
-    }
-
-    FetchOptions::Credentials credentials = equalLettersIgnoringASCIICase(crossOriginAttribute, "omit")
-        ? FetchOptions::Credentials::Omit : equalLettersIgnoringASCIICase(crossOriginAttribute, "use-credentials")
-        ? FetchOptions::Credentials::Include : FetchOptions::Credentials::SameOrigin;
-    options.credentials = credentials;
-    switch (credentials) {
-    case FetchOptions::Credentials::Include:
-        options.storedCredentialsPolicy = StoredCredentialsPolicy::Use;
-        break;
-    case FetchOptions::Credentials::SameOrigin:
-        options.storedCredentialsPolicy = document.securityOrigin().canRequest(request.url()) ? StoredCredentialsPolicy::Use : StoredCredentialsPolicy::DoNotUse;
-        break;
-    case FetchOptions::Credentials::Omit:
-        options.storedCredentialsPolicy = StoredCredentialsPolicy::DoNotUse;
-    }
-
-    CachedResourceRequest cachedRequest { WTFMove(request), WTFMove(options) };
-    updateRequestForAccessControl(cachedRequest.resourceRequest(), document.securityOrigin(), options.storedCredentialsPolicy);
-    return cachedRequest;
 }
 
 String validateCrossOriginRedirectionURL(const URL& redirectURL)

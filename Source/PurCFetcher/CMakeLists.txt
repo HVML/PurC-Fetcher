@@ -68,7 +68,6 @@ set(PurCFetcher_MESSAGES_IN_FILES
     messages/NetworkProcess
     messages/NetworkProcessProxy
     messages/NetworkResourceLoader
-    messages/NetworkSocketChannel
     messages/NetworkSocketStream
     messages/StorageAreaMap
     messages/StorageManagerSet

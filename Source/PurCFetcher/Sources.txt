@@ -80,7 +80,6 @@ network/NetworkResourceLoadParameters.cpp
 network/NetworkSchemeRegistry.cpp
 network/NetworkSession.cpp
 network/NetworkSessionCreationParameters.cpp
-network/NetworkSocketChannel.cpp
 network/NetworkSocketStream.cpp
 network/NetworkStateNotifier.cpp
 network/NetworkStorageSession.cpp
@@ -98,6 +97,7 @@ network/SessionID.cpp
 network/SocketStreamHandle.cpp
 network/UserContentURLPattern.cpp
 network/ProtectionSpaceBase.cpp
+network/ResourceErrorBase.cpp
 
 network/cache/AsyncRevalidation.cpp
 network/cache/CacheStorageConnection.cpp
@@ -138,3 +138,6 @@ network/WebStorage/StorageMap.cpp
 network/WebStorage/StorageQuotaManager.cpp
 network/WebStorage/TransientLocalStorageNamespace.cpp
 
+
+auxiliary/CrossOriginAccessControl.cpp
+auxiliary/AuxiliaryProcess.cpp

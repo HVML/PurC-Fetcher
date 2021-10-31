@@ -92,6 +92,9 @@ else ()
     SET_AND_EXPOSE_TO_BUILD(HAVE_OPENSSL ON)
 endif ()
 
+set(ENABLE_ICU ON)
+SET_AND_EXPOSE_TO_BUILD(HAVE_ICU ON)
+
 # Public options specific to the HybridOS port. Do not add any options here unless
 # there is a strong reason we should support changing the value of the option,
 # and the option is not relevant to any other PurCFetcher ports.

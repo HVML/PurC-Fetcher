@@ -36,7 +36,6 @@
 //#include "WebPageProxy.h"
 //#include "WebPageProxyMessages.h"
 //#include "WebProcessProxy.h"
-#include "WebSocketTask.h"
 #include "AdClickAttribution.h"
 #include "CookieJar.h"
 #include "ResourceRequest.h"
@@ -319,11 +318,6 @@ void NetworkSession::removeKeptAliveLoad(NetworkResourceLoader& loader)
     ASSERT(m_sessionID == loader.sessionID());
     ASSERT(m_keptAliveLoads.contains(loader));
     m_keptAliveLoads.remove(loader);
-}
-
-std::unique_ptr<WebSocketTask> NetworkSession::createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String&)
-{
-    return nullptr;
 }
 
 } // namespace PurcFetcher

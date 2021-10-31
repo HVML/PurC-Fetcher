@@ -36,8 +36,6 @@ class SoupNetworkSession;
 
 namespace PurcFetcher {
 
-class NetworkSocketChannel;
-class WebSocketTask;
 struct NetworkSessionCreationParameters;
 
 class NetworkSessionSoup final : public NetworkSession {
@@ -55,7 +53,6 @@ public:
     void setCookiePersistentStorage(const String& storagePath, SoupCookiePersistentStorageType);
 
 private:
-    std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String& protocol) final;
     void clearCredentials() final;
 
     std::unique_ptr<PurcFetcher::SoupNetworkSession> m_networkSession;

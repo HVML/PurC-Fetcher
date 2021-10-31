@@ -72,7 +72,6 @@ class NetworkProcess;
 class NetworkResourceLoader;
 class NetworkResourceLoadParameters;
 class NetworkSession;
-class NetworkSocketChannel;
 class NetworkSocketStream;
 class ServiceWorkerFetchTask;
 class WebSWServerConnection;
@@ -318,7 +317,6 @@ private:
     PAL::SessionID m_sessionID;
 
     HashMap<WebSocketIdentifier, RefPtr<NetworkSocketStream>> m_networkSocketStreams;
-    HashMap<WebSocketIdentifier, std::unique_ptr<NetworkSocketChannel>> m_networkSocketChannels;
     NetworkResourceLoadMap m_networkResourceLoaders;
     Vector<ResourceNetworkActivityTracker> m_networkActivityTrackers;
 

@@ -45,8 +45,6 @@
 #include "NetworkResourceLoaderMessages.h"
 #include "NetworkSchemeRegistry.h"
 #include "NetworkSession.h"
-#include "NetworkSocketChannel.h"
-#include "NetworkSocketChannelMessages.h"
 #include "NetworkSocketStream.h"
 #include "NetworkSocketStreamMessages.h"
 #include "PingLoad.h"
@@ -208,12 +206,6 @@ void NetworkConnectionToWebProcess::didReceiveMessage(IPC::Connection& connectio
         return;
     }
 
-    if (decoder.messageReceiverName() == Messages::NetworkSocketChannel::messageReceiverName()) {
-        if (auto* channel = m_networkSocketChannels.get(makeObjectIdentifier<WebSocketIdentifierType>(decoder.destinationID())))
-            channel->didReceiveMessage(connection, decoder);
-        return;
-    }
-
 #if USE(LIBWEBRTC)
     if (decoder.messageReceiverName() == Messages::NetworkRTCSocket::messageReceiverName()) {
         rtcProvider().didReceiveNetworkRTCSocketMessage(connection, decoder);
@@ -372,17 +364,12 @@ void NetworkConnectionToWebProcess::createSocketStream(URL&& url, String cachePa
     m_networkSocketStreams.add(identifier, NetworkSocketStream::create(m_networkProcess.get(), WTFMove(url), m_sessionID, cachePartition, identifier, m_connection, WTFMove(token)));
 }
 
-void NetworkConnectionToWebProcess::createSocketChannel(const ResourceRequest& request, const String& protocol, WebSocketIdentifier identifier)
+void NetworkConnectionToWebProcess::createSocketChannel(const ResourceRequest&, const String&, WebSocketIdentifier)
 {
-    ASSERT(!m_networkSocketChannels.contains(identifier));
-    if (auto channel = NetworkSocketChannel::create(*this, m_sessionID, request, protocol, identifier))
-        m_networkSocketChannels.add(identifier, WTFMove(channel));
 }
 
-void NetworkConnectionToWebProcess::removeSocketChannel(WebSocketIdentifier identifier)
+void NetworkConnectionToWebProcess::removeSocketChannel(WebSocketIdentifier)
 {
-    ASSERT(m_networkSocketChannels.contains(identifier));
-    m_networkSocketChannels.remove(identifier);
 }
 
 void NetworkConnectionToWebProcess::cleanupForSuspension(Function<void()>&& completionHandler)

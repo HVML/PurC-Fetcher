@@ -51,8 +51,6 @@ namespace PurcFetcher {
 class NetworkDataTask;
 class NetworkProcess;
 class NetworkResourceLoader;
-class NetworkSocketChannel;
-class WebSocketTask;
 struct NetworkSessionCreationParameters;
 
 enum class WebsiteDataType : uint32_t;
@@ -122,11 +120,6 @@ public:
 
     PrefetchCache& prefetchCache() { return m_prefetchCache; }
     void clearPrefetchCache() { m_prefetchCache.clear(); }
-
-    virtual std::unique_ptr<WebSocketTask> createWebSocketTask(NetworkSocketChannel&, const PurcFetcher::ResourceRequest&, const String& protocol);
-    virtual void removeWebSocketTask(WebSocketTask&) { }
-    virtual void addWebSocketTask(WebSocketTask&) { }
-
 
     unsigned testSpeedMultiplier() const { return m_testSpeedMultiplier; }
     bool allowsServerPreconnect() const { return m_allowsServerPreconnect; }

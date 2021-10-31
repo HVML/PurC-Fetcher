@@ -39,7 +39,7 @@
 #include <wtf/WeakPtr.h>
 
 namespace PurcFetcher {
-class ContentSecurityPolicy;
+//class ContentSecurityPolicy;
 struct ContentSecurityPolicyClient;
 class SecurityOrigin;
 enum class PreflightPolicy : uint8_t;
@@ -146,7 +146,7 @@ private:
     std::unique_ptr<NetworkCORSPreflightChecker> m_corsPreflightChecker;
     bool m_isSameOriginRequest { true };
     bool m_isSimpleRequest { true };
-    std::unique_ptr<PurcFetcher::ContentSecurityPolicy> m_contentSecurityPolicy;
+//    std::unique_ptr<PurcFetcher::ContentSecurityPolicy> m_contentSecurityPolicy;
     size_t m_redirectCount { 0 };
     URL m_previousURL;
     PurcFetcher::PreflightPolicy m_preflightPolicy;

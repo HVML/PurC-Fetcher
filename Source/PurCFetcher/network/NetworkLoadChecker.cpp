@@ -33,7 +33,6 @@
 #include "NetworkResourceLoader.h"
 #include "NetworkSchemeRegistry.h"
 #include "ContentRuleListResults.h"
-#include "ContentSecurityPolicy.h"
 #include "CrossOriginAccessControl.h"
 #include "CrossOriginPreflightResultCache.h"
 #include "LegacySchemeRegistry.h"
@@ -254,6 +253,7 @@ void NetworkLoadChecker::checkRequest(ResourceRequest&& request, ContentSecurity
         if (!weakThis)
             return handler({ ResourceError { ResourceError::Type::Cancellation }});
 
+#if 0
         if (auto* contentSecurityPolicy = this->contentSecurityPolicy()) {
             if (this->isRedirected()) {
                 auto type = m_options.mode == FetchOptions::Mode::Navigate ? ContentSecurityPolicy::InsecureRequestType::Navigation : ContentSecurityPolicy::InsecureRequestType::Load;
@@ -264,6 +264,7 @@ void NetworkLoadChecker::checkRequest(ResourceRequest&& request, ContentSecurity
                 return;
             }
         }
+#endif
 
 #if ENABLE(CONTENT_EXTENSIONS)
         this->processContentRuleListsForLoad(WTFMove(request), [this, weakThis = WTFMove(weakThis), handler = WTFMove(handler), originalRequest = WTFMove(originalRequest)](auto&& result) mutable {
@@ -300,6 +301,7 @@ void NetworkLoadChecker::continueCheckingRequestOrDoSyntheticRedirect(ResourceRe
 
 bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, PurcFetcher::ContentSecurityPolicyClient* client)
 {
+#if 0
     auto* contentSecurityPolicy = this->contentSecurityPolicy();
     contentSecurityPolicy->setClient(client);
     auto clearContentSecurityPolicyClient = makeScopeExit([&] {
@@ -335,7 +337,11 @@ bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest&
         return true;
     }
     ASSERT_NOT_REACHED();
+#else
+    UNUSED_PARAM(request);
+    UNUSED_PARAM(client);
     return true;
+#endif
 }
 
 void NetworkLoadChecker::continueCheckingRequest(ResourceRequest&& request, ValidationHandler&& handler)
@@ -469,12 +475,16 @@ bool NetworkLoadChecker::doesNotNeedCORSCheck(const URL& url) const
 
 ContentSecurityPolicy* NetworkLoadChecker::contentSecurityPolicy()
 {
+#if 0
     if (!m_contentSecurityPolicy && m_cspResponseHeaders) {
         // FIXME: Pass the URL of the protected resource instead of its origin.
         m_contentSecurityPolicy = makeUnique<ContentSecurityPolicy>(URL { URL { }, m_origin->toString() });
         m_contentSecurityPolicy->didReceiveHeaders(*m_cspResponseHeaders, String { m_referrer }, ContentSecurityPolicy::ReportParsingErrors::No);
     }
     return m_contentSecurityPolicy.get();
+#else
+    return nullptr;
+#endif
 }
 
 #if ENABLE(CONTENT_EXTENSIONS)

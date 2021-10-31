@@ -154,3 +154,4 @@ auxiliary/ContentSecurityPolicyResponseHeaders.cpp
 auxiliary/ContentSecurityPolicyClient.cpp
 
 auxiliary/AuthenticationManager.cpp
+

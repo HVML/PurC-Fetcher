@@ -50,7 +50,7 @@
 #include "WebsiteDataStoreParameters.h"
 //#include "BlobDataFileReference.h"
 #include "CertificateInfo.h"
-#include "ContentSecurityPolicy.h"
+//#include "ContentSecurityPolicy.h"
 #include "DiagnosticLoggingKeys.h"
 #include "HTTPParsers.h"
 #include "NetworkLoadMetrics.h"
@@ -623,6 +623,7 @@ bool NetworkResourceLoader::shouldInterruptLoadForXFrameOptions(const String& xF
 
 bool NetworkResourceLoader::shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptions(const ResourceResponse& response)
 {
+    UNUSED_PARAM(response);
     ASSERT(isMainResource());
 
 #if USE(QUICK_LOOK)
@@ -630,6 +631,7 @@ bool NetworkResourceLoader::shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptio
         return false;
 #endif
 
+#if 0
     auto url = response.url();
     ContentSecurityPolicy contentSecurityPolicy { URL { url }, this };
     contentSecurityPolicy.didReceiveHeaders(ContentSecurityPolicyResponseHeaders { response }, originalRequest().httpReferrer());
@@ -644,6 +646,7 @@ bool NetworkResourceLoader::shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptio
             return true;
         }
     }
+#endif
     return false;
 }
 

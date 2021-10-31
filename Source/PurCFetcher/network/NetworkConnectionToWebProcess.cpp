@@ -45,8 +45,6 @@
 #include "NetworkResourceLoaderMessages.h"
 #include "NetworkSchemeRegistry.h"
 #include "NetworkSession.h"
-#include "NetworkSocketStream.h"
-#include "NetworkSocketStreamMessages.h"
 #include "PingLoad.h"
 #include "PreconnectTask.h"
 //#include "ServiceWorkerFetchTaskMessages.h"
@@ -194,15 +192,6 @@ void NetworkConnectionToWebProcess::didReceiveMessage(IPC::Connection& connectio
         RELEASE_ASSERT(decoder.destinationID());
         if (auto* loader = m_networkResourceLoaders.get(decoder.destinationID()))
             loader->didReceiveNetworkResourceLoaderMessage(connection, decoder);
-        return;
-    }
-
-    if (decoder.messageReceiverName() == Messages::NetworkSocketStream::messageReceiverName()) {
-        if (auto* socketStream = m_networkSocketStreams.get(makeObjectIdentifier<WebSocketIdentifierType>(decoder.destinationID()))) {
-            socketStream->didReceiveMessage(connection, decoder);
-            if (decoder.messageName() == Messages::NetworkSocketStream::Close::name())
-                m_networkSocketStreams.remove(makeObjectIdentifier<WebSocketIdentifierType>(decoder.destinationID()));
-        }
         return;
     }
 
@@ -354,14 +343,8 @@ void NetworkConnectionToWebProcess::didReceiveInvalidMessage(IPC::Connection&, I
     m_networkProcess->parentProcessConnection()->send(Messages::NetworkProcessProxy::TerminateWebProcess(m_webProcessIdentifier), 0);
 }
 
-void NetworkConnectionToWebProcess::createSocketStream(URL&& url, String cachePartition, WebSocketIdentifier identifier)
+void NetworkConnectionToWebProcess::createSocketStream(URL&&, String, WebSocketIdentifier)
 {
-    ASSERT(!m_networkSocketStreams.contains(identifier));
-    PurcFetcher::SourceApplicationAuditToken token = { };
-#if PLATFORM(COCOA)
-    token = { m_networkProcess->sourceApplicationAuditData() };
-#endif
-    m_networkSocketStreams.add(identifier, NetworkSocketStream::create(m_networkProcess.get(), WTFMove(url), m_sessionID, cachePartition, identifier, m_connection, WTFMove(token)));
 }
 
 void NetworkConnectionToWebProcess::createSocketChannel(const ResourceRequest&, const String&, WebSocketIdentifier)

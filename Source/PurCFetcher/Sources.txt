@@ -80,7 +80,6 @@ network/NetworkResourceLoadParameters.cpp
 network/NetworkSchemeRegistry.cpp
 network/NetworkSession.cpp
 network/NetworkSessionCreationParameters.cpp
-network/NetworkSocketStream.cpp
 network/NetworkStateNotifier.cpp
 network/NetworkStorageSession.cpp
 network/ParsedContentRange.cpp

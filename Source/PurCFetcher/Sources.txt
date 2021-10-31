@@ -44,6 +44,7 @@ auxiliary/ThreadTimers.cpp
 auxiliary/Timer.cpp
 auxiliary/UserActivity.cpp
 auxiliary/WebCoreArgumentCoders.cpp
+auxiliary/Logging.cpp
 
 network/AuthenticationChallengeBase.cpp
 network/CachedResourceRequestInitiators.cpp

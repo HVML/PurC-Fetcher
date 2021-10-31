@@ -104,7 +104,10 @@ void UCharBreaker::doUStrGetBreaks()
     if(!m_uchar || m_ucharLen <=0)
         return;
 
+// TODO : LINK MiniGUI
+#if 0
     m_breakOppsCount = UStrGetBreaks(LANGCODE_unknown, CTR_NONE, WBR_NORMAL, LBP_NORMAL, m_uchar, m_ucharLen, &m_breakOpps);
+#endif
 }
 
 } // namespace PurcFetcher

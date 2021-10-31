@@ -175,8 +175,8 @@ typedef struct {
 #define JOIN_LOG_CHANNEL_WITH_PREFIX(prefix, channel) JOIN_LOG_CHANNEL_WITH_PREFIX_LEVEL_2(prefix, channel)
 #define JOIN_LOG_CHANNEL_WITH_PREFIX_LEVEL_2(prefix, channel) prefix ## channel
 
-#if PLATFORM(GTK)
-#define LOG_CHANNEL_PURCFETCHER_SUBSYSTEM "PurCFetcherGTK"
+#if PLATFORM(LINUX)
+#define LOG_CHANNEL_PURCFETCHER_SUBSYSTEM "PurCFetcherLinux"
 #elif PLATFORM(WPE)
 #define LOG_CHANNEL_PURCFETCHER_SUBSYSTEM "WPEPurCFetcher"
 #else

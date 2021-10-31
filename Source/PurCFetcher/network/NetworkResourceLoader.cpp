@@ -919,10 +919,12 @@ void NetworkResourceLoader::willSendRedirectedRequest(ResourceRequest&& request,
     m_redirectResponse = redirectResponse;
 
     Optional<AdClickAttribution::Conversion> adClickConversion;
+#if 0
     if (!sessionID().isEphemeral()) {
         if (auto result = AdClickAttribution::parseConversionRequest(redirectRequest.url()))
             adClickConversion = result.value();
     }
+#endif
 
     auto maxAgeCap = validateCacheEntryForMaxAgeCapValidation(request, redirectRequest, redirectResponse);
     if (redirectResponse.source() == ResourceResponse::Source::Network && canUseCachedRedirect(request))

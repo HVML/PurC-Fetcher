@@ -148,3 +148,9 @@ auxiliary/NotImplemented.cpp
 auxiliary/WebsiteData.cpp
 auxiliary/MessagePortChannelRegistry.cpp
 auxiliary/MessagePortChannel.cpp
+auxiliary/DiagnosticLoggingKeys.cpp
+auxiliary/CrossOriginPreflightResultCache.cpp
+auxiliary/ContentSecurityPolicyResponseHeaders.cpp
+auxiliary/ContentSecurityPolicyClient.cpp
+
+auxiliary/AuthenticationManager.cpp

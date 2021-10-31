@@ -27,17 +27,15 @@
 #include "AuthenticationManager.h"
 
 #include "AuthenticationChallengeDisposition.h"
-#include "AuthenticationManagerMessages.h"
+//#include "AuthenticationManagerMessages.h"
 #include "Download.h"
 #include "DownloadProxyMessages.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessProxyMessages.h"
 #include "PendingDownload.h"
 #include "WebCoreArgumentCoders.h"
-#include "WebFrame.h"
-#include "WebPage.h"
-#include "WebPageProxyMessages.h"
-#include <PurcFetcher/AuthenticationChallenge.h>
+//#include "WebPageProxyMessages.h"
+#include "AuthenticationChallenge.h"
 
 namespace PurcFetcher {
 using namespace PurcFetcher;
@@ -64,7 +62,7 @@ const char* AuthenticationManager::supplementName()
 AuthenticationManager::AuthenticationManager(NetworkProcess& process)
     : m_process(process)
 {
-    m_process.addMessageReceiver(Messages::AuthenticationManager::messageReceiverName(), *this);
+    //m_process.addMessageReceiver(Messages::AuthenticationManager::messageReceiverName(), *this);
 }
 
 uint64_t AuthenticationManager::addChallengeToChallengeMap(Challenge&& challenge)

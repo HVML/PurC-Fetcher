@@ -27,7 +27,7 @@ macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
             ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}Messages.h
             ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessagesReplies.h
         )
-#        list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp)
+        list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/${_name}MessageReceiver.cpp)
     endforeach ()
     list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.cpp)
 

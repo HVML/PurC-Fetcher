@@ -149,8 +149,6 @@ messages -> NetworkProcess LegacyReceiver {
     SetToSameSiteStrictCookiesForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain domain) -> () Async
 #endif
 
-    SetAdClickAttributionDebugMode(bool debugMode)
-
     SetSessionIsControlledByAutomation(PAL::SessionID sessionID, bool controlled);
 
     RegisterURLSchemeAsSecure(String scheme)
@@ -163,7 +161,6 @@ messages -> NetworkProcess LegacyReceiver {
     SyncLocalStorage() -> () Synchronous
     ClearLegacyPrivateBrowsingLocalStorage()
 
-    StoreAdClickAttribution(PAL::SessionID sessionID, PurcFetcher::AdClickAttribution adClickAttribution)
     DumpAdClickAttribution(PAL::SessionID sessionID) -> (String adClickAttributionState) Async
     ClearAdClickAttribution(PAL::SessionID sessionID) -> () Async
     SetAdClickAttributionOverrideTimerForTesting(PAL::SessionID sessionID, bool value) -> () Async

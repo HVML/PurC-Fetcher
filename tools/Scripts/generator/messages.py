@@ -585,7 +585,7 @@ def headers_for_type(type):
         'Seconds': ['<wtf/Seconds.h>'],
         'WallTime': ['<wtf/WallTime.h>'],
         'String': ['<wtf/text/WTFString.h>'],
-        'PAL::SessionID': ['<pal/SessionID.h>'],
+        'PAL::SessionID': ['"SessionID.h"'],
         'PurcFetcher::AutoplayEventFlags': ['<AutoplayEvent.h>'],
         'PurcFetcher::DOMPasteAccessResponse': ['<DOMPasteAccess.h>'],
         'PurcFetcher::DocumentOrWorkerIdentifier': ['<ServiceWorkerTypes.h>'],
@@ -795,6 +795,8 @@ def generate_message_handler(receiver):
             if message.has_attribute(ASYNC_ATTRIBUTE):
                 move_parameters = message.name, ', '.join([move_type(x.type) for x in message.reply_parameters])
                 result.append('void %s::callReply(IPC::Decoder& decoder, CompletionHandler<void(%s)>&& completionHandler)\n{\n' % move_parameters)
+                result.append('    UNUSED_PARAM(decoder);\n')
+                result.append('    UNUSED_PARAM(completionHandler);\n')
                 for x in message.reply_parameters:
                     result.append('    Optional<%s> %s;\n' % (x.type, x.name))
                     result.append('    decoder >> %s;\n' % x.name)

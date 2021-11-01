@@ -158,4 +158,5 @@ auxiliary/ContentSecurityPolicyClient.cpp
 auxiliary/AuthenticationManager.cpp
 auxiliary/DownloadProxy.cpp
 auxiliary/NetworkProcessProxy.cpp
-
+auxiliary/WebResourceLoader.cpp
+auxiliary/NetworkProcessConnection.cpp

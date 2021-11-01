@@ -92,6 +92,7 @@ template<> struct ArgumentCoder<Ref<PurcFetcher::SharedBuffer>> {
     static Optional<Ref<PurcFetcher::SharedBuffer>> decode(Decoder&);
 };
 
+
 template<> struct ArgumentCoder<PurcFetcher::ResourceError> {
     static void encode(Encoder&, const PurcFetcher::ResourceError&);
     static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ResourceError&);

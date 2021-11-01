@@ -39,6 +39,4 @@ messages -> NetworkProcessConnection LegacyReceiver {
 
     CheckProcessLocalPortForActivity(struct PurcFetcher::MessagePortIdentifier port) -> (PurcFetcher::MessagePortChannelProvider::HasActivity hasActivity) Async
     MessagesAvailableForPort(struct PurcFetcher::MessagePortIdentifier port)
-
-    BroadcastConsoleMessage(enum:uint8_t JSC::MessageSource messageSource, enum:uint8_t JSC::MessageLevel messageLevel, String message)
 }

@@ -71,10 +71,6 @@ void NetworkProcessProxy::didReceiveInvalidMessage(IPC::Connection&, IPC::Messag
 {
 }
 
-void NetworkProcessProxy::didReceiveNetworkProcessProxyMessage(IPC::Connection&, IPC::Decoder&)
-{
-}
-
 void NetworkProcessProxy::didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const Optional<SecurityOriginData>&, PurcFetcher::AuthenticationChallenge&&, bool, uint64_t)
 {
 }

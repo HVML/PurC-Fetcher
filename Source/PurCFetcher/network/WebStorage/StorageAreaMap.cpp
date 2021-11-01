@@ -36,10 +36,6 @@ StorageAreaMap::~StorageAreaMap()
 {
 }
 
-void StorageAreaMap::didReceiveMessage(IPC::Connection&, IPC::Decoder&)
-{
-}
-
 void StorageAreaMap::didSetItem(uint64_t, const String&, bool)
 {
 }

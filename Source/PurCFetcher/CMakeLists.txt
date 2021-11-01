@@ -72,7 +72,6 @@ set(PurCFetcher_MESSAGES_IN_FILES
     messages/StorageManagerSet
     messages/WebCookieManager
     messages/WebCookieManagerProxy
-    messages/WebProcessPool
     messages/WebResourceLoader
 )
 GENERATE_MESSAGE_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MESSAGES_IN_FILES}")

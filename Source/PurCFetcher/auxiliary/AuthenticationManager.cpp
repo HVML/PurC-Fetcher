@@ -65,6 +65,11 @@ AuthenticationManager::AuthenticationManager(NetworkProcess& process)
     //m_process.addMessageReceiver(Messages::AuthenticationManager::messageReceiverName(), *this);
 }
 
+
+AuthenticationManager::~AuthenticationManager()
+{
+}
+
 uint64_t AuthenticationManager::addChallengeToChallengeMap(Challenge&& challenge)
 {
     ASSERT(RunLoop::isMain());
@@ -150,6 +155,10 @@ void AuthenticationManager::completeAuthenticationChallenge(uint64_t challengeID
 void AuthenticationManager::negotiatedLegacyTLS(WebPageProxyIdentifier pageID) const
 {
     m_process.send(Messages::NetworkProcessProxy::NegotiatedLegacyTLS(pageID));
+}
+
+void AuthenticationManager::didReceiveMessage(IPC::Connection&, IPC::Decoder&)
+{
 }
 
 } // namespace PurcFetcher

@@ -67,6 +67,7 @@ class AuthenticationManager : public NetworkProcessSupplement, public IPC::Messa
     WTF_MAKE_NONCOPYABLE(AuthenticationManager);
 public:
     explicit AuthenticationManager(NetworkProcess&);
+    ~AuthenticationManager();
 
     static const char* supplementName();
 

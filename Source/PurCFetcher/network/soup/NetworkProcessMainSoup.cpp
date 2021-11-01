@@ -51,10 +51,10 @@ void initializeAuxiliaryProcess<NetworkProcess>(AuxiliaryProcessInitializationPa
     static NeverDestroyed<NetworkProcess> networkProcess(WTFMove(parameters));
     globalNetworkProcess = &networkProcess.get();
 }
-    
-int NetworkProcessMain(int argc, char** argv)
-{
-    return AuxiliaryProcessMain<NetworkProcess, NetworkProcessMainSoup>(argc, argv);
-}
 
 } // namespace PurcFetcher
+
+int NetworkProcessMain(int argc, char** argv)
+{
+    return PurcFetcher::AuxiliaryProcessMain<PurcFetcher::NetworkProcess, PurcFetcher::NetworkProcessMainSoup>(argc, argv);
+}

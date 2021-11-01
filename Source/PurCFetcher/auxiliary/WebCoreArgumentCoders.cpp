@@ -37,6 +37,7 @@
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"
 #include "CacheQueryOptions.h"
+#include "DOMCacheEngine.h"
 
 #include <wtf/URL.h>
 #include <wtf/text/CString.h>
@@ -449,11 +450,11 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(requestHeadersGuard))
         return WTF::nullopt;
 
-    WebCore::ResourceRequest request;
+    PurcFetcher::ResourceRequest request;
     if (!decoder.decode(request))
         return WTF::nullopt;
 
-    Optional<WebCore::FetchOptions> options;
+    Optional<PurcFetcher::FetchOptions> options;
     decoder >> options;
     if (!options)
         return WTF::nullopt;
@@ -466,7 +467,7 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(responseHeadersGuard))
         return WTF::nullopt;
 
-    WebCore::ResourceResponse response;
+    PurcFetcher::ResourceResponse response;
     if (!decoder.decode(response))
         return WTF::nullopt;
 
@@ -478,7 +479,7 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(responseBodySize))
         return WTF::nullopt;
 
-    WebCore::DOMCacheEngine::ResponseBody responseBody;
+    PurcFetcher::DOMCacheEngine::ResponseBody responseBody;
     bool hasSharedBufferBody;
     if (!decoder.decode(hasSharedBufferBody))
         return WTF::nullopt;

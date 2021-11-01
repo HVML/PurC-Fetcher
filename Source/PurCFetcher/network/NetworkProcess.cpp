@@ -2372,30 +2372,6 @@ void NetworkProcess::didSyncAllCookies()
     parentProcessConnection()->send(Messages::NetworkProcessProxy::DidSyncAllCookies(), 0);
 }
 
-#if ENABLE(INDEXED_DATABASE)
-Ref<WebIDBServer> NetworkProcess::createWebIDBServer(PAL::SessionID sessionID)
-{
-    String path;
-    if (!sessionID.isEphemeral()) {
-        ASSERT(m_idbDatabasePaths.contains(sessionID));
-        path = m_idbDatabasePaths.get(sessionID);
-    }
-
-    return WebIDBServer::create(sessionID, path, [this, weakThis = makeWeakPtr(this), sessionID](const auto& origin, uint64_t spaceRequested) {
-        RefPtr<StorageQuotaManager> storageQuotaManager = weakThis ? this->storageQuotaManager(sessionID, origin) : nullptr;
-        return storageQuotaManager ? storageQuotaManager->requestSpaceOnBackgroundThread(spaceRequested) : StorageQuotaManager::Decision::Deny;
-    });
-}
-
-#if ENABLE(INDEXED_DATABASE)
-WebIDBServer& NetworkProcess::webIDBServer(PAL::SessionID sessionID)
-{
-    return *m_webIDBServers.ensure(sessionID, [this, sessionID] {
-        return this->createWebIDBServer(sessionID);
-    }).iterator->value;
-}
-#endif
-
 void NetworkProcess::ensurePathExists(const String& path)
 {
     ASSERT(!RunLoop::isMain());
@@ -2430,6 +2406,31 @@ void NetworkProcess::performNextStorageTask()
     
     task.performTask();
 }
+
+#if ENABLE(INDEXED_DATABASE)
+Ref<WebIDBServer> NetworkProcess::createWebIDBServer(PAL::SessionID sessionID)
+{
+    String path;
+    if (!sessionID.isEphemeral()) {
+        ASSERT(m_idbDatabasePaths.contains(sessionID));
+        path = m_idbDatabasePaths.get(sessionID);
+    }
+
+    return WebIDBServer::create(sessionID, path, [this, weakThis = makeWeakPtr(this), sessionID](const auto& origin, uint64_t spaceRequested) {
+        RefPtr<StorageQuotaManager> storageQuotaManager = weakThis ? this->storageQuotaManager(sessionID, origin) : nullptr;
+        return storageQuotaManager ? storageQuotaManager->requestSpaceOnBackgroundThread(spaceRequested) : StorageQuotaManager::Decision::Deny;
+    });
+}
+
+#if ENABLE(INDEXED_DATABASE)
+WebIDBServer& NetworkProcess::webIDBServer(PAL::SessionID sessionID)
+{
+    return *m_webIDBServers.ensure(sessionID, [this, sessionID] {
+        return this->createWebIDBServer(sessionID);
+    }).iterator->value;
+}
+#endif
+
 
 void NetworkProcess::collectIndexedDatabaseOriginsForVersion(const String& path, HashSet<PurcFetcher::SecurityOriginData>& securityOrigins)
 {

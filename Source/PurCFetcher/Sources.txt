@@ -137,6 +137,7 @@ network/WebStorage/StorageManagerSet.cpp
 network/WebStorage/StorageMap.cpp
 network/WebStorage/StorageQuotaManager.cpp
 network/WebStorage/TransientLocalStorageNamespace.cpp
+network/WebStorage/StorageAreaMap.cpp
 
 
 auxiliary/CrossOriginAccessControl.cpp

@@ -119,6 +119,7 @@ network/cache/NetworkCacheSubresourcesEntry.cpp
 network/cache/PrefetchCache.cpp
 
 network/Cookies/WebCookieManager.cpp
+network/Cookies/WebCookieManagerProxy.cpp
 
 network/Downloads/Download.cpp
 network/Downloads/DownloadManager.cpp

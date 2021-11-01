@@ -42,10 +42,16 @@ class SharedBuffer;
 class ResourceError;
 class ResourceRequest;
 class ResourceResponse;
+struct CacheQueryOptions;
 
 #if USE(SOUP)
 struct SoupNetworkProxySettings;
 #endif
+
+namespace DOMCacheEngine {
+struct CacheInfo;
+struct Record;
+}
 
 
 } // namespace PurcFetcher
@@ -100,6 +106,11 @@ template<> struct ArgumentCoder<PurcFetcher::ResourceRequest> {
     static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ResourceRequest&);
 };
 
+template<> struct ArgumentCoder<PurcFetcher::CacheQueryOptions> {
+    static void encode(Encoder&, const PurcFetcher::CacheQueryOptions&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::CacheQueryOptions&);
+};
+
 #if USE(SOUP)
 template<> struct ArgumentCoder<PurcFetcher::SoupNetworkProxySettings> {
     static void encode(Encoder&, const PurcFetcher::SoupNetworkProxySettings&);
@@ -110,6 +121,16 @@ template<> struct ArgumentCoder<PurcFetcher::SoupNetworkProxySettings> {
 template<> struct ArgumentCoder<Vector<RefPtr<PurcFetcher::SecurityOrigin>>> {
     static void encode(Encoder&, const Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
     static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
+};
+
+template<> struct ArgumentCoder<PurcFetcher::DOMCacheEngine::CacheInfo> {
+    static void encode(Encoder&, const PurcFetcher::DOMCacheEngine::CacheInfo&);
+    static Optional<PurcFetcher::DOMCacheEngine::CacheInfo> decode(Decoder&);
+};
+
+template<> struct ArgumentCoder<PurcFetcher::DOMCacheEngine::Record> {
+    static void encode(Encoder&, const PurcFetcher::DOMCacheEngine::Record&);
+    static Optional<PurcFetcher::DOMCacheEngine::Record> decode(Decoder&);
 };
 
 } // namespace IPC

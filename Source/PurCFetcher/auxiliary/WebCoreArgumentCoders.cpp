@@ -36,6 +36,7 @@
 #include "ResourceError.h"
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"
+#include "CacheQueryOptions.h"
 
 #include <wtf/URL.h>
 #include <wtf/text/CString.h>
@@ -358,6 +359,151 @@ bool ArgumentCoder<Vector<RefPtr<SecurityOrigin>>>::decode(Decoder& decoder, Vec
 
     return true;
 }
+
+void ArgumentCoder<CacheQueryOptions>::encode(Encoder& encoder, const CacheQueryOptions& options)
+{
+    encoder << options.ignoreSearch;
+    encoder << options.ignoreMethod;
+    encoder << options.ignoreVary;
+    encoder << options.cacheName;
+}
+
+bool ArgumentCoder<CacheQueryOptions>::decode(Decoder& decoder, CacheQueryOptions& options)
+{
+    bool ignoreSearch;
+    if (!decoder.decode(ignoreSearch))
+        return false;
+    bool ignoreMethod;
+    if (!decoder.decode(ignoreMethod))
+        return false;
+    bool ignoreVary;
+    if (!decoder.decode(ignoreVary))
+        return false;
+    String cacheName;
+    if (!decoder.decode(cacheName))
+        return false;
+
+    options.ignoreSearch = ignoreSearch;
+    options.ignoreMethod = ignoreMethod;
+    options.ignoreVary = ignoreVary;
+    options.cacheName = WTFMove(cacheName);
+    return true;
+}
+
+
+void ArgumentCoder<DOMCacheEngine::CacheInfo>::encode(Encoder& encoder, const DOMCacheEngine::CacheInfo& info)
+{
+    encoder << info.identifier;
+    encoder << info.name;
+}
+
+auto ArgumentCoder<DOMCacheEngine::CacheInfo>::decode(Decoder& decoder) -> Optional<DOMCacheEngine::CacheInfo>
+{
+    Optional<uint64_t> identifier;
+    decoder >> identifier;
+    if (!identifier)
+        return WTF::nullopt;
+    
+    Optional<String> name;
+    decoder >> name;
+    if (!name)
+        return WTF::nullopt;
+    
+    return {{ WTFMove(*identifier), WTFMove(*name) }};
+}
+
+void ArgumentCoder<DOMCacheEngine::Record>::encode(Encoder& encoder, const DOMCacheEngine::Record& record)
+{
+    encoder << record.identifier;
+
+    encoder << record.requestHeadersGuard;
+    encoder << record.request;
+    encoder << record.options;
+    encoder << record.referrer;
+
+    encoder << record.responseHeadersGuard;
+    encoder << record.response;
+    encoder << record.updateResponseCounter;
+    encoder << record.responseBodySize;
+
+    WTF::switchOn(record.responseBody, [&](const Ref<SharedBuffer>& buffer) {
+        encoder << true;
+        encodeSharedBuffer(encoder, buffer.ptr());
+    }, [&](const Ref<FormData>& formData) {
+        encoder << false;
+        encoder << true;
+        formData->encode(encoder);
+    }, [&](const std::nullptr_t&) {
+        encoder << false;
+        encoder << false;
+    });
+}
+
+Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(Decoder& decoder)
+{
+    uint64_t identifier;
+    if (!decoder.decode(identifier))
+        return WTF::nullopt;
+
+    FetchHeaders::Guard requestHeadersGuard;
+    if (!decoder.decode(requestHeadersGuard))
+        return WTF::nullopt;
+
+    WebCore::ResourceRequest request;
+    if (!decoder.decode(request))
+        return WTF::nullopt;
+
+    Optional<WebCore::FetchOptions> options;
+    decoder >> options;
+    if (!options)
+        return WTF::nullopt;
+
+    String referrer;
+    if (!decoder.decode(referrer))
+        return WTF::nullopt;
+
+    FetchHeaders::Guard responseHeadersGuard;
+    if (!decoder.decode(responseHeadersGuard))
+        return WTF::nullopt;
+
+    WebCore::ResourceResponse response;
+    if (!decoder.decode(response))
+        return WTF::nullopt;
+
+    uint64_t updateResponseCounter;
+    if (!decoder.decode(updateResponseCounter))
+        return WTF::nullopt;
+
+    uint64_t responseBodySize;
+    if (!decoder.decode(responseBodySize))
+        return WTF::nullopt;
+
+    WebCore::DOMCacheEngine::ResponseBody responseBody;
+    bool hasSharedBufferBody;
+    if (!decoder.decode(hasSharedBufferBody))
+        return WTF::nullopt;
+
+    if (hasSharedBufferBody) {
+        RefPtr<SharedBuffer> buffer;
+        if (!decodeSharedBuffer(decoder, buffer))
+            return WTF::nullopt;
+        if (buffer)
+            responseBody = buffer.releaseNonNull();
+    } else {
+        bool hasFormDataBody;
+        if (!decoder.decode(hasFormDataBody))
+            return WTF::nullopt;
+        if (hasFormDataBody) {
+            auto formData = FormData::decode(decoder);
+            if (!formData)
+                return WTF::nullopt;
+            responseBody = formData.releaseNonNull();
+        }
+    }
+
+    return {{ WTFMove(identifier), WTFMove(updateResponseCounter), WTFMove(requestHeadersGuard), WTFMove(request), WTFMove(options.value()), WTFMove(referrer), WTFMove(responseHeadersGuard), WTFMove(response), WTFMove(responseBody), responseBodySize }};
+}
+
 
 
 } // namespace IPC

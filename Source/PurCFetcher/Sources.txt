@@ -160,3 +160,4 @@ auxiliary/DownloadProxy.cpp
 auxiliary/NetworkProcessProxy.cpp
 auxiliary/WebResourceLoader.cpp
 auxiliary/NetworkProcessConnection.cpp
+auxiliary/WebsiteDataStoreParameters.cpp

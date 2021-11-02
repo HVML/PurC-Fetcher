@@ -36,7 +36,7 @@
 #include <wtf/Optional.h>
 #include <wtf/Variant.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class IPAddress {
 public:

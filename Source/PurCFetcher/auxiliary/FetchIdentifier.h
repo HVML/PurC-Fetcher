@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum FetchIdentifierType { };
 using FetchIdentifier = ObjectIdentifier<FetchIdentifierType>;

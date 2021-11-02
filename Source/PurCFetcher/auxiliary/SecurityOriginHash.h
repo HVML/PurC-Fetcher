@@ -32,7 +32,7 @@
 #include "SecurityOrigin.h"
 #include <wtf/RefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct SecurityOriginHash {
     static unsigned hash(SecurityOrigin* origin)
@@ -71,13 +71,13 @@ struct SecurityOriginHash {
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
     template<typename> struct DefaultHash;
 
-    template<> struct DefaultHash<RefPtr<PurcFetcher::SecurityOrigin>> {
-        typedef PurcFetcher::SecurityOriginHash Hash;
+    template<> struct DefaultHash<RefPtr<PurCFetcher::SecurityOrigin>> {
+        typedef PurCFetcher::SecurityOriginHash Hash;
     };
 
 } // namespace WTF

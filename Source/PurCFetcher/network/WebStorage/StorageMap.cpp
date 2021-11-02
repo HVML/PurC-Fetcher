@@ -28,7 +28,7 @@
 
 #include <wtf/SetForScope.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<StorageMap> StorageMap::create(unsigned quota)
 {

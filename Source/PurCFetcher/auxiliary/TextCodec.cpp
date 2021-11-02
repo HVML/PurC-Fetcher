@@ -30,7 +30,7 @@
 #include <array>
 #include <cstdio>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 int TextCodec::getUnencodableReplacement(UChar32 codePoint, UnencodableHandling handling, UnencodableReplacementArray& replacement)
 {
@@ -49,4 +49,4 @@ int TextCodec::getUnencodableReplacement(UChar32 codePoint, UnencodableHandling 
     return 0;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -41,7 +41,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static const char notOpenErrorMessage[] = "database is not open";
 
@@ -635,4 +635,4 @@ void SQLiteDatabase::removeCollationFunction(const String& collationName)
     sqlite3_create_collation_v2(m_db, collationName.utf8().data(), SQLITE_UTF8, nullptr, nullptr, nullptr);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

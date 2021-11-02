@@ -31,7 +31,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/MainThread.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<MessagePortChannel> MessagePortChannel::create(MessagePortChannelRegistry& registry, const MessagePortIdentifier& port1, const MessagePortIdentifier& port2)
 {
@@ -230,4 +230,4 @@ bool MessagePortChannel::hasAnyMessagesPendingOrInFlight() const
     return m_messageBatchesInFlight || !m_pendingMessages[0].isEmpty() || !m_pendingMessages[1].isEmpty();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

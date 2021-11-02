@@ -38,8 +38,8 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 const char* WebCookieManager::supplementName()
 {
@@ -88,7 +88,7 @@ void WebCookieManager::deleteAllCookiesModifiedSince(PAL::SessionID sessionID, W
     completionHandler();
 }
 
-void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
+void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler<void(Vector<PurCFetcher::Cookie>&&)>&& completionHandler)
 {
     Vector<Cookie> cookies;
     if (auto* storageSession = m_process.storageSession(sessionID))
@@ -96,7 +96,7 @@ void WebCookieManager::getAllCookies(PAL::SessionID sessionID, CompletionHandler
     completionHandler(WTFMove(cookies));
 }
 
-void WebCookieManager::getCookies(PAL::SessionID sessionID, const URL& url, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
+void WebCookieManager::getCookies(PAL::SessionID sessionID, const URL& url, CompletionHandler<void(Vector<PurCFetcher::Cookie>&&)>&& completionHandler)
 {
     Vector<Cookie> cookies;
     if (auto* storageSession = m_process.storageSession(sessionID))
@@ -129,7 +129,7 @@ void WebCookieManager::notifyCookiesDidChange(PAL::SessionID sessionID)
 void WebCookieManager::startObservingCookieChanges(PAL::SessionID sessionID)
 {
     if (auto* storageSession = m_process.storageSession(sessionID)) {
-        PurcFetcher::startObservingCookieChanges(*storageSession, [this, sessionID] {
+        PurCFetcher::startObservingCookieChanges(*storageSession, [this, sessionID] {
             notifyCookiesDidChange(sessionID);
         });
     }
@@ -138,7 +138,7 @@ void WebCookieManager::startObservingCookieChanges(PAL::SessionID sessionID)
 void WebCookieManager::stopObservingCookieChanges(PAL::SessionID sessionID)
 {
     if (auto* storageSession = m_process.storageSession(sessionID))
-        PurcFetcher::stopObservingCookieChanges(*storageSession);
+        PurCFetcher::stopObservingCookieChanges(*storageSession);
 }
 
 void WebCookieManager::setHTTPCookieAcceptPolicy(HTTPCookieAcceptPolicy policy, CompletionHandler<void()>&& completionHandler)
@@ -154,4 +154,4 @@ void WebCookieManager::getHTTPCookieAcceptPolicy(CompletionHandler<void(HTTPCook
     completionHandler(m_process.defaultStorageSession().cookieAcceptPolicy());
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

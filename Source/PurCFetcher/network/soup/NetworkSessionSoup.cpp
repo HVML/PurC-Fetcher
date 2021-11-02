@@ -35,8 +35,8 @@
 #include "SoupNetworkSession.h"
 #include <libsoup/soup.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 NetworkSessionSoup::NetworkSessionSoup(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
     : NetworkSession(networkProcess, parameters)
@@ -97,4 +97,4 @@ void NetworkSessionSoup::clearCredentials()
 #endif
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

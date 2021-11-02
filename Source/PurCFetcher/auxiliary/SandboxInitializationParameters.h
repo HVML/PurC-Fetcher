@@ -33,7 +33,7 @@
 OBJC_CLASS NSString;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SandboxInitializationParameters {
     WTF_MAKE_NONCOPYABLE(SandboxInitializationParameters);
@@ -112,6 +112,6 @@ SandboxInitializationParameters::~SandboxInitializationParameters()
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // SandboxInitializationParameters_h

@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnWordsFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ColumnWordsFilter::ColumnWordsFilter()
 {
@@ -167,5 +167,5 @@ Vector<Row> ColumnWordsFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

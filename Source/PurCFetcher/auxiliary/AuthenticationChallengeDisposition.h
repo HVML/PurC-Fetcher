@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class AuthenticationChallengeDisposition : uint8_t {
     UseCredential,
@@ -36,17 +36,17 @@ enum class AuthenticationChallengeDisposition : uint8_t {
     RejectProtectionSpaceAndContinue
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::AuthenticationChallengeDisposition> {
+template<> struct EnumTraits<PurCFetcher::AuthenticationChallengeDisposition> {
     using values = EnumValues<
-        PurcFetcher::AuthenticationChallengeDisposition,
-        PurcFetcher::AuthenticationChallengeDisposition::UseCredential,
-        PurcFetcher::AuthenticationChallengeDisposition::PerformDefaultHandling,
-        PurcFetcher::AuthenticationChallengeDisposition::Cancel,
-        PurcFetcher::AuthenticationChallengeDisposition::RejectProtectionSpaceAndContinue
+        PurCFetcher::AuthenticationChallengeDisposition,
+        PurCFetcher::AuthenticationChallengeDisposition::UseCredential,
+        PurCFetcher::AuthenticationChallengeDisposition::PerformDefaultHandling,
+        PurCFetcher::AuthenticationChallengeDisposition::Cancel,
+        PurCFetcher::AuthenticationChallengeDisposition::RejectProtectionSpaceAndContinue
     >;
 };
 

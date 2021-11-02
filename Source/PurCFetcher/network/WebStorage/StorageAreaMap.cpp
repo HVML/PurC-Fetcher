@@ -26,7 +26,7 @@
 #include "config.h"
 #include "StorageAreaMap.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 StorageAreaMap::StorageAreaMap()
 {
@@ -57,4 +57,4 @@ void StorageAreaMap::clearCache()
 }
 
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

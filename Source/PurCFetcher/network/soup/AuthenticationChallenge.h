@@ -31,7 +31,7 @@
 typedef struct _SoupAuth SoupAuth;
 typedef struct _SoupMessage SoupMessage;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationChallenge final : public AuthenticationChallengeBase {
 public:
@@ -59,5 +59,5 @@ private:
     RefPtr<AuthenticationClient> m_authenticationClient;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

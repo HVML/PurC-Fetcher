@@ -31,7 +31,7 @@
 #include "NetworkProcess.h"
 #include "NetworkStorageSession.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static RefPtr<NetworkProcess> globalNetworkProcess;
 
@@ -60,9 +60,9 @@ void InitializeFetcher()
     WTF::RefCountedBase::enableThreadingChecksGlobally();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 int NetworkProcessMain(int argc, char** argv)
 {
-    return PurcFetcher::AuxiliaryProcessMain<PurcFetcher::NetworkProcess, PurcFetcher::NetworkProcessMainSoup>(argc, argv);
+    return PurCFetcher::AuxiliaryProcessMain<PurCFetcher::NetworkProcess, PurCFetcher::NetworkProcessMainSoup>(argc, argv);
 }

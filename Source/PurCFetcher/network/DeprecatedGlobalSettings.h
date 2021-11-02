@@ -28,7 +28,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DeprecatedGlobalSettings {
 public:
@@ -183,4 +183,4 @@ inline bool DeprecatedGlobalSettings::isPostBackgroundingMemoryUsageMeasurementE
 #endif
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -30,11 +30,11 @@
 #include "StorageManager.h"
 #include "SecurityOriginData.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
-// We should investigate a way to share it with PurcFetcher.
+// We should investigate a way to share it with PurCFetcher.
 LocalStorageNamespace::LocalStorageNamespace(StorageManager& storageManager, StorageNamespaceIdentifier storageNamespaceID)
     : m_storageManager(storageManager)
     , m_quotaInBytes(StorageManager::localStorageDatabaseQuotaInBytes)
@@ -99,4 +99,4 @@ Vector<StorageAreaIdentifier> LocalStorageNamespace::storageAreaIdentifiers() co
     return identifiers;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum StorageAreaIdentifierType { };
 using StorageAreaIdentifier = ObjectIdentifier<StorageAreaIdentifierType>;

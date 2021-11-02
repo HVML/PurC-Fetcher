@@ -41,7 +41,7 @@
 #include <pal/spi/ios/SQLite3SPI.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SQLiteFileSystem::SQLiteFileSystem()
 {
@@ -143,4 +143,4 @@ String SQLiteFileSystem::computeHashForFileName(const String& fileName)
     return String::fromUTF8(result);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

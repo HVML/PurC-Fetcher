@@ -50,7 +50,7 @@
 #include <wtf/glib/GRefPtr.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 void traverseDirectory(const String& path, const Function<void (const String&, DirectoryEntryType)>& function)

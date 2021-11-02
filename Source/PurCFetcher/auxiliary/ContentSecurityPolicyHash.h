@@ -27,9 +27,9 @@
 
 #include "ResourceCryptographicDigest.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 using ContentSecurityPolicyHashAlgorithm = ResourceCryptographicDigest::Algorithm;
 using ContentSecurityPolicyHash = ResourceCryptographicDigest;
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

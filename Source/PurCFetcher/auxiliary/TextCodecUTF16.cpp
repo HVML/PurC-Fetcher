@@ -29,7 +29,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 inline TextCodecUTF16::TextCodecUTF16(bool littleEndian)
     : m_littleEndian(littleEndian)
@@ -131,4 +131,4 @@ Vector<uint8_t> TextCodecUTF16::encode(StringView string, UnencodableHandling)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

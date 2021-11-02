@@ -32,8 +32,8 @@
 #include "Cookie.h"
 #include "SecurityOriginData.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 const char* WebCookieManagerProxy::supplementName()
 {
@@ -187,4 +187,4 @@ void WebCookieManagerProxy::getHTTPCookieAcceptPolicy(PAL::SessionID, Completion
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

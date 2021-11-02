@@ -35,7 +35,7 @@ OBJC_CLASS NSOperationQueue;
 typedef struct _SoupSession SoupSession;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkStorageSession;
 class ResourceError;

@@ -28,7 +28,7 @@
 #include "Timer.h"
 #include <wtf/Deque.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Download;
 
@@ -54,8 +54,8 @@ private:
     };
     static constexpr size_t timestampCapacity = 10;
     Deque<Timestamp, timestampCapacity> m_timestamps;
-    PurcFetcher::Timer m_timer { *this, &DownloadMonitor::timerFired };
+    PurCFetcher::Timer m_timer { *this, &DownloadMonitor::timerFired };
     size_t m_interval { 0 };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

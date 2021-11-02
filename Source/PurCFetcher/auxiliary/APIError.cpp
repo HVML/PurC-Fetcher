@@ -92,7 +92,7 @@ void Error::encode(IPC::Encoder& encoder) const
 
 bool Error::decode(IPC::Decoder& decoder, RefPtr<Object>& result)
 {
-    PurcFetcher::ResourceError error;
+    PurCFetcher::ResourceError error;
     if (!decoder.decode(error))
         return false;
     
@@ -100,4 +100,4 @@ bool Error::decode(IPC::Decoder& decoder, RefPtr<Object>& result)
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

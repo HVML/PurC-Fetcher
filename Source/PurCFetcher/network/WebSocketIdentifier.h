@@ -27,9 +27,9 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum WebSocketIdentifierType { };
 using WebSocketIdentifier = ObjectIdentifier<WebSocketIdentifierType>;
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

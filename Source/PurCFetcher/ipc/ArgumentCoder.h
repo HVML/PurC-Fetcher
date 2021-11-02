@@ -27,7 +27,7 @@
 
 #include <wtf/Optional.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class IntConstraint;
 class DoubleConstraint;
 class ResourceResponse;
@@ -84,14 +84,14 @@ public:
 };
 
 // ResourceResponseBase has the legacy decode template, not ResourceResponse.
-template<> class UsesModernDecoder<PurcFetcher::ResourceResponse> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<PurcFetcher::ResourceResponse> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurCFetcher::ResourceResponse> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurCFetcher::ResourceResponse> : public DefaultDecoderValues<std::true_type> { };
 
 // IntConstraint and DoubleConstraint have their legacy decoder templates in NumericConstraint.
-template<> class UsesModernDecoder<PurcFetcher::IntConstraint> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<PurcFetcher::IntConstraint> : public DefaultDecoderValues<std::true_type> { };
-template<> class UsesModernDecoder<PurcFetcher::DoubleConstraint> : public DefaultDecoderValues<std::false_type> { };
-template<> class UsesLegacyDecoder<PurcFetcher::DoubleConstraint> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurCFetcher::IntConstraint> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurCFetcher::IntConstraint> : public DefaultDecoderValues<std::true_type> { };
+template<> class UsesModernDecoder<PurCFetcher::DoubleConstraint> : public DefaultDecoderValues<std::false_type> { };
+template<> class UsesLegacyDecoder<PurCFetcher::DoubleConstraint> : public DefaultDecoderValues<std::true_type> { };
 
 template<typename T> struct ArgumentCoder {
     static void encode(Encoder& encoder, const T& t)

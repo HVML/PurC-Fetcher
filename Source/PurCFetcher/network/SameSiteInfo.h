@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ResourceRequest;
 
@@ -60,4 +60,4 @@ bool SameSiteInfo::decode(Decoder& decoder, SameSiteInfo& info)
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -21,15 +21,15 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> DownloadProxy {
-    DidStart(PurcFetcher::ResourceRequest request, AtomString suggestedFilename)
-    DidReceiveAuthenticationChallenge(PurcFetcher::AuthenticationChallenge challenge, uint64_t challengeID)
-    WillSendRequest(PurcFetcher::ResourceRequest redirectRequest, PurcFetcher::ResourceResponse redirectResponse))
-    DecideDestinationWithSuggestedFilenameAsync(PurcFetcher::DownloadID downloadID, String suggestedFilename)
+    DidStart(PurCFetcher::ResourceRequest request, AtomString suggestedFilename)
+    DidReceiveAuthenticationChallenge(PurCFetcher::AuthenticationChallenge challenge, uint64_t challengeID)
+    WillSendRequest(PurCFetcher::ResourceRequest redirectRequest, PurCFetcher::ResourceResponse redirectResponse))
+    DecideDestinationWithSuggestedFilenameAsync(PurCFetcher::DownloadID downloadID, String suggestedFilename)
 
-    DidReceiveResponse(PurcFetcher::ResourceResponse response)
+    DidReceiveResponse(PurCFetcher::ResourceResponse response)
     DidReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite)
     DidCreateDestination(String path)
     DidFinish()
-    DidFail(PurcFetcher::ResourceError error, IPC::DataReference resumeData)
+    DidFail(PurCFetcher::ResourceError error, IPC::DataReference resumeData)
     DidCancel(IPC::DataReference resumeData)
 }

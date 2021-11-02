@@ -29,8 +29,8 @@
 
 #include <wtf/RandomNumber.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher::DOMCacheEngine;
+namespace PurCFetcher {
+using namespace PurCFetcher::DOMCacheEngine;
 
 static inline uint64_t formDataSize(const FormData& formData)
 {
@@ -56,4 +56,4 @@ uint64_t CacheStorageConnection::computeRealBodySize(const DOMCacheEngine::Respo
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

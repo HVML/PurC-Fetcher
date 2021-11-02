@@ -35,7 +35,7 @@
 #include <unistd.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 Data Data::mapToFile(const String& path) const
@@ -169,4 +169,4 @@ Optional<Salt> readOrMakeSalt(const String& path)
 }
 
 } // namespace NetworkCache
-} // namespace PurcFetcher
+} // namespace PurCFetcher

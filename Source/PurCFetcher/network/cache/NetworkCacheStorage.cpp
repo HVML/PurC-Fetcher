@@ -41,7 +41,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 static const char saltFileName[] = "salt";
@@ -153,7 +153,7 @@ static String makeCachePath(const String& baseCachePath)
 {
 #if PLATFORM(MAC)
     // Put development cache to a different directory to avoid affecting the system cache.
-    if (!AuxiliaryProcess::isSystemPurcFetcher())
+    if (!AuxiliaryProcess::isSystemPurCFetcher())
         return FileSystem::pathByAppendingComponent(baseCachePath, "Development"_s);
 #endif
     return baseCachePath;
@@ -252,9 +252,9 @@ Storage::Storage(const String& baseDirectoryPath, Mode mode, Salt salt, size_t c
     , m_capacity(capacity)
     , m_readOperationTimeoutTimer(*this, &Storage::cancelAllReadOperations)
     , m_writeOperationDispatchTimer(*this, &Storage::dispatchPendingWriteOperations)
-    , m_ioQueue(WorkQueue::create("com.apple.PurcFetcher.Cache.Storage", WorkQueue::Type::Concurrent))
-    , m_backgroundIOQueue(WorkQueue::create("com.apple.PurcFetcher.Cache.Storage.background", WorkQueue::Type::Concurrent, WorkQueue::QOS::Background))
-    , m_serialBackgroundIOQueue(WorkQueue::create("com.apple.PurcFetcher.Cache.Storage.serialBackground", WorkQueue::Type::Serial, WorkQueue::QOS::Background))
+    , m_ioQueue(WorkQueue::create("com.apple.PurCFetcher.Cache.Storage", WorkQueue::Type::Concurrent))
+    , m_backgroundIOQueue(WorkQueue::create("com.apple.PurCFetcher.Cache.Storage.background", WorkQueue::Type::Concurrent, WorkQueue::QOS::Background))
+    , m_serialBackgroundIOQueue(WorkQueue::create("com.apple.PurCFetcher.Cache.Storage.serialBackground", WorkQueue::Type::Serial, WorkQueue::QOS::Background))
     , m_blobStorage(makeBlobDirectoryPath(baseDirectoryPath), m_salt)
 {
     ASSERT(RunLoop::isMain());

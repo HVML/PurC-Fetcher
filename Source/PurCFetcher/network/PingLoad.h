@@ -33,7 +33,7 @@
 #include <wtf/UniqueRef.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkConnectionToWebProcess;
 class NetworkLoadChecker;
@@ -42,8 +42,8 @@ class NetworkSchemeRegistry;
 
 class PingLoad final : public CanMakeWeakPtr<PingLoad>, private NetworkDataTaskClient {
 public:
-    PingLoad(NetworkProcess&, PAL::SessionID, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)>&&);
-    PingLoad(NetworkConnectionToWebProcess&, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)>&&);
+    PingLoad(NetworkProcess&, PAL::SessionID, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurCFetcher::ResourceError&, const PurCFetcher::ResourceResponse&)>&&);
+    PingLoad(NetworkConnectionToWebProcess&, NetworkResourceLoadParameters&&, CompletionHandler<void(const PurCFetcher::ResourceError&, const PurCFetcher::ResourceResponse&)>&&);
 
 private:
     ~PingLoad();
@@ -51,26 +51,26 @@ private:
 
     const URL& currentURL() const;
 
-    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
-    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurCFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurCFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurCFetcher::ResourceError&, const PurCFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
     void wasBlockedByRestrictions() final;
     void timeoutTimerFired();
 
-    void loadRequest(NetworkProcess&, PurcFetcher::ResourceRequest&&);
+    void loadRequest(NetworkProcess&, PurCFetcher::ResourceRequest&&);
 
-    void didFinish(const PurcFetcher::ResourceError& = { }, const PurcFetcher::ResourceResponse& response = { });
+    void didFinish(const PurCFetcher::ResourceError& = { }, const PurCFetcher::ResourceResponse& response = { });
     
     PAL::SessionID m_sessionID;
     NetworkResourceLoadParameters m_parameters;
-    CompletionHandler<void(const PurcFetcher::ResourceError&, const PurcFetcher::ResourceResponse&)> m_completionHandler;
+    CompletionHandler<void(const PurCFetcher::ResourceError&, const PurCFetcher::ResourceResponse&)> m_completionHandler;
     RefPtr<NetworkDataTask> m_task;
-    PurcFetcher::Timer m_timeoutTimer;
+    PurCFetcher::Timer m_timeoutTimer;
     UniqueRef<NetworkLoadChecker> m_networkLoadChecker;
 };
 

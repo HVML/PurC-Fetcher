@@ -28,7 +28,7 @@
 
 #include "Logging.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 #if !LOG_DISABLED
 

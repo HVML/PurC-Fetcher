@@ -42,7 +42,7 @@
 #include <wtf/text/AtomString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 bool isOnAccessControlSimpleRequestMethodAllowlist(const String& method)
 {
@@ -273,4 +273,4 @@ Optional<ResourceError> validateRangeRequestedFlag(const ResourceRequest& reques
     return WTF::nullopt;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

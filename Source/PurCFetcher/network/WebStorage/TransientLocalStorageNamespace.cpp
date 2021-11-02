@@ -29,9 +29,9 @@
 #include "StorageArea.h"
 #include "StorageManager.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 TransientLocalStorageNamespace::TransientLocalStorageNamespace()
     : m_quotaInBytes(StorageManager::localStorageDatabaseQuotaInBytes)
@@ -88,4 +88,4 @@ Vector<StorageAreaIdentifier> TransientLocalStorageNamespace::storageAreaIdentif
     return identifiers;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

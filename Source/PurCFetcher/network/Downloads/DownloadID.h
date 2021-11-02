@@ -32,7 +32,7 @@
 #include "Encoder.h"
 #include <wtf/HashTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DownloadID {
 public:
@@ -59,18 +59,18 @@ private:
 
 namespace IPC {
     
-template<> struct ArgumentCoder<PurcFetcher::DownloadID> {
-    static void encode(Encoder& encoder, const PurcFetcher::DownloadID& downloadID)
+template<> struct ArgumentCoder<PurCFetcher::DownloadID> {
+    static void encode(Encoder& encoder, const PurCFetcher::DownloadID& downloadID)
     {
         encoder << downloadID.downloadID();
     }
-    static WARN_UNUSED_RETURN bool decode(Decoder& decoder, PurcFetcher::DownloadID& downloadID)
+    static WARN_UNUSED_RETURN bool decode(Decoder& decoder, PurCFetcher::DownloadID& downloadID)
     {
         uint64_t id;
         if (!decoder.decode(id))
             return false;
 
-        downloadID = PurcFetcher::DownloadID(id);
+        downloadID = PurCFetcher::DownloadID(id);
         
         return true;
     }
@@ -81,17 +81,17 @@ template<> struct ArgumentCoder<PurcFetcher::DownloadID> {
 namespace WTF {
     
 struct DownloadIDHash {
-    static unsigned hash(const PurcFetcher::DownloadID& d) { return intHash(d.downloadID()); }
-    static bool equal(const PurcFetcher::DownloadID& a, const PurcFetcher::DownloadID& b) { return a.downloadID() == b.downloadID(); }
+    static unsigned hash(const PurCFetcher::DownloadID& d) { return intHash(d.downloadID()); }
+    static bool equal(const PurCFetcher::DownloadID& a, const PurCFetcher::DownloadID& b) { return a.downloadID() == b.downloadID(); }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
-template<> struct HashTraits<PurcFetcher::DownloadID> : GenericHashTraits<PurcFetcher::DownloadID> {
-    static PurcFetcher::DownloadID emptyValue() { return { }; }
+template<> struct HashTraits<PurCFetcher::DownloadID> : GenericHashTraits<PurCFetcher::DownloadID> {
+    static PurCFetcher::DownloadID emptyValue() { return { }; }
     
-    static void constructDeletedValue(PurcFetcher::DownloadID& slot) { slot = PurcFetcher::DownloadID(std::numeric_limits<uint64_t>::max()); }
-    static bool isDeletedValue(const PurcFetcher::DownloadID& slot) { return slot.downloadID() == std::numeric_limits<uint64_t>::max(); }
+    static void constructDeletedValue(PurCFetcher::DownloadID& slot) { slot = PurCFetcher::DownloadID(std::numeric_limits<uint64_t>::max()); }
+    static bool isDeletedValue(const PurCFetcher::DownloadID& slot) { return slot.downloadID() == std::numeric_limits<uint64_t>::max(); }
 };
-template<> struct DefaultHash<PurcFetcher::DownloadID> {
+template<> struct DefaultHash<PurCFetcher::DownloadID> {
     typedef DownloadIDHash Hash;
 };
 

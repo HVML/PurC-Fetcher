@@ -49,7 +49,7 @@
 #include "config.h"
 #include "FilterBase.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Vector<String> FilterBase::splitUTF8(const char* source, const char* sourceEnd)
 {
@@ -110,4 +110,4 @@ void UCharBreaker::doUStrGetBreaks()
 #endif
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

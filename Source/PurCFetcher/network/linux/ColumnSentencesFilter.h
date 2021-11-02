@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ColumnSentencesFilter : public FilterBase {
 public:
@@ -71,4 +71,4 @@ private:
     String m_lang;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

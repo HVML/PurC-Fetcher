@@ -52,7 +52,7 @@
 #include "FilterBase.h"
 #include "FormatBase.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class CmdFilterManager : public RefCounted<CmdFilterManager> {
 public:
@@ -81,4 +81,4 @@ private:
     Vector<String> m_filterParamVec;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

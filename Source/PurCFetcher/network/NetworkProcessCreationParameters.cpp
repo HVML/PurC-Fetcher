@@ -33,7 +33,7 @@
 #include "ArgumentCodersCF.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 NetworkProcessCreationParameters::NetworkProcessCreationParameters() = default;
 
@@ -176,4 +176,4 @@ bool NetworkProcessCreationParameters::decode(IPC::Decoder& decoder, NetworkProc
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

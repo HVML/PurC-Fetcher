@@ -42,11 +42,11 @@
 #include <wtf/RunLoop.h>
 #include <wtf/Seconds.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace NetworkCache {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 static const Seconds preloadedEntryLifetime { 10_s };
 
@@ -71,7 +71,7 @@ static void logSpeculativeLoadingDiagnosticMessage(NetworkProcess& networkProces
     if (WebKit2LogNetworkCacheSpeculativePreloading.state == WTFLogChannelState::On)
         allSpeculativeLoadingDiagnosticMessages().add(message);
 #endif
-    networkProcess.logDiagnosticMessage(frameID.webPageProxyID, PurcFetcher::DiagnosticLoggingKeys::networkCacheKey(), message, PurcFetcher::ShouldSample::Yes);
+    networkProcess.logDiagnosticMessage(frameID.webPageProxyID, PurCFetcher::DiagnosticLoggingKeys::networkCacheKey(), message, PurCFetcher::ShouldSample::Yes);
 }
 
 static const AtomString& subresourcesType()
@@ -281,7 +281,7 @@ bool SpeculativeLoadManager::canUsePendingPreload(const SpeculativeLoad& load, c
     return requestsHeadersMatch(load.originalRequest(), actualRequest);
 }
 
-bool SpeculativeLoadManager::canRetrieve(const Key& storageKey, const PurcFetcher::ResourceRequest& request, const GlobalFrameID& frameID) const
+bool SpeculativeLoadManager::canRetrieve(const Key& storageKey, const PurCFetcher::ResourceRequest& request, const GlobalFrameID& frameID) const
 {
     // Check already preloaded entries.
     if (auto preloadedEntry = m_preloadedEntries.get(storageKey)) {
@@ -334,7 +334,7 @@ void SpeculativeLoadManager::retrieve(const Key& storageKey, RetrieveCompletionH
     addResult.iterator->value->append(WTFMove(completionHandler));
 }
 
-bool SpeculativeLoadManager::shouldRegisterLoad(const PurcFetcher::ResourceRequest& request)
+bool SpeculativeLoadManager::shouldRegisterLoad(const PurCFetcher::ResourceRequest& request)
 {
     if (request.httpMethod() != "GET")
         return false;
@@ -380,7 +380,7 @@ void SpeculativeLoadManager::registerLoad(const GlobalFrameID& frameID, const Re
         pendingFrameLoad->registerSubresourceLoad(request, resourceKey);
 }
 
-void SpeculativeLoadManager::registerMainResourceLoadResponse(const GlobalFrameID& frameID, const PurcFetcher::ResourceRequest& request, const PurcFetcher::ResourceResponse& response)
+void SpeculativeLoadManager::registerMainResourceLoadResponse(const GlobalFrameID& frameID, const PurCFetcher::ResourceRequest& request, const PurCFetcher::ResourceResponse& response)
 {
     if (!shouldRegisterLoad(request))
         return;
@@ -460,7 +460,7 @@ void SpeculativeLoadManager::preconnectForSubresource(const SubresourceInfo& sub
     parameters.shouldPreconnectOnly = PreconnectOnly::Yes;
     parameters.request = constructRevalidationRequest(subresourceInfo.key(), subresourceInfo, entry);
     parameters.isNavigatingToAppBoundDomain = isNavigatingToAppBoundDomain;
-    new PreconnectTask(m_cache.networkProcess(), m_cache.sessionID(), WTFMove(parameters), [](const PurcFetcher::ResourceError&) { });
+    new PreconnectTask(m_cache.networkProcess(), m_cache.sessionID(), WTFMove(parameters), [](const PurCFetcher::ResourceError&) { });
 #else
     UNUSED_PARAM(subresourceInfo);
     UNUSED_PARAM(entry);
@@ -619,6 +619,6 @@ void SpeculativeLoadManager::retrieveSubresourcesEntry(const Key& storageKey, WT
 
 } // namespace NetworkCache
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

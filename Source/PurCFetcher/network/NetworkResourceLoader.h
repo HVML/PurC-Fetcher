@@ -42,13 +42,13 @@
 #include "Timer.h"
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class FormData;
 class NetworkStorageSession;
 class ResourceRequest;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkConnectionToWebProcess;
 class NetworkLoad;
@@ -68,8 +68,8 @@ class NetworkResourceLoader final
     : public RefCounted<NetworkResourceLoader>
     , public NetworkLoadClient
     , public IPC::MessageSender
-    , public PurcFetcher::ContentSecurityPolicyClient
-    , public PurcFetcher::CrossOriginAccessControlCheckDisabler
+    , public PurCFetcher::ContentSecurityPolicyClient
+    , public PurCFetcher::CrossOriginAccessControlCheckDisabler
     , public CanMakeWeakPtr<NetworkResourceLoader> {
 public:
     static Ref<NetworkResourceLoader> create(NetworkResourceLoadParameters&& parameters, NetworkConnectionToWebProcess& connection, Messages::NetworkConnectionToWebProcess::PerformSynchronousLoadDelayedReply&& reply = nullptr)
@@ -78,7 +78,7 @@ public:
     }
     virtual ~NetworkResourceLoader();
 
-    const PurcFetcher::ResourceRequest& originalRequest() const { return m_parameters.request; }
+    const PurCFetcher::ResourceRequest& originalRequest() const { return m_parameters.request; }
 
     NetworkLoad* networkLoad() const { return m_networkLoad.get(); }
 
@@ -88,15 +88,15 @@ public:
     // Message handlers.
     void didReceiveNetworkResourceLoaderMessage(IPC::Connection&, IPC::Decoder&);
 
-    void continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest, bool isAllowedToAskUserForCredentials);
+    void continueWillSendRequest(PurCFetcher::ResourceRequest&& newRequest, bool isAllowedToAskUserForCredentials);
 
-    const PurcFetcher::ResourceResponse& response() const { return m_response; }
+    const PurCFetcher::ResourceResponse& response() const { return m_response; }
 
     NetworkConnectionToWebProcess& connectionToWebProcess() const { return m_connection; }
     PAL::SessionID sessionID() const { return m_connection->sessionID(); }
     ResourceLoadIdentifier identifier() const { return m_parameters.identifier; }
-    PurcFetcher::FrameIdentifier frameID() const { return m_parameters.webFrameID; }
-    PurcFetcher::PageIdentifier pageID() const { return m_parameters.webPageID; }
+    PurCFetcher::FrameIdentifier frameID() const { return m_parameters.webFrameID; }
+    PurCFetcher::PageIdentifier pageID() const { return m_parameters.webPageID; }
     const NetworkResourceLoadParameters& parameters() const { return m_parameters; }
 
     NetworkCache::GlobalFrameID globalFrameID() { return { m_parameters.webPageProxyID, pageID(), frameID() }; }
@@ -107,21 +107,21 @@ public:
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) final;
     bool isSynchronous() const final;
     bool isAllowedToAskUserForCredentials() const final { return m_isAllowedToAskUserForCredentials; }
-    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&) final;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
-    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
-    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) final;
-    void didFailLoading(const PurcFetcher::ResourceError&) final;
+    void willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&&) final;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
+    void didReceiveBuffer(Ref<PurCFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
+    void didFinishLoading(const PurCFetcher::NetworkLoadMetrics&) final;
+    void didFailLoading(const PurCFetcher::ResourceError&) final;
     void didBlockAuthenticationChallenge() final;
-    void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&) final;
+    void didReceiveChallenge(const PurCFetcher::AuthenticationChallenge&) final;
     bool shouldCaptureExtraNetworkLoadMetrics() const final;
 
     // CrossOriginAccessControlCheckDisabler
     bool crossOriginAccessControlCheckEnabled() const override;
         
-    void convertToDownload(DownloadID, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
+    void convertToDownload(DownloadID, const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&);
 
-    bool isMainResource() const { return m_parameters.request.requester() == PurcFetcher::ResourceRequest::Requester::Main; }
+    bool isMainResource() const { return m_parameters.request.requester() == PurCFetcher::ResourceRequest::Requester::Main; }
     bool isMainFrameLoad() const { return isMainResource() && m_parameters.frameAncestorOrigins.isEmpty(); }
     bool isCrossOriginPrefetch() const;
 
@@ -129,7 +129,7 @@ public:
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS) && !RELEASE_LOG_DISABLED
     static bool shouldLogCookieInformation(NetworkConnectionToWebProcess&, const PAL::SessionID&);
-    static void logCookieInformation(NetworkConnectionToWebProcess&, const String& label, const void* loggedObject, const PurcFetcher::NetworkStorageSession&, const URL& firstParty, const PurcFetcher::SameSiteInfo&, const URL&, const String& referrer, Optional<PurcFetcher::FrameIdentifier>, Optional<PurcFetcher::PageIdentifier>, Optional<uint64_t> identifier);
+    static void logCookieInformation(NetworkConnectionToWebProcess&, const String& label, const void* loggedObject, const PurCFetcher::NetworkStorageSession&, const URL& firstParty, const PurCFetcher::SameSiteInfo&, const URL&, const String& referrer, Optional<PurCFetcher::FrameIdentifier>, Optional<PurCFetcher::PageIdentifier>, Optional<uint64_t> identifier);
 #endif
 
     void disableExtraNetworkLoadMetricsCapture() { m_shouldCaptureExtraNetworkLoadMetrics = false; }
@@ -150,25 +150,25 @@ private:
     IPC::Connection* messageSenderConnection() const override;
     uint64_t messageSenderDestinationID() const override { return m_parameters.identifier; }
 
-    bool canUseCache(const PurcFetcher::ResourceRequest&) const;
-    bool canUseCachedRedirect(const PurcFetcher::ResourceRequest&) const;
+    bool canUseCache(const PurCFetcher::ResourceRequest&) const;
+    bool canUseCachedRedirect(const PurCFetcher::ResourceRequest&) const;
 
     void tryStoreAsCacheEntry();
-    void retrieveCacheEntry(const PurcFetcher::ResourceRequest&);
-    void retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&&, PurcFetcher::ResourceRequest&&);
+    void retrieveCacheEntry(const PurCFetcher::ResourceRequest&);
+    void retrieveCacheEntryInternal(std::unique_ptr<NetworkCache::Entry>&&, PurCFetcher::ResourceRequest&&);
     void didRetrieveCacheEntry(std::unique_ptr<NetworkCache::Entry>);
     void sendResultForCacheEntry(std::unique_ptr<NetworkCache::Entry>);
     void validateCacheEntry(std::unique_ptr<NetworkCache::Entry>);
-    void dispatchWillSendRequestForCacheEntry(PurcFetcher::ResourceRequest&&, std::unique_ptr<NetworkCache::Entry>&&);
+    void dispatchWillSendRequestForCacheEntry(PurCFetcher::ResourceRequest&&, std::unique_ptr<NetworkCache::Entry>&&);
 
     bool shouldInterruptLoadForXFrameOptions(const String&, const URL&);
-    bool shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptions(const PurcFetcher::ResourceResponse&);
+    bool shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptions(const PurCFetcher::ResourceResponse&);
 
     enum class FirstLoad { No, Yes };
-    void startNetworkLoad(PurcFetcher::ResourceRequest&&, FirstLoad);
-    void restartNetworkLoad(PurcFetcher::ResourceRequest&&);
+    void startNetworkLoad(PurCFetcher::ResourceRequest&&, FirstLoad);
+    void restartNetworkLoad(PurCFetcher::ResourceRequest&&);
     void continueDidReceiveResponse();
-    void didReceiveMainResourceResponse(const PurcFetcher::ResourceResponse&);
+    void didReceiveMainResourceResponse(const PurCFetcher::ResourceResponse&);
 
     enum class LoadResult {
         Unknown,
@@ -178,11 +178,11 @@ private:
     };
     void cleanup(LoadResult);
     
-    void platformDidReceiveResponse(const PurcFetcher::ResourceResponse&);
+    void platformDidReceiveResponse(const PurCFetcher::ResourceResponse&);
 
     void startBufferingTimerIfNeeded();
     void bufferingTimerFired();
-    void sendBuffer(PurcFetcher::SharedBuffer&, size_t encodedDataLength);
+    void sendBuffer(PurCFetcher::SharedBuffer&, size_t encodedDataLength);
 
     void consumeSandboxExtensions();
     void invalidateSandboxExtensions();
@@ -191,19 +191,19 @@ private:
     void logCookieInformation() const;
 #endif
 
-    void continueWillSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&, Optional<PurcFetcher::AdClickAttribution::Conversion>&&);
-    void didFinishWithRedirectResponse(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&&);
-    PurcFetcher::ResourceResponse sanitizeResponseIfPossible(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceResponse::SanitizationType);
+    void continueWillSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&&, Optional<PurCFetcher::AdClickAttribution::Conversion>&&);
+    void didFinishWithRedirectResponse(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&&);
+    PurCFetcher::ResourceResponse sanitizeResponseIfPossible(PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceResponse::SanitizationType);
 
     // ContentSecurityPolicyClient
-    void sendCSPViolationReport(URL&&, Ref<PurcFetcher::FormData>&&) final;
-//    void enqueueSecurityPolicyViolationEvent(PurcFetcher::SecurityPolicyViolationEvent::Init&&) final;
+    void sendCSPViolationReport(URL&&, Ref<PurCFetcher::FormData>&&) final;
+//    void enqueueSecurityPolicyViolationEvent(PurCFetcher::SecurityPolicyViolationEvent::Init&&) final;
 
     void logSlowCacheRetrieveIfNeeded(const NetworkCache::Cache::RetrieveInfo&);
 
-    void handleAdClickAttributionConversion(PurcFetcher::AdClickAttribution::Conversion&&, const URL&, const PurcFetcher::ResourceRequest&);
+    void handleAdClickAttributionConversion(PurCFetcher::AdClickAttribution::Conversion&&, const URL&, const PurCFetcher::ResourceRequest&);
 
-    Optional<Seconds> validateCacheEntryForMaxAgeCapValidation(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceRequest& redirectRequest, const PurcFetcher::ResourceResponse&);
+    Optional<Seconds> validateCacheEntryForMaxAgeCapValidation(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceRequest& redirectRequest, const PurCFetcher::ResourceResponse&);
 
     ResourceLoadInfo resourceLoadInfo();
 
@@ -213,10 +213,10 @@ private:
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
 
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ResourceResponse m_response;
 
     size_t m_bufferedDataEncodedDataLength { 0 };
-    RefPtr<PurcFetcher::SharedBuffer> m_bufferedData;
+    RefPtr<PurCFetcher::SharedBuffer> m_bufferedData;
     unsigned m_redirectCount { 0 };
 
     std::unique_ptr<SynchronousLoadData> m_synchronousLoadData;
@@ -228,9 +228,9 @@ private:
 
     unsigned m_retrievedDerivedDataCount { 0 };
 
-    PurcFetcher::Timer m_bufferingTimer;
+    PurCFetcher::Timer m_bufferingTimer;
     RefPtr<NetworkCache::Cache> m_cache;
-    RefPtr<PurcFetcher::SharedBuffer> m_bufferedDataForCache;
+    RefPtr<PurCFetcher::SharedBuffer> m_bufferedDataForCache;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntryForValidation;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntryForMaxAgeCapValidation;
     bool m_isWaitingContinueWillSendRequestForCachedRedirect { false };
@@ -250,7 +250,7 @@ private:
     std::unique_ptr<ServiceWorkerFetchTask> m_serviceWorkerFetchTask;
 #endif
     NetworkResourceLoadIdentifier m_resourceLoadID;
-    PurcFetcher::ResourceResponse m_redirectResponse;
+    PurCFetcher::ResourceResponse m_redirectResponse;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

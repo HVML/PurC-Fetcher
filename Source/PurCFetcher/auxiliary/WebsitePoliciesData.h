@@ -43,18 +43,18 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct WebsitePoliciesData {
-//    static void applyToDocumentLoader(WebsitePoliciesData&&, PurcFetcher::DocumentLoader&);
+//    static void applyToDocumentLoader(WebsitePoliciesData&&, PurCFetcher::DocumentLoader&);
 
     bool contentBlockersEnabled { true };
     OptionSet<WebsiteAutoplayQuirk> allowedAutoplayQuirks;
     WebsiteAutoplayPolicy autoplayPolicy { WebsiteAutoplayPolicy::Default };
 #if ENABLE(DEVICE_ORIENTATION)
-    PurcFetcher::DeviceOrientationOrMotionPermissionState deviceOrientationAndMotionAccessState;
+    PurCFetcher::DeviceOrientationOrMotionPermissionState deviceOrientationAndMotionAccessState;
 #endif
-    Vector<PurcFetcher::CustomHeaderFields> customHeaderFields;
+    Vector<PurCFetcher::CustomHeaderFields> customHeaderFields;
     WebsitePopUpPolicy popUpPolicy { WebsitePopUpPolicy::Default };
     String customUserAgent;
     String customUserAgentAsSiteSpecificQuirks;
@@ -65,11 +65,11 @@ struct WebsitePoliciesData {
     WebsiteLegacyOverflowScrollingTouchPolicy legacyOverflowScrollingTouchPolicy { WebsiteLegacyOverflowScrollingTouchPolicy::Default };
     bool allowContentChangeObserverQuirk { false };
     bool allowsContentJavaScript { true };
-//    PurcFetcher::MouseEventPolicy mouseEventPolicy { PurcFetcher::MouseEventPolicy::Default };
+//    PurCFetcher::MouseEventPolicy mouseEventPolicy { PurCFetcher::MouseEventPolicy::Default };
     bool idempotentModeAutosizingOnlyHonorsPercentages { false };
 
     void encode(IPC::Encoder&) const;
     static Optional<WebsitePoliciesData> decode(IPC::Decoder&);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

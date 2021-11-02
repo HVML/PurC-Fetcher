@@ -39,7 +39,7 @@
 typedef struct _SoupCookie SoupCookie;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct Cookie {
     Cookie() = default;
@@ -170,23 +170,23 @@ Optional<Cookie> Cookie::decode(Decoder& decoder)
 
 namespace WTF {
     template<typename T> struct DefaultHash;
-    template<> struct DefaultHash<PurcFetcher::Cookie> {
-        typedef PurcFetcher::CookieHash Hash;
+    template<> struct DefaultHash<PurCFetcher::Cookie> {
+        typedef PurCFetcher::CookieHash Hash;
     };
-    template<> struct HashTraits<PurcFetcher::Cookie> : GenericHashTraits<PurcFetcher::Cookie> {
-        static PurcFetcher::Cookie emptyValue() { return { }; }
-        static void constructDeletedValue(PurcFetcher::Cookie& slot) { slot = PurcFetcher::Cookie(WTF::HashTableDeletedValue); }
-        static bool isDeletedValue(const PurcFetcher::Cookie& slot) { return slot.name.isHashTableDeletedValue(); }
+    template<> struct HashTraits<PurCFetcher::Cookie> : GenericHashTraits<PurCFetcher::Cookie> {
+        static PurCFetcher::Cookie emptyValue() { return { }; }
+        static void constructDeletedValue(PurCFetcher::Cookie& slot) { slot = PurCFetcher::Cookie(WTF::HashTableDeletedValue); }
+        static bool isDeletedValue(const PurCFetcher::Cookie& slot) { return slot.name.isHashTableDeletedValue(); }
 
         static const bool hasIsEmptyValueFunction = true;
-        static bool isEmptyValue(const PurcFetcher::Cookie& slot) { return slot.isNull(); }
+        static bool isEmptyValue(const PurCFetcher::Cookie& slot) { return slot.isNull(); }
     };
-    template<> struct EnumTraits<PurcFetcher::Cookie::SameSitePolicy> {
+    template<> struct EnumTraits<PurCFetcher::Cookie::SameSitePolicy> {
     using values = EnumValues<
-        PurcFetcher::Cookie::SameSitePolicy,
-        PurcFetcher::Cookie::SameSitePolicy::None,
-        PurcFetcher::Cookie::SameSitePolicy::Lax,
-        PurcFetcher::Cookie::SameSitePolicy::Strict
+        PurCFetcher::Cookie::SameSitePolicy,
+        PurCFetcher::Cookie::SameSitePolicy::None,
+        PurCFetcher::Cookie::SameSitePolicy::Lax,
+        PurCFetcher::Cookie::SameSitePolicy::Strict
     >;
 };
 }

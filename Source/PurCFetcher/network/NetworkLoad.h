@@ -33,11 +33,11 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class BlobRegistryImpl;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 
@@ -51,14 +51,14 @@ public:
 
     bool isAllowedToAskUserForCredentials() const;
 
-    const PurcFetcher::ResourceRequest& currentRequest() const { return m_currentRequest; }
-    void updateRequestAfterRedirection(PurcFetcher::ResourceRequest&) const;
+    const PurCFetcher::ResourceRequest& currentRequest() const { return m_currentRequest; }
+    void updateRequestAfterRedirection(PurCFetcher::ResourceRequest&) const;
 
     const NetworkLoadParameters& parameters() const { return m_parameters; }
 
-    void continueWillSendRequest(PurcFetcher::ResourceRequest&&);
+    void continueWillSendRequest(PurCFetcher::ResourceRequest&&);
 
-    void convertTaskToDownload(PendingDownload&, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, ResponseCompletionHandler&&);
+    void convertTaskToDownload(PendingDownload&, const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&, ResponseCompletionHandler&&);
     void setPendingDownloadID(DownloadID);
     void setSuggestedFilename(const String&);
     void setPendingDownload(PendingDownload&);
@@ -72,31 +72,31 @@ private:
     void initialize(NetworkSession&);
 
     // NetworkDataTaskClient
-    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
-    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurCFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurCFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurCFetcher::ResourceError&, const PurCFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
     void wasBlockedByRestrictions() final;
-    void didNegotiateModernTLS(const PurcFetcher::AuthenticationChallenge&) final;
+    void didNegotiateModernTLS(const PurCFetcher::AuthenticationChallenge&) final;
 
-    void notifyDidReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
+    void notifyDidReceiveResponse(PurCFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&);
     void throttleDelayCompleted();
 
     std::reference_wrapper<NetworkLoadClient> m_client;
     Ref<NetworkProcess> m_networkProcess;
     const NetworkLoadParameters m_parameters;
-    CompletionHandler<void(PurcFetcher::ResourceRequest&&)> m_redirectCompletionHandler;
+    CompletionHandler<void(PurCFetcher::ResourceRequest&&)> m_redirectCompletionHandler;
     RefPtr<NetworkDataTask> m_task;
     
     struct Throttle;
     std::unique_ptr<Throttle> m_throttle;
     Seconds m_loadThrottleLatency;
 
-    PurcFetcher::ResourceRequest m_currentRequest; // Updated on redirects.
+    PurCFetcher::ResourceRequest m_currentRequest; // Updated on redirects.
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnLettersFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 extern String punctuation;
 
@@ -135,5 +135,5 @@ Vector<Row> ColumnLettersFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

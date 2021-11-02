@@ -32,7 +32,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class WebPageProxy;
 class WebFrameProxy;
@@ -42,14 +42,14 @@ class WebDeviceOrientationAndMotionAccessController : public CanMakeWeakPtr<WebD
 public:
     WebDeviceOrientationAndMotionAccessController() = default;
 
-    void shouldAllowAccess(WebPageProxy&, WebFrameProxy&, FrameInfoData&&, bool mayPrompt, CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>&&);
+    void shouldAllowAccess(WebPageProxy&, WebFrameProxy&, FrameInfoData&&, bool mayPrompt, CompletionHandler<void(PurCFetcher::DeviceOrientationOrMotionPermissionState)>&&);
     void clearPermissions();
 
-    PurcFetcher::DeviceOrientationOrMotionPermissionState cachedDeviceOrientationPermission(const PurcFetcher::SecurityOriginData&) const;
+    PurCFetcher::DeviceOrientationOrMotionPermissionState cachedDeviceOrientationPermission(const PurCFetcher::SecurityOriginData&) const;
 
 private:
-    HashMap<PurcFetcher::SecurityOriginData, bool> m_deviceOrientationPermissionDecisions;
-    HashMap<PurcFetcher::SecurityOriginData, Vector<CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>>> m_pendingRequests;
+    HashMap<PurCFetcher::SecurityOriginData, bool> m_deviceOrientationPermissionDecisions;
+    HashMap<PurCFetcher::SecurityOriginData, Vector<CompletionHandler<void(PurCFetcher::DeviceOrientationOrMotionPermissionState)>>> m_pendingRequests;
 };
 
 }

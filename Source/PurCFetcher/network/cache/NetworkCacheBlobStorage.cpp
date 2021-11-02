@@ -38,7 +38,7 @@
 #include <unistd.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 BlobStorage::BlobStorage(const String& blobDirectoryPath, Salt salt)

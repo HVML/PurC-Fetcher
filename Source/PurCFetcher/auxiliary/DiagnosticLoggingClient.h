@@ -32,7 +32,7 @@
 #include <wtf/Variant.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class ShouldSample : bool { No, Yes };
 
@@ -63,4 +63,4 @@ inline bool DiagnosticLoggingClient::shouldLogAfterSampling(ShouldSample shouldS
     return randomNumber() <= selectionProbability;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

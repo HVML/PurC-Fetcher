@@ -33,7 +33,7 @@
 #include <wtf/RunLoop.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class MainThreadSharedTimer final : public SharedTimer {
     friend class WTF::NeverDestroyed<MainThreadSharedTimer>;
@@ -58,4 +58,4 @@ private:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

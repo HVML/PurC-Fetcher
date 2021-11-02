@@ -31,7 +31,7 @@
 #include "ResourceRequestBase.h"
 #include "URLSoup.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
     class BlobRegistryImpl;
 
@@ -194,6 +194,6 @@ inline SoupMessagePriority toSoupMessagePriority(ResourceLoadPriority priority)
     return SOUP_MESSAGE_PRIORITY_VERY_LOW;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ResourceRequest_h

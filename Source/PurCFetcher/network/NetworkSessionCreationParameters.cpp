@@ -36,7 +36,7 @@
 #include "WebCoreArgumentCoders.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void NetworkSessionCreationParameters::encode(IPC::Encoder& encoder) const
 {
@@ -170,7 +170,7 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     if (!cookiePersistentStorageFile)
         return WTF::nullopt;
 
-    Optional<PurcFetcher::CurlProxySettings> proxySettings;
+    Optional<PurCFetcher::CurlProxySettings> proxySettings;
     decoder >> proxySettings;
     if (!proxySettings)
         return WTF::nullopt;
@@ -295,4 +295,4 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     }};
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

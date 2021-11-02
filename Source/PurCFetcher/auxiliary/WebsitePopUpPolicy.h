@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsitePopUpPolicy {
     Default,
@@ -39,12 +39,12 @@ enum class WebsitePopUpPolicy {
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsitePopUpPolicy> {
+template<> struct EnumTraits<PurCFetcher::WebsitePopUpPolicy> {
     using values = EnumValues<
-        PurcFetcher::WebsitePopUpPolicy,
-        PurcFetcher::WebsitePopUpPolicy::Default,
-        PurcFetcher::WebsitePopUpPolicy::Allow,
-        PurcFetcher::WebsitePopUpPolicy::Block
+        PurCFetcher::WebsitePopUpPolicy,
+        PurCFetcher::WebsitePopUpPolicy::Default,
+        PurCFetcher::WebsitePopUpPolicy::Allow,
+        PurCFetcher::WebsitePopUpPolicy::Block
     >;
 };
 

@@ -30,7 +30,7 @@
 #include <libsoup/soup.h>
 #include <wtf/DateMath.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 #if SOUP_CHECK_VERSION(2, 69, 90)
 static Cookie::SameSitePolicy coreSameSitePolicy(SoupSameSitePolicy policy)
@@ -114,4 +114,4 @@ SoupCookie* Cookie::toSoupCookie() const
     return soupCookie;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

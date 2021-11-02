@@ -35,7 +35,7 @@
 
 #include "ProtectionSpaceBase.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ProtectionSpace : public ProtectionSpaceBase {
 public:
@@ -48,11 +48,11 @@ public:
     ProtectionSpace(WTF::HashTableDeletedValueType deletedValue) : ProtectionSpaceBase(deletedValue) { }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
-template<> struct DefaultHash<PurcFetcher::ProtectionSpace>;
-template<> struct HashTraits<PurcFetcher::ProtectionSpace>;
+template<> struct DefaultHash<PurCFetcher::ProtectionSpace>;
+template<> struct HashTraits<PurCFetcher::ProtectionSpace>;
 }
 
 #endif

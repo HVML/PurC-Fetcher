@@ -44,8 +44,8 @@
 
 #define MESSAGE_CHECK(assertion) MESSAGE_CHECK_BASE(assertion, connection())
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 NetworkProcessProxy::NetworkProcessProxy()
 {
@@ -71,7 +71,7 @@ void NetworkProcessProxy::didReceiveInvalidMessage(IPC::Connection&, IPC::Messag
 {
 }
 
-void NetworkProcessProxy::didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const Optional<SecurityOriginData>&, PurcFetcher::AuthenticationChallenge&&, bool, uint64_t)
+void NetworkProcessProxy::didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const Optional<SecurityOriginData>&, PurCFetcher::AuthenticationChallenge&&, bool, uint64_t)
 {
 }
 
@@ -79,7 +79,7 @@ void NetworkProcessProxy::negotiatedLegacyTLS(WebPageProxyIdentifier)
 {
 }
 
-void NetworkProcessProxy::didNegotiateModernTLS(WebPageProxyIdentifier, const PurcFetcher::AuthenticationChallenge&)
+void NetworkProcessProxy::didNegotiateModernTLS(WebPageProxyIdentifier, const PurCFetcher::AuthenticationChallenge&)
 {
 }
 
@@ -95,19 +95,19 @@ void NetworkProcessProxy::didDeleteWebsiteDataForOrigins(CallbackID)
 {
 }
 
-void NetworkProcessProxy::setWebProcessHasUploads(PurcFetcher::ProcessIdentifier, bool)
+void NetworkProcessProxy::setWebProcessHasUploads(PurCFetcher::ProcessIdentifier, bool)
 {
 }
 
-void NetworkProcessProxy::logDiagnosticMessage(WebPageProxyIdentifier, const String&, const String&, PurcFetcher::ShouldSample)
+void NetworkProcessProxy::logDiagnosticMessage(WebPageProxyIdentifier, const String&, const String&, PurCFetcher::ShouldSample)
 {
 }
 
-void NetworkProcessProxy::logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String&, const String&, uint32_t, PurcFetcher::ShouldSample)
+void NetworkProcessProxy::logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String&, const String&, uint32_t, PurCFetcher::ShouldSample)
 {
 }
 
-void NetworkProcessProxy::logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String&, const String&, double, unsigned, PurcFetcher::ShouldSample)
+void NetworkProcessProxy::logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String&, const String&, double, unsigned, PurCFetcher::ShouldSample)
 {
 }
 
@@ -116,11 +116,11 @@ void NetworkProcessProxy::retrieveCacheStorageParameters(PAL::SessionID)
 }
 
 
-void NetworkProcessProxy::terminateWebProcess(PurcFetcher::ProcessIdentifier)
+void NetworkProcessProxy::terminateWebProcess(PurCFetcher::ProcessIdentifier)
 {
 }
 
-void NetworkProcessProxy::requestStorageSpace(PAL::SessionID, const PurcFetcher::ClientOrigin&, uint64_t, uint64_t, uint64_t, CompletionHandler<void(Optional<uint64_t> quota)>&&)
+void NetworkProcessProxy::requestStorageSpace(PAL::SessionID, const PurCFetcher::ClientOrigin&, uint64_t, uint64_t, uint64_t, CompletionHandler<void(Optional<uint64_t> quota)>&&)
 {
 }
 
@@ -132,7 +132,7 @@ void NetworkProcessProxy::didSyncAllCookies()
 {
 }
 
-void NetworkProcessProxy::terminateUnresponsiveServiceWorkerProcesses(PurcFetcher::ProcessIdentifier)
+void NetworkProcessProxy::terminateUnresponsiveServiceWorkerProcesses(PurCFetcher::ProcessIdentifier)
 {
 }
 
@@ -140,27 +140,27 @@ void NetworkProcessProxy::setIsHoldingLockedFiles(bool)
 {
 }
 
-void NetworkProcessProxy::getAppBoundDomains(PAL::SessionID, CompletionHandler<void(HashSet<PurcFetcher::RegistrableDomain>&&)>&&)
+void NetworkProcessProxy::getAppBoundDomains(PAL::SessionID, CompletionHandler<void(HashSet<PurCFetcher::RegistrableDomain>&&)>&&)
 {
 }
 
-void NetworkProcessProxy::resourceLoadDidSendRequest(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceRequest&&, Optional<IPC::FormDataReference>&&)
+void NetworkProcessProxy::resourceLoadDidSendRequest(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceRequest&&, Optional<IPC::FormDataReference>&&)
 {
 }
 
-void NetworkProcessProxy::resourceLoadDidPerformHTTPRedirection(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&)
+void NetworkProcessProxy::resourceLoadDidPerformHTTPRedirection(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&)
 {
 }
 
-void NetworkProcessProxy::resourceLoadDidReceiveChallenge(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::AuthenticationChallenge&&)
+void NetworkProcessProxy::resourceLoadDidReceiveChallenge(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::AuthenticationChallenge&&)
 {
 }
 
-void NetworkProcessProxy::resourceLoadDidReceiveResponse(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&)
+void NetworkProcessProxy::resourceLoadDidReceiveResponse(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&)
 {
 }
 
-void NetworkProcessProxy::resourceLoadDidCompleteWithError(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceError&&)
+void NetworkProcessProxy::resourceLoadDidCompleteWithError(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceError&&)
 {
 }
 
@@ -168,6 +168,6 @@ void NetworkProcessProxy::testProcessIncomingSyncMessagesWhenWaitingForSyncReply
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef MESSAGE_CHECK

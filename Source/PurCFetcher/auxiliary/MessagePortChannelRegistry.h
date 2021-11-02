@@ -31,7 +31,7 @@
 #include "ProcessIdentifier.h"
 #include <wtf/HashMap.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class MessagePortChannelRegistry {
 public:
@@ -60,4 +60,4 @@ private:
     CheckProcessLocalPortForActivityCallback m_checkProcessLocalPortForActivityCallback;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -34,7 +34,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AdClickAttribution {
 public:
@@ -347,26 +347,26 @@ Optional<AdClickAttribution::Conversion> AdClickAttribution::Conversion::decode(
     return Conversion { WTFMove(*data), Priority { *priority }, *wasSent };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 template<typename T> struct DefaultHash;
 
-template<> struct DefaultHash<PurcFetcher::AdClickAttribution::Source> {
-    typedef PurcFetcher::AdClickAttribution::SourceHash Hash;
+template<> struct DefaultHash<PurCFetcher::AdClickAttribution::Source> {
+    typedef PurCFetcher::AdClickAttribution::SourceHash Hash;
 };
-template<> struct HashTraits<PurcFetcher::AdClickAttribution::Source> : GenericHashTraits<PurcFetcher::AdClickAttribution::Source> {
-    static PurcFetcher::AdClickAttribution::Source emptyValue() { return { }; }
-    static void constructDeletedValue(PurcFetcher::AdClickAttribution::Source& slot) { PurcFetcher::AdClickAttribution::Source::constructDeletedValue(slot); }
-    static bool isDeletedValue(const PurcFetcher::AdClickAttribution::Source& slot) { return slot.isDeletedValue(); }
+template<> struct HashTraits<PurCFetcher::AdClickAttribution::Source> : GenericHashTraits<PurCFetcher::AdClickAttribution::Source> {
+    static PurCFetcher::AdClickAttribution::Source emptyValue() { return { }; }
+    static void constructDeletedValue(PurCFetcher::AdClickAttribution::Source& slot) { PurCFetcher::AdClickAttribution::Source::constructDeletedValue(slot); }
+    static bool isDeletedValue(const PurCFetcher::AdClickAttribution::Source& slot) { return slot.isDeletedValue(); }
 };
 
-template<> struct DefaultHash<PurcFetcher::AdClickAttribution::Destination> {
-    typedef PurcFetcher::AdClickAttribution::DestinationHash Hash;
+template<> struct DefaultHash<PurCFetcher::AdClickAttribution::Destination> {
+    typedef PurCFetcher::AdClickAttribution::DestinationHash Hash;
 };
-template<> struct HashTraits<PurcFetcher::AdClickAttribution::Destination> : GenericHashTraits<PurcFetcher::AdClickAttribution::Destination> {
-    static PurcFetcher::AdClickAttribution::Destination emptyValue() { return { }; }
-    static void constructDeletedValue(PurcFetcher::AdClickAttribution::Destination& slot) { PurcFetcher::AdClickAttribution::Destination::constructDeletedValue(slot); }
-    static bool isDeletedValue(const PurcFetcher::AdClickAttribution::Destination& slot) { return slot.isDeletedValue(); }
+template<> struct HashTraits<PurCFetcher::AdClickAttribution::Destination> : GenericHashTraits<PurCFetcher::AdClickAttribution::Destination> {
+    static PurCFetcher::AdClickAttribution::Destination emptyValue() { return { }; }
+    static void constructDeletedValue(PurCFetcher::AdClickAttribution::Destination& slot) { PurCFetcher::AdClickAttribution::Destination::constructDeletedValue(slot); }
+    static bool isDeletedValue(const PurCFetcher::AdClickAttribution::Destination& slot) { return slot.isDeletedValue(); }
 };
 }

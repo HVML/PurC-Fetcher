@@ -24,7 +24,7 @@
 
 #include <libsoup/soup.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SharedBuffer::SharedBuffer(SoupBuffer* soupBuffer)
 {
@@ -47,6 +47,6 @@ GUniquePtr<SoupBuffer> SharedBuffer::createSoupBuffer(unsigned offset, unsigned 
     return buffer;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif

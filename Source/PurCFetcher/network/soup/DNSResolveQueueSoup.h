@@ -32,13 +32,13 @@
 
 typedef struct _SoupSession SoupSession;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkStorageSession;
 
 class DNSResolveQueueSoup final : public DNSResolveQueue {
 public:
-    using CompletionAndCancelHandlers = std::pair<PurcFetcher::DNSCompletionHandler, GRefPtr<GCancellable>>;
+    using CompletionAndCancelHandlers = std::pair<PurCFetcher::DNSCompletionHandler, GRefPtr<GCancellable>>;
 
     DNSResolveQueueSoup() = default;
     static void setGlobalDefaultSoupSessionAccessor(Function<SoupSession*()>&&);

@@ -29,7 +29,7 @@
 #include "ThreadGlobalData.h"
 #include <wtf/text/AtomString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct CachedResourceRequestInitiators {
     CachedResourceRequestInitiators();
@@ -50,4 +50,4 @@ inline const CachedResourceRequestInitiators& cachedResourceRequestInitiators()
     return threadGlobalData().cachedResourceRequestInitiators();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

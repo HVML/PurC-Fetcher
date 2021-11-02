@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LineSplitFilter : public FilterBase {
 public:
@@ -67,4 +67,4 @@ private:
     Vector<Row> splitRowByUChar(Row& row, UChar uc);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

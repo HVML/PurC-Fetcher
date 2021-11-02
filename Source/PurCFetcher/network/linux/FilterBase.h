@@ -52,7 +52,7 @@
 #include <minigui/common.h>
 #include <minigui/gdi.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 inline bool isSingleQuotes(UChar character)
 {
@@ -104,4 +104,4 @@ private:
     int m_breakOppsCount;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

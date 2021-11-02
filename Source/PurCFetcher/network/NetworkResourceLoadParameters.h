@@ -39,7 +39,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 typedef uint64_t ResourceLoadIdentifier;
 
@@ -52,23 +52,23 @@ public:
     Vector<RefPtr<SandboxExtension>> requestBodySandboxExtensions; // Created automatically for the sender.
     RefPtr<SandboxExtension> resourceSandboxExtension; // Created automatically for the sender.
     Seconds maximumBufferingTime;
-    RefPtr<PurcFetcher::SecurityOrigin> sourceOrigin;
-    PurcFetcher::FetchOptions options;
-    Optional<PurcFetcher::ContentSecurityPolicyResponseHeaders> cspResponseHeaders;
-    PurcFetcher::HTTPHeaderMap originalRequestHeaders;
+    RefPtr<PurCFetcher::SecurityOrigin> sourceOrigin;
+    PurCFetcher::FetchOptions options;
+    Optional<PurCFetcher::ContentSecurityPolicyResponseHeaders> cspResponseHeaders;
+    PurCFetcher::HTTPHeaderMap originalRequestHeaders;
     bool shouldRestrictHTTPResponseAccess { false };
-    PurcFetcher::PreflightPolicy preflightPolicy { PurcFetcher::PreflightPolicy::Consider };
+    PurCFetcher::PreflightPolicy preflightPolicy { PurCFetcher::PreflightPolicy::Consider };
     bool shouldEnableCrossOriginResourcePolicy { false };
-    Vector<RefPtr<PurcFetcher::SecurityOrigin>> frameAncestorOrigins;
+    Vector<RefPtr<PurCFetcher::SecurityOrigin>> frameAncestorOrigins;
     bool isHTTPSUpgradeEnabled { false };
     bool pageHasResourceLoadClient { false };
-    Optional<PurcFetcher::FrameIdentifier> parentFrameID;
+    Optional<PurCFetcher::FrameIdentifier> parentFrameID;
     bool crossOriginAccessControlCheckEnabled { true };
 
 #if ENABLE(SERVICE_WORKER)
-    PurcFetcher::ServiceWorkersMode serviceWorkersMode { PurcFetcher::ServiceWorkersMode::None };
-    Optional<PurcFetcher::ServiceWorkerRegistrationIdentifier> serviceWorkerRegistrationIdentifier;
-    OptionSet<PurcFetcher::HTTPHeadersToKeepFromCleaning> httpHeadersToKeep;
+    PurCFetcher::ServiceWorkersMode serviceWorkersMode { PurCFetcher::ServiceWorkersMode::None };
+    Optional<PurCFetcher::ServiceWorkerRegistrationIdentifier> serviceWorkerRegistrationIdentifier;
+    OptionSet<PurCFetcher::HTTPHeadersToKeepFromCleaning> httpHeadersToKeep;
 #endif
 
 #if ENABLE(CONTENT_EXTENSIONS)
@@ -79,4 +79,4 @@ public:
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

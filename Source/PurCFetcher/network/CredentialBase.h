@@ -28,7 +28,7 @@
 #include <wtf/EnumTraits.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Credential;
 
@@ -68,16 +68,16 @@ private:
 inline bool operator==(const Credential& a, const Credential& b) { return CredentialBase::compare(a, b); }
 inline bool operator!=(const Credential& a, const Credential& b) { return !(a == b); }
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::CredentialPersistence> {
+template<> struct EnumTraits<PurCFetcher::CredentialPersistence> {
     using values = EnumValues<
-        PurcFetcher::CredentialPersistence,
-        PurcFetcher::CredentialPersistence::CredentialPersistenceNone,
-        PurcFetcher::CredentialPersistence::CredentialPersistenceForSession,
-        PurcFetcher::CredentialPersistence::CredentialPersistencePermanent
+        PurCFetcher::CredentialPersistence,
+        PurCFetcher::CredentialPersistence::CredentialPersistenceNone,
+        PurCFetcher::CredentialPersistence::CredentialPersistenceForSession,
+        PurCFetcher::CredentialPersistence::CredentialPersistencePermanent
     >;
 };
 

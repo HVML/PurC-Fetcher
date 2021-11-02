@@ -26,7 +26,7 @@
 #include "config.h"
 #include "UserActivity.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 #if !HAVE(NS_ACTIVITY)
 
@@ -58,4 +58,4 @@ void UserActivity::hysteresisUpdated(PAL::HysteresisState state)
         m_impl.endActivity();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

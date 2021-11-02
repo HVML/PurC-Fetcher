@@ -27,7 +27,7 @@
 
 #include "TextCodec.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextCodecLatin1 final : public TextCodec {
 public:
@@ -39,5 +39,5 @@ private:
     Vector<uint8_t> encode(StringView, UnencodableHandling) final;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

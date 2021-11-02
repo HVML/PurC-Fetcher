@@ -49,7 +49,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class ProtectionSpace;
 class ResourceRequest;
@@ -62,7 +62,7 @@ struct SecurityOriginData;
 struct ClientOrigin;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DownloadProxy;
 class DownloadProxyMap;
@@ -96,35 +96,35 @@ private:
 
     // Message handlers
     void didReceiveNetworkProcessProxyMessage(IPC::Connection&, IPC::Decoder&);
-    void didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const Optional<PurcFetcher::SecurityOriginData>&, PurcFetcher::AuthenticationChallenge&&, bool, uint64_t challengeID);
+    void didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const Optional<PurCFetcher::SecurityOriginData>&, PurCFetcher::AuthenticationChallenge&&, bool, uint64_t challengeID);
     void negotiatedLegacyTLS(WebPageProxyIdentifier);
-    void didNegotiateModernTLS(WebPageProxyIdentifier, const PurcFetcher::AuthenticationChallenge&);
+    void didNegotiateModernTLS(WebPageProxyIdentifier, const PurCFetcher::AuthenticationChallenge&);
     void didFetchWebsiteData(CallbackID, const WebsiteData&);
     void didDeleteWebsiteData(CallbackID);
     void didDeleteWebsiteDataForOrigins(CallbackID);
-    void setWebProcessHasUploads(PurcFetcher::ProcessIdentifier, bool);
-    void logDiagnosticMessage(WebPageProxyIdentifier, const String& message, const String& description, PurcFetcher::ShouldSample);
-    void logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String& message, const String& description, uint32_t result, PurcFetcher::ShouldSample);
-    void logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String& message, const String& description, double value, unsigned significantFigures, PurcFetcher::ShouldSample);
+    void setWebProcessHasUploads(PurCFetcher::ProcessIdentifier, bool);
+    void logDiagnosticMessage(WebPageProxyIdentifier, const String& message, const String& description, PurCFetcher::ShouldSample);
+    void logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String& message, const String& description, uint32_t result, PurCFetcher::ShouldSample);
+    void logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String& message, const String& description, double value, unsigned significantFigures, PurCFetcher::ShouldSample);
     void retrieveCacheStorageParameters(PAL::SessionID);
 
-    void terminateWebProcess(PurcFetcher::ProcessIdentifier);
+    void terminateWebProcess(PurCFetcher::ProcessIdentifier);
 
-    void requestStorageSpace(PAL::SessionID, const PurcFetcher::ClientOrigin&, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t> quota)>&&);
+    void requestStorageSpace(PAL::SessionID, const PurCFetcher::ClientOrigin&, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t> quota)>&&);
 
     void syncAllCookies();
     void didSyncAllCookies();
-    void terminateUnresponsiveServiceWorkerProcesses(PurcFetcher::ProcessIdentifier);
+    void terminateUnresponsiveServiceWorkerProcesses(PurCFetcher::ProcessIdentifier);
     void setIsHoldingLockedFiles(bool);
-    void getAppBoundDomains(PAL::SessionID, CompletionHandler<void(HashSet<PurcFetcher::RegistrableDomain>&&)>&&);
+    void getAppBoundDomains(PAL::SessionID, CompletionHandler<void(HashSet<PurCFetcher::RegistrableDomain>&&)>&&);
 
-    void resourceLoadDidSendRequest(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceRequest&&, Optional<IPC::FormDataReference>&&);
-    void resourceLoadDidPerformHTTPRedirection(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&);
-    void resourceLoadDidReceiveChallenge(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::AuthenticationChallenge&&);
-    void resourceLoadDidReceiveResponse(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&);
-    void resourceLoadDidCompleteWithError(WebPageProxyIdentifier, ResourceLoadInfo&&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceError&&);
+    void resourceLoadDidSendRequest(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceRequest&&, Optional<IPC::FormDataReference>&&);
+    void resourceLoadDidPerformHTTPRedirection(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&);
+    void resourceLoadDidReceiveChallenge(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::AuthenticationChallenge&&);
+    void resourceLoadDidReceiveResponse(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&);
+    void resourceLoadDidCompleteWithError(WebPageProxyIdentifier, ResourceLoadInfo&&, PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceError&&);
 
     void testProcessIncomingSyncMessagesWhenWaitingForSyncReply(WebPageProxyIdentifier, Messages::NetworkProcessProxy::TestProcessIncomingSyncMessagesWhenWaitingForSyncReplyDelayedReply&&);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

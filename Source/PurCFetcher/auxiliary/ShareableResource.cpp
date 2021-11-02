@@ -29,10 +29,10 @@
 #if ENABLE(SHAREABLE_RESOURCE)
 
 #include "ArgumentCoders.h"
-#include <PurcFetcher/SharedBuffer.h>
+#include <PurCFetcher/SharedBuffer.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ShareableResource::Handle::Handle()
 {
@@ -161,6 +161,6 @@ unsigned ShareableResource::size() const
     return m_size;
 }
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(SHAREABLE_RESOURCE)

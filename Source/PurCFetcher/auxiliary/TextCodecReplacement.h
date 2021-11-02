@@ -27,7 +27,7 @@
 
 #include "TextCodecUTF8.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextCodecReplacement : public TextCodecUTF8 {
 public:
@@ -41,4 +41,4 @@ private:
 
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

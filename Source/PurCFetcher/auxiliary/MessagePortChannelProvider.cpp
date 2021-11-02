@@ -31,7 +31,7 @@
 #include "WorkerGlobalScope.h"
 #include <wtf/MainThread.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static MessagePortChannelProvider* globalProvider;
 
@@ -62,4 +62,4 @@ MessagePortChannelProvider& MessagePortChannelProvider::fromContext(ScriptExecut
     return downcast<WorkerGlobalScope>(context).messagePortChannelProvider();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

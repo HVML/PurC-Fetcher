@@ -31,7 +31,7 @@
 #include <wtf/URL.h>
 #include <wtf/WallTime.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ResourceLoadInfo {
 
@@ -54,8 +54,8 @@ struct ResourceLoadInfo {
     };
     
     NetworkResourceLoadIdentifier resourceLoadID;
-    Optional<PurcFetcher::FrameIdentifier> frameID;
-    Optional<PurcFetcher::FrameIdentifier> parentFrameID;
+    Optional<PurCFetcher::FrameIdentifier> frameID;
+    Optional<PurCFetcher::FrameIdentifier> parentFrameID;
     URL originalURL;
     String originalHTTPMethod;
     WallTime eventTimestamp;
@@ -81,12 +81,12 @@ struct ResourceLoadInfo {
         if (!resourceLoadID)
             return WTF::nullopt;
 
-        Optional<Optional<PurcFetcher::FrameIdentifier>> frameID;
+        Optional<Optional<PurCFetcher::FrameIdentifier>> frameID;
         decoder >> frameID;
         if (!frameID)
             return WTF::nullopt;
 
-        Optional<Optional<PurcFetcher::FrameIdentifier>> parentFrameID;
+        Optional<Optional<PurCFetcher::FrameIdentifier>> parentFrameID;
         decoder >> parentFrameID;
         if (!parentFrameID)
             return WTF::nullopt;
@@ -129,28 +129,28 @@ struct ResourceLoadInfo {
     }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::ResourceLoadInfo::Type> {
+template<> struct EnumTraits<PurCFetcher::ResourceLoadInfo::Type> {
     using values = EnumValues<
-        PurcFetcher::ResourceLoadInfo::Type,
-        PurcFetcher::ResourceLoadInfo::Type::ApplicationManifest,
-        PurcFetcher::ResourceLoadInfo::Type::Beacon,
-        PurcFetcher::ResourceLoadInfo::Type::CSPReport,
-        PurcFetcher::ResourceLoadInfo::Type::Document,
-        PurcFetcher::ResourceLoadInfo::Type::Fetch,
-        PurcFetcher::ResourceLoadInfo::Type::Font,
-        PurcFetcher::ResourceLoadInfo::Type::Image,
-        PurcFetcher::ResourceLoadInfo::Type::Media,
-        PurcFetcher::ResourceLoadInfo::Type::Object,
-        PurcFetcher::ResourceLoadInfo::Type::Other,
-        PurcFetcher::ResourceLoadInfo::Type::Ping,
-        PurcFetcher::ResourceLoadInfo::Type::Script,
-        PurcFetcher::ResourceLoadInfo::Type::Stylesheet,
-        PurcFetcher::ResourceLoadInfo::Type::XMLHTTPRequest,
-        PurcFetcher::ResourceLoadInfo::Type::XSLT
+        PurCFetcher::ResourceLoadInfo::Type,
+        PurCFetcher::ResourceLoadInfo::Type::ApplicationManifest,
+        PurCFetcher::ResourceLoadInfo::Type::Beacon,
+        PurCFetcher::ResourceLoadInfo::Type::CSPReport,
+        PurCFetcher::ResourceLoadInfo::Type::Document,
+        PurCFetcher::ResourceLoadInfo::Type::Fetch,
+        PurCFetcher::ResourceLoadInfo::Type::Font,
+        PurCFetcher::ResourceLoadInfo::Type::Image,
+        PurCFetcher::ResourceLoadInfo::Type::Media,
+        PurCFetcher::ResourceLoadInfo::Type::Object,
+        PurCFetcher::ResourceLoadInfo::Type::Other,
+        PurCFetcher::ResourceLoadInfo::Type::Ping,
+        PurCFetcher::ResourceLoadInfo::Type::Script,
+        PurCFetcher::ResourceLoadInfo::Type::Stylesheet,
+        PurCFetcher::ResourceLoadInfo::Type::XMLHTTPRequest,
+        PurCFetcher::ResourceLoadInfo::Type::XSLT
     >;
 };
 

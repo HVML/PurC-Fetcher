@@ -28,7 +28,7 @@
 //#include "SecurityPolicyViolationEvent.h"
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class FormData;
 
@@ -43,7 +43,7 @@ struct PURCFETCHER_EXPORT ContentSecurityPolicyClient {
     // An inline function cannot be the first non-abstract virtual function declared
     // in the class as it results in the vtable being generated as a weak symbol.
     // This hurts performance (in Mac OS X at least, when loading frameworks), so we
-    // don't want to do it in PurcFetcher.
+    // don't want to do it in PurCFetcher.
     virtual void willSendCSPViolationReport(CSPInfo&);
 
     virtual ~ContentSecurityPolicyClient() = default;
@@ -53,4 +53,4 @@ struct PURCFETCHER_EXPORT ContentSecurityPolicyClient {
 //    virtual void enqueueSecurityPolicyViolationEvent(SecurityPolicyViolationEvent::Init&&) = 0;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

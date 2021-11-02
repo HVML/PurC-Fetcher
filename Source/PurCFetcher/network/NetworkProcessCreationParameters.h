@@ -43,7 +43,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct NetworkProcessCreationParameters {
     NetworkProcessCreationParameters();
@@ -75,10 +75,10 @@ struct NetworkProcessCreationParameters {
     WebsiteDataStoreParameters defaultDataStoreParameters;
     
 #if USE(SOUP)
-    PurcFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy { PurcFetcher::HTTPCookieAcceptPolicy::AlwaysAccept };
+    PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy { PurCFetcher::HTTPCookieAcceptPolicy::AlwaysAccept };
     bool ignoreTLSErrors { false };
     Vector<String> languages;
-    PurcFetcher::SoupNetworkProxySettings proxySettings;
+    PurCFetcher::SoupNetworkProxySettings proxySettings;
 #endif
 
     Vector<String> urlSchemesRegisteredAsSecure;
@@ -97,4 +97,4 @@ struct NetworkProcessCreationParameters {
     SandboxExtension::Handle hstsStorageDirectoryExtensionHandle;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

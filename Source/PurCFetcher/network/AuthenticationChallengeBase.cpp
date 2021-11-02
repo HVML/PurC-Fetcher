@@ -25,7 +25,7 @@
 #include "config.h"
 #include "AuthenticationChallenge.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 AuthenticationChallengeBase::AuthenticationChallengeBase()
     : m_isNull(true)

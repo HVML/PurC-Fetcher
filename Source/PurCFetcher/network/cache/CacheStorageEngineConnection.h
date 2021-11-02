@@ -35,22 +35,22 @@
 
 namespace IPC {
 
-template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::CacheIdentifierOrError> {
-    static PurcFetcher::DOMCacheEngine::CacheIdentifierOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurCFetcher::DOMCacheEngine::CacheIdentifierOrError> {
+    static PurCFetcher::DOMCacheEngine::CacheIdentifierOrError create() { return makeUnexpected(PurCFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError> {
-    static PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurCFetcher::DOMCacheEngine::RecordIdentifiersOrError> {
+    static PurCFetcher::DOMCacheEngine::RecordIdentifiersOrError create() { return makeUnexpected(PurCFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::CacheInfosOrError> {
-    static PurcFetcher::DOMCacheEngine::CacheInfosOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurCFetcher::DOMCacheEngine::CacheInfosOrError> {
+    static PurCFetcher::DOMCacheEngine::CacheInfosOrError create() { return makeUnexpected(PurCFetcher::DOMCacheEngine::Error::Internal); };
 };
-template<> struct AsyncReplyError<PurcFetcher::DOMCacheEngine::RecordsOrError> {
-    static PurcFetcher::DOMCacheEngine::RecordsOrError create() { return makeUnexpected(PurcFetcher::DOMCacheEngine::Error::Internal); };
+template<> struct AsyncReplyError<PurCFetcher::DOMCacheEngine::RecordsOrError> {
+    static PurCFetcher::DOMCacheEngine::RecordsOrError create() { return makeUnexpected(PurCFetcher::DOMCacheEngine::Error::Internal); };
 };
 
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkConnectionToWebProcess;
 
@@ -63,18 +63,18 @@ public:
 private:
     explicit CacheStorageEngineConnection(NetworkConnectionToWebProcess&);
 
-    void open(PurcFetcher::ClientOrigin&&, String&& cacheName, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    void remove(uint64_t cacheIdentifier, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    void caches(PurcFetcher::ClientOrigin&&, uint64_t updateCounter, PurcFetcher::DOMCacheEngine::CacheInfosCallback&&);
+    void open(PurCFetcher::ClientOrigin&&, String&& cacheName, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void remove(uint64_t cacheIdentifier, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void caches(PurCFetcher::ClientOrigin&&, uint64_t updateCounter, PurCFetcher::DOMCacheEngine::CacheInfosCallback&&);
 
-    void retrieveRecords(uint64_t cacheIdentifier, PurcFetcher::RetrieveRecordsOptions&&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
-    void deleteMatchingRecords(uint64_t cacheIdentifier, PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
-    void putRecords(uint64_t cacheIdentifier, Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void retrieveRecords(uint64_t cacheIdentifier, PurCFetcher::RetrieveRecordsOptions&&, PurCFetcher::DOMCacheEngine::RecordsCallback&&);
+    void deleteMatchingRecords(uint64_t cacheIdentifier, PurCFetcher::ResourceRequest&&, PurCFetcher::CacheQueryOptions&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void putRecords(uint64_t cacheIdentifier, Vector<PurCFetcher::DOMCacheEngine::Record>&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     void reference(uint64_t cacheIdentifier);
     void dereference(uint64_t cacheIdentifier);
 
-    void clearMemoryRepresentation(PurcFetcher::ClientOrigin&&, CompletionHandler<void(Optional<PurcFetcher::DOMCacheEngine::Error>&&)>&&);
+    void clearMemoryRepresentation(PurCFetcher::ClientOrigin&&, CompletionHandler<void(Optional<PurCFetcher::DOMCacheEngine::Error>&&)>&&);
     void engineRepresentation( CompletionHandler<void(String&&)>&&);
     
     PAL::SessionID sessionID() const;

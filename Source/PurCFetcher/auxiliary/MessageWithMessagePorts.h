@@ -29,11 +29,11 @@
 //#include "SerializedScriptValue.h"
 #include <wtf/RefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // When a message port is transferred, it is represented by a pair of identifiers.
 // The first identifier is the port being transferred and the second is its remote port.
-typedef Vector<std::pair<PurcFetcher::MessagePortIdentifier, PurcFetcher::MessagePortIdentifier>> TransferredMessagePortArray;
+typedef Vector<std::pair<PurCFetcher::MessagePortIdentifier, PurCFetcher::MessagePortIdentifier>> TransferredMessagePortArray;
 
 struct MessageWithMessagePorts {
 //    RefPtr<SerializedScriptValue> message;
@@ -69,4 +69,4 @@ Optional<MessageWithMessagePorts> MessageWithMessagePorts::decode(Decoder& decod
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -29,7 +29,7 @@
 #include "WebCoreArgumentCoders.h"
 //#include "WebsiteDataStore.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 WebsiteDataStoreParameters::~WebsiteDataStoreParameters()
 {
@@ -83,7 +83,7 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
         return WTF::nullopt;
     parameters.cookieStoragePathExtensionHandle = WTFMove(*cookieStoragePathExtensionHandle);
 
-    Optional<Vector<PurcFetcher::Cookie>> pendingCookies;
+    Optional<Vector<PurCFetcher::Cookie>> pendingCookies;
     decoder >> pendingCookies;
     if (!pendingCookies)
         return WTF::nullopt;
@@ -170,4 +170,4 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     return parameters;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

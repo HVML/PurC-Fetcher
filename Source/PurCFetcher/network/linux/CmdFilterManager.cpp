@@ -75,7 +75,7 @@
 #include "FormatKeys.h"
 #include "FormatArray.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 CmdFilterManager::CmdFilterManager()
 {
@@ -220,4 +220,4 @@ void CmdFilterManager::initNameFilterMap()
     }
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

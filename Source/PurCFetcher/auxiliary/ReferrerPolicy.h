@@ -34,7 +34,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class ReferrerPolicy : uint8_t {
     EmptyString,
@@ -56,18 +56,18 @@ String referrerPolicyToString(const ReferrerPolicy&);
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::ReferrerPolicy> {
+template<> struct EnumTraits<PurCFetcher::ReferrerPolicy> {
     using values = EnumValues<
-        PurcFetcher::ReferrerPolicy,
-        PurcFetcher::ReferrerPolicy::EmptyString,
-        PurcFetcher::ReferrerPolicy::NoReferrer,
-        PurcFetcher::ReferrerPolicy::NoReferrerWhenDowngrade,
-        PurcFetcher::ReferrerPolicy::SameOrigin,
-        PurcFetcher::ReferrerPolicy::Origin,
-        PurcFetcher::ReferrerPolicy::StrictOrigin,
-        PurcFetcher::ReferrerPolicy::OriginWhenCrossOrigin,
-        PurcFetcher::ReferrerPolicy::StrictOriginWhenCrossOrigin,
-        PurcFetcher::ReferrerPolicy::UnsafeUrl
+        PurCFetcher::ReferrerPolicy,
+        PurCFetcher::ReferrerPolicy::EmptyString,
+        PurCFetcher::ReferrerPolicy::NoReferrer,
+        PurCFetcher::ReferrerPolicy::NoReferrerWhenDowngrade,
+        PurCFetcher::ReferrerPolicy::SameOrigin,
+        PurCFetcher::ReferrerPolicy::Origin,
+        PurCFetcher::ReferrerPolicy::StrictOrigin,
+        PurCFetcher::ReferrerPolicy::OriginWhenCrossOrigin,
+        PurCFetcher::ReferrerPolicy::StrictOriginWhenCrossOrigin,
+        PurCFetcher::ReferrerPolicy::UnsafeUrl
     >;
 };
 

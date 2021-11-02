@@ -28,9 +28,9 @@
 
 #include "StorageArea.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 SessionStorageNamespace::SessionStorageNamespace(unsigned quotaInBytes)
     : m_quotaInBytes(quotaInBytes)
@@ -96,4 +96,4 @@ Vector<StorageAreaIdentifier> SessionStorageNamespace::storageAreaIdentifiers() 
     return identifiers;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

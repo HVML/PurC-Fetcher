@@ -40,7 +40,7 @@
 #error SQLite version 3.6.16 or newer is required
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SQLiteStatement::SQLiteStatement(SQLiteDatabase& db, const String& sql)
     : m_database(db)
@@ -565,4 +565,4 @@ bool SQLiteStatement::isExpired()
     return !m_statement;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

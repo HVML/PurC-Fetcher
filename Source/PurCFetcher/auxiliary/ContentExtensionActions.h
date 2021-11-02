@@ -30,7 +30,7 @@
 #include <wtf/HashSet.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ContentRuleListResults;
 class Page;
@@ -76,6 +76,6 @@ PURCFETCHER_EXPORT void applyResultsToRequest(ContentRuleListResults&&, Page*, R
 
 } // namespace ContentExtensions
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

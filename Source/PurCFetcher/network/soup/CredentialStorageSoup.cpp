@@ -30,13 +30,13 @@
 
 #include "Credential.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Credential CredentialStorage::getFromPersistentStorage(const ProtectionSpace&)
 {
     return Credential();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif

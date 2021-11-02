@@ -30,7 +30,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/glib/WTFGType.h>
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 typedef struct {
     GRefPtr<GResolver> wrappedResolver;

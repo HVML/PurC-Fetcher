@@ -39,8 +39,8 @@
 #include <wtf/MemoryPressureHandler.h>
 #endif
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 AuxiliaryProcess::AuxiliaryProcess()
     : m_terminationCounter(0)
@@ -62,7 +62,7 @@ void AuxiliaryProcess::initialize(const AuxiliaryProcessInitializationParameters
 {
     WTF::RefCountedBase::enableThreadingChecksGlobally();
 
-    RELEASE_ASSERT_WITH_MESSAGE(parameters.processIdentifier, "Unable to initialize child process without a PurcFetcher process identifier");
+    RELEASE_ASSERT_WITH_MESSAGE(parameters.processIdentifier, "Unable to initialize child process without a PurCFetcher process identifier");
     Process::setIdentifier(*parameters.processIdentifier);
 
     platformInitialize();
@@ -78,7 +78,7 @@ void AuxiliaryProcess::initialize(const AuxiliaryProcessInitializationParameters
 
     initializeProcessName(parameters);
 
-    // In PurcFetcher2, only the UI process should ever be generating certain identifiers.
+    // In PurCFetcher2, only the UI process should ever be generating certain identifiers.
     PAL::SessionID::enableGenerationProtection();
     //ContentWorldIdentifier::enableGenerationProtection();
 
@@ -251,4 +251,4 @@ void AuxiliaryProcess::didReceiveMemoryPressureEvent(bool isCritical)
 
 #endif // !PLATFORM(COCOA)
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

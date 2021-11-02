@@ -44,7 +44,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SharedBuffer;
 }
 
@@ -54,7 +54,7 @@ class MachSendRight;
 }
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SharedMemory : public RefCounted<SharedMemory> {
 public:
@@ -105,7 +105,7 @@ public:
 
     static RefPtr<SharedMemory> allocate(size_t);
     static RefPtr<SharedMemory> create(void*, size_t, Protection);
-    static RefPtr<SharedMemory> copyBuffer(const PurcFetcher::SharedBuffer&);
+    static RefPtr<SharedMemory> copyBuffer(const PurCFetcher::SharedBuffer&);
     static RefPtr<SharedMemory> map(const Handle&, Protection);
 #if USE(UNIX_DOMAIN_SOCKETS)
     static RefPtr<SharedMemory> wrapMap(void*, size_t, int fileDescriptor);

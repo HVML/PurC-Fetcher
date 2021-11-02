@@ -27,7 +27,7 @@
 
 #include <wtf/Function.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkStorageSession;
 

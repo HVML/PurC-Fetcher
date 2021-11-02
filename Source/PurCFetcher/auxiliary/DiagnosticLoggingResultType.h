@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum DiagnosticLoggingResultType {
     DiagnosticLoggingResultPass,
@@ -33,4 +33,4 @@ enum DiagnosticLoggingResultType {
     DiagnosticLoggingResultNoop,
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

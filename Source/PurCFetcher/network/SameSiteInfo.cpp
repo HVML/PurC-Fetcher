@@ -29,11 +29,11 @@
 #include "HTTPParsers.h"
 #include "ResourceRequest.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SameSiteInfo SameSiteInfo::create(const ResourceRequest& request)
 {
     return { request.isSameSite(), request.isTopSite(), isSafeMethod(request.httpMethod()) };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -30,7 +30,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/Expected.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 template<typename T> class ExceptionOr {
 public:
@@ -190,8 +190,8 @@ inline ExceptionOr<void> isolatedCopy(ExceptionOr<void>&& value)
 }
 
 namespace WTF {
-template<typename T> struct CrossThreadCopierBase<false, false, PurcFetcher::ExceptionOr<T> > {
-    typedef PurcFetcher::ExceptionOr<T> Type;
+template<typename T> struct CrossThreadCopierBase<false, false, PurCFetcher::ExceptionOr<T> > {
+    typedef PurCFetcher::ExceptionOr<T> Type;
     static Type copy(const Type& source)
     {
         if (source.hasException())

@@ -34,7 +34,7 @@
 
 #include "CredentialBase.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Credential : public CredentialBase {
 public:

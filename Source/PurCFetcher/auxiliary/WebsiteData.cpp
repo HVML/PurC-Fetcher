@@ -32,7 +32,7 @@
 #include "SecurityOriginData.h"
 #include <wtf/text/StringHash.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void WebsiteData::Entry::encode(IPC::Encoder& encoder) const
 {
@@ -45,7 +45,7 @@ auto WebsiteData::Entry::decode(IPC::Decoder& decoder) -> Optional<Entry>
 {
     Entry result;
 
-    Optional<PurcFetcher::SecurityOriginData> securityOriginData;
+    Optional<PurCFetcher::SecurityOriginData> securityOriginData;
     decoder >> securityOriginData;
     if (!securityOriginData)
         return WTF::nullopt;

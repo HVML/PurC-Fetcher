@@ -30,7 +30,7 @@
 #include <wtf/UniqueRef.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SQLiteDatabase;
 class SQLiteStatement;
 }
@@ -39,7 +39,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkHTTPSUpgradeChecker {
     WTF_MAKE_FAST_ALLOCATED;
@@ -55,10 +55,10 @@ public:
 
 private:
     Ref<WorkQueue> m_workQueue;
-    std::unique_ptr<PurcFetcher::SQLiteDatabase> m_database;
-    std::unique_ptr<PurcFetcher::SQLiteStatement> m_statement;
+    std::unique_ptr<PurCFetcher::SQLiteDatabase> m_database;
+    std::unique_ptr<PurCFetcher::SQLiteStatement> m_statement;
     std::atomic<bool> m_didSetupCompleteSuccessfully { false };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

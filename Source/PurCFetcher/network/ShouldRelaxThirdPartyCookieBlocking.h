@@ -25,8 +25,8 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class ShouldRelaxThirdPartyCookieBlocking : bool { No, Yes };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

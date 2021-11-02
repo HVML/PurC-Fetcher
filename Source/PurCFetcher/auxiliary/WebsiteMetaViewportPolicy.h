@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsiteMetaViewportPolicy {
     Default,
@@ -39,12 +39,12 @@ enum class WebsiteMetaViewportPolicy {
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteMetaViewportPolicy> {
+template<> struct EnumTraits<PurCFetcher::WebsiteMetaViewportPolicy> {
     using values = EnumValues<
-        PurcFetcher::WebsiteMetaViewportPolicy,
-        PurcFetcher::WebsiteMetaViewportPolicy::Default,
-        PurcFetcher::WebsiteMetaViewportPolicy::Respect,
-        PurcFetcher::WebsiteMetaViewportPolicy::Ignore
+        PurCFetcher::WebsiteMetaViewportPolicy,
+        PurCFetcher::WebsiteMetaViewportPolicy::Default,
+        PurCFetcher::WebsiteMetaViewportPolicy::Respect,
+        PurCFetcher::WebsiteMetaViewportPolicy::Ignore
     >;
 };
 

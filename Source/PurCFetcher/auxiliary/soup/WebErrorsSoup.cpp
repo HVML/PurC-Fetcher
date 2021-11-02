@@ -32,8 +32,8 @@
 
 #define WEB_UI_STRING(string, description)  string
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ResourceError downloadNetworkError(const URL& failingURL, const String& localizedDescription)
 {
@@ -50,4 +50,4 @@ ResourceError downloadDestinationError(const ResourceResponse& response, const S
     return ResourceError(API::Error::webKitDownloadErrorDomain(), API::Error::Download::Destination, response.url(), localizedDescription);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -30,7 +30,7 @@
 #include "FloatRect.h"
 #include "PageIdentifier.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ElementContext {
     FloatRect boundingRect;

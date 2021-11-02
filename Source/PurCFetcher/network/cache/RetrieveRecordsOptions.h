@@ -28,7 +28,7 @@
 
 #include "ResourceRequest.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct RetrieveRecordsOptions {
     RetrieveRecordsOptions isolatedCopy() const { return { request.isolatedCopy(), ignoreSearch, ignoreMethod, ignoreVary, shouldProvideResponse }; }
@@ -78,4 +78,4 @@ template<class Decoder> inline Optional<RetrieveRecordsOptions> RetrieveRecordsO
     return { { WTFMove(*request), WTFMove(*ignoreSearch), WTFMove(*ignoreMethod), WTFMove(*ignoreVary), WTFMove(*shouldProvideResponse) } };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

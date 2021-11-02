@@ -40,7 +40,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class BlobDataFileReference;
 class ResourceHandle;
 class ResourceRequest;
@@ -52,7 +52,7 @@ class Connection;
 class DataReference;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationManager;
 class Download;
@@ -81,11 +81,11 @@ public:
 
     explicit DownloadManager(Client&);
 
-    void startDownload(PAL::SessionID, DownloadID, const PurcFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
+    void startDownload(PAL::SessionID, DownloadID, const PurCFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedName = { });
     void dataTaskBecameDownloadTask(DownloadID, std::unique_ptr<Download>&&);
-    void continueWillSendRequest(DownloadID, PurcFetcher::ResourceRequest&&);
+    void continueWillSendRequest(DownloadID, PurCFetcher::ResourceRequest&&);
     void willDecidePendingDownloadDestination(NetworkDataTask&, ResponseCompletionHandler&&);
-    void convertNetworkLoadToDownload(DownloadID, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
+    void convertNetworkLoadToDownload(DownloadID, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&);
     void continueDecidePendingDownloadDestination(DownloadID, String destination, SandboxExtension::Handle&&, bool allowOverwrite);
 
     void resumeDownload(PAL::SessionID, DownloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&&);
@@ -119,4 +119,4 @@ private:
     DownloadMap m_downloads;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

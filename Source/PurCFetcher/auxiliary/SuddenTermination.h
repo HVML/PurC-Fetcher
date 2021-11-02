@@ -28,7 +28,7 @@
 
 #include <wtf/Noncopyable.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
     // Once disabled via one or more more calls to disableSuddenTermination(), fast shutdown
     // is not valid until enableSuddenTermination() has been called an equal number of times.
@@ -56,6 +56,6 @@ namespace PurcFetcher {
         }
     };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // SuddenTermination_h

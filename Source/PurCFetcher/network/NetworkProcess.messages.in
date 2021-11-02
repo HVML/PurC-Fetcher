@@ -22,43 +22,43 @@
 
 messages -> NetworkProcess LegacyReceiver {
     # Initializes the network process.
-    InitializeNetworkProcess(struct PurcFetcher::NetworkProcessCreationParameters processCreationParameters)
+    InitializeNetworkProcess(struct PurCFetcher::NetworkProcessCreationParameters processCreationParameters)
 
     # Creates a connection for communication with a WebProcess
-    CreateNetworkConnectionToWebProcess(PurcFetcher::ProcessIdentifier processIdentifier, PAL::SessionID sessionID) -> (Optional<IPC::Attachment> connectionIdentifier, enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy) Async
+    CreateNetworkConnectionToWebProcess(PurCFetcher::ProcessIdentifier processIdentifier, PAL::SessionID sessionID) -> (Optional<IPC::Attachment> connectionIdentifier, enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy) Async
 
 #if USE(SOUP)
     SetIgnoreTLSErrors(bool ignoreTLSErrors)
     UserPreferredLanguagesChanged(Vector<String> languages)
-    SetNetworkProxySettings(struct PurcFetcher::SoupNetworkProxySettings settings)
+    SetNetworkProxySettings(struct PurCFetcher::SoupNetworkProxySettings settings)
     PrefetchDNS(String hostname)
 #endif
 
 #if USE(CURL)
-    SetNetworkProxySettings(PAL::SessionID sessionID, PurcFetcher::CurlProxySettings settings)
+    SetNetworkProxySettings(PAL::SessionID sessionID, PurCFetcher::CurlProxySettings settings)
 #endif
 
     ClearCachedCredentials()
 
-    AddWebsiteDataStore(struct PurcFetcher::WebsiteDataStoreParameters websiteDataStoreParameters);
+    AddWebsiteDataStore(struct PurCFetcher::WebsiteDataStoreParameters websiteDataStoreParameters);
     DestroySession(PAL::SessionID sessionID)
 
-    FetchWebsiteData(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, OptionSet<PurcFetcher::WebsiteDataFetchOption> fetchOptions, PurcFetcher::CallbackID callbackID)
-    DeleteWebsiteData(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, WallTime modifiedSince, PurcFetcher::CallbackID callbackID)
-    DeleteWebsiteDataForOrigins(PAL::SessionID sessionID, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes, Vector<PurcFetcher::SecurityOriginData> origins, Vector<String> cookieHostNames, Vector<String> HSTSCacheHostNames, Vector<PurcFetcher::RegistrableDomain> registrableDomains, PurcFetcher::CallbackID callbackID)
-    RenameOriginInWebsiteData(PAL::SessionID sessionID, URL oldDomain, URL newDomain, OptionSet<PurcFetcher::WebsiteDataType> websiteDataTypes) -> () Async
+    FetchWebsiteData(PAL::SessionID sessionID, OptionSet<PurCFetcher::WebsiteDataType> websiteDataTypes, OptionSet<PurCFetcher::WebsiteDataFetchOption> fetchOptions, PurCFetcher::CallbackID callbackID)
+    DeleteWebsiteData(PAL::SessionID sessionID, OptionSet<PurCFetcher::WebsiteDataType> websiteDataTypes, WallTime modifiedSince, PurCFetcher::CallbackID callbackID)
+    DeleteWebsiteDataForOrigins(PAL::SessionID sessionID, OptionSet<PurCFetcher::WebsiteDataType> websiteDataTypes, Vector<PurCFetcher::SecurityOriginData> origins, Vector<String> cookieHostNames, Vector<String> HSTSCacheHostNames, Vector<PurCFetcher::RegistrableDomain> registrableDomains, PurCFetcher::CallbackID callbackID)
+    RenameOriginInWebsiteData(PAL::SessionID sessionID, URL oldDomain, URL newDomain, OptionSet<PurCFetcher::WebsiteDataType> websiteDataTypes) -> () Async
 
-    DownloadRequest(PAL::SessionID sessionID, PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedFilename)
-    ResumeDownload(PAL::SessionID sessionID, PurcFetcher::DownloadID downloadID, IPC::DataReference resumeData, String path, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle)
-    CancelDownload(PurcFetcher::DownloadID downloadID)
+    DownloadRequest(PAL::SessionID sessionID, PurCFetcher::DownloadID downloadID, PurCFetcher::ResourceRequest request, enum:bool Optional<PurCFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedFilename)
+    ResumeDownload(PAL::SessionID sessionID, PurCFetcher::DownloadID downloadID, IPC::DataReference resumeData, String path, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle)
+    CancelDownload(PurCFetcher::DownloadID downloadID)
 #if PLATFORM(COCOA)
-    PublishDownloadProgress(PurcFetcher::DownloadID downloadID, URL url, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle)
+    PublishDownloadProgress(PurCFetcher::DownloadID downloadID, URL url, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle)
 #endif
     ApplicationDidEnterBackground()
     ApplicationWillEnterForeground()
 
-    ContinueWillSendRequest(PurcFetcher::DownloadID downloadID, PurcFetcher::ResourceRequest request)
-    ContinueDecidePendingDownloadDestination(PurcFetcher::DownloadID downloadID, String destination, PurcFetcher::SandboxExtension::Handle sandboxExtensionHandle, bool allowOverwrite)
+    ContinueWillSendRequest(PurCFetcher::DownloadID downloadID, PurCFetcher::ResourceRequest request)
+    ContinueDecidePendingDownloadDestination(PurCFetcher::DownloadID downloadID, String destination, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle, bool allowOverwrite)
 
 #if PLATFORM(COCOA)
     SetQOS(int latencyQOS, int throughputQOS)
@@ -68,10 +68,10 @@ messages -> NetworkProcess LegacyReceiver {
 
     SyncAllCookies()
 
-    AllowSpecificHTTPSCertificateForHost(PurcFetcher::CertificateInfo certificate, String host)
+    AllowSpecificHTTPSCertificateForHost(PurCFetcher::CertificateInfo certificate, String host)
 
-    SetCacheModel(enum:uint8_t PurcFetcher::CacheModel cacheModel)
-    SetCacheModelSynchronouslyForTesting(enum:uint8_t PurcFetcher::CacheModel cacheModel) -> () Synchronous
+    SetCacheModel(enum:uint8_t PurCFetcher::CacheModel cacheModel)
+    SetCacheModelSynchronouslyForTesting(enum:uint8_t PurCFetcher::CacheModel cacheModel) -> () Synchronous
 
     ProcessDidTransitionToBackground()
     ProcessDidTransitionToForeground()
@@ -80,45 +80,45 @@ messages -> NetworkProcess LegacyReceiver {
     PrepareToSuspend(bool isSuspensionImminent) -> () Async
     ProcessDidResume()
 
-    PreconnectTo(PAL::SessionID sessionID, PurcFetcher::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, URL url, String userAgent, enum:uint8_t PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, enum:bool Optional<PurcFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain);
+    PreconnectTo(PAL::SessionID sessionID, PurCFetcher::WebPageProxyIdentifier webPageProxyID, PurCFetcher::PageIdentifier webPageID, URL url, String userAgent, enum:uint8_t PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy, enum:bool Optional<PurCFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain);
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    ClearPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
-    ClearUserInteraction(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
+    ClearPrevalentResource(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> () Async
+    ClearUserInteraction(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> () Async
     DumpResourceLoadStatistics(PAL::SessionID sessionID) -> (String dumpedStatistics) Async
     SetResourceLoadStatisticsEnabled(PAL::SessionID sessionID, bool enabled)
     SetResourceLoadStatisticsLogTestingEvent(bool enabled)
-    UpdatePrevalentDomainsToBlockCookiesFor(PAL::SessionID sessionID, Vector<PurcFetcher::RegistrableDomain> domainsToBlock) -> () Async
-    IsGrandfathered(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain targetDomain) -> (bool isGrandfathered) Async
-    IsPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain targetDomain) -> (bool isPrevalent) Async
-    IsVeryPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain targetDomain) -> (bool isVeryPrevalent) Async
+    UpdatePrevalentDomainsToBlockCookiesFor(PAL::SessionID sessionID, Vector<PurCFetcher::RegistrableDomain> domainsToBlock) -> () Async
+    IsGrandfathered(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain targetDomain) -> (bool isGrandfathered) Async
+    IsPrevalentResource(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain targetDomain) -> (bool isPrevalent) Async
+    IsVeryPrevalentResource(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain targetDomain) -> (bool isVeryPrevalent) Async
     SetAgeCapForClientSideCookies(PAL::SessionID sessionID, Optional<Seconds> seconds) -> () Async
-    SetLastSeen(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain, Seconds seconds) -> () Async
-    MergeStatisticForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain, PurcFetcher::RegistrableDomain topFrameDomain1, PurcFetcher::RegistrableDomain topFrameDomain2, Seconds lastSeen, bool hadUserInteraction, Seconds mostRecentUserInteraction, bool isGrandfathered, bool isPrevalent, bool isVeryPrevalent, uint64_t dataRecordsRemoved) -> () Async
-    InsertExpiredStatisticForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain, bool hadUserInteraction, bool isScheduledForAllButCookieDataRemoval, bool isPrevalent) -> () Async
-    SetPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
-    SetPrevalentResourceForDebugMode(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
+    SetLastSeen(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain, Seconds seconds) -> () Async
+    MergeStatisticForTesting(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain, PurCFetcher::RegistrableDomain topFrameDomain1, PurCFetcher::RegistrableDomain topFrameDomain2, Seconds lastSeen, bool hadUserInteraction, Seconds mostRecentUserInteraction, bool isGrandfathered, bool isPrevalent, bool isVeryPrevalent, uint64_t dataRecordsRemoved) -> () Async
+    InsertExpiredStatisticForTesting(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain, bool hadUserInteraction, bool isScheduledForAllButCookieDataRemoval, bool isPrevalent) -> () Async
+    SetPrevalentResource(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> () Async
+    SetPrevalentResourceForDebugMode(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> () Async
     IsResourceLoadStatisticsEphemeral(PAL::SessionID sessionID) -> (bool isEphemeral) Async
-    HadUserInteraction(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> (bool hadUserInteraction) Async
-    IsRelationshipOnlyInDatabaseOnce(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subDomain, PurcFetcher::RegistrableDomain topDomain) -> (bool hadUserInteraction) Async
-    HasLocalStorage(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> (bool hadUserInteraction) Async
+    HadUserInteraction(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> (bool hadUserInteraction) Async
+    IsRelationshipOnlyInDatabaseOnce(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subDomain, PurCFetcher::RegistrableDomain topDomain) -> (bool hadUserInteraction) Async
+    HasLocalStorage(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> (bool hadUserInteraction) Async
     GetAllStorageAccessEntries(PAL::SessionID sessionID) -> (Vector<String> domains) Async
-    IsRegisteredAsRedirectingTo(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain redirectedFromDomain, PurcFetcher::RegistrableDomain redirectedToDomain) -> (bool isRedirectingTo) Async
-    IsRegisteredAsSubFrameUnder(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> (bool isSubframeUnder) Async
-    IsRegisteredAsSubresourceUnder(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subresourceDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> (bool isSubresourceUnder) Async
+    IsRegisteredAsRedirectingTo(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain redirectedFromDomain, PurCFetcher::RegistrableDomain redirectedToDomain) -> (bool isRedirectingTo) Async
+    IsRegisteredAsSubFrameUnder(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subFrameDomain, PurCFetcher::RegistrableDomain topFrameDomain) -> (bool isSubframeUnder) Async
+    IsRegisteredAsSubresourceUnder(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subresourceDomain, PurCFetcher::RegistrableDomain topFrameDomain) -> (bool isSubresourceUnder) Async
     DomainIDExistsInDatabase(PAL::SessionID sessionID, int domainID) -> (bool exists) Async
-    LogFrameNavigation(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain targetDomain, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain sourceDomain, bool isRedirect, bool isMainFrame, Seconds delayAfterMainFrameDocumentLoad, bool wasPotentiallyInitiatedByUser)
-    LogUserInteraction(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain) -> () Async
+    LogFrameNavigation(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain targetDomain, PurCFetcher::RegistrableDomain topFrameDomain, PurCFetcher::RegistrableDomain sourceDomain, bool isRedirect, bool isMainFrame, Seconds delayAfterMainFrameDocumentLoad, bool wasPotentiallyInitiatedByUser)
+    LogUserInteraction(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain topFrameDomain) -> () Async
     ResetParametersToDefaultValues(PAL::SessionID sessionID) -> () Async
-    ScheduleClearInMemoryAndPersistent(PAL::SessionID sessionID, Optional<WallTime> modifiedSince, enum:bool PurcFetcher::ShouldGrandfatherStatistics shouldGrandfather) -> () Async
+    ScheduleClearInMemoryAndPersistent(PAL::SessionID sessionID, Optional<WallTime> modifiedSince, enum:bool PurCFetcher::ShouldGrandfatherStatistics shouldGrandfather) -> () Async
     ScheduleCookieBlockingUpdate(PAL::SessionID sessionID) -> () Async
     ScheduleStatisticsAndDataRecordsProcessing(PAL::SessionID sessionID) -> () Async
     StatisticsDatabaseHasAllTables(PAL::SessionID sessionID) -> (bool hasAllTables) Async
     SubmitTelemetry(PAL::SessionID sessionID) -> () Async
     SetCacheMaxAgeCapForPrevalentResources(PAL::SessionID sessionID, Seconds seconds) -> () Async
-    SetGrandfathered(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain, bool isGrandfathered) -> () Async
+    SetGrandfathered(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain, bool isGrandfathered) -> () Async
     SetUseITPDatabase(PAL::SessionID sessionID, bool value) -> () Async
-    GetResourceLoadStatisticsDataSummary(PAL::SessionID sessionID) -> (Vector<PurcFetcher::WebResourceLoadStatisticsStore::ThirdPartyData> thirdPartyData) Async
+    GetResourceLoadStatisticsDataSummary(PAL::SessionID sessionID) -> (Vector<PurCFetcher::WebResourceLoadStatisticsStore::ThirdPartyData> thirdPartyData) Async
     SetGrandfatheringTime(PAL::SessionID sessionID, Seconds seconds) -> () Async
     SetMaxStatisticsEntries(PAL::SessionID sessionID, uint64_t maximumEntryCount) -> () Async
     SetMinimumTimeBetweenDataRecordsRemoval(PAL::SessionID sessionID, Seconds seconds) -> () Async
@@ -128,26 +128,26 @@ messages -> NetworkProcess LegacyReceiver {
     SetIsRunningResourceLoadStatisticsTest(PAL::SessionID sessionID, bool value) -> () Async
     SetNotifyPagesWhenTelemetryWasCaptured(PAL::SessionID sessionID, bool value) -> () Async
     SetResourceLoadStatisticsDebugMode(PAL::SessionID sessionID, bool debugMode) -> () Async
-    SetVeryPrevalentResource(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain resourceDomain) -> () Async
-    SetSubframeUnderTopFrameDomain(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subFrameDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> () Async
-    SetSubresourceUnderTopFrameDomain(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subresourceDomain, PurcFetcher::RegistrableDomain topFrameDomain) -> () Async
-    SetSubresourceUniqueRedirectTo(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subresourceDomain, PurcFetcher::RegistrableDomain redirectedToDomain) -> () Async
-    SetSubresourceUniqueRedirectFrom(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain subresourceDomain, PurcFetcher::RegistrableDomain redirectedFromDomain) -> () Async
+    SetVeryPrevalentResource(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain resourceDomain) -> () Async
+    SetSubframeUnderTopFrameDomain(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subFrameDomain, PurCFetcher::RegistrableDomain topFrameDomain) -> () Async
+    SetSubresourceUnderTopFrameDomain(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subresourceDomain, PurCFetcher::RegistrableDomain topFrameDomain) -> () Async
+    SetSubresourceUniqueRedirectTo(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subresourceDomain, PurCFetcher::RegistrableDomain redirectedToDomain) -> () Async
+    SetSubresourceUniqueRedirectFrom(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain subresourceDomain, PurCFetcher::RegistrableDomain redirectedFromDomain) -> () Async
     SetTimeToLiveUserInteraction(PAL::SessionID sessionID, Seconds seconds) -> () Async
-    SetTopFrameUniqueRedirectTo(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain redirectedToDomain) -> () Async
-    SetTopFrameUniqueRedirectFrom(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain topFrameDomain, PurcFetcher::RegistrableDomain redirectedFromDomain) -> () Async
+    SetTopFrameUniqueRedirectTo(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain topFrameDomain, PurCFetcher::RegistrableDomain redirectedToDomain) -> () Async
+    SetTopFrameUniqueRedirectFrom(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain topFrameDomain, PurCFetcher::RegistrableDomain redirectedFromDomain) -> () Async
     ResetCacheMaxAgeCapForPrevalentResources(PAL::SessionID sessionID) -> () Async
-    DidCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain fromDomain, PurcFetcher::RegistrableDomain toDomain, OptionSet<PurcFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, PurcFetcher::WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID)
-    SetCrossSiteLoadWithLinkDecorationForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain fromDomain, PurcFetcher::RegistrableDomain toDomain) -> () Async
+    DidCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain fromDomain, PurCFetcher::RegistrableDomain toDomain, OptionSet<PurCFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, PurCFetcher::WebPageProxyIdentifier webPageProxyID, PurCFetcher::PageIdentifier webPageID)
+    SetCrossSiteLoadWithLinkDecorationForTesting(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain fromDomain, PurCFetcher::RegistrableDomain toDomain) -> () Async
     ResetCrossSiteLoadsWithLinkDecorationForTesting(PAL::SessionID sessionID) -> () Async
-    DeleteCookiesForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain domain, bool includeHttpOnlyCookies) -> () Async
-    HasIsolatedSession(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain domain) -> (bool hasIsolatedSession) Async
-    SetAppBoundDomainsForResourceLoadStatistics(PAL::SessionID sessionID, HashSet<PurcFetcher::RegistrableDomain> appBoundDomains) -> () Async
+    DeleteCookiesForTesting(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain domain, bool includeHttpOnlyCookies) -> () Async
+    HasIsolatedSession(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain domain) -> (bool hasIsolatedSession) Async
+    SetAppBoundDomainsForResourceLoadStatistics(PAL::SessionID sessionID, HashSet<PurCFetcher::RegistrableDomain> appBoundDomains) -> () Async
     SetShouldDowngradeReferrerForTesting(bool enabled) -> () Async
-    SetThirdPartyCookieBlockingMode(PAL::SessionID sessionID, enum:uint8_t PurcFetcher::ThirdPartyCookieBlockingMode blockingMode) -> () Async
-    SetShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID sessionID, enum:bool PurcFetcher::SameSiteStrictEnforcementEnabled enabled) -> () Async
-    SetFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID sessionID, enum:uint8_t PurcFetcher::FirstPartyWebsiteDataRemovalMode mode) -> () Async
-    SetToSameSiteStrictCookiesForTesting(PAL::SessionID sessionID, PurcFetcher::RegistrableDomain domain) -> () Async
+    SetThirdPartyCookieBlockingMode(PAL::SessionID sessionID, enum:uint8_t PurCFetcher::ThirdPartyCookieBlockingMode blockingMode) -> () Async
+    SetShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID sessionID, enum:bool PurCFetcher::SameSiteStrictEnforcementEnabled enabled) -> () Async
+    SetFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID sessionID, enum:uint8_t PurCFetcher::FirstPartyWebsiteDataRemovalMode mode) -> () Async
+    SetToSameSiteStrictCookiesForTesting(PAL::SessionID sessionID, PurCFetcher::RegistrableDomain domain) -> () Async
 #endif
 
     SetAdClickAttributionDebugMode(bool debugMode)
@@ -159,18 +159,18 @@ messages -> NetworkProcess LegacyReceiver {
     RegisterURLSchemeAsLocal(String scheme)
     RegisterURLSchemeAsNoAccess(String scheme)
 
-    SetCacheStorageParameters(PAL::SessionID sessionID, String cacheStorageDirectory, PurcFetcher::SandboxExtension::Handle handle);
+    SetCacheStorageParameters(PAL::SessionID sessionID, String cacheStorageDirectory, PurCFetcher::SandboxExtension::Handle handle);
 
     SyncLocalStorage() -> () Synchronous
     ClearLegacyPrivateBrowsingLocalStorage()
 
-    StoreAdClickAttribution(PAL::SessionID sessionID, PurcFetcher::AdClickAttribution adClickAttribution)
+    StoreAdClickAttribution(PAL::SessionID sessionID, PurCFetcher::AdClickAttribution adClickAttribution)
     DumpAdClickAttribution(PAL::SessionID sessionID) -> (String adClickAttributionState) Async
     ClearAdClickAttribution(PAL::SessionID sessionID) -> () Async
     SetAdClickAttributionOverrideTimerForTesting(PAL::SessionID sessionID, bool value) -> () Async
     SetAdClickAttributionConversionURLForTesting(PAL::SessionID sessionID, URL url) -> () Async
     MarkAdClickAttributionsAsExpiredForTesting(PAL::SessionID sessionID) -> () Async
-    GetLocalStorageOriginDetails(PAL::SessionID sessionID) -> (Vector<PurcFetcher::LocalStorageDatabaseTracker::OriginDetails> details) Async
+    GetLocalStorageOriginDetails(PAL::SessionID sessionID) -> (Vector<PurCFetcher::LocalStorageDatabaseTracker::OriginDetails> details) Async
 
     SetServiceWorkerFetchTimeoutForTesting(Seconds seconds) -> () Synchronous
     ResetServiceWorkerFetchTimeoutForTesting() -> () Synchronous

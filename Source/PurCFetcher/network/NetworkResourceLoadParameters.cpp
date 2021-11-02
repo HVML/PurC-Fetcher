@@ -28,8 +28,8 @@
 
 #include "WebCoreArgumentCoders.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 void NetworkResourceLoadParameters::encode(IPC::Encoder& encoder) const
 {
@@ -315,4 +315,4 @@ Optional<NetworkResourceLoadParameters> NetworkResourceLoadParameters::decode(IP
     return result;
 }
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher

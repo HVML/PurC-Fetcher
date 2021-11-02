@@ -27,7 +27,7 @@
 
 #include "AuxiliaryProcessSupplement.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct NetworkProcessCreationParameters;
 
@@ -38,4 +38,4 @@ public:
     }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

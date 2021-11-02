@@ -36,7 +36,7 @@
 
 typedef struct _GInetAddress GInetAddress;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DNSCache {
 public:
@@ -70,4 +70,4 @@ private:
     RunLoop::Timer<DNSCache> m_expiredTimer;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

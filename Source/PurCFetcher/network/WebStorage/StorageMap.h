@@ -30,7 +30,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageMap : public RefCounted<StorageMap> {
 public:
@@ -68,4 +68,4 @@ private:
     unsigned m_currentLength { 0 }; // Measured in UChars.
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

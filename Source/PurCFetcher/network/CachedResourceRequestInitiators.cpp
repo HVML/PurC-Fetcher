@@ -27,7 +27,7 @@
 #include "config.h"
 #include "CachedResourceRequestInitiators.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 CachedResourceRequestInitiators::CachedResourceRequestInitiators()
     : css("css", AtomString::ConstructFromLiteral)
@@ -39,4 +39,4 @@ CachedResourceRequestInitiators::CachedResourceRequestInitiators()
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

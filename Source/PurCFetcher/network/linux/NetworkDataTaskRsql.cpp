@@ -76,8 +76,8 @@
 #include "SQLiteStatement.h"
 
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 #define  DEFAULT_READBUFFER_SIZE 8192
 
@@ -102,7 +102,7 @@ extern const char* DELETE;
 
 extern String decodeEscapeSequencesFromParsedURL(StringView input);
 
-NetworkDataTaskRsql::NetworkDataTaskRsql(NetworkSession& session, NetworkDataTaskClient& client, const ResourceRequest& requestWithCredentials, StoredCredentialsPolicy storedCredentialsPolicy, ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+NetworkDataTaskRsql::NetworkDataTaskRsql(NetworkSession& session, NetworkDataTaskClient& client, const ResourceRequest& requestWithCredentials, StoredCredentialsPolicy storedCredentialsPolicy, ContentSniffingPolicy shouldContentSniff, PurCFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     : NetworkDataTask(session, client, requestWithCredentials, storedCredentialsPolicy, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation)
     , m_formatArray(false)
 {
@@ -210,7 +210,7 @@ void NetworkDataTaskRsql::dispatchDidReceiveResponse()
     });
 }
 
-void NetworkDataTaskRsql::createRequest(PurcFetcher::ResourceRequest&& request)
+void NetworkDataTaskRsql::createRequest(PurCFetcher::ResourceRequest&& request)
 {
     m_currentRequest = WTFMove(request);
     m_startTime = MonotonicTime::now();
@@ -718,6 +718,6 @@ void NetworkDataTaskRsql::parseSqlQuery(String sqlQuery)
     }
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(RSQL)

@@ -31,7 +31,7 @@
 #include <wtf/RefCounted.h>
 #include <wtf/threads/BinarySemaphore.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<StorageQuotaManager> StorageQuotaManager::create(uint64_t quota, UsageGetter&& usageGetter, QuotaIncreaseRequester&& quotaIncreaseRequester)
 {
@@ -143,4 +143,4 @@ void StorageQuotaManager::resetQuotaForTesting()
     m_quotaCountDown = 0;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

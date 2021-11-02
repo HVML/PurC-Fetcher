@@ -58,8 +58,8 @@
 #include "NetworkDataTaskCurl.h"
 #endif
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDataTaskClient& client, const NetworkLoadParameters& parameters)
 {
@@ -202,12 +202,12 @@ NetworkSession* NetworkDataTask::networkSession()
     return m_session.get();
 }
 
-bool NetworkDataTask::isThirdPartyRequest(const PurcFetcher::ResourceRequest& request) const
+bool NetworkDataTask::isThirdPartyRequest(const PurCFetcher::ResourceRequest& request) const
 {
-    return !PurcFetcher::areRegistrableDomainsEqual(request.url(), request.firstPartyForCookies());
+    return !PurCFetcher::areRegistrableDomainsEqual(request.url(), request.firstPartyForCookies());
 }
 
-void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(PurcFetcher::ResourceRequest& request)
+void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(PurCFetcher::ResourceRequest& request)
 {
     UNUSED_PARAM(request);
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
@@ -216,4 +216,4 @@ void NetworkDataTask::restrictRequestReferrerToOriginIfNeeded(PurcFetcher::Resou
 #endif
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

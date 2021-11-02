@@ -32,7 +32,7 @@
 #include "StoredCredentialsPolicy.h"
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class CachedResource;
 class ContentSecurityPolicy;
@@ -95,4 +95,4 @@ protected:
     virtual ~LoaderStrategy();
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -21,7 +21,7 @@
 
 #include <gio/gio.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void NetworkStateNotifier::updateStateWithoutNotifying()
 {

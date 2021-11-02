@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
     
 enum class WebsiteSimulatedMouseEventsDispatchPolicy : uint8_t {
     Default,
@@ -39,12 +39,12 @@ enum class WebsiteSimulatedMouseEventsDispatchPolicy : uint8_t {
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteSimulatedMouseEventsDispatchPolicy> {
+template<> struct EnumTraits<PurCFetcher::WebsiteSimulatedMouseEventsDispatchPolicy> {
     using values = EnumValues<
-    PurcFetcher::WebsiteSimulatedMouseEventsDispatchPolicy,
-    PurcFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Default,
-    PurcFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Allow,
-    PurcFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Deny
+    PurCFetcher::WebsiteSimulatedMouseEventsDispatchPolicy,
+    PurCFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Default,
+    PurCFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Allow,
+    PurCFetcher::WebsiteSimulatedMouseEventsDispatchPolicy::Deny
     >;
 };
 

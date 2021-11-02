@@ -37,10 +37,10 @@
 #include <pal/SessionID.h>
 #include <wtf/RunLoop.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 SpeculativeLoad::SpeculativeLoad(Cache& cache, const GlobalFrameID& globalFrameID, const ResourceRequest& request, std::unique_ptr<NetworkCache::Entry> cacheEntryForValidation, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, RevalidationCompletionHandler&& completionHandler)
     : m_cache(cache)
@@ -125,7 +125,7 @@ void SpeculativeLoad::didReceiveBuffer(Ref<SharedBuffer>&& buffer, int reportedE
     }
 }
 
-void SpeculativeLoad::didFinishLoading(const PurcFetcher::NetworkLoadMetrics&)
+void SpeculativeLoad::didFinishLoading(const PurCFetcher::NetworkLoadMetrics&)
 {
     if (m_didComplete)
         return;
@@ -202,6 +202,6 @@ bool requestsHeadersMatch(const ResourceRequest& speculativeValidationRequest, c
 }
 
 } // namespace NetworkCache
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION) || ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsiteMediaSourcePolicy : uint8_t {
     Default,
@@ -35,16 +35,16 @@ enum class WebsiteMediaSourcePolicy : uint8_t {
     Enable
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteMediaSourcePolicy> {
+template<> struct EnumTraits<PurCFetcher::WebsiteMediaSourcePolicy> {
     using values = EnumValues<
-        PurcFetcher::WebsiteMediaSourcePolicy,
-        PurcFetcher::WebsiteMediaSourcePolicy::Default,
-        PurcFetcher::WebsiteMediaSourcePolicy::Disable,
-        PurcFetcher::WebsiteMediaSourcePolicy::Enable
+        PurCFetcher::WebsiteMediaSourcePolicy,
+        PurCFetcher::WebsiteMediaSourcePolicy::Default,
+        PurCFetcher::WebsiteMediaSourcePolicy::Disable,
+        PurCFetcher::WebsiteMediaSourcePolicy::Enable
     >;
 };
 

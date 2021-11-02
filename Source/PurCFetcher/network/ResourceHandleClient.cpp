@@ -30,7 +30,7 @@
 #include "ResourceRequest.h"
 #include "SharedBuffer.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 ResourceHandleClient::ResourceHandleClient() = default;
 

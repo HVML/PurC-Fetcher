@@ -70,7 +70,7 @@ class SchedulePair;
 template<typename T> class MessageQueue;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationChallenge;
 class Credential;

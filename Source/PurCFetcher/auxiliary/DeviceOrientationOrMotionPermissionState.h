@@ -27,7 +27,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class DeviceOrientationOrMotionPermissionState : uint8_t { Granted, Denied, Prompt };
 
@@ -35,12 +35,12 @@ enum class DeviceOrientationOrMotionPermissionState : uint8_t { Granted, Denied,
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::DeviceOrientationOrMotionPermissionState> {
+template<> struct EnumTraits<PurCFetcher::DeviceOrientationOrMotionPermissionState> {
     using values = EnumValues<
-        PurcFetcher::DeviceOrientationOrMotionPermissionState,
-        PurcFetcher::DeviceOrientationOrMotionPermissionState::Granted,
-        PurcFetcher::DeviceOrientationOrMotionPermissionState::Denied,
-        PurcFetcher::DeviceOrientationOrMotionPermissionState::Prompt
+        PurCFetcher::DeviceOrientationOrMotionPermissionState,
+        PurCFetcher::DeviceOrientationOrMotionPermissionState::Granted,
+        PurCFetcher::DeviceOrientationOrMotionPermissionState::Denied,
+        PurCFetcher::DeviceOrientationOrMotionPermissionState::Prompt
     >;
 };
 

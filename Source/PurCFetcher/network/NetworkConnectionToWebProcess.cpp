@@ -88,15 +88,15 @@
     } \
 } while (0)
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
-Ref<NetworkConnectionToWebProcess> NetworkConnectionToWebProcess::create(NetworkProcess& networkProcess, PurcFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
+Ref<NetworkConnectionToWebProcess> NetworkConnectionToWebProcess::create(NetworkProcess& networkProcess, PurCFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
 {
     return adoptRef(*new NetworkConnectionToWebProcess(networkProcess, webProcessIdentifier, sessionID, connectionIdentifier));
 }
 
-NetworkConnectionToWebProcess::NetworkConnectionToWebProcess(NetworkProcess& networkProcess, PurcFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
+NetworkConnectionToWebProcess::NetworkConnectionToWebProcess(NetworkProcess& networkProcess, PurCFetcher::ProcessIdentifier webProcessIdentifier, PAL::SessionID sessionID, IPC::Connection::Identifier connectionIdentifier)
     : m_connection(IPC::Connection::createServerConnection(connectionIdentifier, *this))
     , m_networkProcess(networkProcess)
     , m_sessionID(sessionID)
@@ -586,7 +586,7 @@ void NetworkConnectionToWebProcess::cookiesForDOM(const URL& firstParty, const S
     completionHandler(WTFMove(result.first), result.second);
 }
 
-void NetworkConnectionToWebProcess::setCookiesFromDOM(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, PurcFetcher::FrameIdentifier frameID, PageIdentifier pageID, ShouldAskITP shouldAskITP, const String& cookieString, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
+void NetworkConnectionToWebProcess::setCookiesFromDOM(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, PurCFetcher::FrameIdentifier frameID, PageIdentifier pageID, ShouldAskITP shouldAskITP, const String& cookieString, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
@@ -609,17 +609,17 @@ void NetworkConnectionToWebProcess::cookieRequestHeaderFieldValue(const URL& fir
     completionHandler(WTFMove(result.first), result.second);
 }
 
-void NetworkConnectionToWebProcess::getRawCookies(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&& completionHandler)
+void NetworkConnectionToWebProcess::getRawCookies(const URL& firstParty, const SameSiteInfo& sameSiteInfo, const URL& url, Optional<FrameIdentifier> frameID, Optional<PageIdentifier> pageID, ShouldAskITP shouldAskITP, ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking, CompletionHandler<void(Vector<PurCFetcher::Cookie>&&)>&& completionHandler)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
         return completionHandler({ });
-    Vector<PurcFetcher::Cookie> result;
+    Vector<PurCFetcher::Cookie> result;
     networkStorageSession->getRawCookies(firstParty, sameSiteInfo, url, frameID, pageID, shouldAskITP, shouldRelaxThirdPartyCookieBlocking, result);
     completionHandler(WTFMove(result));
 }
 
-void NetworkConnectionToWebProcess::setRawCookie(const PurcFetcher::Cookie& cookie)
+void NetworkConnectionToWebProcess::setRawCookie(const PurCFetcher::Cookie& cookie)
 {
     auto* networkStorageSession = storageSession();
     if (!networkStorageSession)
@@ -636,7 +636,7 @@ void NetworkConnectionToWebProcess::deleteCookie(const URL& url, const String& c
     networkStorageSession->deleteCookie(url, cookieName);
 }
 
-void NetworkConnectionToWebProcess::domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<PurcFetcher::Cookie>&)>&& completionHandler)
+void NetworkConnectionToWebProcess::domCookiesForHost(const String& host, bool subscribeToCookieChangeNotifications, CompletionHandler<void(const Vector<PurCFetcher::Cookie>&)>&& completionHandler)
 {
     NETWORK_PROCESS_MESSAGE_CHECK_COMPLETION(HashSet<String>::isValidValue(host), completionHandler({ }));
 
@@ -668,12 +668,12 @@ void NetworkConnectionToWebProcess::unsubscribeFromCookieChangeNotifications(con
         networkStorageSession->stopListeningForCookieChangeNotifications(*this, hosts);
 }
 
-void NetworkConnectionToWebProcess::cookiesAdded(const String& host, const Vector<PurcFetcher::Cookie>& cookies)
+void NetworkConnectionToWebProcess::cookiesAdded(const String& host, const Vector<PurCFetcher::Cookie>& cookies)
 {
     connection().send(Messages::NetworkProcessConnection::CookiesAdded(host, cookies), 0);
 }
 
-void NetworkConnectionToWebProcess::cookiesDeleted(const String& host, const Vector<PurcFetcher::Cookie>& cookies)
+void NetworkConnectionToWebProcess::cookiesDeleted(const String& host, const Vector<PurCFetcher::Cookie>& cookies)
 {
     connection().send(Messages::NetworkProcessConnection::CookiesDeleted(host, cookies), 0);
 }
@@ -742,7 +742,7 @@ void NetworkConnectionToWebProcess::hasStorageAccess(const RegistrableDomain& su
     completionHandler(false);
 }
 
-void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, FrameIdentifier frameID, PageIdentifier webPageID, WebPageProxyIdentifier webPageProxyID, StorageAccessScope scope, CompletionHandler<void(PurcFetcher::RequestStorageAccessResult result)>&& completionHandler)
+void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain& subFrameDomain, const RegistrableDomain& topFrameDomain, FrameIdentifier frameID, PageIdentifier webPageID, WebPageProxyIdentifier webPageProxyID, StorageAccessScope scope, CompletionHandler<void(PurCFetcher::RequestStorageAccessResult result)>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession()) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics()) {
@@ -751,10 +751,10 @@ void NetworkConnectionToWebProcess::requestStorageAccess(const RegistrableDomain
         }
     }
 
-    completionHandler({ PurcFetcher::StorageAccessWasGranted::Yes, PurcFetcher::StorageAccessPromptWasShown::No, scope, topFrameDomain, subFrameDomain });
+    completionHandler({ PurCFetcher::StorageAccessWasGranted::Yes, PurCFetcher::StorageAccessPromptWasShown::No, scope, topFrameDomain, subFrameDomain });
 }
 
-void NetworkConnectionToWebProcess::requestStorageAccessUnderOpener(PurcFetcher::RegistrableDomain&& domainInNeedOfStorageAccess, PageIdentifier openerPageID, PurcFetcher::RegistrableDomain&& openerDomain)
+void NetworkConnectionToWebProcess::requestStorageAccessUnderOpener(PurCFetcher::RegistrableDomain&& domainInNeedOfStorageAccess, PageIdentifier openerPageID, PurCFetcher::RegistrableDomain&& openerDomain)
 {
     if (auto* networkSession = this->networkSession()) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics())
@@ -986,7 +986,7 @@ void NetworkConnectionToWebProcess::postMessageToRemote(MessageWithMessagePorts&
     }
 }
 
-void NetworkConnectionToWebProcess::checkRemotePortForActivity(const PurcFetcher::MessagePortIdentifier port, CompletionHandler<void(bool)>&& callback)
+void NetworkConnectionToWebProcess::checkRemotePortForActivity(const PurCFetcher::MessagePortIdentifier port, CompletionHandler<void(bool)>&& callback)
 {
     networkProcess().messagePortChannelRegistry().checkRemotePortForActivity(port, [callback = WTFMove(callback)](auto hasActivity) mutable {
         callback(hasActivity == MessagePortChannelProvider::HasActivity::Yes);
@@ -998,7 +998,7 @@ void NetworkConnectionToWebProcess::checkProcessLocalPortForActivity(const Messa
     connection().sendWithAsyncReply(Messages::NetworkProcessConnection::CheckProcessLocalPortForActivity { port }, WTFMove(callback), 0);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef NETWORK_PROCESS_MESSAGE_CHECK_COMPLETION
 #undef NETWORK_PROCESS_MESSAGE_CHECK

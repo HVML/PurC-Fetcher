@@ -25,11 +25,11 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class SoupCookiePersistentStorageType : bool {
     Text,
     SQLite
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

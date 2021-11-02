@@ -26,14 +26,14 @@
 #include "config.h"
 #include "WebResourceLoader.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<WebResourceLoader> WebResourceLoader::create(Ref<ResourceLoader>&& coreLoader, const TrackingParameters& trackingParameters)
 {
     return adoptRef(*new WebResourceLoader(WTFMove(coreLoader), trackingParameters));
 }
 
-WebResourceLoader::WebResourceLoader(Ref<PurcFetcher::ResourceLoader>&&, const TrackingParameters&)
+WebResourceLoader::WebResourceLoader(Ref<PurCFetcher::ResourceLoader>&&, const TrackingParameters&)
 {
 }
 
@@ -51,7 +51,7 @@ uint64_t WebResourceLoader::messageSenderDestinationID() const
     return 0;
 }
 
-void WebResourceLoader::willSendRequest(PurcFetcher::ResourceRequest&&, IPC::FormDataReference&&, PurcFetcher::ResourceResponse&&)
+void WebResourceLoader::willSendRequest(PurCFetcher::ResourceRequest&&, IPC::FormDataReference&&, PurCFetcher::ResourceResponse&&)
 {
 }
 
@@ -59,7 +59,7 @@ void WebResourceLoader::didSendData(uint64_t, uint64_t)
 {
 }
 
-void WebResourceLoader::didReceiveResponse(const PurcFetcher::ResourceResponse&, bool)
+void WebResourceLoader::didReceiveResponse(const PurCFetcher::ResourceResponse&, bool)
 {
 }
 
@@ -71,15 +71,15 @@ void WebResourceLoader::didReceiveSharedBuffer(IPC::SharedBufferDataReference&&,
 {
 }
 
-void WebResourceLoader::didFinishResourceLoad(const PurcFetcher::NetworkLoadMetrics&)
+void WebResourceLoader::didFinishResourceLoad(const PurCFetcher::NetworkLoadMetrics&)
 {
 }
 
-void WebResourceLoader::didFailResourceLoad(const PurcFetcher::ResourceError&)
+void WebResourceLoader::didFailResourceLoad(const PurCFetcher::ResourceError&)
 {
 }
 
-void WebResourceLoader::didFailServiceWorkerLoad(const PurcFetcher::ResourceError&)
+void WebResourceLoader::didFailServiceWorkerLoad(const PurCFetcher::ResourceError&)
 {
 }
 
@@ -92,7 +92,7 @@ void WebResourceLoader::didBlockAuthenticationChallenge()
 }
 
 
-void WebResourceLoader::stopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(const PurcFetcher::ResourceResponse&)
+void WebResourceLoader::stopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(const PurCFetcher::ResourceResponse&)
 {
 }
 
@@ -112,6 +112,6 @@ void WebResourceLoader::didReceiveResource(const ShareableResource::Handle&)
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

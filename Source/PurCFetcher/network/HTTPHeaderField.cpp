@@ -26,7 +26,7 @@
 #include "config.h"
 #include "HTTPHeaderField.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace RFC7230 {
     

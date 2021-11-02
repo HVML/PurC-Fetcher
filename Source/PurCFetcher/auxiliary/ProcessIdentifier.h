@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum ProcessIdentifierType { };
 using ProcessIdentifier = ObjectIdentifier<ProcessIdentifierType>;
@@ -38,4 +38,4 @@ PURCFETCHER_EXPORT void setIdentifier(ProcessIdentifier);
 PURCFETCHER_EXPORT ProcessIdentifier identifier();
 
 } // namespace Process
-} // namespace PurcFetcher
+} // namespace PurCFetcher

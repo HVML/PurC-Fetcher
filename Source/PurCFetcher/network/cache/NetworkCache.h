@@ -40,19 +40,19 @@
 #include <wtf/WeakHashSet.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class LowPowerModeNotifier;
 class ResourceRequest;
 class SharedBuffer;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 struct GlobalFrameID {
     WebPageProxyIdentifier webPageProxyID;
-    PurcFetcher::PageIdentifier webPageID;
-    PurcFetcher::FrameIdentifier frameID;
+    PurCFetcher::PageIdentifier webPageID;
+    PurCFetcher::FrameIdentifier frameID;
 
     unsigned hash() const;
 };
@@ -79,26 +79,26 @@ inline bool operator==(const GlobalFrameID& a, const GlobalFrameID& b)
 namespace WTF {
 
 struct GlobalFrameIDHash {
-    static unsigned hash(const PurcFetcher::NetworkCache::GlobalFrameID& key) { return key.hash(); }
-    static bool equal(const PurcFetcher::NetworkCache::GlobalFrameID& a, const PurcFetcher::NetworkCache::GlobalFrameID& b) { return a == b; }
+    static unsigned hash(const PurCFetcher::NetworkCache::GlobalFrameID& key) { return key.hash(); }
+    static bool equal(const PurCFetcher::NetworkCache::GlobalFrameID& a, const PurCFetcher::NetworkCache::GlobalFrameID& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
 
-template<> struct HashTraits<PurcFetcher::NetworkCache::GlobalFrameID> : GenericHashTraits<PurcFetcher::NetworkCache::GlobalFrameID> {
-    static PurcFetcher::NetworkCache::GlobalFrameID emptyValue() { return { }; }
+template<> struct HashTraits<PurCFetcher::NetworkCache::GlobalFrameID> : GenericHashTraits<PurCFetcher::NetworkCache::GlobalFrameID> {
+    static PurCFetcher::NetworkCache::GlobalFrameID emptyValue() { return { }; }
 
-    static void constructDeletedValue(PurcFetcher::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<PurcFetcher::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
+    static void constructDeletedValue(PurCFetcher::NetworkCache::GlobalFrameID& slot) { slot.webPageID = makeObjectIdentifier<PurCFetcher::PageIdentifierType>(std::numeric_limits<uint64_t>::max()); }
 
-    static bool isDeletedValue(const PurcFetcher::NetworkCache::GlobalFrameID& slot) { return slot.webPageID.toUInt64() == std::numeric_limits<uint64_t>::max(); }
+    static bool isDeletedValue(const PurCFetcher::NetworkCache::GlobalFrameID& slot) { return slot.webPageID.toUInt64() == std::numeric_limits<uint64_t>::max(); }
 };
 
-template<> struct DefaultHash<PurcFetcher::NetworkCache::GlobalFrameID> {
+template<> struct DefaultHash<PurCFetcher::NetworkCache::GlobalFrameID> {
     typedef GlobalFrameIDHash Hash;
 };
 
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 
@@ -171,10 +171,10 @@ public:
         WTF_MAKE_FAST_ALLOCATED;
     };
     using RetrieveCompletionHandler = Function<void(std::unique_ptr<Entry>, const RetrieveInfo&)>;
-    void retrieve(const PurcFetcher::ResourceRequest&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>, RetrieveCompletionHandler&&);
-    std::unique_ptr<Entry> store(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&, Function<void(MappedBody&)>&& = nullptr);
-    std::unique_ptr<Entry> storeRedirect(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap);
-    std::unique_ptr<Entry> update(const PurcFetcher::ResourceRequest&, const Entry&, const PurcFetcher::ResourceResponse& validatingResponse);
+    void retrieve(const PurCFetcher::ResourceRequest&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>, RetrieveCompletionHandler&&);
+    std::unique_ptr<Entry> store(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&, RefPtr<PurCFetcher::SharedBuffer>&&, Function<void(MappedBody&)>&& = nullptr);
+    std::unique_ptr<Entry> storeRedirect(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&, const PurCFetcher::ResourceRequest& redirectRequest, Optional<Seconds> maxAgeCap);
+    std::unique_ptr<Entry> update(const PurCFetcher::ResourceRequest&, const Entry&, const PurCFetcher::ResourceResponse& validatingResponse);
 
     struct TraversalEntry {
         const Entry& entry;
@@ -182,7 +182,7 @@ public:
     };
     void traverse(Function<void(const TraversalEntry*)>&&);
     void remove(const Key&);
-    void remove(const PurcFetcher::ResourceRequest&);
+    void remove(const PurCFetcher::ResourceRequest&);
     void remove(const Vector<Key>&, Function<void()>&&);
 
     void clear();
@@ -191,8 +191,8 @@ public:
     void retrieveData(const DataKey&, Function<void(const uint8_t*, size_t)>);
     void storeData(const DataKey&,  const uint8_t* data, size_t);
     
-    std::unique_ptr<Entry> makeEntry(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&);
-    std::unique_ptr<Entry> makeRedirectEntry(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest);
+    std::unique_ptr<Entry> makeEntry(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&, RefPtr<PurCFetcher::SharedBuffer>&&);
+    std::unique_ptr<Entry> makeRedirectEntry(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&, const PurCFetcher::ResourceRequest& redirectRequest);
 
     void dumpContentsToFile();
 
@@ -203,10 +203,10 @@ public:
 #endif
 
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
-    void startAsyncRevalidationIfNeeded(const PurcFetcher::ResourceRequest&, const NetworkCache::Key&, std::unique_ptr<Entry>&&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
+    void startAsyncRevalidationIfNeeded(const PurCFetcher::ResourceRequest&, const NetworkCache::Key&, std::unique_ptr<Entry>&&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
 #endif
 
-    void browsingContextRemoved(WebPageProxyIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::FrameIdentifier);
+    void browsingContextRemoved(WebPageProxyIdentifier, PurCFetcher::PageIdentifier, PurCFetcher::FrameIdentifier);
 
     NetworkProcess& networkProcess() { return m_networkProcess.get(); }
     const PAL::SessionID& sessionID() const { return m_sessionID; }
@@ -217,20 +217,20 @@ public:
 private:
     Cache(NetworkProcess&, const String& storageDirectory, Ref<Storage>&&, OptionSet<CacheOption>, PAL::SessionID);
 
-    Key makeCacheKey(const PurcFetcher::ResourceRequest&);
+    Key makeCacheKey(const PurCFetcher::ResourceRequest&);
 
     static void completeRetrieve(RetrieveCompletionHandler&&, std::unique_ptr<Entry>, RetrieveInfo&);
 
     String dumpFilePath() const;
     void deleteDumpFile();
 
-    Optional<Seconds> maxAgeCap(Entry&, const PurcFetcher::ResourceRequest&, PAL::SessionID);
+    Optional<Seconds> maxAgeCap(Entry&, const PurCFetcher::ResourceRequest&, PAL::SessionID);
 
     Ref<Storage> m_storage;
     Ref<NetworkProcess> m_networkProcess;
 
 #if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    std::unique_ptr<PurcFetcher::LowPowerModeNotifier> m_lowPowerModeNotifier;
+    std::unique_ptr<PurCFetcher::LowPowerModeNotifier> m_lowPowerModeNotifier;
     std::unique_ptr<SpeculativeLoadManager> m_speculativeLoadManager;
 #endif
 
@@ -245,4 +245,4 @@ private:
 };
 
 } // namespace NetworkCache
-} // namespace PurcFetcher
+} // namespace PurCFetcher

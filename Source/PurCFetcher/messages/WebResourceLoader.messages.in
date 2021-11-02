@@ -21,18 +21,18 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 messages -> WebResourceLoader LegacyReceiver {
-    WillSendRequest(PurcFetcher::ResourceRequest request, IPC::FormDataReference requestBody, PurcFetcher::ResourceResponse redirectResponse)
+    WillSendRequest(PurCFetcher::ResourceRequest request, IPC::FormDataReference requestBody, PurCFetcher::ResourceResponse redirectResponse)
     DidSendData(uint64_t bytesSent, uint64_t totalBytesToBeSent)
-    DidReceiveResponse(PurcFetcher::ResourceResponse response, bool needsContinueDidReceiveResponseMessage)
+    DidReceiveResponse(PurCFetcher::ResourceResponse response, bool needsContinueDidReceiveResponseMessage)
     DidReceiveData(IPC::DataReference data, int64_t encodedDataLength)
     DidReceiveSharedBuffer(IPC::SharedBufferDataReference data, int64_t encodedDataLength)
-    DidFinishResourceLoad(PurcFetcher::NetworkLoadMetrics networkLoadMetrics)
-    DidFailResourceLoad(PurcFetcher::ResourceError error)
-    DidFailServiceWorkerLoad(PurcFetcher::ResourceError error)
+    DidFinishResourceLoad(PurCFetcher::NetworkLoadMetrics networkLoadMetrics)
+    DidFailResourceLoad(PurCFetcher::ResourceError error)
+    DidFailServiceWorkerLoad(PurCFetcher::ResourceError error)
     ServiceWorkerDidNotHandle()
     DidBlockAuthenticationChallenge()
 
-    StopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(PurcFetcher::ResourceResponse response)
+    StopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(PurCFetcher::ResourceResponse response)
 
 #if ENABLE(SHAREABLE_RESOURCE)
     // DidReceiveResource is for when we have the entire resource data available at once, such as when the resource is cached in memory

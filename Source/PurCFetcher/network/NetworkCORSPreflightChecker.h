@@ -34,12 +34,12 @@
 #include "SessionID.h"
 #include <wtf/CompletionHandler.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class ResourceError;
 class SecurityOrigin;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 class NetworkResourceLoader;
@@ -48,31 +48,31 @@ class NetworkCORSPreflightChecker final : private NetworkDataTaskClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     struct Parameters {
-        PurcFetcher::ResourceRequest originalRequest;
-        Ref<PurcFetcher::SecurityOrigin> sourceOrigin;
-        RefPtr<PurcFetcher::SecurityOrigin> topOrigin;
+        PurCFetcher::ResourceRequest originalRequest;
+        Ref<PurCFetcher::SecurityOrigin> sourceOrigin;
+        RefPtr<PurCFetcher::SecurityOrigin> topOrigin;
         String referrer;
         String userAgent;
         PAL::SessionID sessionID;
         WebPageProxyIdentifier webPageProxyID;
-        PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy;
+        PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy;
     };
-    using CompletionCallback = CompletionHandler<void(PurcFetcher::ResourceError&&)>;
+    using CompletionCallback = CompletionHandler<void(PurCFetcher::ResourceError&&)>;
 
     NetworkCORSPreflightChecker(NetworkProcess&, NetworkResourceLoader*, Parameters&&, bool shouldCaptureExtraNetworkLoadMetrics, CompletionCallback&&);
     ~NetworkCORSPreflightChecker();
-    const PurcFetcher::ResourceRequest& originalRequest() const { return m_parameters.originalRequest; }
+    const PurCFetcher::ResourceRequest& originalRequest() const { return m_parameters.originalRequest; }
 
     void startPreflight();
 
-    PurcFetcher::NetworkTransactionInformation takeInformation();
+    PurCFetcher::NetworkTransactionInformation takeInformation();
 
 private:
-    void willPerformHTTPRedirection(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
-    void didReceiveChallenge(PurcFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
-    void didReceiveData(Ref<PurcFetcher::SharedBuffer>&&) final;
-    void didCompleteWithError(const PurcFetcher::ResourceError&, const PurcFetcher::NetworkLoadMetrics&) final;
+    void willPerformHTTPRedirection(PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&, RedirectCompletionHandler&&) final;
+    void didReceiveChallenge(PurCFetcher::AuthenticationChallenge&&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&) final;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, NegotiatedLegacyTLS, ResponseCompletionHandler&&) final;
+    void didReceiveData(Ref<PurCFetcher::SharedBuffer>&&) final;
+    void didCompleteWithError(const PurCFetcher::ResourceError&, const PurCFetcher::NetworkLoadMetrics&) final;
     void didSendData(uint64_t totalBytesSent, uint64_t totalBytesExpectedToSend) final;
     void wasBlocked() final;
     void cannotShowURL() final;
@@ -80,12 +80,12 @@ private:
 
     Parameters m_parameters;
     Ref<NetworkProcess> m_networkProcess;
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ResourceResponse m_response;
     CompletionCallback m_completionCallback;
     RefPtr<NetworkDataTask> m_task;
     bool m_shouldCaptureExtraNetworkLoadMetrics { false };
-    PurcFetcher::NetworkTransactionInformation m_loadInformation;
+    PurCFetcher::NetworkTransactionInformation m_loadInformation;
     WeakPtr<NetworkResourceLoader> m_networkResourceLoader;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

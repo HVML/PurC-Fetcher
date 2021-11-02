@@ -33,8 +33,8 @@
 #include "NetworkProcess.h"
 #include "WebCoreArgumentCoders.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 PendingDownload::PendingDownload(IPC::Connection* parentProcessConnection, NetworkLoadParameters&& parameters, DownloadID downloadID, NetworkSession& networkSession, const String& suggestedName)
     : m_networkLoad(makeUnique<NetworkLoad>(*this, WTFMove(parameters), networkSession))
@@ -61,12 +61,12 @@ PendingDownload::PendingDownload(IPC::Connection* parentProcessConnection, std::
     m_networkLoad->convertTaskToDownload(*this, request, response, WTFMove(completionHandler));
 }
 
-void PendingDownload::willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse)
+void PendingDownload::willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse)
 {
     send(Messages::DownloadProxy::WillSendRequest(WTFMove(redirectRequest), WTFMove(redirectResponse)));
 };
     
-void PendingDownload::continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest)
+void PendingDownload::continueWillSendRequest(PurCFetcher::ResourceRequest&& newRequest)
 {
     m_networkLoad->continueWillSendRequest(WTFMove(newRequest));
 }
@@ -93,7 +93,7 @@ void PendingDownload::didBecomeDownload(const std::unique_ptr<Download>& downloa
 }
 #endif // PLATFORM(COCOA)
 
-void PendingDownload::didFailLoading(const PurcFetcher::ResourceError& error)
+void PendingDownload::didFailLoading(const PurCFetcher::ResourceError& error)
 {
     send(Messages::DownloadProxy::DidFail(error, { }));
 }
@@ -103,11 +103,11 @@ IPC::Connection* PendingDownload::messageSenderConnection() const
     return m_parentProcessConnection.get();
 }
 
-void PendingDownload::didReceiveResponse(PurcFetcher::ResourceResponse&& response, ResponseCompletionHandler&& completionHandler)
+void PendingDownload::didReceiveResponse(PurCFetcher::ResourceResponse&& response, ResponseCompletionHandler&& completionHandler)
 {
     UNUSED_PARAM(response);
     UNUSED_PARAM(completionHandler);
-    completionHandler(PurcFetcher::PolicyAction::Download);
+    completionHandler(PurCFetcher::PolicyAction::Download);
 }
 
 uint64_t PendingDownload::messageSenderDestinationID() const

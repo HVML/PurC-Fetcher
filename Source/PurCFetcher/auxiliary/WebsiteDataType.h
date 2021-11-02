@@ -27,7 +27,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsiteDataType : uint32_t {
     Cookies = 1 << 0,
@@ -57,37 +57,37 @@ enum class WebsiteDataType : uint32_t {
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteDataType> {
+template<> struct EnumTraits<PurCFetcher::WebsiteDataType> {
     using values = EnumValues<
-        PurcFetcher::WebsiteDataType,
-        PurcFetcher::WebsiteDataType::Cookies,
-        PurcFetcher::WebsiteDataType::DiskCache,
-        PurcFetcher::WebsiteDataType::MemoryCache,
-        PurcFetcher::WebsiteDataType::OfflineWebApplicationCache,
-        PurcFetcher::WebsiteDataType::SessionStorage,
-        PurcFetcher::WebsiteDataType::LocalStorage,
-        PurcFetcher::WebsiteDataType::WebSQLDatabases,
-        PurcFetcher::WebsiteDataType::IndexedDBDatabases,
-        PurcFetcher::WebsiteDataType::MediaKeys,
-        PurcFetcher::WebsiteDataType::HSTSCache,
-        PurcFetcher::WebsiteDataType::SearchFieldRecentSearches,
+        PurCFetcher::WebsiteDataType,
+        PurCFetcher::WebsiteDataType::Cookies,
+        PurCFetcher::WebsiteDataType::DiskCache,
+        PurCFetcher::WebsiteDataType::MemoryCache,
+        PurCFetcher::WebsiteDataType::OfflineWebApplicationCache,
+        PurCFetcher::WebsiteDataType::SessionStorage,
+        PurCFetcher::WebsiteDataType::LocalStorage,
+        PurCFetcher::WebsiteDataType::WebSQLDatabases,
+        PurCFetcher::WebsiteDataType::IndexedDBDatabases,
+        PurCFetcher::WebsiteDataType::MediaKeys,
+        PurCFetcher::WebsiteDataType::HSTSCache,
+        PurCFetcher::WebsiteDataType::SearchFieldRecentSearches,
 #if ENABLE(NETSCAPE_PLUGIN_API)
-        PurcFetcher::WebsiteDataType::PlugInData,
+        PurCFetcher::WebsiteDataType::PlugInData,
 #endif
-        PurcFetcher::WebsiteDataType::ResourceLoadStatistics,
-        PurcFetcher::WebsiteDataType::Credentials,
+        PurCFetcher::WebsiteDataType::ResourceLoadStatistics,
+        PurCFetcher::WebsiteDataType::Credentials,
 #if ENABLE(SERVICE_WORKER)
-        PurcFetcher::WebsiteDataType::ServiceWorkerRegistrations,
+        PurCFetcher::WebsiteDataType::ServiceWorkerRegistrations,
 #endif
-        PurcFetcher::WebsiteDataType::DOMCache,
-        PurcFetcher::WebsiteDataType::DeviceIdHashSalt,
-        PurcFetcher::WebsiteDataType::AdClickAttributions
+        PurCFetcher::WebsiteDataType::DOMCache,
+        PurCFetcher::WebsiteDataType::DeviceIdHashSalt,
+        PurCFetcher::WebsiteDataType::AdClickAttributions
 #if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-        , PurcFetcher::WebsiteDataType::AlternativeServices
+        , PurCFetcher::WebsiteDataType::AlternativeServices
 #endif
     >;
 };

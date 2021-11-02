@@ -44,11 +44,11 @@ namespace WTF {
 class CallbackAggregator;
 };
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 struct RetrieveRecordsOptions;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 
@@ -65,31 +65,31 @@ public:
     static void destroyEngine(NetworkProcess&, PAL::SessionID);
     static void fetchEntries(NetworkProcess&, PAL::SessionID, bool shouldComputeSize, CompletionHandler<void(Vector<WebsiteData::Entry>)>&&);
 
-    static void open(NetworkProcess&, PAL::SessionID, PurcFetcher::ClientOrigin&&, String&& cacheName, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    static void remove(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    static void retrieveCaches(NetworkProcess&, PAL::SessionID, PurcFetcher::ClientOrigin&&, uint64_t updateCounter, PurcFetcher::DOMCacheEngine::CacheInfosCallback&&);
+    static void open(NetworkProcess&, PAL::SessionID, PurCFetcher::ClientOrigin&&, String&& cacheName, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    static void remove(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    static void retrieveCaches(NetworkProcess&, PAL::SessionID, PurCFetcher::ClientOrigin&&, uint64_t updateCounter, PurCFetcher::DOMCacheEngine::CacheInfosCallback&&);
 
-    static void retrieveRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurcFetcher::RetrieveRecordsOptions&&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
-    static void putRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
-    static void deleteMatchingRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    static void retrieveRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurCFetcher::RetrieveRecordsOptions&&, PurCFetcher::DOMCacheEngine::RecordsCallback&&);
+    static void putRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, Vector<PurCFetcher::DOMCacheEngine::Record>&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    static void deleteMatchingRecords(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier, PurCFetcher::ResourceRequest&&, PurCFetcher::CacheQueryOptions&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     static void lock(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier);
     static void unlock(NetworkProcess&, PAL::SessionID, uint64_t cacheIdentifier);
 
-    static void clearMemoryRepresentation(NetworkProcess&, PAL::SessionID, PurcFetcher::ClientOrigin&&, PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    static void clearMemoryRepresentation(NetworkProcess&, PAL::SessionID, PurCFetcher::ClientOrigin&&, PurCFetcher::DOMCacheEngine::CompletionCallback&&);
     static void representation(NetworkProcess&, PAL::SessionID, CompletionHandler<void(String&&)>&&);
 
     static void clearAllCaches(NetworkProcess&, PAL::SessionID, CompletionHandler<void()>&&);
-    static void clearCachesForOrigin(NetworkProcess&, PAL::SessionID, PurcFetcher::SecurityOriginData&&, CompletionHandler<void()>&&);
+    static void clearCachesForOrigin(NetworkProcess&, PAL::SessionID, PurCFetcher::SecurityOriginData&&, CompletionHandler<void()>&&);
 
-    static void initializeQuotaUser(NetworkProcess&, PAL::SessionID, const PurcFetcher::ClientOrigin&, CompletionHandler<void()>&&);
+    static void initializeQuotaUser(NetworkProcess&, PAL::SessionID, const PurCFetcher::ClientOrigin&, CompletionHandler<void()>&&);
 
-    static uint64_t diskUsage(const String& rootPath, const PurcFetcher::ClientOrigin&);
-    void requestSpace(const PurcFetcher::ClientOrigin&, uint64_t spaceRequested, CompletionHandler<void(PurcFetcher::StorageQuotaManager::Decision)>&&);
+    static uint64_t diskUsage(const String& rootPath, const PurCFetcher::ClientOrigin&);
+    void requestSpace(const PurCFetcher::ClientOrigin&, uint64_t spaceRequested, CompletionHandler<void(PurCFetcher::StorageQuotaManager::Decision)>&&);
 
     bool shouldPersist() const { return !!m_ioQueue;}
 
-    void writeFile(const String& filename, NetworkCache::Data&&, PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void writeFile(const String& filename, NetworkCache::Data&&, PurCFetcher::DOMCacheEngine::CompletionCallback&&);
     void readFile(const String& filename, CompletionHandler<void(const NetworkCache::Data&, int error)>&&);
     void removeFile(const String& filename);
     void writeSizeFile(const String&, uint64_t size, CompletionHandler<void()>&&);
@@ -102,41 +102,41 @@ public:
 private:
     Engine(PAL::SessionID, NetworkProcess&, String&& rootPath);
 
-    void open(const PurcFetcher::ClientOrigin&, const String& cacheName, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    void remove(uint64_t cacheIdentifier, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    void retrieveCaches(const PurcFetcher::ClientOrigin&, uint64_t updateCounter, PurcFetcher::DOMCacheEngine::CacheInfosCallback&&);
+    void open(const PurCFetcher::ClientOrigin&, const String& cacheName, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void remove(uint64_t cacheIdentifier, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void retrieveCaches(const PurCFetcher::ClientOrigin&, uint64_t updateCounter, PurCFetcher::DOMCacheEngine::CacheInfosCallback&&);
 
     void clearAllCaches(CompletionHandler<void()>&&);
     void clearAllCachesFromDisk(CompletionHandler<void()>&&);
-    void clearCachesForOrigin(const PurcFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
-    void clearCachesForOriginFromDisk(const PurcFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
+    void clearCachesForOrigin(const PurCFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
+    void clearCachesForOriginFromDisk(const PurCFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
     void deleteDirectoryRecursivelyOnBackgroundThread(const String& path, CompletionHandler<void()>&&);
 
-    void clearMemoryRepresentation(const PurcFetcher::ClientOrigin&, PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void clearMemoryRepresentation(const PurCFetcher::ClientOrigin&, PurCFetcher::DOMCacheEngine::CompletionCallback&&);
     String representation();
 
-    void retrieveRecords(uint64_t cacheIdentifier, PurcFetcher::RetrieveRecordsOptions&&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
-    void putRecords(uint64_t cacheIdentifier, Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
-    void deleteMatchingRecords(uint64_t cacheIdentifier, PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void retrieveRecords(uint64_t cacheIdentifier, PurCFetcher::RetrieveRecordsOptions&&, PurCFetcher::DOMCacheEngine::RecordsCallback&&);
+    void putRecords(uint64_t cacheIdentifier, Vector<PurCFetcher::DOMCacheEngine::Record>&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void deleteMatchingRecords(uint64_t cacheIdentifier, PurCFetcher::ResourceRequest&&, PurCFetcher::CacheQueryOptions&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     void lock(uint64_t cacheIdentifier);
     void unlock(uint64_t cacheIdentifier);
 
-    String cachesRootPath(const PurcFetcher::ClientOrigin&);
+    String cachesRootPath(const PurCFetcher::ClientOrigin&);
 
     void fetchEntries(bool /* shouldComputeSize */, CompletionHandler<void(Vector<WebsiteData::Entry>)>&&);
 
     void getDirectories(CompletionHandler<void(const Vector<String>&)>&&);
     void fetchDirectoryEntries(bool shouldComputeSize, const Vector<String>& folderPaths, CompletionHandler<void(Vector<WebsiteData::Entry>)>&&);
-    void clearCachesForOriginFromDirectories(const Vector<String>&, const PurcFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
+    void clearCachesForOriginFromDirectories(const Vector<String>&, const PurCFetcher::SecurityOriginData&, CompletionHandler<void()>&&);
 
-    void initialize(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void initialize(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
 
-    using CachesOrError = Expected<std::reference_wrapper<Caches>, PurcFetcher::DOMCacheEngine::Error>;
+    using CachesOrError = Expected<std::reference_wrapper<Caches>, PurCFetcher::DOMCacheEngine::Error>;
     using CachesCallback = Function<void(CachesOrError&&)>;
-    void readCachesFromDisk(const PurcFetcher::ClientOrigin&, CachesCallback&&);
+    void readCachesFromDisk(const PurCFetcher::ClientOrigin&, CachesCallback&&);
 
-    using CacheOrError = Expected<std::reference_wrapper<Cache>, PurcFetcher::DOMCacheEngine::Error>;
+    using CacheOrError = Expected<std::reference_wrapper<Cache>, PurCFetcher::DOMCacheEngine::Error>;
     using CacheCallback = Function<void(CacheOrError&&)>;
     void readCache(uint64_t cacheIdentifier, CacheCallback&&);
 
@@ -146,20 +146,20 @@ private:
 
     PAL::SessionID m_sessionID;
     WeakPtr<NetworkProcess> m_networkProcess;
-    HashMap<PurcFetcher::ClientOrigin, RefPtr<Caches>> m_caches;
+    HashMap<PurCFetcher::ClientOrigin, RefPtr<Caches>> m_caches;
     uint64_t m_nextCacheIdentifier { 0 };
     String m_rootPath;
     RefPtr<WorkQueue> m_ioQueue;
     Optional<NetworkCache::Salt> m_salt;
     HashMap<CacheIdentifier, LockCount> m_cacheLocks;
-    Vector<PurcFetcher::DOMCacheEngine::CompletionCallback> m_initializationCallbacks;
-    HashMap<uint64_t, PurcFetcher::DOMCacheEngine::CompletionCallback> m_pendingWriteCallbacks;
+    Vector<PurCFetcher::DOMCacheEngine::CompletionCallback> m_initializationCallbacks;
+    HashMap<uint64_t, PurCFetcher::DOMCacheEngine::CompletionCallback> m_pendingWriteCallbacks;
     HashMap<uint64_t, CompletionHandler<void(const NetworkCache::Data&, int error)>> m_pendingReadCallbacks;
     uint64_t m_pendingCallbacksCounter { 0 };
-    Vector<PurcFetcher::DOMCacheEngine::CompletionCallback> m_pendingClearCallbacks;
+    Vector<PurCFetcher::DOMCacheEngine::CompletionCallback> m_pendingClearCallbacks;
     uint64_t m_clearTaskCounter { 0 };
 };
 
 } // namespace CacheStorage
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

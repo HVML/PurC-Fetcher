@@ -29,16 +29,16 @@
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class NetworkLoadMetrics;
 class SharedBuffer;
 enum class PolicyAction : uint8_t;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using ResponseCompletionHandler = CompletionHandler<void(PurcFetcher::PolicyAction)>;
+using ResponseCompletionHandler = CompletionHandler<void(PurCFetcher::PolicyAction)>;
 
 class NetworkLoadClient {
 public:
@@ -49,14 +49,14 @@ public:
     virtual bool isAllowedToAskUserForCredentials() const = 0;
 
     virtual void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) = 0;
-    virtual void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) = 0;
-    virtual void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) = 0;
-    virtual void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) = 0;
-    virtual void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) = 0;
-    virtual void didFailLoading(const PurcFetcher::ResourceError&) = 0;
+    virtual void willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse) = 0;
+    virtual void didReceiveResponse(PurCFetcher::ResourceResponse&&, ResponseCompletionHandler&&) = 0;
+    virtual void didReceiveBuffer(Ref<PurCFetcher::SharedBuffer>&&, int reportedEncodedDataLength) = 0;
+    virtual void didFinishLoading(const PurCFetcher::NetworkLoadMetrics&) = 0;
+    virtual void didFailLoading(const PurCFetcher::ResourceError&) = 0;
     virtual void didBlockAuthenticationChallenge() { };
-    virtual void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&) { };
+    virtual void didReceiveChallenge(const PurCFetcher::AuthenticationChallenge&) { };
     virtual bool shouldCaptureExtraNetworkLoadMetrics() const { return false; }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

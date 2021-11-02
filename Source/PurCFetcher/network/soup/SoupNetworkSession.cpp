@@ -42,7 +42,7 @@
 #include <wtf/text/Base64.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static bool gIgnoreTLSErrors;
 
@@ -270,7 +270,7 @@ static inline bool stringIsNumeric(const char* str)
     return true;
 }
 
-// Old versions of PurcFetcher created this cache.
+// Old versions of PurCFetcher created this cache.
 void SoupNetworkSession::clearOldSoupCache(const String& cacheDirectory)
 {
     CString cachePath = FileSystem::fileSystemRepresentation(cacheDirectory);
@@ -363,6 +363,6 @@ void SoupNetworkSession::allowSpecificHTTPSCertificateForHost(const CertificateI
     allowedCertificates().add(host, HostTLSCertificateSet()).iterator->value.add(certificateInfo.certificate());
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif

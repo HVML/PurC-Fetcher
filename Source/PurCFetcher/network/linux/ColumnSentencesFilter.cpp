@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnSentencesFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 extern String enPunctuation;
 extern String cnPunctuation;
@@ -169,5 +169,5 @@ Vector<Row> ColumnSentencesFilter::splitRow(Row& row, String)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

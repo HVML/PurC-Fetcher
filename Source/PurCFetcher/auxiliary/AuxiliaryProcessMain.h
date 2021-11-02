@@ -30,7 +30,7 @@
 #include "AuxiliaryProcess.h"
 #include <wtf/RunLoop.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuxiliaryProcessMainBase {
 public:
@@ -73,6 +73,6 @@ int AuxiliaryProcessMain(int argc, char** argv)
     return EXIT_SUCCESS;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // !PLATFORM(COCOA)

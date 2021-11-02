@@ -30,7 +30,7 @@
 #include <wtf/HashTraits.h>
 #include <wtf/URL.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ClientOrigin {
     static ClientOrigin emptyKey() { return { }; }
@@ -89,24 +89,24 @@ template<class Decoder> inline Optional<ClientOrigin> ClientOrigin::decode(Decod
     return ClientOrigin { WTFMove(*topOrigin), WTFMove(*clientOrigin) };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
 struct ClientOriginKeyHash {
-    static unsigned hash(const PurcFetcher::ClientOrigin& key) { return key.hash(); }
-    static bool equal(const PurcFetcher::ClientOrigin& a, const PurcFetcher::ClientOrigin& b) { return a == b; }
+    static unsigned hash(const PurCFetcher::ClientOrigin& key) { return key.hash(); }
+    static bool equal(const PurCFetcher::ClientOrigin& a, const PurCFetcher::ClientOrigin& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-template<> struct HashTraits<PurcFetcher::ClientOrigin> : GenericHashTraits<PurcFetcher::ClientOrigin> {
-    static PurcFetcher::ClientOrigin emptyValue() { return PurcFetcher::ClientOrigin::emptyKey(); }
+template<> struct HashTraits<PurCFetcher::ClientOrigin> : GenericHashTraits<PurCFetcher::ClientOrigin> {
+    static PurCFetcher::ClientOrigin emptyValue() { return PurCFetcher::ClientOrigin::emptyKey(); }
 
-    static void constructDeletedValue(PurcFetcher::ClientOrigin& slot) { slot.topOrigin = PurcFetcher::SecurityOriginData(HashTableDeletedValue); }
-    static bool isDeletedValue(const PurcFetcher::ClientOrigin& slot) { return slot.topOrigin.isHashTableDeletedValue(); }
+    static void constructDeletedValue(PurCFetcher::ClientOrigin& slot) { slot.topOrigin = PurCFetcher::SecurityOriginData(HashTableDeletedValue); }
+    static bool isDeletedValue(const PurCFetcher::ClientOrigin& slot) { return slot.topOrigin.isHashTableDeletedValue(); }
 };
 
-template<> struct DefaultHash<PurcFetcher::ClientOrigin> {
+template<> struct DefaultHash<PurCFetcher::ClientOrigin> {
     typedef ClientOriginKeyHash Hash;
 };
 

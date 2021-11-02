@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineCharsFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 LineCharsFilter::LineCharsFilter()
 {
@@ -114,6 +114,6 @@ Vector<Row> LineCharsFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 

@@ -29,7 +29,7 @@
 #include "ProcessAssertion.h"
 #include <wtf/HashMap.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Download;
 
@@ -58,4 +58,4 @@ private:
 
 #endif // !ENABLE(TAKE_UNBOUNDED_NETWORKING_ASSERTION)
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

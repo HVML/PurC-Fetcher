@@ -37,9 +37,9 @@
 #include "SharedBuffer.h"
 #include <wtf/Seconds.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 struct NetworkLoad::Throttle {
     WTF_MAKE_STRUCT_FAST_ALLOCATED;
@@ -98,14 +98,14 @@ static inline void updateRequest(ResourceRequest& currentRequest, const Resource
 #endif
 }
 
-void NetworkLoad::updateRequestAfterRedirection(PurcFetcher::ResourceRequest& newRequest) const
+void NetworkLoad::updateRequestAfterRedirection(PurCFetcher::ResourceRequest& newRequest) const
 {
     ResourceRequest updatedRequest = m_currentRequest;
     updateRequest(updatedRequest, newRequest);
     newRequest = WTFMove(updatedRequest);
 }
 
-void NetworkLoad::continueWillSendRequest(PurcFetcher::ResourceRequest&& newRequest)
+void NetworkLoad::continueWillSendRequest(PurCFetcher::ResourceRequest&& newRequest)
 {
     updateRequest(m_currentRequest, newRequest);
 
@@ -245,7 +245,7 @@ void NetworkLoad::didReceiveData(Ref<SharedBuffer>&& buffer)
     m_client.get().didReceiveBuffer(WTFMove(buffer), size);
 }
 
-void NetworkLoad::didCompleteWithError(const ResourceError& error, const PurcFetcher::NetworkLoadMetrics& networkLoadMetrics)
+void NetworkLoad::didCompleteWithError(const ResourceError& error, const PurCFetcher::NetworkLoadMetrics& networkLoadMetrics)
 {
     ASSERT(!m_throttle);
 
@@ -284,7 +284,7 @@ void NetworkLoad::wasBlockedByRestrictions()
     m_client.get().didFailLoading(wasBlockedByRestrictionsError(m_currentRequest));
 }
 
-void NetworkLoad::didNegotiateModernTLS(const PurcFetcher::AuthenticationChallenge& challenge)
+void NetworkLoad::didNegotiateModernTLS(const PurCFetcher::AuthenticationChallenge& challenge)
 {
     if (m_parameters.webPageProxyID)
         m_networkProcess->send(Messages::NetworkProcessProxy::DidNegotiateModernTLS(m_parameters.webPageProxyID, challenge));
@@ -297,4 +297,4 @@ String NetworkLoad::description() const
     return emptyString();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

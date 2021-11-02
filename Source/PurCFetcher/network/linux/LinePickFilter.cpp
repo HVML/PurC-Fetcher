@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LinePickFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 LinePickFilter::LinePickFilter()
 {
@@ -105,5 +105,5 @@ Vector<Row> LinePickFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

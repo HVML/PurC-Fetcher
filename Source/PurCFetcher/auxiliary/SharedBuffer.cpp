@@ -34,7 +34,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/unicode/UTF8Conversion.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SharedBuffer::SharedBuffer(const char* data, size_t size)
 {
@@ -349,4 +349,4 @@ RefPtr<SharedBuffer> utf8Buffer(const String& string)
     return SharedBuffer::create(WTFMove(buffer));
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

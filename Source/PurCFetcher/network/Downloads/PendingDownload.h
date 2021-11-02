@@ -33,11 +33,11 @@ namespace IPC {
 class Connection;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class ResourceResponse;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Download;
 class DownloadID;
@@ -49,9 +49,9 @@ class PendingDownload : public NetworkLoadClient, public IPC::MessageSender {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     PendingDownload(IPC::Connection*, NetworkLoadParameters&&, DownloadID, NetworkSession&, const String& suggestedName);
-    PendingDownload(IPC::Connection*, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, DownloadID, const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
+    PendingDownload(IPC::Connection*, std::unique_ptr<NetworkLoad>&&, ResponseCompletionHandler&&, DownloadID, const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&);
 
-    void continueWillSendRequest(PurcFetcher::ResourceRequest&&);
+    void continueWillSendRequest(PurCFetcher::ResourceRequest&&);
     void cancel();
 
 #if PLATFORM(COCOA)
@@ -64,11 +64,11 @@ private:
     void didSendData(unsigned long long, unsigned long long) override { }
     bool isSynchronous() const override { return false; }
     bool isAllowedToAskUserForCredentials() const final { return m_isAllowedToAskUserForCredentials; }
-    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) override;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
-    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int) override { };
-    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) override { };
-    void didFailLoading(const PurcFetcher::ResourceError&) override;
+    void willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse) override;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
+    void didReceiveBuffer(Ref<PurCFetcher::SharedBuffer>&&, int) override { };
+    void didFinishLoading(const PurCFetcher::NetworkLoadMetrics&) override { };
+    void didFailLoading(const PurCFetcher::ResourceError&) override;
 
     // MessageSender.
     IPC::Connection* messageSenderConnection() const override;

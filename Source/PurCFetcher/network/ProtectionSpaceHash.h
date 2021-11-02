@@ -29,7 +29,7 @@
 #include "ProtectionSpace.h"
 #include <wtf/HashTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ProtectionSpaceHash {
     static unsigned hash(const ProtectionSpace& protectionSpace)
@@ -53,14 +53,14 @@ struct ProtectionSpaceHash {
     static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-    template<> struct HashTraits<PurcFetcher::ProtectionSpace> : SimpleClassHashTraits<PurcFetcher::ProtectionSpace> { };
+    template<> struct HashTraits<PurCFetcher::ProtectionSpace> : SimpleClassHashTraits<PurCFetcher::ProtectionSpace> { };
 
-    template<> struct DefaultHash<PurcFetcher::ProtectionSpace> {
-        using Hash = PurcFetcher::ProtectionSpaceHash;
+    template<> struct DefaultHash<PurCFetcher::ProtectionSpace> {
+        using Hash = PurCFetcher::ProtectionSpaceHash;
     };
 
 } // namespace WTF

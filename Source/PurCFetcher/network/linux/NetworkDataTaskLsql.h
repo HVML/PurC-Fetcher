@@ -61,8 +61,8 @@
 #include <wtf/glib/GRefPtr.h>
 #include "CmdFilterManager.h"
 
-namespace PurcFetcher {
-using PurcFetcher::SQLValueH;
+namespace PurCFetcher {
+using PurCFetcher::SQLValueH;
 
 class SqlResult {
 public:
@@ -74,7 +74,7 @@ public:
 
 class NetworkDataTaskLsql final : public NetworkDataTask {
 public:
-    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurcFetcher::ResourceRequest& request, PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurcFetcher::ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurCFetcher::ResourceRequest& request, PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurCFetcher::ContentSniffingPolicy shouldContentSniff, PurCFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     {
         return adoptRef(*new NetworkDataTaskLsql(session, client, request, storedCredentialsPolicy, shouldContentSniff, shouldContentEncodingSniff, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation));
     }
@@ -82,7 +82,7 @@ public:
     ~NetworkDataTaskLsql();
 
 private:
-    NetworkDataTaskLsql(NetworkSession&, NetworkDataTaskClient&, const PurcFetcher::ResourceRequest&, PurcFetcher::StoredCredentialsPolicy, PurcFetcher::ContentSniffingPolicy, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
+    NetworkDataTaskLsql(NetworkSession&, NetworkDataTaskClient&, const PurCFetcher::ResourceRequest&, PurCFetcher::StoredCredentialsPolicy, PurCFetcher::ContentSniffingPolicy, PurCFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
 
     String suggestedFilename() const override;
     void setPendingDownloadLocation(const String&, SandboxExtension::Handle&&, bool /*allowOverwrite*/) override;
@@ -92,9 +92,9 @@ private:
     void invalidateAndCancel() override;
     NetworkDataTask::State state() const override;
 
-    void dispatchDidCompleteWithError(const PurcFetcher::ResourceError&);
+    void dispatchDidCompleteWithError(const PurCFetcher::ResourceError&);
     void dispatchDidReceiveResponse();
-    void createRequest(PurcFetcher::ResourceRequest&&);
+    void createRequest(PurCFetcher::ResourceRequest&&);
     void sendRequest();
 
     void runCmdInner();
@@ -113,11 +113,11 @@ private:
     Ref<JSON::Value> formatAsDict(Vector<SQLValueH>& lineColumns);
 private:
     State m_state { State::Suspended };
-    PurcFetcher::ResourceRequest m_currentRequest;
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ResourceRequest m_currentRequest;
+    PurCFetcher::ResourceResponse m_response;
 
     MonotonicTime m_startTime;
-    PurcFetcher::NetworkLoadMetrics m_networkLoadMetrics;
+    PurCFetcher::NetworkLoadMetrics m_networkLoadMetrics;
     Vector<char> m_readBuffer;
     Vector<char> m_responseBuffer;
     Vector<String> m_readLines;
@@ -128,7 +128,7 @@ private:
 
     HashMap<String, String> m_paramMap;
 
-    PurcFetcher::SQLiteDatabase m_database;
+    PurCFetcher::SQLiteDatabase m_database;
     Vector<String> m_sqlVec;
     Vector<String> m_sqlResultColumnNames;
     Vector<SqlResult> m_sqlResults;
@@ -137,6 +137,6 @@ private:
     String m_sqlQuery;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(LSQL)

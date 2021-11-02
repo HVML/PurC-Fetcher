@@ -28,7 +28,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/Vector.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ThreadSafeDataBuffer;
 
@@ -143,4 +143,4 @@ bool ThreadSafeDataBuffer::decode(Decoder& decoder, ThreadSafeDataBuffer& result
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

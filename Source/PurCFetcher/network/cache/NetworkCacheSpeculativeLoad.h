@@ -36,7 +36,7 @@
 #include "SharedBuffer.h"
 #include <wtf/CompletionHandler.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkLoad;
 
@@ -46,11 +46,11 @@ class SpeculativeLoad final : public NetworkLoadClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     using RevalidationCompletionHandler = CompletionHandler<void(std::unique_ptr<NetworkCache::Entry>)>;
-    SpeculativeLoad(Cache&, const GlobalFrameID&, const PurcFetcher::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>, Optional<NavigatingToAppBoundDomain>, RevalidationCompletionHandler&&);
+    SpeculativeLoad(Cache&, const GlobalFrameID&, const PurCFetcher::ResourceRequest&, std::unique_ptr<NetworkCache::Entry>, Optional<NavigatingToAppBoundDomain>, RevalidationCompletionHandler&&);
 
     virtual ~SpeculativeLoad();
 
-    const PurcFetcher::ResourceRequest& originalRequest() const { return m_originalRequest; }
+    const PurCFetcher::ResourceRequest& originalRequest() const { return m_originalRequest; }
 
     void cancel();
 
@@ -59,30 +59,30 @@ private:
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) override { }
     bool isSynchronous() const override { return false; }
     bool isAllowedToAskUserForCredentials() const final { return false; }
-    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) override;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
-    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) override;
-    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) override;
-    void didFailLoading(const PurcFetcher::ResourceError&) override;
+    void willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse) override;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, ResponseCompletionHandler&&) override;
+    void didReceiveBuffer(Ref<PurCFetcher::SharedBuffer>&&, int reportedEncodedDataLength) override;
+    void didFinishLoading(const PurCFetcher::NetworkLoadMetrics&) override;
+    void didFailLoading(const PurCFetcher::ResourceError&) override;
 
     void didComplete();
 
     Ref<Cache> m_cache;
     RevalidationCompletionHandler m_completionHandler;
-    PurcFetcher::ResourceRequest m_originalRequest;
+    PurCFetcher::ResourceRequest m_originalRequest;
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
 
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ResourceResponse m_response;
 
-    RefPtr<PurcFetcher::SharedBuffer> m_bufferedDataForCache;
+    RefPtr<PurCFetcher::SharedBuffer> m_bufferedDataForCache;
     std::unique_ptr<NetworkCache::Entry> m_cacheEntry;
     bool m_didComplete { false };
 };
 
-bool requestsHeadersMatch(const PurcFetcher::ResourceRequest& speculativeValidationRequest, const PurcFetcher::ResourceRequest& actualRequest);
+bool requestsHeadersMatch(const PurCFetcher::ResourceRequest& speculativeValidationRequest, const PurCFetcher::ResourceRequest& actualRequest);
 
 } // namespace NetworkCache
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION) || ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

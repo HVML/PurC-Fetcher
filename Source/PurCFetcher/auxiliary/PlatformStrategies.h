@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class BlobRegistry;
 class LoaderStrategy;
@@ -75,4 +75,4 @@ private:
 PURCFETCHER_EXPORT PlatformStrategies* platformStrategies();
 PURCFETCHER_EXPORT void setPlatformStrategies(PlatformStrategies*);
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher

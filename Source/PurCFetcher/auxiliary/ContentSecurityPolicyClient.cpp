@@ -26,11 +26,11 @@
 #include "config.h"
 #include "ContentSecurityPolicyClient.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void ContentSecurityPolicyClient::willSendCSPViolationReport(CSPInfo&)
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

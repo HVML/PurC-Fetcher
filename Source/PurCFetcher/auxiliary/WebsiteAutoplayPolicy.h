@@ -27,7 +27,7 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
     
 enum class WebsiteAutoplayPolicy {
     Default,
@@ -40,13 +40,13 @@ enum class WebsiteAutoplayPolicy {
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteAutoplayPolicy> {
+template<> struct EnumTraits<PurCFetcher::WebsiteAutoplayPolicy> {
     using values = EnumValues<
-        PurcFetcher::WebsiteAutoplayPolicy,
-        PurcFetcher::WebsiteAutoplayPolicy::Default,
-        PurcFetcher::WebsiteAutoplayPolicy::Allow,
-        PurcFetcher::WebsiteAutoplayPolicy::AllowWithoutSound,
-        PurcFetcher::WebsiteAutoplayPolicy::Deny
+        PurCFetcher::WebsiteAutoplayPolicy,
+        PurCFetcher::WebsiteAutoplayPolicy::Default,
+        PurCFetcher::WebsiteAutoplayPolicy::Allow,
+        PurCFetcher::WebsiteAutoplayPolicy::AllowWithoutSound,
+        PurCFetcher::WebsiteAutoplayPolicy::Deny
     >;
 };
 

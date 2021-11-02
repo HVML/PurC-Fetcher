@@ -36,9 +36,9 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - PingLoad::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 PingLoad::PingLoad(NetworkProcess& networkProcess, PAL::SessionID sessionID, NetworkResourceLoadParameters&& parameters, CompletionHandler<void(const ResourceError&, const ResourceResponse&)>&& completionHandler)
     : m_sessionID(sessionID)
@@ -212,6 +212,6 @@ const URL& PingLoad::currentURL() const
     return m_networkLoadChecker->url();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

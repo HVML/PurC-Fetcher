@@ -32,7 +32,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void ResourceResponse::updateSoupMessageHeaders(SoupMessageHeaders* soupHeaders) const
 {

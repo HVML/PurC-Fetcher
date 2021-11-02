@@ -65,7 +65,7 @@ OBJC_CLASS NSHTTPCookie;
 OBJC_CLASS NSMutableSet;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class CurlProxySettings;
 class NetworkingContext;
@@ -87,8 +87,8 @@ enum class ShouldAskITP : bool { No, Yes };
 class CookieChangeObserver {
 public:
     virtual ~CookieChangeObserver() { }
-    virtual void cookiesAdded(const String& host, const Vector<PurcFetcher::Cookie>&) = 0;
-    virtual void cookiesDeleted(const String& host, const Vector<PurcFetcher::Cookie>&) = 0;
+    virtual void cookiesAdded(const String& host, const Vector<PurCFetcher::Cookie>&) = 0;
+    virtual void cookiesDeleted(const String& host, const Vector<PurCFetcher::Cookie>&) = 0;
     virtual void allCookiesDeleted() = 0;
 };
 #endif
@@ -96,8 +96,8 @@ public:
 class NetworkStorageSession {
     WTF_MAKE_NONCOPYABLE(NetworkStorageSession); WTF_MAKE_FAST_ALLOCATED;
 public:
-    using TopFrameDomain = PurcFetcher::RegistrableDomain;
-    using SubResourceDomain = PurcFetcher::RegistrableDomain;
+    using TopFrameDomain = PurCFetcher::RegistrableDomain;
+    using SubResourceDomain = PurCFetcher::RegistrableDomain;
 
     PURCFETCHER_EXPORT static void permitProcessToUseCookieAPI(bool);
     PURCFETCHER_EXPORT static bool processMayUseCookieAPI();
@@ -257,7 +257,7 @@ private:
     Optional<Seconds> m_cacheMaxAgeCapForPrevalentResources { };
     Optional<Seconds> m_ageCapForClientSideCookies { };
     Optional<Seconds> m_ageCapForClientSideCookiesShort { };
-    HashMap<PurcFetcher::PageIdentifier, RegistrableDomain> m_navigatedToWithLinkDecorationByPrevalentResource;
+    HashMap<PurCFetcher::PageIdentifier, RegistrableDomain> m_navigatedToWithLinkDecorationByPrevalentResource;
     bool m_navigationWithLinkDecorationTestMode = false;
     ThirdPartyCookieBlockingMode m_thirdPartyCookieBlockingMode { ThirdPartyCookieBlockingMode::All };
     HashSet<RegistrableDomain> m_appBoundDomains;
@@ -281,23 +281,23 @@ PURCFETCHER_EXPORT CFURLStorageSessionRef createPrivateStorageSession(CFStringRe
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::ThirdPartyCookieBlockingMode> {
+template<> struct EnumTraits<PurCFetcher::ThirdPartyCookieBlockingMode> {
     using values = EnumValues<
-        PurcFetcher::ThirdPartyCookieBlockingMode,
-        PurcFetcher::ThirdPartyCookieBlockingMode::All,
-        PurcFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains,
-        PurcFetcher::ThirdPartyCookieBlockingMode::AllOnSitesWithoutUserInteraction,
-        PurcFetcher::ThirdPartyCookieBlockingMode::OnlyAccordingToPerDomainPolicy
+        PurCFetcher::ThirdPartyCookieBlockingMode,
+        PurCFetcher::ThirdPartyCookieBlockingMode::All,
+        PurCFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains,
+        PurCFetcher::ThirdPartyCookieBlockingMode::AllOnSitesWithoutUserInteraction,
+        PurCFetcher::ThirdPartyCookieBlockingMode::OnlyAccordingToPerDomainPolicy
     >;
 };
 
-template<> struct EnumTraits<PurcFetcher::FirstPartyWebsiteDataRemovalMode> {
+template<> struct EnumTraits<PurCFetcher::FirstPartyWebsiteDataRemovalMode> {
     using values = EnumValues<
-        PurcFetcher::FirstPartyWebsiteDataRemovalMode,
-        PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies,
-        PurcFetcher::FirstPartyWebsiteDataRemovalMode::None,
-        PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesLiveOnTestingTimeout,
-        PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesReproTestingTimeout
+        PurCFetcher::FirstPartyWebsiteDataRemovalMode,
+        PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies,
+        PurCFetcher::FirstPartyWebsiteDataRemovalMode::None,
+        PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesLiveOnTestingTimeout,
+        PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesReproTestingTimeout
     >;
 };
 

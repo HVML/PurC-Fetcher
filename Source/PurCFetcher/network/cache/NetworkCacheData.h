@@ -44,7 +44,7 @@
 #include <wtf/Variant.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SharedMemory;
 

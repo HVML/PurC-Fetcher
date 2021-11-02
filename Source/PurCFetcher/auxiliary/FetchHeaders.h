@@ -34,7 +34,7 @@
 #include <wtf/Variant.h>
 #include <wtf/Vector.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class FetchHeaders : public RefCounted<FetchHeaders> {
 public:
@@ -111,18 +111,18 @@ inline void FetchHeaders::setGuard(Guard guard)
     m_guard = guard;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::FetchHeaders::Guard> {
+template<> struct EnumTraits<PurCFetcher::FetchHeaders::Guard> {
     using values = EnumValues<
-    PurcFetcher::FetchHeaders::Guard,
-    PurcFetcher::FetchHeaders::Guard::None,
-    PurcFetcher::FetchHeaders::Guard::Immutable,
-    PurcFetcher::FetchHeaders::Guard::Request,
-    PurcFetcher::FetchHeaders::Guard::RequestNoCors,
-    PurcFetcher::FetchHeaders::Guard::Response
+    PurCFetcher::FetchHeaders::Guard,
+    PurCFetcher::FetchHeaders::Guard::None,
+    PurCFetcher::FetchHeaders::Guard::Immutable,
+    PurCFetcher::FetchHeaders::Guard::Request,
+    PurCFetcher::FetchHeaders::Guard::RequestNoCors,
+    PurCFetcher::FetchHeaders::Guard::Response
     >;
 };
 

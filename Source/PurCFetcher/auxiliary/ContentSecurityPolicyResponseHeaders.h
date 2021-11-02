@@ -28,7 +28,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ContentSecurityPolicy;
 class ResourceResponse;
@@ -114,4 +114,4 @@ Optional<ContentSecurityPolicyResponseHeaders> ContentSecurityPolicyResponseHead
     return headers;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

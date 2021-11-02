@@ -32,7 +32,7 @@
 #undef RELEASE_LOG_IF_ALLOWED
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_download.isAlwaysOnLoggingAllowed(), Network, "%p - DownloadMonitor::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 constexpr uint64_t operator"" _kbps(unsigned long long kilobytesPerSecond)
 {
@@ -126,4 +126,4 @@ void DownloadMonitor::timerFired()
         RELEASE_LOG_IF_ALLOWED("timerFired: Download reached threshold to not be terminated (id = %" PRIu64 ")", m_download.downloadID().downloadID());
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

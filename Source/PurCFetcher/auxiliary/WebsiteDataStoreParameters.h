@@ -38,7 +38,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct WebsiteDataStoreParameters {
     WebsiteDataStoreParameters() = default;
@@ -51,7 +51,7 @@ struct WebsiteDataStoreParameters {
 
     Vector<uint8_t> uiProcessCookieStorageIdentifier;
     SandboxExtension::Handle cookieStoragePathExtensionHandle;
-    Vector<PurcFetcher::Cookie> pendingCookies;
+    Vector<PurCFetcher::Cookie> pendingCookies;
     NetworkSessionCreationParameters networkSessionParameters;
 
 #if ENABLE(INDEXED_DATABASE)
@@ -74,8 +74,8 @@ struct WebsiteDataStoreParameters {
     String cacheStorageDirectory;
     SandboxExtension::Handle cacheStorageDirectoryExtensionHandle;
 
-    uint64_t perOriginStorageQuota { PurcFetcher::StorageQuotaManager::defaultQuota() };
-    uint64_t perThirdPartyOriginStorageQuota { PurcFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
+    uint64_t perOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultQuota() };
+    uint64_t perThirdPartyOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

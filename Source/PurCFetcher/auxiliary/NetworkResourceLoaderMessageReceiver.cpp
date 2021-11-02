@@ -30,9 +30,9 @@
 #include "HandleMessage.h"
 #include "NetworkResourceLoaderMessages.h"
 #include "WebCoreArgumentCoders.h"
-#include <PurcFetcher/ResourceRequest.h>
+#include <PurCFetcher/ResourceRequest.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void NetworkResourceLoader::didReceiveNetworkResourceLoaderMessage(IPC::Connection& connection, IPC::Decoder& decoder)
 {
@@ -50,5 +50,5 @@ void NetworkResourceLoader::didReceiveNetworkResourceLoaderMessage(IPC::Connecti
     ASSERT_NOT_REACHED();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

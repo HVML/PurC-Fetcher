@@ -28,7 +28,7 @@
 
 #include <wtf/MainThread.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace Process {
 
 static Optional<ProcessIdentifier> globalIdentifier;
@@ -51,4 +51,4 @@ ProcessIdentifier identifier()
 }
 
 } // namespace Process
-} // namespace PurcFetcher
+} // namespace PurCFetcher

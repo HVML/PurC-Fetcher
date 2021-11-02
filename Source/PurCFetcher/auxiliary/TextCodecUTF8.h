@@ -29,7 +29,7 @@
 #include <unicode/utf8.h>
 #include <wtf/text/LChar.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextCodecUTF8 : public TextCodec {
 public:
@@ -49,5 +49,5 @@ private:
     
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

@@ -30,7 +30,7 @@
 #include "DNSResolveQueue.h"
 #include <wtf/MainThread.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void prefetchDNS(const String& hostname)
 {
@@ -47,12 +47,12 @@ void resolveDNS(const String& hostname, uint64_t identifier, DNSCompletionHandle
     if (hostname.isEmpty())
         return;
 
-    PurcFetcher::DNSResolveQueue::singleton().resolve(hostname, identifier, WTFMove(completionHandler));
+    PurCFetcher::DNSResolveQueue::singleton().resolve(hostname, identifier, WTFMove(completionHandler));
 }
 
 void stopResolveDNS(uint64_t identifier)
 {
-    PurcFetcher::DNSResolveQueue::singleton().stopResolve(identifier);
+    PurCFetcher::DNSResolveQueue::singleton().stopResolve(identifier);
 }
 
 }

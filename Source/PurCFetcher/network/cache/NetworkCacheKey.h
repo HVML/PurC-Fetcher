@@ -31,7 +31,7 @@
 #include <wtf/persistence/PersistentCoder.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 struct DataKey {
@@ -107,13 +107,13 @@ private:
 namespace WTF {
 
 struct NetworkCacheKeyHash {
-    static unsigned hash(const PurcFetcher::NetworkCache::Key& key)
+    static unsigned hash(const PurCFetcher::NetworkCache::Key& key)
     {
         static_assert(SHA1::hashSize >= sizeof(unsigned), "Hash size must be greater than sizeof(unsigned)");
         return *reinterpret_cast<const unsigned*>(key.hash().data());
     }
 
-    static bool equal(const PurcFetcher::NetworkCache::Key& a, const PurcFetcher::NetworkCache::Key& b)
+    static bool equal(const PurCFetcher::NetworkCache::Key& a, const PurCFetcher::NetworkCache::Key& b)
     {
         return a == b;
     }
@@ -122,15 +122,15 @@ struct NetworkCacheKeyHash {
 };
 
 template<typename T> struct DefaultHash;
-template<> struct DefaultHash<PurcFetcher::NetworkCache::Key> {
+template<> struct DefaultHash<PurCFetcher::NetworkCache::Key> {
     typedef NetworkCacheKeyHash Hash;
 };
 
-template<> struct HashTraits<PurcFetcher::NetworkCache::Key> : SimpleClassHashTraits<PurcFetcher::NetworkCache::Key> {
+template<> struct HashTraits<PurCFetcher::NetworkCache::Key> : SimpleClassHashTraits<PurCFetcher::NetworkCache::Key> {
     static const bool emptyValueIsZero = false;
 
     static const bool hasIsEmptyValueFunction = true;
-    static bool isEmptyValue(const PurcFetcher::NetworkCache::Key& key) { return key.isNull(); }
+    static bool isEmptyValue(const PurCFetcher::NetworkCache::Key& key) { return key.isNull(); }
 };
 
 } // namespace WTF

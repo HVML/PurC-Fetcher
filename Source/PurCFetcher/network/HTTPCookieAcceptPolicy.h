@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class HTTPCookieAcceptPolicy : uint8_t {
     AlwaysAccept = 0,
@@ -34,17 +34,17 @@ enum class HTTPCookieAcceptPolicy : uint8_t {
     ExclusivelyFromMainDocumentDomain = 3,
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::HTTPCookieAcceptPolicy> {
+template<> struct EnumTraits<PurCFetcher::HTTPCookieAcceptPolicy> {
     using values = EnumValues<
-        PurcFetcher::HTTPCookieAcceptPolicy,
-        PurcFetcher::HTTPCookieAcceptPolicy::AlwaysAccept,
-        PurcFetcher::HTTPCookieAcceptPolicy::Never,
-        PurcFetcher::HTTPCookieAcceptPolicy::OnlyFromMainDocumentDomain,
-        PurcFetcher::HTTPCookieAcceptPolicy::ExclusivelyFromMainDocumentDomain
+        PurCFetcher::HTTPCookieAcceptPolicy,
+        PurCFetcher::HTTPCookieAcceptPolicy::AlwaysAccept,
+        PurCFetcher::HTTPCookieAcceptPolicy::Never,
+        PurCFetcher::HTTPCookieAcceptPolicy::OnlyFromMainDocumentDomain,
+        PurCFetcher::HTTPCookieAcceptPolicy::ExclusivelyFromMainDocumentDomain
     >;
 };
 

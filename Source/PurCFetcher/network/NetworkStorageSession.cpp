@@ -39,7 +39,7 @@
 #endif
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 bool NetworkStorageSession::m_processMayUseCookieAPI = false;
 

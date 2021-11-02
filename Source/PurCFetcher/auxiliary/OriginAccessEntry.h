@@ -32,7 +32,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SecurityOrigin;
 
@@ -78,4 +78,4 @@ inline bool operator!=(const OriginAccessEntry& a, const OriginAccessEntry& b)
     return !(a == b);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

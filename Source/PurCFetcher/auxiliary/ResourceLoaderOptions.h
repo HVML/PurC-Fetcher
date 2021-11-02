@@ -40,7 +40,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class SendCallbackPolicy : uint8_t {
     SendCallbacks,
@@ -241,25 +241,25 @@ struct ResourceLoaderOptions : public FetchOptions {
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::PreflightPolicy> {
+template<> struct EnumTraits<PurCFetcher::PreflightPolicy> {
     using values = EnumValues<
-        PurcFetcher::PreflightPolicy,
-        PurcFetcher::PreflightPolicy::Consider,
-        PurcFetcher::PreflightPolicy::Force,
-        PurcFetcher::PreflightPolicy::Prevent
+        PurCFetcher::PreflightPolicy,
+        PurCFetcher::PreflightPolicy::Consider,
+        PurCFetcher::PreflightPolicy::Force,
+        PurCFetcher::PreflightPolicy::Prevent
     >;
 };
 
-template<> struct EnumTraits<PurcFetcher::ServiceWorkersMode> {
+template<> struct EnumTraits<PurCFetcher::ServiceWorkersMode> {
     using values = EnumValues<
-        PurcFetcher::ServiceWorkersMode,
-        PurcFetcher::ServiceWorkersMode::All,
-        PurcFetcher::ServiceWorkersMode::None,
-        PurcFetcher::ServiceWorkersMode::Only
+        PurCFetcher::ServiceWorkersMode,
+        PurCFetcher::ServiceWorkersMode::All,
+        PurCFetcher::ServiceWorkersMode::None,
+        PurCFetcher::ServiceWorkersMode::Only
     >;
 };
 

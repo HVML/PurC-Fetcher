@@ -32,23 +32,23 @@
 #include <wtf/RefCounted.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SecurityOrigin;
 class StorageMap;
 class SuddenTerminationDisabler;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LocalStorageDatabaseTracker;
 
 class LocalStorageDatabase : public RefCounted<LocalStorageDatabase> {
 public:
-    static Ref<LocalStorageDatabase> create(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurcFetcher::SecurityOriginData&);
+    static Ref<LocalStorageDatabase> create(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurCFetcher::SecurityOriginData&);
     ~LocalStorageDatabase();
 
     // Will block until the import is complete.
-    void importItems(PurcFetcher::StorageMap&);
+    void importItems(PurCFetcher::StorageMap&);
 
     void setItem(const String& key, const String& value);
     void removeItem(const String& key);
@@ -60,7 +60,7 @@ public:
     void close();
 
 private:
-    LocalStorageDatabase(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurcFetcher::SecurityOriginData&);
+    LocalStorageDatabase(Ref<WorkQueue>&&, Ref<LocalStorageDatabaseTracker>&&, const PurCFetcher::SecurityOriginData&);
 
     enum DatabaseOpeningStrategy {
         CreateIfNonExistent,
@@ -80,10 +80,10 @@ private:
 
     Ref<WorkQueue> m_queue;
     Ref<LocalStorageDatabaseTracker> m_tracker;
-    PurcFetcher::SecurityOriginData m_securityOrigin;
+    PurCFetcher::SecurityOriginData m_securityOrigin;
 
     String m_databasePath;
-    PurcFetcher::SQLiteDatabase m_database;
+    PurCFetcher::SQLiteDatabase m_database;
     bool m_failedToOpenDatabase { false };
     bool m_didImportItems { false };
     bool m_isClosed { false };
@@ -92,8 +92,8 @@ private:
     bool m_shouldClearItems { false };
     HashMap<String, String> m_changedItems;
 
-    std::unique_ptr<PurcFetcher::SuddenTerminationDisabler> m_disableSuddenTerminationWhileWritingToLocalStorage;
+    std::unique_ptr<PurCFetcher::SuddenTerminationDisabler> m_disableSuddenTerminationWhileWritingToLocalStorage;
 };
 
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -27,7 +27,7 @@
 
 #include "TextCodec.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextCodecUTF16 : public TextCodec {
 public:
@@ -45,4 +45,4 @@ private:
     unsigned char m_bufferedByte;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

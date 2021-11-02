@@ -38,7 +38,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/NeverDestroyed.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // When resolve queue is empty, we fire async resolution requests immediately (which is important if the prefetch is triggered by hovering).
 // But during page parsing, we should coalesce identical requests to avoid stressing out the DNS resolver.
@@ -131,4 +131,4 @@ void DNSResolveQueue::timerFired()
         m_timer.startOneShot(resolvingRetryDelay);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

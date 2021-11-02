@@ -29,7 +29,7 @@
 #include "TextCodec.h"
 #include <unicode/ucnv.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 using ICUConverterPtr = std::unique_ptr<UConverter, void (*)(UConverter*)>;
 
@@ -64,5 +64,5 @@ struct ICUConverterWrapper {
     ICUConverterPtr converter { nullptr, ucnv_close };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

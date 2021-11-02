@@ -34,7 +34,7 @@
 #include <wtf/URLHash.h>
 #include <wtf/UniqueRef.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class HTTPHeaderMap;
 class ResourceResponse;
@@ -85,4 +85,4 @@ inline CrossOriginPreflightResultCacheItem::CrossOriginPreflightResultCacheItem(
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

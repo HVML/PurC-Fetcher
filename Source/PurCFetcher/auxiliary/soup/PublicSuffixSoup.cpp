@@ -31,7 +31,7 @@
 #include <libsoup/soup.h>
 #include <wtf/glib/GUniquePtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 bool isPublicSuffix(const String& domain)
 {
@@ -77,6 +77,6 @@ String topPrivatelyControlledDomain(const String& domain)
     return String();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(PUBLIC_SUFFIX_LIST)

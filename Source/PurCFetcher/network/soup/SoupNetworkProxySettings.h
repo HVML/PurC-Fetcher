@@ -30,7 +30,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct SoupNetworkProxySettings {
     enum class Mode { Default, NoProxy, Custom };
@@ -42,7 +42,7 @@ struct SoupNetworkProxySettings {
     {
     }
 
-    SoupNetworkProxySettings(const PurcFetcher::SoupNetworkProxySettings& other)
+    SoupNetworkProxySettings(const PurCFetcher::SoupNetworkProxySettings& other)
         : mode(other.mode)
         , defaultProxyURL(other.defaultProxyURL)
         , ignoreHosts(g_strdupv(other.ignoreHosts.get()))
@@ -50,7 +50,7 @@ struct SoupNetworkProxySettings {
     {
     }
 
-    SoupNetworkProxySettings& operator=(const PurcFetcher::SoupNetworkProxySettings& other)
+    SoupNetworkProxySettings& operator=(const PurCFetcher::SoupNetworkProxySettings& other)
     {
         mode = other.mode;
         defaultProxyURL = other.defaultProxyURL;
@@ -67,16 +67,16 @@ struct SoupNetworkProxySettings {
     HashMap<CString, CString> proxyMap;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::SoupNetworkProxySettings::Mode> {
+template<> struct EnumTraits<PurCFetcher::SoupNetworkProxySettings::Mode> {
     using values = EnumValues<
-        PurcFetcher::SoupNetworkProxySettings::Mode,
-        PurcFetcher::SoupNetworkProxySettings::Mode::Default,
-        PurcFetcher::SoupNetworkProxySettings::Mode::NoProxy,
-        PurcFetcher::SoupNetworkProxySettings::Mode::Custom
+        PurCFetcher::SoupNetworkProxySettings::Mode,
+        PurCFetcher::SoupNetworkProxySettings::Mode::Default,
+        PurCFetcher::SoupNetworkProxySettings::Mode::NoProxy,
+        PurCFetcher::SoupNetworkProxySettings::Mode::Custom
     >;
 };
 

@@ -31,7 +31,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<DatabaseAuthorizer> DatabaseAuthorizer::create(const String& databaseInfoTableName)
 {
@@ -412,4 +412,4 @@ int DatabaseAuthorizer::updateDeletesBasedOnTableName(const String& tableName)
     return allow;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

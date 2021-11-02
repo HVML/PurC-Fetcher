@@ -30,7 +30,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkSchemeRegistry : public RefCounted<NetworkSchemeRegistry> {
 public:
@@ -45,4 +45,4 @@ private:
     URLSchemes m_corsEnabledSchemes;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -36,7 +36,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static void skipSpaces(StringView input, unsigned& startIndex)
 {

@@ -32,7 +32,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/URL.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 class SubresourceInfo {
@@ -42,7 +42,7 @@ public:
     static Optional<SubresourceInfo> decode(WTF::Persistence::Decoder&);
 
     SubresourceInfo() = default;
-    SubresourceInfo(const Key&, const PurcFetcher::ResourceRequest&, const SubresourceInfo* previousInfo);
+    SubresourceInfo(const Key&, const PurCFetcher::ResourceRequest&, const SubresourceInfo* previousInfo);
 
     const Key& key() const { return m_key; }
     WallTime lastSeen() const { return m_lastSeen; }
@@ -50,8 +50,8 @@ public:
 
     bool isTransient() const { return m_isTransient; }
     const URL& firstPartyForCookies() const { ASSERT(!m_isTransient); return m_firstPartyForCookies; }
-    const PurcFetcher::HTTPHeaderMap& requestHeaders() const { ASSERT(!m_isTransient); return m_requestHeaders; }
-    PurcFetcher::ResourceLoadPriority priority() const { ASSERT(!m_isTransient); return m_priority; }
+    const PurCFetcher::HTTPHeaderMap& requestHeaders() const { ASSERT(!m_isTransient); return m_requestHeaders; }
+    PurCFetcher::ResourceLoadPriority priority() const { ASSERT(!m_isTransient); return m_priority; }
 
     bool isSameSite() const { ASSERT(!m_isTransient); return m_isSameSite; }
     bool isTopSite() const { return false; }
@@ -67,19 +67,19 @@ private:
     bool m_isTransient { false };
     bool m_isSameSite { false };
     URL m_firstPartyForCookies;
-    PurcFetcher::HTTPHeaderMap m_requestHeaders;
-    PurcFetcher::ResourceLoadPriority m_priority;
+    PurCFetcher::HTTPHeaderMap m_requestHeaders;
+    PurCFetcher::ResourceLoadPriority m_priority;
 };
 
 struct SubresourceLoad {
     WTF_MAKE_NONCOPYABLE(SubresourceLoad); WTF_MAKE_FAST_ALLOCATED;
 public:
-    SubresourceLoad(const PurcFetcher::ResourceRequest& request, const Key& key)
+    SubresourceLoad(const PurCFetcher::ResourceRequest& request, const Key& key)
         : request(request)
         , key(key)
     { }
 
-    PurcFetcher::ResourceRequest request;
+    PurCFetcher::ResourceRequest request;
     Key key;
 };
 
@@ -104,7 +104,7 @@ private:
     Vector<SubresourceInfo> m_subresources;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 } // namespace NetworkCache
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

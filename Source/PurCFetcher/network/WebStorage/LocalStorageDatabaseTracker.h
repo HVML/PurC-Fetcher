@@ -32,23 +32,23 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LocalStorageDatabaseTracker : public RefCounted<LocalStorageDatabaseTracker> {
 public:
     static Ref<LocalStorageDatabaseTracker> create(String&& localStorageDirectory);
     ~LocalStorageDatabaseTracker();
 
-    String databasePath(const PurcFetcher::SecurityOriginData&) const;
+    String databasePath(const PurCFetcher::SecurityOriginData&) const;
 
-    void didOpenDatabaseWithOrigin(const PurcFetcher::SecurityOriginData&);
-    void deleteDatabaseWithOrigin(const PurcFetcher::SecurityOriginData&);
+    void didOpenDatabaseWithOrigin(const PurCFetcher::SecurityOriginData&);
+    void deleteDatabaseWithOrigin(const PurCFetcher::SecurityOriginData&);
     void deleteAllDatabases();
 
     // Returns a vector of the origins whose databases should be deleted.
-    Vector<PurcFetcher::SecurityOriginData> databasesModifiedSince(WallTime);
+    Vector<PurCFetcher::SecurityOriginData> databasesModifiedSince(WallTime);
 
-    Vector<PurcFetcher::SecurityOriginData> origins() const;
+    Vector<PurCFetcher::SecurityOriginData> origins() const;
 
     struct OriginDetails {
         String originIdentifier;
@@ -105,4 +105,4 @@ Optional<LocalStorageDatabaseTracker::OriginDetails> LocalStorageDatabaseTracker
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -31,7 +31,7 @@
 #include <wtf/Forward.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageArea;
 
@@ -44,13 +44,13 @@ public:
 
     bool isEmpty() const { return m_storageAreaMap.isEmpty(); }
 
-    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea& getOrCreateStorageArea(PurCFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
 
     void cloneTo(SessionStorageNamespace& newSessionStorageNamespace);
 
-    Vector<PurcFetcher::SecurityOriginData> origins() const;
+    Vector<PurCFetcher::SecurityOriginData> origins() const;
 
-    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurCFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
@@ -58,7 +58,7 @@ public:
 private:
     unsigned m_quotaInBytes { 0 };
 
-    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurCFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

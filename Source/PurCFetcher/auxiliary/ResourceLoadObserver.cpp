@@ -27,7 +27,7 @@
 #include "ResourceLoadObserver.h"
 #include <wtf/NeverDestroyed.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static ResourceLoadObserver*& sharedObserver()
 {
@@ -54,4 +54,4 @@ ResourceLoadObserver* ResourceLoadObserver::sharedIfExists()
     return sharedObserver();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

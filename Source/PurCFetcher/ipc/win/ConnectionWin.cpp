@@ -41,7 +41,7 @@ bool Connection::createServerAndClientIdentifiers(HANDLE& serverIdentifier, HAND
 
     do {
         unsigned uniqueID = randomNumber() * std::numeric_limits<unsigned>::max();
-        pipeName = makeString("\\\\.\\pipe\\com.apple.PurcFetcher.", hex(uniqueID));
+        pipeName = makeString("\\\\.\\pipe\\com.apple.PurCFetcher.", hex(uniqueID));
 
         serverIdentifier = ::CreateNamedPipe(pipeName.wideCharacters().data(),
             PIPE_ACCESS_DUPLEX | FILE_FLAG_FIRST_PIPE_INSTANCE | FILE_FLAG_OVERLAPPED,

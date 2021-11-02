@@ -37,7 +37,7 @@
 #include <wtf/RetainPtr.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkActivityTracker {
 public:
@@ -47,7 +47,7 @@ public:
         // them to the Darwin-specific values.
 
         Invalid = 0,
-        PurcFetcher = 16,
+        PurCFetcher = 16,
     };
 
     enum class Label {
@@ -69,7 +69,7 @@ public:
     };
 
     NetworkActivityTracker() = default;
-    explicit NetworkActivityTracker(Label, Domain = Domain::PurcFetcher);
+    explicit NetworkActivityTracker(Label, Domain = Domain::PurCFetcher);
     ~NetworkActivityTracker();
 
     void setParent(NetworkActivityTracker&);
@@ -89,4 +89,4 @@ private:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

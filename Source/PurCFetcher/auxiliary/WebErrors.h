@@ -28,39 +28,39 @@
 
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class ResourceError;
 class ResourceRequest;
 class ResourceResponse;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-PurcFetcher::ResourceError cancelledError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError blockedError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError blockedByContentBlockerError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError cannotShowURLError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError wasBlockedByRestrictionsError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError interruptedForPolicyChangeError(const PurcFetcher::ResourceRequest&);
-PurcFetcher::ResourceError failedCustomProtocolSyncLoad(const PurcFetcher::ResourceRequest&);
+PurCFetcher::ResourceError cancelledError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError blockedError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError blockedByContentBlockerError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError cannotShowURLError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError wasBlockedByRestrictionsError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError interruptedForPolicyChangeError(const PurCFetcher::ResourceRequest&);
+PurCFetcher::ResourceError failedCustomProtocolSyncLoad(const PurCFetcher::ResourceRequest&);
 #if ENABLE(CONTENT_FILTERING)
-PurcFetcher::ResourceError blockedByContentFilterError(const PurcFetcher::ResourceRequest&);
+PurCFetcher::ResourceError blockedByContentFilterError(const PurCFetcher::ResourceRequest&);
 #endif
-PurcFetcher::ResourceError cannotShowMIMETypeError(const PurcFetcher::ResourceResponse&);
-PurcFetcher::ResourceError fileDoesNotExistError(const PurcFetcher::ResourceResponse&);
-PurcFetcher::ResourceError pluginWillHandleLoadError(const PurcFetcher::ResourceResponse&);
-PurcFetcher::ResourceError internalError(const URL&);
+PurCFetcher::ResourceError cannotShowMIMETypeError(const PurCFetcher::ResourceResponse&);
+PurCFetcher::ResourceError fileDoesNotExistError(const PurCFetcher::ResourceResponse&);
+PurCFetcher::ResourceError pluginWillHandleLoadError(const PurCFetcher::ResourceResponse&);
+PurCFetcher::ResourceError internalError(const URL&);
 
 #if USE(SOUP)
-PurcFetcher::ResourceError downloadNetworkError(const URL&, const WTF::String&);
-PurcFetcher::ResourceError downloadCancelledByUserError(const PurcFetcher::ResourceResponse&);
-PurcFetcher::ResourceError downloadDestinationError(const PurcFetcher::ResourceResponse&, const WTF::String&);
+PurCFetcher::ResourceError downloadNetworkError(const URL&, const WTF::String&);
+PurCFetcher::ResourceError downloadCancelledByUserError(const PurCFetcher::ResourceResponse&);
+PurCFetcher::ResourceError downloadDestinationError(const PurCFetcher::ResourceResponse&, const WTF::String&);
 #endif
 
 #if PLATFORM(GTK) || PLATFORM(HBD)
-PurcFetcher::ResourceError printError(const URL&, const WTF::String&);
-PurcFetcher::ResourceError printerNotFoundError(const URL&);
-PurcFetcher::ResourceError invalidPageRangeToPrint(const URL&);
+PurCFetcher::ResourceError printError(const URL&, const WTF::String&);
+PurCFetcher::ResourceError printerNotFoundError(const URL&);
+PurCFetcher::ResourceError invalidPageRangeToPrint(const URL&);
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

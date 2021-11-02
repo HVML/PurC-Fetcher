@@ -28,7 +28,7 @@
 
 #if !HAVE(NW_ACTIVITY)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 NetworkActivityTracker::NetworkActivityTracker(Label, Domain)
 {
@@ -50,6 +50,6 @@ void NetworkActivityTracker::complete(CompletionCode)
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // !HAVE(NW_ACTIVITY)

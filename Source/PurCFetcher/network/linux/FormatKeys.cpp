@@ -50,7 +50,7 @@
 #include "config.h"
 #include "FormatKeys.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 FormatKeys::FormatKeys()
 {
@@ -94,4 +94,4 @@ Ref<JSON::Value> FormatKeys::doFormat(Vector<String> lineColumns, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

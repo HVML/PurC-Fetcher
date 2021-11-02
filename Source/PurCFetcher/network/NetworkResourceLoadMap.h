@@ -33,7 +33,7 @@
 #include "ProcessAssertion.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkResourceLoader;
 class NetworkConnectionToWebProcess;
@@ -67,4 +67,4 @@ private:
     Function<void(bool hasUpload)> m_hasUploadChangeListener;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

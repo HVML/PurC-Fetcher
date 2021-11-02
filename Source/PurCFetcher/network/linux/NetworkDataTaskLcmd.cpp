@@ -74,8 +74,8 @@
 #include <unistd.h>
 
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 #define  DEFAULT_READBUFFER_SIZE 8192
 
@@ -108,7 +108,7 @@ String decodeEscapeSequencesFromParsedURL(StringView input)
     return String::fromUTF8(percentDecoded.data(), percentDecoded.size());
 }
 
-NetworkDataTaskLcmd::NetworkDataTaskLcmd(NetworkSession& session, NetworkDataTaskClient& client, const ResourceRequest& requestWithCredentials, StoredCredentialsPolicy storedCredentialsPolicy, ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+NetworkDataTaskLcmd::NetworkDataTaskLcmd(NetworkSession& session, NetworkDataTaskClient& client, const ResourceRequest& requestWithCredentials, StoredCredentialsPolicy storedCredentialsPolicy, ContentSniffingPolicy shouldContentSniff, PurCFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     : NetworkDataTask(session, client, requestWithCredentials, storedCredentialsPolicy, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation)
     , m_filterManager(adoptRef(*new CmdFilterManager()))
 {
@@ -216,7 +216,7 @@ void NetworkDataTaskLcmd::dispatchDidReceiveResponse()
     });
 }
 
-void NetworkDataTaskLcmd::createRequest(PurcFetcher::ResourceRequest&& request)
+void NetworkDataTaskLcmd::createRequest(PurCFetcher::ResourceRequest&& request)
 {
     m_currentRequest = WTFMove(request);
     m_startTime = MonotonicTime::now();
@@ -516,6 +516,6 @@ String NetworkDataTaskLcmd::parseCmdLine(String cmdLine)
     return resultSb.toString();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(LCMD)

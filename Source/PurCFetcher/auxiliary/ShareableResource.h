@@ -32,11 +32,11 @@
 #include <wtf/RefCounted.h>
 #include <wtf/RefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SharedBuffer;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
     
 class ShareableResource : public RefCounted<ShareableResource> {
 public:
@@ -54,7 +54,7 @@ public:
         void encode(IPC::Encoder&) const;
         static WARN_UNUSED_RETURN bool decode(IPC::Decoder&, Handle&);
 
-        RefPtr<PurcFetcher::SharedBuffer> tryWrapInSharedBuffer() const;
+        RefPtr<PurCFetcher::SharedBuffer> tryWrapInSharedBuffer() const;
 
     private:
         friend class ShareableResource;
@@ -80,7 +80,7 @@ public:
     
 private:
     ShareableResource(Ref<SharedMemory>&&, unsigned offset, unsigned size);
-    RefPtr<PurcFetcher::SharedBuffer> wrapInSharedBuffer();
+    RefPtr<PurCFetcher::SharedBuffer> wrapInSharedBuffer();
 
     Ref<SharedMemory> m_sharedMemory;
 
@@ -88,7 +88,7 @@ private:
     unsigned m_size;    
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(SHAREABLE_RESOURCE)
 

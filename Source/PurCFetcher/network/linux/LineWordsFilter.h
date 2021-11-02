@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LineWordsFilter : public FilterBase {
 public:
@@ -70,4 +70,4 @@ private:
     String m_lang;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

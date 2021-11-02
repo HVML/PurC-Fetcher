@@ -40,7 +40,7 @@
 #include "WebCoreThread.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TimerBase {
     WTF_MAKE_NONCOPYABLE(TimerBase);

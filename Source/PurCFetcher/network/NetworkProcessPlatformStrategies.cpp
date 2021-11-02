@@ -28,8 +28,8 @@
 
 #include <wtf/NeverDestroyed.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 void NetworkProcessPlatformStrategies::initialize()
 {

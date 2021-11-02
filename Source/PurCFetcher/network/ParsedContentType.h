@@ -34,7 +34,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/text/StringHash.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class Mode {
     Rfc2045,

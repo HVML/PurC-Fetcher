@@ -48,7 +48,7 @@ namespace IPC {
 class DataReference;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class Credential;
 class ResourceError;
@@ -57,7 +57,7 @@ class ResourceRequest;
 class ResourceResponse;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DownloadMonitor;
 class NetworkDataTask;
@@ -85,11 +85,11 @@ public:
     const String& suggestedName() const { return m_suggestedName; }
 
     void setSandboxExtension(RefPtr<SandboxExtension>&& sandboxExtension) { m_sandboxExtension = WTFMove(sandboxExtension); }
-    void didReceiveChallenge(const PurcFetcher::AuthenticationChallenge&, ChallengeCompletionHandler&&);
+    void didReceiveChallenge(const PurCFetcher::AuthenticationChallenge&, ChallengeCompletionHandler&&);
     void didCreateDestination(const String& path);
     void didReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite);
     void didFinish();
-    void didFail(const PurcFetcher::ResourceError&, const IPC::DataReference& resumeData);
+    void didFail(const PurCFetcher::ResourceError&, const IPC::DataReference& resumeData);
     void didCancel(const IPC::DataReference& resumeData);
 
     bool isAlwaysOnLoggingAllowed() const;
@@ -128,4 +128,4 @@ private:
     unsigned m_testSpeedMultiplier { 1 };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

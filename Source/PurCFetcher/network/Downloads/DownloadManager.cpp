@@ -35,8 +35,8 @@
 #include "SessionID.h"
 #include <wtf/StdLibExtras.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 DownloadManager::DownloadManager(Client& client)
     : m_client(client)
@@ -71,7 +71,7 @@ void DownloadManager::dataTaskBecameDownloadTask(DownloadID downloadID, std::uni
     m_downloads.add(downloadID, WTFMove(download));
 }
 
-void DownloadManager::continueWillSendRequest(DownloadID downloadID, PurcFetcher::ResourceRequest&& request)
+void DownloadManager::continueWillSendRequest(DownloadID downloadID, PurCFetcher::ResourceRequest&& request)
 {
     auto* pendingDownload = m_pendingDownloads.get(downloadID);
     ASSERT(pendingDownload);
@@ -212,4 +212,4 @@ void DownloadManager::applicationWillEnterForeground()
         download->applicationWillEnterForeground();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

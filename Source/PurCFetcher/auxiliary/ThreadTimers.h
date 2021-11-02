@@ -33,7 +33,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/Vector.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SharedTimer;
 class ThreadTimers;

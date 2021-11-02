@@ -43,8 +43,8 @@ static const auto databaseUpdateInterval = 1_s;
 
 static const int maximumItemsToUpdate = 100;
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 Ref<LocalStorageDatabase> LocalStorageDatabase::create(Ref<WorkQueue>&& queue, Ref<LocalStorageDatabaseTracker>&& tracker, const SecurityOriginData& securityOrigin)
 {
@@ -158,7 +158,7 @@ void LocalStorageDatabase::importItems(StorageMap& storageMap)
     if (m_didImportItems)
         return;
 
-    // FIXME: If it can't import, then the default PurcFetcher behavior should be that of private browsing,
+    // FIXME: If it can't import, then the default PurCFetcher behavior should be that of private browsing,
     // not silently ignoring it. https://bugs.webkit.org/show_bug.cgi?id=25894
 
     // We set this to true even if we don't end up importing any items due to failure because
@@ -361,4 +361,4 @@ bool LocalStorageDatabase::databaseIsEmpty()
     return !query.getColumnInt(0);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

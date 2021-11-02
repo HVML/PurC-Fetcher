@@ -40,11 +40,11 @@ namespace API {
 class Array;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 struct Cookie;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class WebProcessProxy;
 
@@ -58,19 +58,19 @@ public:
     void initializeClient();
     
     void getHostnamesWithCookies(PAL::SessionID, CompletionHandler<void(Vector<String>&&)>&&);
-    void deleteCookie(PAL::SessionID, const PurcFetcher::Cookie&, CompletionHandler<void()>&&);
+    void deleteCookie(PAL::SessionID, const PurCFetcher::Cookie&, CompletionHandler<void()>&&);
     void deleteCookiesForHostnames(PAL::SessionID, const Vector<String>&);
     void deleteAllCookies(PAL::SessionID);
     void deleteAllCookiesModifiedSince(PAL::SessionID, WallTime, CompletionHandler<void()>&&);
 
-    void setCookies(PAL::SessionID, const Vector<PurcFetcher::Cookie>&, CompletionHandler<void()>&&);
-    void setCookies(PAL::SessionID, const Vector<PurcFetcher::Cookie>&, const URL&, const URL& mainDocumentURL, CompletionHandler<void()>&&);
+    void setCookies(PAL::SessionID, const Vector<PurCFetcher::Cookie>&, CompletionHandler<void()>&&);
+    void setCookies(PAL::SessionID, const Vector<PurCFetcher::Cookie>&, const URL&, const URL& mainDocumentURL, CompletionHandler<void()>&&);
 
-    void getAllCookies(PAL::SessionID, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&&);
-    void getCookies(PAL::SessionID, const URL&, CompletionHandler<void(Vector<PurcFetcher::Cookie>&&)>&&);
+    void getAllCookies(PAL::SessionID, CompletionHandler<void(Vector<PurCFetcher::Cookie>&&)>&&);
+    void getCookies(PAL::SessionID, const URL&, CompletionHandler<void(Vector<PurCFetcher::Cookie>&&)>&&);
 
-//    void setHTTPCookieAcceptPolicy(PAL::SessionID, PurcFetcher::HTTPCookieAcceptPolicy, CompletionHandler<void()>&&);
-//    void getHTTPCookieAcceptPolicy(PAL::SessionID, CompletionHandler<void(PurcFetcher::HTTPCookieAcceptPolicy)>&&);
+//    void setHTTPCookieAcceptPolicy(PAL::SessionID, PurCFetcher::HTTPCookieAcceptPolicy, CompletionHandler<void()>&&);
+//    void getHTTPCookieAcceptPolicy(PAL::SessionID, CompletionHandler<void(PurCFetcher::HTTPCookieAcceptPolicy)>&&);
 
     void startObservingCookieChanges(PAL::SessionID);
     void stopObservingCookieChanges(PAL::SessionID);
@@ -109,7 +109,7 @@ private:
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
 
 #if PLATFORM(COCOA)
-    void persistHTTPCookieAcceptPolicy(PurcFetcher::HTTPCookieAcceptPolicy);
+    void persistHTTPCookieAcceptPolicy(PurCFetcher::HTTPCookieAcceptPolicy);
 #endif
 
     HashMap<PAL::SessionID, WTF::Function<void ()>> m_legacyCookieObservers;
@@ -121,4 +121,4 @@ private:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

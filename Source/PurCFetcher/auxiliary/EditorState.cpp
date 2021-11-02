@@ -30,8 +30,8 @@
 #include "WebCoreArgumentCoders.h"
 #include <wtf/text/TextStream.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 void EditorState::encode(IPC::Encoder& encoder) const
 {
@@ -284,7 +284,7 @@ TextStream& operator<<(TextStream& ts, const EditorState& editorState)
         ts.dumpProperty("textColor", editorState.postLayoutData().textColor);
     if (editorState.postLayoutData().enclosingListType != NoList)
         ts.dumpProperty("enclosingListType", editorState.postLayoutData().enclosingListType);
-    if (editorState.postLayoutData().baseWritingDirection != PurcFetcher::WritingDirection::Natural)
+    if (editorState.postLayoutData().baseWritingDirection != PurCFetcher::WritingDirection::Natural)
         ts.dumpProperty("baseWritingDirection", static_cast<uint8_t>(editorState.postLayoutData().baseWritingDirection));
 #endif // PLATFORM(COCOA)
 #if PLATFORM(IOS_FAMILY)
@@ -338,4 +338,4 @@ TextStream& operator<<(TextStream& ts, const EditorState& editorState)
     return ts;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

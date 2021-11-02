@@ -26,7 +26,7 @@
 #ifndef AuthenticationClient_h
 #define AuthenticationClient_h
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationChallenge;
 class Credential;

@@ -35,7 +35,7 @@
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/text/StringView.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 HTTPHeaderMap::HTTPHeaderMap()
 {
@@ -211,4 +211,4 @@ void HTTPHeaderMap::add(HTTPHeaderName name, const String& value)
         m_commonHeaders.append(CommonHeader { name, value });
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

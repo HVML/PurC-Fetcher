@@ -32,7 +32,7 @@
 #include <wtf/text/StringBuilder.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 String SecurityOriginData::toString() const
 {
@@ -127,4 +127,4 @@ bool operator==(const SecurityOriginData& a, const SecurityOriginData& b)
         && a.port == b.port;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -28,9 +28,9 @@
 
 #include "SharedBuffer.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
 {
@@ -53,4 +53,4 @@ RefPtr<SharedMemory> SharedMemory::copyBuffer(const SharedBuffer& buffer)
     return sharedMemory;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

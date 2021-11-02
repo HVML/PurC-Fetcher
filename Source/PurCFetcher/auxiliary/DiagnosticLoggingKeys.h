@@ -27,7 +27,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DiagnosticLoggingKeys {
 public:
@@ -195,4 +195,4 @@ public:
     PURCFETCHER_EXPORT static String resourceLoadStatisticsTelemetryKey();
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

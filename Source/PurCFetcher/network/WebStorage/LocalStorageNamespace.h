@@ -33,7 +33,7 @@
 #include <wtf/WeakPtr.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageArea;
 class StorageManager;
@@ -48,13 +48,13 @@ public:
     StorageManager* storageManager() const { return &m_storageManager; }
 
     enum class IsEphemeral : bool { No, Yes };
-    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, IsEphemeral, Ref<WorkQueue>&&);
+    StorageArea& getOrCreateStorageArea(PurCFetcher::SecurityOriginData&&, IsEphemeral, Ref<WorkQueue>&&);
 
-    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurCFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
-    void flushAndClose(const PurcFetcher::SecurityOriginData&);
+    void flushAndClose(const PurCFetcher::SecurityOriginData&);
 
-    Vector<PurcFetcher::SecurityOriginData> ephemeralOrigins() const;
+    Vector<PurCFetcher::SecurityOriginData> ephemeralOrigins() const;
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
 
@@ -62,7 +62,7 @@ private:
     StorageManager& m_storageManager;
     unsigned m_quotaInBytes { 0 };
 
-    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurCFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

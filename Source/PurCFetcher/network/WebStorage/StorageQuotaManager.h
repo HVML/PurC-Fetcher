@@ -32,7 +32,7 @@
 #include <wtf/WeakPtr.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageQuotaManager : public ThreadSafeRefCounted<StorageQuotaManager>, public CanMakeWeakPtr<StorageQuotaManager> {
     WTF_MAKE_FAST_ALLOCATED;
@@ -75,4 +75,4 @@ private:
     uint64_t m_initialQuota { 0 };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

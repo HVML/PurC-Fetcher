@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineSentencesFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 String enPunctuation = ".!?";
 String cnPunctuation = "。？！";
@@ -180,5 +180,5 @@ Vector<Row> LineSentencesFilter::splitRow(Row& row, String)
     return rowVec;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

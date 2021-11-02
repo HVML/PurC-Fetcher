@@ -35,9 +35,9 @@
 #include "WebErrors.h"
 #include "ResourceError.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 PreconnectTask::PreconnectTask(NetworkProcess& networkProcess, PAL::SessionID sessionID, NetworkLoadParameters&& parameters, CompletionHandler<void(const ResourceError&)>&& completionHandler)
     : m_completionHandler(WTFMove(completionHandler))
@@ -102,6 +102,6 @@ void PreconnectTask::didFinish(const ResourceError& error)
     delete this;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(SERVER_PRECONNECT)

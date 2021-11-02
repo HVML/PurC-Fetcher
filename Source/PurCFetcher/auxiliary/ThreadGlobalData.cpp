@@ -36,7 +36,7 @@
 #include <wtf/Threading.h>
 #include <wtf/text/StringImpl.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 ThreadGlobalData::ThreadGlobalData()
     : m_cachedResourceRequestInitiators(makeUnique<CachedResourceRequestInitiators>())
@@ -119,4 +119,4 @@ const MIMETypeRegistryThreadGlobalData& ThreadGlobalData::mimeTypeRegistryThread
     return *m_MIMETypeRegistryThreadGlobalData;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

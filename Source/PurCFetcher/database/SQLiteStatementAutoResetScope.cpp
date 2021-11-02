@@ -29,7 +29,7 @@
 #include "SQLiteStatement.h"
 #include <utility>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SQLiteStatementAutoResetScope::SQLiteStatementAutoResetScope(SQLiteStatement *statement)
     : m_statement(statement)

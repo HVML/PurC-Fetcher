@@ -23,20 +23,20 @@
 messages -> NetworkProcessConnection LegacyReceiver {
 
 #if ENABLE(SHAREABLE_RESOURCE)
-    DidCacheResource(PurcFetcher::ResourceRequest request, PurcFetcher::ShareableResource::Handle resource)
+    DidCacheResource(PurCFetcher::ResourceRequest request, PurCFetcher::ShareableResource::Handle resource)
 #endif
 
-    DidFinishPingLoad(uint64_t pingLoadIdentifier, PurcFetcher::ResourceError error, PurcFetcher::ResourceResponse response)
-    DidFinishPreconnection(uint64_t preconnectionIdentifier, PurcFetcher::ResourceError error)
+    DidFinishPingLoad(uint64_t pingLoadIdentifier, PurCFetcher::ResourceError error, PurCFetcher::ResourceResponse response)
+    DidFinishPreconnection(uint64_t preconnectionIdentifier, PurCFetcher::ResourceError error)
     SetOnLineState(bool isOnLine);
-    CookieAcceptPolicyChanged(enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy policy);
+    CookieAcceptPolicyChanged(enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy policy);
 
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
-    CookiesAdded(String host, Vector<struct PurcFetcher::Cookie> cookies);
-    CookiesDeleted(String host, Vector<struct PurcFetcher::Cookie> cookies);
+    CookiesAdded(String host, Vector<struct PurCFetcher::Cookie> cookies);
+    CookiesDeleted(String host, Vector<struct PurCFetcher::Cookie> cookies);
     AllCookiesDeleted();
 #endif
 
-    CheckProcessLocalPortForActivity(struct PurcFetcher::MessagePortIdentifier port) -> (PurcFetcher::MessagePortChannelProvider::HasActivity hasActivity) Async
-    MessagesAvailableForPort(struct PurcFetcher::MessagePortIdentifier port)
+    CheckProcessLocalPortForActivity(struct PurCFetcher::MessagePortIdentifier port) -> (PurCFetcher::MessagePortChannelProvider::HasActivity hasActivity) Async
+    MessagesAvailableForPort(struct PurCFetcher::MessagePortIdentifier port)
 }

@@ -33,7 +33,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SocketStreamError {
 public:

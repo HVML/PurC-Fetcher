@@ -60,7 +60,7 @@
 #include <wtf/glib/RunLoopSourcePriority.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 ResourceHandleInternal::~ResourceHandleInternal() = default;
 

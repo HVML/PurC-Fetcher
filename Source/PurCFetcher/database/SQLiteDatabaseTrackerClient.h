@@ -26,7 +26,7 @@
 #ifndef SQLiteDatabaseTrackerClient_h
 #define SQLiteDatabaseTrackerClient_h
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SQLiteDatabaseTrackerClient {
 public:
@@ -36,6 +36,6 @@ public:
     virtual void didFinishLastTransaction() = 0;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // SQLiteDatabaseTrackerClient_h

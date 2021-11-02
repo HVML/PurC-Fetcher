@@ -34,7 +34,7 @@
 #include <wtf/URLHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class PrefetchCache {
     WTF_MAKE_NONCOPYABLE(PrefetchCache);
@@ -47,19 +47,19 @@ public:
 
     struct Entry {
         WTF_MAKE_STRUCT_FAST_ALLOCATED;
-        Entry(PurcFetcher::ResourceResponse&&, RefPtr<PurcFetcher::SharedBuffer>&&);
-        Entry(PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&);
+        Entry(PurCFetcher::ResourceResponse&&, RefPtr<PurCFetcher::SharedBuffer>&&);
+        Entry(PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&);
 
-        Ref<PurcFetcher::SharedBuffer> releaseBuffer() { return buffer.releaseNonNull(); }
+        Ref<PurCFetcher::SharedBuffer> releaseBuffer() { return buffer.releaseNonNull(); }
 
-        PurcFetcher::ResourceResponse response;
-        RefPtr<PurcFetcher::SharedBuffer> buffer;
-        PurcFetcher::ResourceRequest redirectRequest;
+        PurCFetcher::ResourceResponse response;
+        RefPtr<PurCFetcher::SharedBuffer> buffer;
+        PurCFetcher::ResourceRequest redirectRequest;
     };
 
     std::unique_ptr<Entry> take(const URL&);
-    void store(const URL&, PurcFetcher::ResourceResponse&&, RefPtr<PurcFetcher::SharedBuffer>&&);
-    void storeRedirect(const URL&, PurcFetcher::ResourceResponse&&, PurcFetcher::ResourceRequest&&);
+    void store(const URL&, PurCFetcher::ResourceResponse&&, RefPtr<PurCFetcher::SharedBuffer>&&);
+    void storeRedirect(const URL&, PurCFetcher::ResourceResponse&&, PurCFetcher::ResourceRequest&&);
 
 private:
     void clearExpiredEntries();
@@ -70,7 +70,7 @@ private:
     using SessionPrefetchExpirationList = Deque<std::tuple<URL, WallTime>>;
     SessionPrefetchExpirationList m_sessionExpirationList;
 
-    PurcFetcher::Timer m_expirationTimer;
+    PurCFetcher::Timer m_expirationTimer;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

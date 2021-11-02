@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineIgnoreFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 LineIgnoreFilter::LineIgnoreFilter()
 {
@@ -118,5 +118,5 @@ Vector<Row> LineIgnoreFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

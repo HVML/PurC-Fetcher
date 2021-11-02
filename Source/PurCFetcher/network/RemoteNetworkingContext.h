@@ -26,7 +26,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 struct WebsiteDataStoreParameters;

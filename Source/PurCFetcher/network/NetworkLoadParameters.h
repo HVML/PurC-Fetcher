@@ -37,33 +37,33 @@
 #include <wtf/EnumTraits.h>
 #include <wtf/ProcessID.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class PreconnectOnly : bool { No, Yes };
 
 class NetworkLoadParameters {
 public:
     WebPageProxyIdentifier webPageProxyID;
-    PurcFetcher::PageIdentifier webPageID;
-    PurcFetcher::FrameIdentifier webFrameID;
-    RefPtr<PurcFetcher::SecurityOrigin> topOrigin;
+    PurCFetcher::PageIdentifier webPageID;
+    PurCFetcher::FrameIdentifier webFrameID;
+    RefPtr<PurCFetcher::SecurityOrigin> topOrigin;
     WTF::ProcessID parentPID { 0 };
 #if HAVE(AUDIT_TOKEN)
     Optional<audit_token_t> networkProcessAuditToken;
 #endif
-    PurcFetcher::ResourceRequest request;
-    PurcFetcher::ContentSniffingPolicy contentSniffingPolicy { PurcFetcher::ContentSniffingPolicy::SniffContent };
-    PurcFetcher::ContentEncodingSniffingPolicy contentEncodingSniffingPolicy { PurcFetcher::ContentEncodingSniffingPolicy::Sniff };
-    PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy { PurcFetcher::StoredCredentialsPolicy::DoNotUse };
-    PurcFetcher::ClientCredentialPolicy clientCredentialPolicy { PurcFetcher::ClientCredentialPolicy::CannotAskClientForCredentials };
+    PurCFetcher::ResourceRequest request;
+    PurCFetcher::ContentSniffingPolicy contentSniffingPolicy { PurCFetcher::ContentSniffingPolicy::SniffContent };
+    PurCFetcher::ContentEncodingSniffingPolicy contentEncodingSniffingPolicy { PurCFetcher::ContentEncodingSniffingPolicy::Sniff };
+    PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy { PurCFetcher::StoredCredentialsPolicy::DoNotUse };
+    PurCFetcher::ClientCredentialPolicy clientCredentialPolicy { PurCFetcher::ClientCredentialPolicy::CannotAskClientForCredentials };
     bool shouldClearReferrerOnHTTPSToHTTPRedirect { true };
     bool needsCertificateInfo { false };
     bool isMainFrameNavigation { false };
     bool isMainResourceNavigationForAnyFrame { false };
-    PurcFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { PurcFetcher::ShouldRelaxThirdPartyCookieBlocking::No };
+    PurCFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { PurCFetcher::ShouldRelaxThirdPartyCookieBlocking::No };
     PreconnectOnly shouldPreconnectOnly { PreconnectOnly::No };
     Optional<NetworkActivityTracker> networkActivityTracker;
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

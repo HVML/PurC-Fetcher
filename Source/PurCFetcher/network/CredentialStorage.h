@@ -33,13 +33,13 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ProtectionSpace;
 
 class CredentialStorage {
 public:
-    // PurcFetcher session credential storage.
+    // PurCFetcher session credential storage.
     PURCFETCHER_EXPORT void set(const String&, const Credential&, const ProtectionSpace&, const URL&);
     PURCFETCHER_EXPORT Credential get(const String&, const ProtectionSpace&);
     PURCFETCHER_EXPORT void remove(const String&, const ProtectionSpace&);
@@ -70,4 +70,4 @@ private:
     PathToDefaultProtectionSpaceMap::iterator findDefaultProtectionSpaceForURL(const URL&);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

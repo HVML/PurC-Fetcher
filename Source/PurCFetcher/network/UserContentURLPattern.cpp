@@ -30,7 +30,7 @@
 #include <wtf/StdLibExtras.h>
 #include <wtf/URL.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 bool UserContentURLPattern::matchesPatterns(const URL& url, const Vector<String>& allowlist, const Vector<String>& blocklist)
 {
@@ -226,4 +226,4 @@ bool UserContentURLPattern::matchesPath(const URL& test) const
     return MatchTester(m_path, test.path()).test();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

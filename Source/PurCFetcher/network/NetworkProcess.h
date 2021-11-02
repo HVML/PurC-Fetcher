@@ -76,7 +76,7 @@ namespace PAL {
 class SessionID;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class CertificateInfo;
 class CurlProxySettings;
 class DownloadID;
@@ -97,7 +97,7 @@ struct SoupNetworkProxySettings;
 struct ServiceWorkerClientIdentifier;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationManager;
 class NetworkConnectionToWebProcess;
@@ -130,17 +130,17 @@ class NetworkProcess : public AuxiliaryProcess, private DownloadManager::Client,
 {
     WTF_MAKE_NONCOPYABLE(NetworkProcess);
 public:
-    using RegistrableDomain = PurcFetcher::RegistrableDomain;
-    using TopFrameDomain = PurcFetcher::RegistrableDomain;
-    using SubFrameDomain = PurcFetcher::RegistrableDomain;
-    using SubResourceDomain = PurcFetcher::RegistrableDomain;
-    using RedirectDomain = PurcFetcher::RegistrableDomain;
-    using RedirectedFromDomain = PurcFetcher::RegistrableDomain;
-    using RedirectedToDomain = PurcFetcher::RegistrableDomain;
-    using NavigatedFromDomain = PurcFetcher::RegistrableDomain;
-    using NavigatedToDomain = PurcFetcher::RegistrableDomain;
-    using DomainInNeedOfStorageAccess = PurcFetcher::RegistrableDomain;
-    using OpenerDomain = PurcFetcher::RegistrableDomain;
+    using RegistrableDomain = PurCFetcher::RegistrableDomain;
+    using TopFrameDomain = PurCFetcher::RegistrableDomain;
+    using SubFrameDomain = PurCFetcher::RegistrableDomain;
+    using SubResourceDomain = PurCFetcher::RegistrableDomain;
+    using RedirectDomain = PurCFetcher::RegistrableDomain;
+    using RedirectedFromDomain = PurCFetcher::RegistrableDomain;
+    using RedirectedToDomain = PurCFetcher::RegistrableDomain;
+    using NavigatedFromDomain = PurCFetcher::RegistrableDomain;
+    using NavigatedToDomain = PurCFetcher::RegistrableDomain;
+    using DomainInNeedOfStorageAccess = PurCFetcher::RegistrableDomain;
+    using OpenerDomain = PurCFetcher::RegistrableDomain;
 
     NetworkProcess(AuxiliaryProcessInitializationParameters&&);
     ~NetworkProcess();
@@ -169,10 +169,10 @@ public:
 
     void forEachNetworkSession(const Function<void(NetworkSession&)>&);
 
-    void forEachNetworkStorageSession(const Function<void(PurcFetcher::NetworkStorageSession&)>&);
-    PurcFetcher::NetworkStorageSession* storageSession(const PAL::SessionID&) const;
-    PurcFetcher::NetworkStorageSession& defaultStorageSession() const;
-    std::unique_ptr<PurcFetcher::NetworkStorageSession> newTestingSession(const PAL::SessionID&);
+    void forEachNetworkStorageSession(const Function<void(PurCFetcher::NetworkStorageSession&)>&);
+    PurCFetcher::NetworkStorageSession* storageSession(const PAL::SessionID&) const;
+    PurCFetcher::NetworkStorageSession& defaultStorageSession() const;
+    std::unique_ptr<PurCFetcher::NetworkStorageSession> newTestingSession(const PAL::SessionID&);
 #if PLATFORM(COCOA)
     void ensureSession(const PAL::SessionID&, bool shouldUseTestingNetworkSession, const String& identifier, RetainPtr<CFHTTPCookieStorageRef>&&);
 #else
@@ -187,20 +187,20 @@ public:
     CacheModel cacheModel() const { return m_cacheModel; }
 
     // Diagnostic messages logging.
-    void logDiagnosticMessage(WebPageProxyIdentifier, const String& message, const String& description, PurcFetcher::ShouldSample);
-    void logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String& message, const String& description, PurcFetcher::DiagnosticLoggingResultType, PurcFetcher::ShouldSample);
-    void logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String& message, const String& description, double value, unsigned significantFigures, PurcFetcher::ShouldSample);
+    void logDiagnosticMessage(WebPageProxyIdentifier, const String& message, const String& description, PurCFetcher::ShouldSample);
+    void logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String& message, const String& description, PurCFetcher::DiagnosticLoggingResultType, PurCFetcher::ShouldSample);
+    void logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String& message, const String& description, double value, unsigned significantFigures, PurCFetcher::ShouldSample);
 
 #if PLATFORM(COCOA)
     RetainPtr<CFDataRef> sourceApplicationAuditData() const;
 #endif
 #if PLATFORM(COCOA) || USE(SOUP)
-    void getHostNamesWithHSTSCache(PurcFetcher::NetworkStorageSession&, HashSet<String>&);
-    void deleteHSTSCacheForHostNames(PurcFetcher::NetworkStorageSession&, const Vector<String>&);
-    void clearHSTSCache(PurcFetcher::NetworkStorageSession&, WallTime modifiedSince);
+    void getHostNamesWithHSTSCache(PurCFetcher::NetworkStorageSession&, HashSet<String>&);
+    void deleteHSTSCacheForHostNames(PurCFetcher::NetworkStorageSession&, const Vector<String>&);
+    void clearHSTSCache(PurCFetcher::NetworkStorageSession&, WallTime modifiedSince);
 #endif
 
-    void findPendingDownloadLocation(NetworkDataTask&, ResponseCompletionHandler&&, const PurcFetcher::ResourceResponse&);
+    void findPendingDownloadLocation(NetworkDataTask&, ResponseCompletionHandler&&, const PurCFetcher::ResourceResponse&);
 
     void prefetchDNS(const String&);
 
@@ -263,23 +263,23 @@ public:
     void setTopFrameUniqueRedirectTo(PAL::SessionID, const TopFrameDomain&, const RedirectedToDomain&, CompletionHandler<void()>&&);
     void setTopFrameUniqueRedirectFrom(PAL::SessionID, const TopFrameDomain&, const RedirectedFromDomain&, CompletionHandler<void()>&&);
     void registrableDomainsWithWebsiteData(PAL::SessionID, OptionSet<WebsiteDataType>, bool shouldNotifyPage, CompletionHandler<void(HashSet<RegistrableDomain>&&)>&&);
-    void didCommitCrossSiteLoadWithDataTransfer(PAL::SessionID, const RegistrableDomain& fromDomain, const RegistrableDomain& toDomain, OptionSet<PurcFetcher::CrossSiteNavigationDataTransfer::Flag>, WebPageProxyIdentifier, PurcFetcher::PageIdentifier);
+    void didCommitCrossSiteLoadWithDataTransfer(PAL::SessionID, const RegistrableDomain& fromDomain, const RegistrableDomain& toDomain, OptionSet<PurCFetcher::CrossSiteNavigationDataTransfer::Flag>, WebPageProxyIdentifier, PurCFetcher::PageIdentifier);
     void setCrossSiteLoadWithLinkDecorationForTesting(PAL::SessionID, const RegistrableDomain& fromDomain, const RegistrableDomain& toDomain, CompletionHandler<void()>&&);
     void resetCrossSiteLoadsWithLinkDecorationForTesting(PAL::SessionID, CompletionHandler<void()>&&);
-    void hasIsolatedSession(PAL::SessionID, const PurcFetcher::RegistrableDomain&, CompletionHandler<void(bool)>&&) const;
-    void setAppBoundDomainsForResourceLoadStatistics(PAL::SessionID, HashSet<PurcFetcher::RegistrableDomain>&&, CompletionHandler<void()>&&);
+    void hasIsolatedSession(PAL::SessionID, const PurCFetcher::RegistrableDomain&, CompletionHandler<void(bool)>&&) const;
+    void setAppBoundDomainsForResourceLoadStatistics(PAL::SessionID, HashSet<PurCFetcher::RegistrableDomain>&&, CompletionHandler<void()>&&);
     bool isITPDatabaseEnabled() const { return m_isITPDatabaseEnabled; }
     void setShouldDowngradeReferrerForTesting(bool, CompletionHandler<void()>&&);
-    void setThirdPartyCookieBlockingMode(PAL::SessionID, PurcFetcher::ThirdPartyCookieBlockingMode, CompletionHandler<void()>&&);
-    void setShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID, PurcFetcher::SameSiteStrictEnforcementEnabled, CompletionHandler<void()>&&);
-    void setFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID, PurcFetcher::FirstPartyWebsiteDataRemovalMode, CompletionHandler<void()>&&);
-    void setToSameSiteStrictCookiesForTesting(PAL::SessionID, const PurcFetcher::RegistrableDomain&, CompletionHandler<void()>&&);
+    void setThirdPartyCookieBlockingMode(PAL::SessionID, PurCFetcher::ThirdPartyCookieBlockingMode, CompletionHandler<void()>&&);
+    void setShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID, PurCFetcher::SameSiteStrictEnforcementEnabled, CompletionHandler<void()>&&);
+    void setFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID, PurCFetcher::FirstPartyWebsiteDataRemovalMode, CompletionHandler<void()>&&);
+    void setToSameSiteStrictCookiesForTesting(PAL::SessionID, const PurCFetcher::RegistrableDomain&, CompletionHandler<void()>&&);
 #endif
 
     using CacheStorageRootPathCallback = CompletionHandler<void(String&&)>;
     void cacheStorageRootPath(PAL::SessionID, CacheStorageRootPathCallback&&);
 
-    void preconnectTo(PAL::SessionID, WebPageProxyIdentifier, PurcFetcher::PageIdentifier, const URL&, const String&, PurcFetcher::StoredCredentialsPolicy, Optional<NavigatingToAppBoundDomain>);
+    void preconnectTo(PAL::SessionID, WebPageProxyIdentifier, PurCFetcher::PageIdentifier, const URL&, const String&, PurCFetcher::StoredCredentialsPolicy, Optional<NavigatingToAppBoundDomain>);
 
     void setSessionIsControlledByAutomation(PAL::SessionID, bool);
     bool sessionIsControlledByAutomation(PAL::SessionID) const;
@@ -302,12 +302,12 @@ public:
     void renameOriginInWebsiteData(PAL::SessionID, const URL&, const URL&, OptionSet<WebsiteDataType>, CompletionHandler<void()>&&);
 
 #if ENABLE(SERVICE_WORKER)
-    PurcFetcher::SWServer* swServerForSessionIfExists(PAL::SessionID sessionID) { return m_swServers.get(sessionID); }
-    PurcFetcher::SWServer& swServerForSession(PAL::SessionID);
+    PurCFetcher::SWServer* swServerForSessionIfExists(PAL::SessionID sessionID) { return m_swServers.get(sessionID); }
+    PurCFetcher::SWServer& swServerForSession(PAL::SessionID);
     void registerSWServerConnection(WebSWServerConnection&);
     void unregisterSWServerConnection(WebSWServerConnection&);
     
-    void forEachSWServer(const Function<void(PurcFetcher::SWServer&)>&);
+    void forEachSWServer(const Function<void(PurCFetcher::SWServer&)>&);
 #endif
 
 #if PLATFORM(IOS_FAMILY)
@@ -330,7 +330,7 @@ public:
     CacheStorage::Engine* findCacheEngine(const PAL::SessionID&);
     CacheStorage::Engine& ensureCacheEngine(const PAL::SessionID&, Function<Ref<CacheStorage::Engine>()>&&);
     void removeCacheEngine(const PAL::SessionID&);
-    void requestStorageSpace(PAL::SessionID, const PurcFetcher::ClientOrigin&, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&&);
+    void requestStorageSpace(PAL::SessionID, const PurCFetcher::ClientOrigin&, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&&);
 
     void dumpAdClickAttribution(PAL::SessionID, CompletionHandler<void(String)>&&);
     void clearAdClickAttribution(PAL::SessionID, CompletionHandler<void()>&&);
@@ -338,21 +338,21 @@ public:
     void setAdClickAttributionConversionURLForTesting(PAL::SessionID, URL&&, CompletionHandler<void()>&&);
     void markAdClickAttributionsAsExpiredForTesting(PAL::SessionID, CompletionHandler<void()>&&);
 
-    RefPtr<PurcFetcher::StorageQuotaManager> storageQuotaManager(PAL::SessionID, const PurcFetcher::ClientOrigin&);
+    RefPtr<PurCFetcher::StorageQuotaManager> storageQuotaManager(PAL::SessionID, const PurCFetcher::ClientOrigin&);
 
     void addKeptAliveLoad(Ref<NetworkResourceLoader>&&);
     void removeKeptAliveLoad(NetworkResourceLoader&);
 
     const OptionSet<NetworkCache::CacheOption>& cacheOptions() const { return m_cacheOptions; }
 
-    NetworkConnectionToWebProcess* webProcessConnection(PurcFetcher::ProcessIdentifier) const;
-    PurcFetcher::MessagePortChannelRegistry& messagePortChannelRegistry() { return m_messagePortChannelRegistry; }
+    NetworkConnectionToWebProcess* webProcessConnection(PurCFetcher::ProcessIdentifier) const;
+    PurCFetcher::MessagePortChannelRegistry& messagePortChannelRegistry() { return m_messagePortChannelRegistry; }
 
     void setServiceWorkerFetchTimeoutForTesting(Seconds, CompletionHandler<void()>&&);
     void resetServiceWorkerFetchTimeoutForTesting(CompletionHandler<void()>&&);
     Seconds serviceWorkerFetchTimeout() const { return m_serviceWorkerFetchTimeout; }
 
-    void cookieAcceptPolicyChanged(PurcFetcher::HTTPCookieAcceptPolicy);
+    void cookieAcceptPolicyChanged(PurCFetcher::HTTPCookieAcceptPolicy);
     void hasAppBoundSession(PAL::SessionID, CompletionHandler<void(bool)>&&) const;
     void clearAppBoundSession(PAL::SessionID, CompletionHandler<void()>&&);
 
@@ -362,7 +362,7 @@ public:
 
 private:
     void platformInitializeNetworkProcess(const NetworkProcessCreationParameters&);
-    std::unique_ptr<PurcFetcher::NetworkStorageSession> platformCreateDefaultStorageSession() const;
+    std::unique_ptr<PurCFetcher::NetworkStorageSession> platformCreateDefaultStorageSession() const;
 
     void didReceiveNetworkProcessMessage(IPC::Connection&, IPC::Decoder&);
 
@@ -399,34 +399,34 @@ private:
     // Message Handlers
     void didReceiveSyncNetworkProcessMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
     void initializeNetworkProcess(NetworkProcessCreationParameters&&);
-    void createNetworkConnectionToWebProcess(PurcFetcher::ProcessIdentifier, PAL::SessionID, CompletionHandler<void(Optional<IPC::Attachment>&&, PurcFetcher::HTTPCookieAcceptPolicy)>&&);
+    void createNetworkConnectionToWebProcess(PurCFetcher::ProcessIdentifier, PAL::SessionID, CompletionHandler<void(Optional<IPC::Attachment>&&, PurCFetcher::HTTPCookieAcceptPolicy)>&&);
 
     void fetchWebsiteData(PAL::SessionID, OptionSet<WebsiteDataType>, OptionSet<WebsiteDataFetchOption>, CallbackID);
     void deleteWebsiteData(PAL::SessionID, OptionSet<WebsiteDataType>, WallTime modifiedSince, CallbackID);
-    void deleteWebsiteDataForOrigins(PAL::SessionID, OptionSet<WebsiteDataType>, const Vector<PurcFetcher::SecurityOriginData>& origins, const Vector<String>& cookieHostNames, const Vector<String>& HSTSCacheHostnames, const Vector<RegistrableDomain>&, CallbackID);
+    void deleteWebsiteDataForOrigins(PAL::SessionID, OptionSet<WebsiteDataType>, const Vector<PurCFetcher::SecurityOriginData>& origins, const Vector<String>& cookieHostNames, const Vector<String>& HSTSCacheHostnames, const Vector<RegistrableDomain>&, CallbackID);
 
     void clearCachedCredentials();
 
     void setCacheStorageParameters(PAL::SessionID, String&& cacheStorageDirectory, SandboxExtension::Handle&&);
-    void initializeQuotaUsers(PurcFetcher::StorageQuotaManager&, PAL::SessionID, const PurcFetcher::ClientOrigin&);
+    void initializeQuotaUsers(PurCFetcher::StorageQuotaManager&, PAL::SessionID, const PurCFetcher::ClientOrigin&);
 
     // FIXME: This should take a session ID so we can identify which disk cache to delete.
     void clearDiskCache(WallTime modifiedSince, CompletionHandler<void()>&&);
 
-    void downloadRequest(PAL::SessionID, DownloadID, const PurcFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedFilename);
+    void downloadRequest(PAL::SessionID, DownloadID, const PurCFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedFilename);
     void resumeDownload(PAL::SessionID, DownloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&&);
     void cancelDownload(DownloadID);
 #if PLATFORM(COCOA)
     void publishDownloadProgress(DownloadID, const URL&, SandboxExtension::Handle&&);
 #endif
-    void continueWillSendRequest(DownloadID, PurcFetcher::ResourceRequest&&);
+    void continueWillSendRequest(DownloadID, PurCFetcher::ResourceRequest&&);
     void continueDecidePendingDownloadDestination(DownloadID, String destination, SandboxExtension::Handle&&, bool allowOverwrite);
     void applicationDidEnterBackground();
     void applicationWillEnterForeground();
 
     void setCacheModel(CacheModel);
     void setCacheModelSynchronouslyForTesting(CacheModel, CompletionHandler<void()>&&);
-    void allowSpecificHTTPSCertificateForHost(const PurcFetcher::CertificateInfo&, const String& host);
+    void allowSpecificHTTPSCertificateForHost(const PurCFetcher::CertificateInfo&, const String& host);
     void setAllowsAnySSLCertificateForWebSocket(bool, CompletionHandler<void()>&&);
     
     void syncAllCookies();
@@ -435,11 +435,11 @@ private:
 #if USE(SOUP)
     void setIgnoreTLSErrors(bool);
     void userPreferredLanguagesChanged(const Vector<String>&);
-    void setNetworkProxySettings(const PurcFetcher::SoupNetworkProxySettings&);
+    void setNetworkProxySettings(const PurCFetcher::SoupNetworkProxySettings&);
 #endif
 
 #if USE(CURL)
-    void setNetworkProxySettings(PAL::SessionID, PurcFetcher::CurlProxySettings&&);
+    void setNetworkProxySettings(PAL::SessionID, PurCFetcher::CurlProxySettings&&);
 #endif
 
 #if PLATFORM(MAC) || PLATFORM(MACCATALYST)
@@ -456,8 +456,8 @@ private:
 
 #if ENABLE(INDEXED_DATABASE)
     void addIndexedDatabaseSession(PAL::SessionID, String&, SandboxExtension::Handle&);
-    void collectIndexedDatabaseOriginsForVersion(const String&, HashSet<PurcFetcher::SecurityOriginData>&);
-    HashSet<PurcFetcher::SecurityOriginData> indexedDatabaseOrigins(const String& path);
+    void collectIndexedDatabaseOriginsForVersion(const String&, HashSet<PurCFetcher::SecurityOriginData>&);
+    HashSet<PurCFetcher::SecurityOriginData> indexedDatabaseOrigins(const String& path);
     Ref<WebIDBServer> createWebIDBServer(PAL::SessionID);
     void setSessionStorageQuotaManagerIDBRootPath(PAL::SessionID, const String& idbRootPath);
 #endif
@@ -465,7 +465,7 @@ private:
 #if ENABLE(SERVICE_WORKER)
     void didCreateWorkerContextProcessConnection(const IPC::Attachment&);
 
-    void postMessageToServiceWorker(PAL::SessionID, PurcFetcher::ServiceWorkerIdentifier destination, PurcFetcher::MessageWithMessagePorts&&, const PurcFetcher::ServiceWorkerOrClientIdentifier& source, PurcFetcher::SWServerConnectionIdentifier);
+    void postMessageToServiceWorker(PAL::SessionID, PurCFetcher::ServiceWorkerIdentifier destination, PurCFetcher::MessageWithMessagePorts&&, const PurCFetcher::ServiceWorkerOrClientIdentifier& source, PurCFetcher::SWServerConnectionIdentifier);
     
     void disableServiceWorkerProcessTerminationDelay();
     
@@ -488,12 +488,12 @@ private:
             , m_defaultThirdPartyQuota(defaultThirdPartyQuota)
         {
         }
-        uint64_t defaultQuota(const PurcFetcher::ClientOrigin& origin) const { return origin.topOrigin == origin.clientOrigin ? m_defaultQuota : m_defaultThirdPartyQuota; }
+        uint64_t defaultQuota(const PurCFetcher::ClientOrigin& origin) const { return origin.topOrigin == origin.clientOrigin ? m_defaultQuota : m_defaultThirdPartyQuota; }
 
-        Ref<PurcFetcher::StorageQuotaManager> ensureOriginStorageQuotaManager(PurcFetcher::ClientOrigin origin, uint64_t quota, PurcFetcher::StorageQuotaManager::UsageGetter&& usageGetter, PurcFetcher::StorageQuotaManager::QuotaIncreaseRequester&& quotaIncreaseRequester)
+        Ref<PurCFetcher::StorageQuotaManager> ensureOriginStorageQuotaManager(PurCFetcher::ClientOrigin origin, uint64_t quota, PurCFetcher::StorageQuotaManager::UsageGetter&& usageGetter, PurCFetcher::StorageQuotaManager::QuotaIncreaseRequester&& quotaIncreaseRequester)
         {
             auto iter = m_storageQuotaManagers.ensure(origin, [quota, usageGetter = WTFMove(usageGetter), quotaIncreaseRequester = WTFMove(quotaIncreaseRequester)]() mutable {
-                return PurcFetcher::StorageQuotaManager::create(quota, WTFMove(usageGetter), WTFMove(quotaIncreaseRequester));
+                return PurCFetcher::StorageQuotaManager::create(quota, WTFMove(usageGetter), WTFMove(quotaIncreaseRequester));
             }).iterator;
             return makeRef(*iter->value);
         }
@@ -511,15 +511,15 @@ private:
 #if ENABLE(INDEXED_DATABASE)
         String m_idbRootPath;
 #endif
-        uint64_t m_defaultQuota { PurcFetcher::StorageQuotaManager::defaultQuota() };
-        uint64_t m_defaultThirdPartyQuota { PurcFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
-        HashMap<PurcFetcher::ClientOrigin, RefPtr<PurcFetcher::StorageQuotaManager>> m_storageQuotaManagers;
+        uint64_t m_defaultQuota { PurCFetcher::StorageQuotaManager::defaultQuota() };
+        uint64_t m_defaultThirdPartyQuota { PurCFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
+        HashMap<PurCFetcher::ClientOrigin, RefPtr<PurCFetcher::StorageQuotaManager>> m_storageQuotaManagers;
     };
     void addSessionStorageQuotaManager(PAL::SessionID, uint64_t defaultQuota, uint64_t defaultThirdPartyQuota, const String& cacheRootPath, SandboxExtension::Handle&);
     void removeSessionStorageQuotaManager(PAL::SessionID);
 
     // Connections to WebProcesses.
-    HashMap<PurcFetcher::ProcessIdentifier, Ref<NetworkConnectionToWebProcess>> m_webProcessConnections;
+    HashMap<PurCFetcher::ProcessIdentifier, Ref<NetworkConnectionToWebProcess>> m_webProcessConnections;
 
     bool m_hasSetCacheModel { false };
     CacheModel m_cacheModel { CacheModel::DocumentViewer };
@@ -536,8 +536,8 @@ private:
     HashMap<PAL::SessionID, Vector<CacheStorageRootPathCallback>> m_cacheStorageParametersCallbacks;
 
     HashMap<PAL::SessionID, std::unique_ptr<NetworkSession>> m_networkSessions;
-    HashMap<PAL::SessionID, std::unique_ptr<PurcFetcher::NetworkStorageSession>> m_networkStorageSessions;
-    mutable std::unique_ptr<PurcFetcher::NetworkStorageSession> m_defaultNetworkStorageSession;
+    HashMap<PAL::SessionID, std::unique_ptr<PurCFetcher::NetworkStorageSession>> m_networkStorageSessions;
+    mutable std::unique_ptr<PurCFetcher::NetworkStorageSession> m_defaultNetworkStorageSession;
 
     RefPtr<StorageManagerSet> m_storageManagerSet;
 
@@ -559,7 +559,7 @@ private:
     WebSQLiteDatabaseTracker m_webSQLiteDatabaseTracker;
 #endif
 
-    Ref<WorkQueue> m_storageTaskQueue { WorkQueue::create("com.apple.PurcFetcher.StorageTask") };
+    Ref<WorkQueue> m_storageTaskQueue { WorkQueue::create("com.apple.PurCFetcher.StorageTask") };
 
 #if ENABLE(INDEXED_DATABASE)
     HashMap<PAL::SessionID, String> m_idbDatabasePaths;
@@ -575,7 +575,7 @@ private:
         bool processTerminationDelayEnabled { true };
     };
     HashMap<PAL::SessionID, ServiceWorkerInfo> m_serviceWorkerInfo;
-    HashMap<PAL::SessionID, std::unique_ptr<PurcFetcher::SWServer>> m_swServers;
+    HashMap<PAL::SessionID, std::unique_ptr<PurCFetcher::SWServer>> m_swServers;
 #endif
 
 #if PLATFORM(COCOA)
@@ -590,10 +590,10 @@ private:
     HashMap<PAL::SessionID, std::unique_ptr<SessionStorageQuotaManager>> m_sessionStorageQuotaManagers;
 
     OptionSet<NetworkCache::CacheOption> m_cacheOptions;
-    PurcFetcher::MessagePortChannelRegistry m_messagePortChannelRegistry;
+    PurCFetcher::MessagePortChannelRegistry m_messagePortChannelRegistry;
 
     static const Seconds defaultServiceWorkerFetchTimeout;
     Seconds m_serviceWorkerFetchTimeout { defaultServiceWorkerFetchTimeout };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -34,10 +34,10 @@
 #include "SharedBuffer.h"
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
-Entry::Entry(const Key& key, const PurcFetcher::ResourceResponse& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer, const Vector<std::pair<String, String>>& varyingRequestHeaders)
+Entry::Entry(const Key& key, const PurCFetcher::ResourceResponse& response, RefPtr<PurCFetcher::SharedBuffer>&& buffer, const Vector<std::pair<String, String>>& varyingRequestHeaders)
     : m_key(key)
     , m_timeStamp(WallTime::now())
     , m_response(response)
@@ -47,7 +47,7 @@ Entry::Entry(const Key& key, const PurcFetcher::ResourceResponse& response, RefP
     ASSERT(m_key.type() == "Resource");
 }
 
-Entry::Entry(const Key& key, const PurcFetcher::ResourceResponse& response, const PurcFetcher::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders)
+Entry::Entry(const Key& key, const PurCFetcher::ResourceResponse& response, const PurCFetcher::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders)
     : m_key(key)
     , m_timeStamp(WallTime::now())
     , m_response(response)
@@ -112,11 +112,11 @@ std::unique_ptr<Entry> Entry::decodeStorageRecord(const Storage::Record& storage
     auto entry = makeUnique<Entry>(storageEntry);
 
     WTF::Persistence::Decoder decoder(storageEntry.header.data(), storageEntry.header.size());
-    PurcFetcher::ResourceResponse response;
-    if (!PurcFetcher::ResourceResponse::decode(decoder, response))
+    PurCFetcher::ResourceResponse response;
+    if (!PurCFetcher::ResourceResponse::decode(decoder, response))
         return nullptr;
     entry->m_response = WTFMove(response);
-    entry->m_response.setSource(PurcFetcher::ResourceResponse::Source::DiskCache);
+    entry->m_response.setSource(PurCFetcher::ResourceResponse::Source::DiskCache);
 
     Optional<bool> hasVaryingRequestHeaders;
     decoder >> hasVaryingRequestHeaders;
@@ -159,7 +159,7 @@ std::unique_ptr<Entry> Entry::decodeStorageRecord(const Storage::Record& storage
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
 bool Entry::hasReachedPrevalentResourceAgeCap() const
 {
-    return m_maxAgeCap && PurcFetcher::computeCurrentAge(response(), timeStamp()) > m_maxAgeCap;
+    return m_maxAgeCap && PurCFetcher::computeCurrentAge(response(), timeStamp()) > m_maxAgeCap;
 }
 
 void Entry::capMaxAge(const Seconds seconds)
@@ -191,10 +191,10 @@ void Entry::initializeBufferFromStorageRecord() const
             return;
     }
 #endif
-    m_buffer = PurcFetcher::SharedBuffer::create(m_sourceStorageRecord.body.data(), m_sourceStorageRecord.body.size());
+    m_buffer = PurCFetcher::SharedBuffer::create(m_sourceStorageRecord.body.data(), m_sourceStorageRecord.body.size());
 }
 
-PurcFetcher::SharedBuffer* Entry::buffer() const
+PurCFetcher::SharedBuffer* Entry::buffer() const
 {
     if (!m_buffer)
         initializeBufferFromStorageRecord();
@@ -214,12 +214,12 @@ ShareableResource::Handle& Entry::shareableResourceHandle() const
 
 bool Entry::needsValidation() const
 {
-    return m_response.source() == PurcFetcher::ResourceResponse::Source::DiskCacheAfterValidation;
+    return m_response.source() == PurCFetcher::ResourceResponse::Source::DiskCacheAfterValidation;
 }
 
 void Entry::setNeedsValidation(bool value)
 {
-    m_response.setSource(value ? PurcFetcher::ResourceResponse::Source::DiskCacheAfterValidation : PurcFetcher::ResourceResponse::Source::DiskCache);
+    m_response.setSource(value ? PurCFetcher::ResourceResponse::Source::DiskCacheAfterValidation : PurCFetcher::ResourceResponse::Source::DiskCache);
 }
 
 void Entry::asJSON(StringBuilder& json, const Storage::RecordInfo& info) const

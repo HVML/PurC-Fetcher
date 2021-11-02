@@ -32,9 +32,9 @@
 #include "StorageManager.h"
 #include "StorageMap.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 StorageArea::StorageArea(LocalStorageNamespace* localStorageNamespace, const SecurityOriginData& securityOrigin, unsigned quotaInBytes, Ref<WorkQueue>&& queue)
     : m_localStorageNamespace(makeWeakPtr(localStorageNamespace))
@@ -218,4 +218,4 @@ void StorageArea::close()
     m_localStorageDatabase->close();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

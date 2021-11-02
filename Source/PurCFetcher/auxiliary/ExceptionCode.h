@@ -20,7 +20,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum ExceptionCode {
     // DOMException error names (https://heycam.github.io/webidl/#idl-DOMException-error-names).
@@ -69,49 +69,49 @@ enum ExceptionCode {
     ExistingExceptionError,
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::ExceptionCode> {
+template<> struct EnumTraits<PurCFetcher::ExceptionCode> {
     using values = EnumValues<
-    PurcFetcher::ExceptionCode,
-    PurcFetcher::ExceptionCode::IndexSizeError,
-    PurcFetcher::ExceptionCode::HierarchyRequestError,
-    PurcFetcher::ExceptionCode::WrongDocumentError,
-    PurcFetcher::ExceptionCode::InvalidCharacterError,
-    PurcFetcher::ExceptionCode::NoModificationAllowedError,
-    PurcFetcher::ExceptionCode::NotFoundError,
-    PurcFetcher::ExceptionCode::NotSupportedError,
-    PurcFetcher::ExceptionCode::InUseAttributeError,
-    PurcFetcher::ExceptionCode::InvalidStateError,
-    PurcFetcher::ExceptionCode::SyntaxError,
-    PurcFetcher::ExceptionCode::InvalidModificationError,
-    PurcFetcher::ExceptionCode::NamespaceError,
-    PurcFetcher::ExceptionCode::InvalidAccessError,
-    PurcFetcher::ExceptionCode::TypeMismatchError,
-    PurcFetcher::ExceptionCode::SecurityError,
-    PurcFetcher::ExceptionCode::NetworkError,
-    PurcFetcher::ExceptionCode::AbortError,
-    PurcFetcher::ExceptionCode::URLMismatchError,
-    PurcFetcher::ExceptionCode::QuotaExceededError,
-    PurcFetcher::ExceptionCode::TimeoutError,
-    PurcFetcher::ExceptionCode::InvalidNodeTypeError,
-    PurcFetcher::ExceptionCode::DataCloneError,
-    PurcFetcher::ExceptionCode::EncodingError,
-    PurcFetcher::ExceptionCode::NotReadableError,
-    PurcFetcher::ExceptionCode::UnknownError,
-    PurcFetcher::ExceptionCode::ConstraintError,
-    PurcFetcher::ExceptionCode::DataError,
-    PurcFetcher::ExceptionCode::TransactionInactiveError,
-    PurcFetcher::ExceptionCode::ReadonlyError,
-    PurcFetcher::ExceptionCode::VersionError,
-    PurcFetcher::ExceptionCode::OperationError,
-    PurcFetcher::ExceptionCode::NotAllowedError,
-    PurcFetcher::ExceptionCode::RangeError,
-    PurcFetcher::ExceptionCode::TypeError,
-    PurcFetcher::ExceptionCode::StackOverflowError,
-    PurcFetcher::ExceptionCode::ExistingExceptionError
+    PurCFetcher::ExceptionCode,
+    PurCFetcher::ExceptionCode::IndexSizeError,
+    PurCFetcher::ExceptionCode::HierarchyRequestError,
+    PurCFetcher::ExceptionCode::WrongDocumentError,
+    PurCFetcher::ExceptionCode::InvalidCharacterError,
+    PurCFetcher::ExceptionCode::NoModificationAllowedError,
+    PurCFetcher::ExceptionCode::NotFoundError,
+    PurCFetcher::ExceptionCode::NotSupportedError,
+    PurCFetcher::ExceptionCode::InUseAttributeError,
+    PurCFetcher::ExceptionCode::InvalidStateError,
+    PurCFetcher::ExceptionCode::SyntaxError,
+    PurCFetcher::ExceptionCode::InvalidModificationError,
+    PurCFetcher::ExceptionCode::NamespaceError,
+    PurCFetcher::ExceptionCode::InvalidAccessError,
+    PurCFetcher::ExceptionCode::TypeMismatchError,
+    PurCFetcher::ExceptionCode::SecurityError,
+    PurCFetcher::ExceptionCode::NetworkError,
+    PurCFetcher::ExceptionCode::AbortError,
+    PurCFetcher::ExceptionCode::URLMismatchError,
+    PurCFetcher::ExceptionCode::QuotaExceededError,
+    PurCFetcher::ExceptionCode::TimeoutError,
+    PurCFetcher::ExceptionCode::InvalidNodeTypeError,
+    PurCFetcher::ExceptionCode::DataCloneError,
+    PurCFetcher::ExceptionCode::EncodingError,
+    PurCFetcher::ExceptionCode::NotReadableError,
+    PurCFetcher::ExceptionCode::UnknownError,
+    PurCFetcher::ExceptionCode::ConstraintError,
+    PurCFetcher::ExceptionCode::DataError,
+    PurCFetcher::ExceptionCode::TransactionInactiveError,
+    PurCFetcher::ExceptionCode::ReadonlyError,
+    PurCFetcher::ExceptionCode::VersionError,
+    PurCFetcher::ExceptionCode::OperationError,
+    PurCFetcher::ExceptionCode::NotAllowedError,
+    PurCFetcher::ExceptionCode::RangeError,
+    PurCFetcher::ExceptionCode::TypeError,
+    PurCFetcher::ExceptionCode::StackOverflowError,
+    PurCFetcher::ExceptionCode::ExistingExceptionError
     >;
 };
 

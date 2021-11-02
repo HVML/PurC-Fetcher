@@ -29,7 +29,7 @@
 #include <wtf/Hasher.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct MessagePortIdentifier {
     ProcessIdentifier processIdentifier;
@@ -87,25 +87,25 @@ inline String MessagePortIdentifier::logString() const
 
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
 struct MessagePortIdentifierHash {
-    static unsigned hash(const PurcFetcher::MessagePortIdentifier& key) { return key.hash(); }
-    static bool equal(const PurcFetcher::MessagePortIdentifier& a, const PurcFetcher::MessagePortIdentifier& b) { return a == b; }
+    static unsigned hash(const PurCFetcher::MessagePortIdentifier& key) { return key.hash(); }
+    static bool equal(const PurCFetcher::MessagePortIdentifier& a, const PurCFetcher::MessagePortIdentifier& b) { return a == b; }
     static const bool safeToCompareToEmptyOrDeleted = true;
 };
 
-template<> struct HashTraits<PurcFetcher::MessagePortIdentifier> : GenericHashTraits<PurcFetcher::MessagePortIdentifier> {
-    static PurcFetcher::MessagePortIdentifier emptyValue() { return { }; }
+template<> struct HashTraits<PurCFetcher::MessagePortIdentifier> : GenericHashTraits<PurCFetcher::MessagePortIdentifier> {
+    static PurCFetcher::MessagePortIdentifier emptyValue() { return { }; }
 
-    static void constructDeletedValue(PurcFetcher::MessagePortIdentifier& slot) { slot.processIdentifier = makeObjectIdentifier<PurcFetcher::ProcessIdentifierType>(std::numeric_limits<uint64_t>::max()); }
+    static void constructDeletedValue(PurCFetcher::MessagePortIdentifier& slot) { slot.processIdentifier = makeObjectIdentifier<PurCFetcher::ProcessIdentifierType>(std::numeric_limits<uint64_t>::max()); }
 
-    static bool isDeletedValue(const PurcFetcher::MessagePortIdentifier& slot) { return slot.processIdentifier.toUInt64() == std::numeric_limits<uint64_t>::max(); }
+    static bool isDeletedValue(const PurCFetcher::MessagePortIdentifier& slot) { return slot.processIdentifier.toUInt64() == std::numeric_limits<uint64_t>::max(); }
 };
 
-template<> struct DefaultHash<PurcFetcher::MessagePortIdentifier> {
+template<> struct DefaultHash<PurCFetcher::MessagePortIdentifier> {
     typedef MessagePortIdentifierHash Hash;
 };
 

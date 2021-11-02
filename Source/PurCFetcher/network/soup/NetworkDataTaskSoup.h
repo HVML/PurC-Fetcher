@@ -34,11 +34,11 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkDataTaskSoup final : public NetworkDataTask {
 public:
-    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurcFetcher::ResourceRequest& request, PurcFetcher::FrameIdentifier frameID, PurcFetcher::PageIdentifier pageID, PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurcFetcher::ContentSniffingPolicy shouldContentSniff, PurcFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
+    static Ref<NetworkDataTask> create(NetworkSession& session, NetworkDataTaskClient& client, const PurCFetcher::ResourceRequest& request, PurCFetcher::FrameIdentifier frameID, PurCFetcher::PageIdentifier pageID, PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy, PurCFetcher::ContentSniffingPolicy shouldContentSniff, PurCFetcher::ContentEncodingSniffingPolicy shouldContentEncodingSniff, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation)
     {
         return adoptRef(*new NetworkDataTaskSoup(session, client, request, frameID, pageID, storedCredentialsPolicy, shouldContentSniff, shouldContentEncodingSniff, shouldClearReferrerOnHTTPSToHTTPRedirect, dataTaskIsForMainFrameNavigation));
     }
@@ -46,7 +46,7 @@ public:
     ~NetworkDataTaskSoup();
 
 private:
-    NetworkDataTaskSoup(NetworkSession&, NetworkDataTaskClient&, const PurcFetcher::ResourceRequest&, PurcFetcher::FrameIdentifier, PurcFetcher::PageIdentifier, PurcFetcher::StoredCredentialsPolicy, PurcFetcher::ContentSniffingPolicy, PurcFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
+    NetworkDataTaskSoup(NetworkSession&, NetworkDataTaskClient&, const PurCFetcher::ResourceRequest&, PurCFetcher::FrameIdentifier, PurCFetcher::PageIdentifier, PurCFetcher::StoredCredentialsPolicy, PurCFetcher::ContentSniffingPolicy, PurCFetcher::ContentEncodingSniffingPolicy, bool shouldClearReferrerOnHTTPSToHTTPRedirect, bool dataTaskIsForMainFrameNavigation);
 
     void cancel() override;
     void resume() override;
@@ -61,20 +61,20 @@ private:
     void stopTimeout();
 
     enum class WasBlockingCookies { No, Yes };
-    void createRequest(PurcFetcher::ResourceRequest&&, WasBlockingCookies);
+    void createRequest(PurCFetcher::ResourceRequest&&, WasBlockingCookies);
     void clearRequest();
     static void sendRequestCallback(SoupRequest*, GAsyncResult*, NetworkDataTaskSoup*);
     void didSendRequest(GRefPtr<GInputStream>&&);
     void dispatchDidReceiveResponse();
-    void dispatchDidCompleteWithError(const PurcFetcher::ResourceError&);
+    void dispatchDidCompleteWithError(const PurCFetcher::ResourceError&);
 
     static gboolean tlsConnectionAcceptCertificateCallback(GTlsConnection*, GTlsCertificate*, GTlsCertificateFlags, NetworkDataTaskSoup*);
     bool tlsConnectionAcceptCertificate(GTlsCertificate*, GTlsCertificateFlags);
 
-    void applyAuthenticationToRequest(PurcFetcher::ResourceRequest&);
+    void applyAuthenticationToRequest(PurCFetcher::ResourceRequest&);
     static void authenticateCallback(SoupSession*, SoupMessage*, SoupAuth*, gboolean retrying, NetworkDataTaskSoup*);
-    void authenticate(PurcFetcher::AuthenticationChallenge&&);
-    void continueAuthenticate(PurcFetcher::AuthenticationChallenge&&);
+    void authenticate(PurCFetcher::AuthenticationChallenge&&);
+    void continueAuthenticate(PurCFetcher::AuthenticationChallenge&&);
 
     static void skipInputStreamForRedirectionCallback(GInputStream*, GAsyncResult*, NetworkDataTaskSoup*);
     void skipInputStreamForRedirection();
@@ -102,11 +102,11 @@ private:
     static void writeDownloadCallback(GOutputStream*, GAsyncResult*, NetworkDataTaskSoup*);
     void writeDownload();
     void didWriteDownload(gsize bytesWritten);
-    void didFailDownload(const PurcFetcher::ResourceError&);
+    void didFailDownload(const PurCFetcher::ResourceError&);
     void didFinishDownload();
     void cleanDownloadFiles();
 
-    void didFail(const PurcFetcher::ResourceError&);
+    void didFail(const PurCFetcher::ResourceError&);
 
     static void networkEventCallback(SoupMessage*, GSocketClientEvent, GIOStream*, NetworkDataTaskSoup*);
     void networkEvent(GSocketClientEvent, GIOStream*);
@@ -125,20 +125,20 @@ private:
     static void restartedCallback(SoupMessage*, NetworkDataTaskSoup*);
     void didRestart();
 
-    PurcFetcher::FrameIdentifier m_frameID;
-    PurcFetcher::PageIdentifier m_pageID;
+    PurCFetcher::FrameIdentifier m_frameID;
+    PurCFetcher::PageIdentifier m_pageID;
     State m_state { State::Suspended };
-    PurcFetcher::ContentSniffingPolicy m_shouldContentSniff;
+    PurCFetcher::ContentSniffingPolicy m_shouldContentSniff;
     GRefPtr<SoupRequest> m_soupRequest;
     GRefPtr<SoupMessage> m_soupMessage;
     GRefPtr<GInputStream> m_inputStream;
     GRefPtr<SoupMultipartInputStream> m_multipartInputStream;
     GRefPtr<GCancellable> m_cancellable;
     GRefPtr<GAsyncResult> m_pendingResult;
-    PurcFetcher::ProtectionSpace m_protectionSpaceForPersistentStorage;
-    PurcFetcher::Credential m_credentialForPersistentStorage;
-    PurcFetcher::ResourceRequest m_currentRequest;
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ProtectionSpace m_protectionSpaceForPersistentStorage;
+    PurCFetcher::Credential m_credentialForPersistentStorage;
+    PurCFetcher::ResourceRequest m_currentRequest;
+    PurCFetcher::ResourceResponse m_response;
     Vector<char> m_readBuffer;
     unsigned m_redirectCount { 0 };
     uint64_t m_bodyDataTotalBytesSent { 0 };
@@ -146,10 +146,10 @@ private:
     GRefPtr<GFile> m_downloadIntermediateFile;
     GRefPtr<GOutputStream> m_downloadOutputStream;
     bool m_allowOverwriteDownload { false };
-    PurcFetcher::NetworkLoadMetrics m_networkLoadMetrics;
+    PurCFetcher::NetworkLoadMetrics m_networkLoadMetrics;
     MonotonicTime m_startTime;
     bool m_isBlockingCookies { false };
     RunLoop::Timer<NetworkDataTaskSoup> m_timeoutSource;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

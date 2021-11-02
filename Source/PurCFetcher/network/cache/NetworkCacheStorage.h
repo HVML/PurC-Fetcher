@@ -40,7 +40,7 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 class IOChannel;
@@ -184,11 +184,11 @@ private:
     static const int maximumRetrievePriority = 4;
     Deque<std::unique_ptr<ReadOperation>> m_pendingReadOperationsByPriority[maximumRetrievePriority + 1];
     HashSet<std::unique_ptr<ReadOperation>> m_activeReadOperations;
-    PurcFetcher::Timer m_readOperationTimeoutTimer;
+    PurCFetcher::Timer m_readOperationTimeoutTimer;
 
     Deque<std::unique_ptr<WriteOperation>> m_pendingWriteOperations;
     HashSet<std::unique_ptr<WriteOperation>> m_activeWriteOperations;
-    PurcFetcher::Timer m_writeOperationDispatchTimer;
+    PurCFetcher::Timer m_writeOperationDispatchTimer;
 
     struct TraverseOperation;
     HashSet<std::unique_ptr<TraverseOperation>> m_activeTraverseOperations;

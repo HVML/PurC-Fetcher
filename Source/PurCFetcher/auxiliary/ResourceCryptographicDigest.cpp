@@ -31,7 +31,7 @@
 #include <wtf/Optional.h>
 #include <wtf/text/Base64.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 template<typename CharacterType>
 static bool parseHashAlgorithmAdvancingPosition(const CharacterType*& position, const CharacterType* end, ResourceCryptographicDigest::Algorithm& algorithm)

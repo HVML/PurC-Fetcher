@@ -31,7 +31,7 @@
 #include <wtf/Seconds.h>
 #include <wtf/StdLibExtras.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void calculateMemoryCacheSizes(CacheModel cacheModel, unsigned& cacheTotalCapacity, unsigned& cacheMinDeadCapacity, unsigned& cacheMaxDeadCapacity, Seconds& deadDecodedDataDeletionInterval, unsigned& backForwardCacheCapacity)
 {
@@ -172,7 +172,7 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
             urlCacheMemoryCapacity = 8 * MB;
 #else
         // Foundation memory cache capacity (in bytes)
-        // (These values are small because PurcFetcher does most caching itself.)
+        // (These values are small because PurCFetcher does most caching itself.)
         if (memorySize >= 1024)
             urlCacheMemoryCapacity = 4 * MB;
         else if (memorySize >= 512)
@@ -204,4 +204,4 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
     };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

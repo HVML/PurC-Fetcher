@@ -40,9 +40,9 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkLoadChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 static inline bool isSameOrigin(const URL& url, const SecurityOrigin* origin)
 {
@@ -299,7 +299,7 @@ void NetworkLoadChecker::continueCheckingRequestOrDoSyntheticRedirect(ResourceRe
     this->continueCheckingRequest(WTFMove(currentRequest), WTFMove(handler));
 }
 
-bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, PurcFetcher::ContentSecurityPolicyClient* client)
+bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, PurCFetcher::ContentSecurityPolicyClient* client)
 {
 #if 0
     auto* contentSecurityPolicy = this->contentSecurityPolicy();
@@ -504,7 +504,7 @@ void NetworkLoadChecker::processContentRuleListsForLoad(ResourceRequest&& reques
         }
 
         auto results = backend.processContentRuleListsForPingLoad(request.url(), m_mainDocumentURL);
-        PurcFetcher::ContentExtensions::applyResultsToRequest(ContentRuleListResults { results }, nullptr, request);
+        PurCFetcher::ContentExtensions::applyResultsToRequest(ContentRuleListResults { results }, nullptr, request);
         callback(ContentExtensionResult { WTFMove(request), results });
     });
 }
@@ -517,6 +517,6 @@ void NetworkLoadChecker::storeRedirectionIfNeeded(const ResourceRequest& request
     m_loadInformation.transactions.append(NetworkTransactionInformation { NetworkTransactionInformation::Type::Redirection, ResourceRequest { request }, ResourceResponse { response }, { } });
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

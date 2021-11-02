@@ -27,7 +27,7 @@
 
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct CacheQueryOptions {
     CacheQueryOptions isolatedCopy() const { return { ignoreSearch, ignoreMethod, ignoreVary, cacheName.isolatedCopy() }; }
@@ -38,4 +38,4 @@ struct CacheQueryOptions {
     String cacheName;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

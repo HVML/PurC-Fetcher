@@ -24,14 +24,14 @@ messages -> CacheStorageEngineConnection {
     Reference(uint64_t cacheIdentifier)
     Dereference(uint64_t cacheIdentifier)
 
-    Open(struct PurcFetcher::ClientOrigin origin, String cacheName) -> (PurcFetcher::DOMCacheEngine::CacheIdentifierOrError result) Async
-    Remove(uint64_t cacheIdentifier) -> (PurcFetcher::DOMCacheEngine::CacheIdentifierOrError result) Async
-    Caches(struct PurcFetcher::ClientOrigin origin, uint64_t updateCounter) -> (PurcFetcher::DOMCacheEngine::CacheInfosOrError result) Async
+    Open(struct PurCFetcher::ClientOrigin origin, String cacheName) -> (PurCFetcher::DOMCacheEngine::CacheIdentifierOrError result) Async
+    Remove(uint64_t cacheIdentifier) -> (PurCFetcher::DOMCacheEngine::CacheIdentifierOrError result) Async
+    Caches(struct PurCFetcher::ClientOrigin origin, uint64_t updateCounter) -> (PurCFetcher::DOMCacheEngine::CacheInfosOrError result) Async
 
-    RetrieveRecords(uint64_t cacheIdentifier, struct PurcFetcher::RetrieveRecordsOptions options) -> (PurcFetcher::DOMCacheEngine::RecordsOrError result) Async
-    DeleteMatchingRecords(uint64_t cacheIdentifier, PurcFetcher::ResourceRequest request, struct PurcFetcher::CacheQueryOptions options) -> (PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError result) Async
-    PutRecords(uint64_t cacheIdentifier, Vector<PurcFetcher::DOMCacheEngine::Record> record) -> (PurcFetcher::DOMCacheEngine::RecordIdentifiersOrError result) Async
+    RetrieveRecords(uint64_t cacheIdentifier, struct PurCFetcher::RetrieveRecordsOptions options) -> (PurCFetcher::DOMCacheEngine::RecordsOrError result) Async
+    DeleteMatchingRecords(uint64_t cacheIdentifier, PurCFetcher::ResourceRequest request, struct PurCFetcher::CacheQueryOptions options) -> (PurCFetcher::DOMCacheEngine::RecordIdentifiersOrError result) Async
+    PutRecords(uint64_t cacheIdentifier, Vector<PurCFetcher::DOMCacheEngine::Record> record) -> (PurCFetcher::DOMCacheEngine::RecordIdentifiersOrError result) Async
 
-    ClearMemoryRepresentation(struct PurcFetcher::ClientOrigin origin) -> (Optional<PurcFetcher::DOMCacheEngine::Error> error) Async
+    ClearMemoryRepresentation(struct PurCFetcher::ClientOrigin origin) -> (Optional<PurCFetcher::DOMCacheEngine::Error> error) Async
     EngineRepresentation() -> (String representation) Async
 }

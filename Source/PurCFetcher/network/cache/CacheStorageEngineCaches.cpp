@@ -35,10 +35,10 @@
 #include <wtf/UUID.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace CacheStorage {
-using namespace PurcFetcher::DOMCacheEngine;
+using namespace PurCFetcher::DOMCacheEngine;
 using namespace NetworkCache;
 
 static inline String cachesListFilename(const String& cachesRootPath)
@@ -56,12 +56,12 @@ String Caches::cachesSizeFilename(const String& cachesRootsPath)
     return FileSystem::pathByAppendingComponent(cachesRootsPath, "estimatedsize"_s);
 }
 
-Ref<Caches> Caches::create(Engine& engine, PurcFetcher::ClientOrigin&& origin, String&& rootPath)
+Ref<Caches> Caches::create(Engine& engine, PurCFetcher::ClientOrigin&& origin, String&& rootPath)
 {
     return adoptRef(*new Caches { engine, WTFMove(origin), WTFMove(rootPath) });
 }
 
-Caches::Caches(Engine& engine, PurcFetcher::ClientOrigin&& origin, String&& rootPath)
+Caches::Caches(Engine& engine, PurCFetcher::ClientOrigin&& origin, String&& rootPath)
     : m_engine(&engine)
     , m_origin(WTFMove(origin))
     , m_rootPath(WTFMove(rootPath))
@@ -73,7 +73,7 @@ Caches::~Caches()
     ASSERT(m_pendingWritingCachesToDiskCallbacks.isEmpty());
 }
 
-void Caches::retrieveOriginFromDirectory(const String& folderPath, WorkQueue& queue, WTF::CompletionHandler<void(Optional<PurcFetcher::ClientOrigin>&&)>&& completionHandler)
+void Caches::retrieveOriginFromDirectory(const String& folderPath, WorkQueue& queue, WTF::CompletionHandler<void(Optional<PurCFetcher::ClientOrigin>&&)>&& completionHandler)
 {
     queue.dispatch([completionHandler = WTFMove(completionHandler), filename = cachesOriginFilename(folderPath)]() mutable {
         if (!FileSystem::fileExists(filename)) {
@@ -110,16 +110,16 @@ void Caches::storeOrigin(CompletionCallback&& completionHandler)
     });
 }
 
-Optional<PurcFetcher::ClientOrigin> Caches::readOrigin(const Data& data)
+Optional<PurCFetcher::ClientOrigin> Caches::readOrigin(const Data& data)
 {
     WTF::Persistence::Decoder decoder(data.data(), data.size());
 
-    Optional<PurcFetcher::SecurityOriginData> topOrigin;
+    Optional<PurCFetcher::SecurityOriginData> topOrigin;
     decoder >> topOrigin;
     if (!topOrigin)
         return WTF::nullopt;
 
-    Optional<PurcFetcher::SecurityOriginData> clientOrigin;
+    Optional<PurCFetcher::SecurityOriginData> clientOrigin;
     decoder >> clientOrigin;
     if (!clientOrigin)
         return WTF::nullopt;
@@ -130,7 +130,7 @@ Optional<PurcFetcher::ClientOrigin> Caches::readOrigin(const Data& data)
     }};
 }
 
-void Caches::initialize(PurcFetcher::DOMCacheEngine::CompletionCallback&& callback)
+void Caches::initialize(PurCFetcher::DOMCacheEngine::CompletionCallback&& callback)
 {
     if (m_isInitialized) {
         callback(WTF::nullopt);
@@ -519,7 +519,7 @@ void Caches::readRecordsList(Cache& cache, NetworkCache::Storage::TraverseHandle
     });
 }
 
-void Caches::requestSpace(uint64_t spaceRequired, PurcFetcher::DOMCacheEngine::CompletionCallback&& callback)
+void Caches::requestSpace(uint64_t spaceRequired, PurCFetcher::DOMCacheEngine::CompletionCallback&& callback)
 {
     if (!m_engine) {
         callback(Error::QuotaExceeded);
@@ -528,10 +528,10 @@ void Caches::requestSpace(uint64_t spaceRequired, PurcFetcher::DOMCacheEngine::C
 
     m_engine->requestSpace(m_origin, spaceRequired, [callback = WTFMove(callback)](auto decision) mutable {
         switch (decision) {
-        case PurcFetcher::StorageQuotaManager::Decision::Deny:
+        case PurCFetcher::StorageQuotaManager::Decision::Deny:
             callback(Error::QuotaExceeded);
             return;
-        case PurcFetcher::StorageQuotaManager::Decision::Grant:
+        case PurCFetcher::StorageQuotaManager::Decision::Grant:
             callback({ });
         };
     });
@@ -711,4 +711,4 @@ uint64_t Caches::storageSize() const
 
 } // namespace CacheStorage
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

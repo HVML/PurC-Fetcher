@@ -29,7 +29,7 @@
 #define XDG_PREFIX _wk_xdg
 #include "xdgmime.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 String MIMETypeRegistry::getMIMETypeForExtension(const String& extension)
 {

@@ -32,7 +32,7 @@
 #include "NetworkCacheCoders.h"
 #include "RegistrableDomain.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 void SubresourceInfo::encode(WTF::Persistence::Encoder& encoder) const
@@ -95,13 +95,13 @@ Optional<SubresourceInfo> SubresourceInfo::decode(WTF::Persistence::Decoder& dec
         return WTF::nullopt;
     info.m_firstPartyForCookies = WTFMove(*firstPartyForCookies);
 
-    Optional<PurcFetcher::HTTPHeaderMap> requestHeaders;
+    Optional<PurCFetcher::HTTPHeaderMap> requestHeaders;
     decoder >> requestHeaders;
     if (!requestHeaders)
         return WTF::nullopt;
     info.m_requestHeaders = WTFMove(*requestHeaders);
 
-    Optional<PurcFetcher::ResourceLoadPriority> priority;
+    Optional<PurCFetcher::ResourceLoadPriority> priority;
     decoder >> priority;
     if (!priority)
         return WTF::nullopt;
@@ -112,7 +112,7 @@ Optional<SubresourceInfo> SubresourceInfo::decode(WTF::Persistence::Decoder& dec
 
 bool SubresourceInfo::isFirstParty() const
 {
-    PurcFetcher::RegistrableDomain firstPartyDomain { m_firstPartyForCookies };
+    PurCFetcher::RegistrableDomain firstPartyDomain { m_firstPartyForCookies };
     return firstPartyDomain.matches(URL(URL(), key().identifier()));
 }
 
@@ -152,7 +152,7 @@ SubresourcesEntry::SubresourcesEntry(const Storage::Record& storageEntry)
     ASSERT(m_key.type() == "SubResources");
 }
 
-SubresourceInfo::SubresourceInfo(const Key& key, const PurcFetcher::ResourceRequest& request, const SubresourceInfo* previousInfo)
+SubresourceInfo::SubresourceInfo(const Key& key, const PurCFetcher::ResourceRequest& request, const SubresourceInfo* previousInfo)
     : m_key(key)
     , m_lastSeen(WallTime::now())
     , m_firstSeen(previousInfo ? previousInfo->firstSeen() : m_lastSeen)
@@ -210,7 +210,7 @@ void SubresourcesEntry::updateSubresourceLoads(const Vector<std::unique_ptr<Subr
     m_subresources = makeSubresourceInfoVector(subresourceLoads, &m_subresources);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 } // namespace NetworkCache
 
 #endif // ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)

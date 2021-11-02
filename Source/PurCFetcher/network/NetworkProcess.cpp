@@ -110,8 +110,8 @@
 #include "WebSWServerToContextConnectionMessages.h"
 #endif
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 static void callExitSoon(IPC::Connection*)
 {
@@ -119,7 +119,7 @@ static void callExitSoon(IPC::Connection*)
     // the process will exit forcibly.
     auto watchdogDelay = 10_s;
 
-    WorkQueue::create("com.apple.PurcFetcher.NetworkProcess.WatchDogQueue")->dispatchAfter(watchdogDelay, [] {
+    WorkQueue::create("com.apple.PurCFetcher.NetworkProcess.WatchDogQueue")->dispatchAfter(watchdogDelay, [] {
         // We use _exit here since the watchdog callback is called from another thread and we don't want
         // global destructors or atexit handlers to be called from this thread while the main thread is busy
         // doing its thing.
@@ -314,7 +314,7 @@ void NetworkProcess::initializeNetworkProcess(NetworkProcessCreationParameters&&
 #else
     WTF::setProcessPrivileges({ ProcessPrivilege::CanAccessRawCookies, ProcessPrivilege::CanAccessCredentials });
 #endif
-    PurcFetcher::NetworkStorageSession::permitProcessToUseCookieAPI(true);
+    PurCFetcher::NetworkStorageSession::permitProcessToUseCookieAPI(true);
     platformInitializeNetworkProcess(parameters);
 
     WTF::Thread::setCurrentThreadIsUserInitiated();
@@ -374,7 +374,7 @@ void NetworkProcess::initializeNetworkProcess(NetworkProcessCreationParameters&&
     for (auto& scheme : parameters.urlSchemesRegisteredAsNoAccess)
         registerURLSchemeAsNoAccess(scheme);
     
-    RELEASE_LOG(Process, "%p - NetworkProcess::initializeNetworkProcess: Presenting process = %d", this, PurcFetcher::presentingApplicationPID());
+    RELEASE_LOG(Process, "%p - NetworkProcess::initializeNetworkProcess: Presenting process = %d", this, PurCFetcher::presentingApplicationPID());
 }
 
 void NetworkProcess::initializeConnection(IPC::Connection* connection)
@@ -475,24 +475,24 @@ void NetworkProcess::forEachNetworkSession(const Function<void(NetworkSession&)>
         functor(*session);
 }
 
-std::unique_ptr<PurcFetcher::NetworkStorageSession> NetworkProcess::newTestingSession(const PAL::SessionID& sessionID)
+std::unique_ptr<PurCFetcher::NetworkStorageSession> NetworkProcess::newTestingSession(const PAL::SessionID& sessionID)
 {
 #if PLATFORM(COCOA)
     // Session name should be short enough for shared memory region name to be under the limit, otherwise sandbox rules won't work (see <rdar://problem/13642852>).
-    String sessionName = makeString("PurcFetcher Test-", getCurrentProcessID());
+    String sessionName = makeString("PurCFetcher Test-", getCurrentProcessID());
 
-    auto session = adoptCF(PurcFetcher::createPrivateStorageSession(sessionName.createCFString().get()));
+    auto session = adoptCF(PurCFetcher::createPrivateStorageSession(sessionName.createCFString().get()));
 
     RetainPtr<CFHTTPCookieStorageRef> cookieStorage;
-    if (PurcFetcher::NetworkStorageSession::processMayUseCookieAPI()) {
+    if (PurCFetcher::NetworkStorageSession::processMayUseCookieAPI()) {
         ASSERT(hasProcessPrivilege(ProcessPrivilege::CanAccessRawCookies));
         if (session)
             cookieStorage = adoptCF(_CFURLStorageSessionCopyCookieStorage(kCFAllocatorDefault, session.get()));
     }
 
-    return makeUnique<PurcFetcher::NetworkStorageSession>(sessionID, WTFMove(session), WTFMove(cookieStorage));
+    return makeUnique<PurCFetcher::NetworkStorageSession>(sessionID, WTFMove(session), WTFMove(cookieStorage));
 #elif USE(CURL) || USE(SOUP)
-    return makeUnique<PurcFetcher::NetworkStorageSession>(sessionID);
+    return makeUnique<PurCFetcher::NetworkStorageSession>(sessionID);
 #endif
 }
 
@@ -520,7 +520,7 @@ void NetworkProcess::ensureSession(const PAL::SessionID& sessionID, bool shouldU
     if (sessionID.isEphemeral())
         storageSession = adoptCF(createPrivateStorageSession(cfIdentifier.get()));
     else
-        storageSession = PurcFetcher::NetworkStorageSession::createCFStorageSessionForIdentifier(cfIdentifier.get());
+        storageSession = PurCFetcher::NetworkStorageSession::createCFStorageSessionForIdentifier(cfIdentifier.get());
 
     if (NetworkStorageSession::processMayUseCookieAPI()) {
         ASSERT(hasProcessPrivilege(ProcessPrivilege::CanAccessRawCookies));
@@ -540,21 +540,21 @@ void NetworkProcess::cookieAcceptPolicyChanged(HTTPCookieAcceptPolicy newPolicy)
         connection->cookieAcceptPolicyChanged(newPolicy);
 }
 
-PurcFetcher::NetworkStorageSession* NetworkProcess::storageSession(const PAL::SessionID& sessionID) const
+PurCFetcher::NetworkStorageSession* NetworkProcess::storageSession(const PAL::SessionID& sessionID) const
 {
     if (sessionID == PAL::SessionID::defaultSessionID())
         return &defaultStorageSession();
     return m_networkStorageSessions.get(sessionID);
 }
 
-PurcFetcher::NetworkStorageSession& NetworkProcess::defaultStorageSession() const
+PurCFetcher::NetworkStorageSession& NetworkProcess::defaultStorageSession() const
 {
     if (!m_defaultNetworkStorageSession)
         m_defaultNetworkStorageSession = platformCreateDefaultStorageSession();
     return *m_defaultNetworkStorageSession;
 }
 
-void NetworkProcess::forEachNetworkStorageSession(const Function<void(PurcFetcher::NetworkStorageSession&)>& functor)
+void NetworkProcess::forEachNetworkStorageSession(const Function<void(PurCFetcher::NetworkStorageSession&)>& functor)
 {
     functor(defaultStorageSession());
     for (auto& storageSession : m_networkStorageSessions.values())
@@ -1255,7 +1255,7 @@ void NetworkProcess::resetCacheMaxAgeCapForPrevalentResources(PAL::SessionID ses
     completionHandler();
 }
 
-void NetworkProcess::didCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, const RegistrableDomain& fromDomain, const RegistrableDomain& toDomain, OptionSet<PurcFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID)
+void NetworkProcess::didCommitCrossSiteLoadWithDataTransfer(PAL::SessionID sessionID, const RegistrableDomain& fromDomain, const RegistrableDomain& toDomain, OptionSet<PurCFetcher::CrossSiteNavigationDataTransfer::Flag> navigationDataTransfer, WebPageProxyIdentifier webPageProxyID, PurCFetcher::PageIdentifier webPageID)
 {
     ASSERT(!navigationDataTransfer.isEmpty());
 
@@ -1302,7 +1302,7 @@ void NetworkProcess::resetCrossSiteLoadsWithLinkDecorationForTesting(PAL::Sessio
     completionHandler();
 }
 
-void NetworkProcess::hasIsolatedSession(PAL::SessionID sessionID, const PurcFetcher::RegistrableDomain& domain, CompletionHandler<void(bool)>&& completionHandler) const
+void NetworkProcess::hasIsolatedSession(PAL::SessionID sessionID, const PurCFetcher::RegistrableDomain& domain, CompletionHandler<void(bool)>&& completionHandler) const
 {
     bool result = false;
     if (auto* networkSession = this->networkSession(sessionID))
@@ -1310,7 +1310,7 @@ void NetworkProcess::hasIsolatedSession(PAL::SessionID sessionID, const PurcFetc
     completionHandler(result);
 }
 
-void NetworkProcess::setAppBoundDomainsForResourceLoadStatistics(PAL::SessionID sessionID, HashSet<PurcFetcher::RegistrableDomain>&& appBoundDomains, CompletionHandler<void()>&& completionHandler)
+void NetworkProcess::setAppBoundDomainsForResourceLoadStatistics(PAL::SessionID sessionID, HashSet<PurCFetcher::RegistrableDomain>&& appBoundDomains, CompletionHandler<void()>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession(sessionID)) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics()) {
@@ -1330,7 +1330,7 @@ void NetworkProcess::setShouldDowngradeReferrerForTesting(bool enabled, Completi
     completionHandler();
 }
 
-void NetworkProcess::setThirdPartyCookieBlockingMode(PAL::SessionID sessionID, PurcFetcher::ThirdPartyCookieBlockingMode blockingMode, CompletionHandler<void()>&& completionHandler)
+void NetworkProcess::setThirdPartyCookieBlockingMode(PAL::SessionID sessionID, PurCFetcher::ThirdPartyCookieBlockingMode blockingMode, CompletionHandler<void()>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession(sessionID))
         networkSession->setThirdPartyCookieBlockingMode(blockingMode);
@@ -1339,7 +1339,7 @@ void NetworkProcess::setThirdPartyCookieBlockingMode(PAL::SessionID sessionID, P
     completionHandler();
 }
 
-void NetworkProcess::setShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID sessionID, PurcFetcher::SameSiteStrictEnforcementEnabled enabled, CompletionHandler<void()>&& completionHandler)
+void NetworkProcess::setShouldEnbleSameSiteStrictEnforcementForTesting(PAL::SessionID sessionID, PurCFetcher::SameSiteStrictEnforcementEnabled enabled, CompletionHandler<void()>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession(sessionID))
         networkSession->setShouldEnbleSameSiteStrictEnforcement(enabled);
@@ -1348,7 +1348,7 @@ void NetworkProcess::setShouldEnbleSameSiteStrictEnforcementForTesting(PAL::Sess
     completionHandler();
 }
 
-void NetworkProcess::setFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID sessionID, PurcFetcher::FirstPartyWebsiteDataRemovalMode mode, CompletionHandler<void()>&& completionHandler)
+void NetworkProcess::setFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionID sessionID, PurCFetcher::FirstPartyWebsiteDataRemovalMode mode, CompletionHandler<void()>&& completionHandler)
 {
     if (auto* networkSession = this->networkSession(sessionID)) {
         if (auto* resourceLoadStatistics = networkSession->resourceLoadStatistics())
@@ -1361,7 +1361,7 @@ void NetworkProcess::setFirstPartyWebsiteDataRemovalModeForTesting(PAL::SessionI
     }
 }
 
-void NetworkProcess::setToSameSiteStrictCookiesForTesting(PAL::SessionID sessionID, const PurcFetcher::RegistrableDomain& domain, CompletionHandler<void()>&& completionHandler)
+void NetworkProcess::setToSameSiteStrictCookiesForTesting(PAL::SessionID sessionID, const PurCFetcher::RegistrableDomain& domain, CompletionHandler<void()>&& completionHandler)
 {
     if (auto* networkStorageSession = storageSession(sessionID))
         networkStorageSession->setAllCookiesToSameSiteStrict(domain, WTFMove(completionHandler));
@@ -1372,7 +1372,7 @@ void NetworkProcess::setToSameSiteStrictCookiesForTesting(PAL::SessionID session
 }
 #endif // ENABLE(RESOURCE_LOAD_STATISTICS)
 
-void NetworkProcess::preconnectTo(PAL::SessionID sessionID, WebPageProxyIdentifier webPageProxyID, PurcFetcher::PageIdentifier webPageID, const URL& url, const String& userAgent, PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
+void NetworkProcess::preconnectTo(PAL::SessionID sessionID, WebPageProxyIdentifier webPageProxyID, PurCFetcher::PageIdentifier webPageID, const URL& url, const String& userAgent, PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
 {
     UNUSED_PARAM(sessionID);
     UNUSED_PARAM(webPageProxyID);
@@ -1397,7 +1397,7 @@ void NetworkProcess::preconnectTo(PAL::SessionID sessionID, WebPageProxyIdentifi
     parameters.storedCredentialsPolicy = storedCredentialsPolicy;
     parameters.shouldPreconnectOnly = PreconnectOnly::Yes;
 
-    new PreconnectTask(*this, sessionID, WTFMove(parameters), [](const PurcFetcher::ResourceError&) { });
+    new PreconnectTask(*this, sessionID, WTFMove(parameters), [](const PurCFetcher::ResourceError&) { });
 #else
     UNUSED_PARAM(url);
     UNUSED_PARAM(userAgent);
@@ -1485,7 +1485,7 @@ void NetworkProcess::fetchWebsiteData(PAL::SessionID sessionID, OptionSet<Websit
             for (auto& securityOrigin : securityOrigins)
                 callbackAggregator->m_websiteData.entries.append({ securityOrigin, WebsiteDataType::Credentials, 0 });
         }
-        auto securityOrigins = PurcFetcher::CredentialStorage::originsWithSessionCredentials();
+        auto securityOrigins = PurCFetcher::CredentialStorage::originsWithSessionCredentials();
         for (auto& securityOrigin : securityOrigins)
             callbackAggregator->m_websiteData.entries.append({ securityOrigin, WebsiteDataType::Credentials, 0 });
     }
@@ -1587,7 +1587,7 @@ void NetworkProcess::deleteWebsiteData(PAL::SessionID sessionID, OptionSet<Websi
     if (websiteDataTypes.contains(WebsiteDataType::Credentials)) {
         if (auto* session = storageSession(sessionID))
             session->credentialStorage().clearCredentials();
-        PurcFetcher::CredentialStorage::clearSessionCredentials();
+        PurCFetcher::CredentialStorage::clearSessionCredentials();
     }
 
     auto clearTasksHandler = WTF::CallbackAggregator::create([this, callbackID] {
@@ -1743,7 +1743,7 @@ void NetworkProcess::deleteWebsiteDataForOrigins(PAL::SessionID sessionID, Optio
             for (auto& originData : originDatas)
                 session->credentialStorage().removeCredentialsWithOrigin(originData);
         }
-        PurcFetcher::CredentialStorage::removeSessionCredentialsWithOrigins(originDatas);
+        PurCFetcher::CredentialStorage::removeSessionCredentialsWithOrigins(originDatas);
     }
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
@@ -1781,7 +1781,7 @@ static Vector<WebsiteData::Entry> filterForRegistrableDomains(const Vector<Regis
     return result;
 }
 
-static Vector<PurcFetcher::SecurityOriginData> filterForRegistrableDomains(const HashSet<PurcFetcher::SecurityOriginData>& origins, const Vector<RegistrableDomain>& domainsToDelete, HashSet<RegistrableDomain>& domainsDeleted)
+static Vector<PurCFetcher::SecurityOriginData> filterForRegistrableDomains(const HashSet<PurCFetcher::SecurityOriginData>& origins, const Vector<RegistrableDomain>& domainsToDelete, HashSet<RegistrableDomain>& domainsDeleted)
 {
     Vector<SecurityOriginData> originsDeleted;
     for (const auto& origin : origins) {
@@ -1834,13 +1834,13 @@ void NetworkProcess::deleteAndRestrictWebsiteDataForRegistrableDomains(PAL::Sess
             networkStorageSession->getHostnamesWithCookies(hostNamesWithCookies);
 
             hostnamesWithCookiesToDelete = filterForRegistrableDomains(domains.domainsToDeleteAllCookiesFor, hostNamesWithCookies);
-            networkStorageSession->deleteCookiesForHostnames(hostnamesWithCookiesToDelete, PurcFetcher::IncludeHttpOnlyCookies::Yes);
+            networkStorageSession->deleteCookiesForHostnames(hostnamesWithCookiesToDelete, PurCFetcher::IncludeHttpOnlyCookies::Yes);
 
             for (const auto& host : hostnamesWithCookiesToDelete)
                 callbackAggregator->m_domains.add(RegistrableDomain::uncheckedCreateFromHost(host));
 
             hostnamesWithCookiesToDelete = filterForRegistrableDomains(domains.domainsToDeleteAllButHttpOnlyCookiesFor, hostNamesWithCookies);
-            networkStorageSession->deleteCookiesForHostnames(hostnamesWithCookiesToDelete, PurcFetcher::IncludeHttpOnlyCookies::No);
+            networkStorageSession->deleteCookiesForHostnames(hostnamesWithCookiesToDelete, PurCFetcher::IncludeHttpOnlyCookies::No);
 
             for (const auto& host : hostnamesWithCookiesToDelete)
                 callbackAggregator->m_domains.add(RegistrableDomain::uncheckedCreateFromHost(host));
@@ -1882,9 +1882,9 @@ void NetworkProcess::deleteAndRestrictWebsiteDataForRegistrableDomains(PAL::Sess
                 session->credentialStorage().removeCredentialsWithOrigin(origin);
         }
 
-        auto origins = PurcFetcher::CredentialStorage::originsWithSessionCredentials();
+        auto origins = PurCFetcher::CredentialStorage::originsWithSessionCredentials();
         auto originsToDelete = filterForRegistrableDomains(origins, domainsToDeleteAllNonCookieWebsiteDataFor, callbackAggregator->m_domains);
-        PurcFetcher::CredentialStorage::removeSessionCredentialsWithOrigins(originsToDelete);
+        PurCFetcher::CredentialStorage::removeSessionCredentialsWithOrigins(originsToDelete);
     }
     
     if (websiteDataTypes.contains(WebsiteDataType::DOMCache)) {
@@ -2118,7 +2118,7 @@ void NetworkProcess::downloadRequest(PAL::SessionID sessionID, DownloadID downlo
     downloadManager().startDownload(sessionID, downloadID, request, isNavigatingToAppBoundDomain, suggestedFilename);
 }
 
-void NetworkProcess::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, PurcFetcher::SandboxExtension::Handle&& sandboxExtensionHandle)
+void NetworkProcess::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, PurCFetcher::SandboxExtension::Handle&& sandboxExtensionHandle)
 {
     downloadManager().resumeDownload(sessionID, downloadID, resumeData, path, WTFMove(sandboxExtensionHandle));
 }
@@ -2135,7 +2135,7 @@ void NetworkProcess::publishDownloadProgress(DownloadID downloadID, const URL& u
 }
 #endif
 
-void NetworkProcess::continueWillSendRequest(DownloadID downloadID, PurcFetcher::ResourceRequest&& request)
+void NetworkProcess::continueWillSendRequest(DownloadID downloadID, PurCFetcher::ResourceRequest&& request)
 {
     downloadManager().continueWillSendRequest(downloadID, WTFMove(request));
 }
@@ -2323,7 +2323,7 @@ void NetworkProcess::resume()
 
 void NetworkProcess::prefetchDNS(const String& hostname)
 {
-    PurcFetcher::prefetchDNS(hostname);
+    PurCFetcher::prefetchDNS(hostname);
 }
 
 void NetworkProcess::cacheStorageRootPath(PAL::SessionID sessionID, CacheStorageRootPathCallback&& callback)
@@ -2432,7 +2432,7 @@ WebIDBServer& NetworkProcess::webIDBServer(PAL::SessionID sessionID)
 #endif
 
 
-void NetworkProcess::collectIndexedDatabaseOriginsForVersion(const String& path, HashSet<PurcFetcher::SecurityOriginData>& securityOrigins)
+void NetworkProcess::collectIndexedDatabaseOriginsForVersion(const String& path, HashSet<PurCFetcher::SecurityOriginData>& securityOrigins)
 {
     if (path.isEmpty())
         return;
@@ -2451,12 +2451,12 @@ void NetworkProcess::collectIndexedDatabaseOriginsForVersion(const String& path,
     }
 }
 
-HashSet<PurcFetcher::SecurityOriginData> NetworkProcess::indexedDatabaseOrigins(const String& path)
+HashSet<PurCFetcher::SecurityOriginData> NetworkProcess::indexedDatabaseOrigins(const String& path)
 {
     if (path.isEmpty())
         return { };
     
-    HashSet<PurcFetcher::SecurityOriginData> securityOrigins;
+    HashSet<PurCFetcher::SecurityOriginData> securityOrigins;
     collectIndexedDatabaseOriginsForVersion(FileSystem::pathByAppendingComponent(path, "v0"), securityOrigins);
     collectIndexedDatabaseOriginsForVersion(FileSystem::pathByAppendingComponent(path, "v1"), securityOrigins);
 
@@ -2769,8 +2769,8 @@ void NetworkProcess::updateBundleIdentifier(String&& bundleIdentifier, Completio
 {
     UNUSED_PARAM(bundleIdentifier);
 #if PLATFORM(COCOA)
-    PurcFetcher::clearApplicationBundleIdentifierTestingOverride();
-    PurcFetcher::setApplicationBundleIdentifier(bundleIdentifier);
+    PurCFetcher::clearApplicationBundleIdentifierTestingOverride();
+    PurCFetcher::setApplicationBundleIdentifier(bundleIdentifier);
 #endif
     completionHandler();
 }
@@ -2778,9 +2778,9 @@ void NetworkProcess::updateBundleIdentifier(String&& bundleIdentifier, Completio
 void NetworkProcess::clearBundleIdentifier(CompletionHandler<void()>&& completionHandler)
 {
 #if PLATFORM(COCOA)
-    PurcFetcher::clearApplicationBundleIdentifierTestingOverride();
+    PurCFetcher::clearApplicationBundleIdentifierTestingOverride();
 #endif
     completionHandler();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

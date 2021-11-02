@@ -27,7 +27,7 @@
 
 #include <wtf/OptionSet.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsiteAutoplayQuirk : uint8_t {
     SynthesizedPauseEvents = 1 << 0,
@@ -40,13 +40,13 @@ enum class WebsiteAutoplayQuirk : uint8_t {
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::WebsiteAutoplayQuirk> {
+template<> struct EnumTraits<PurCFetcher::WebsiteAutoplayQuirk> {
     using values = EnumValues<
-        PurcFetcher::WebsiteAutoplayQuirk,
-        PurcFetcher::WebsiteAutoplayQuirk::SynthesizedPauseEvents,
-        PurcFetcher::WebsiteAutoplayQuirk::InheritedUserGestures,
-        PurcFetcher::WebsiteAutoplayQuirk::ArbitraryUserGestures,
-        PurcFetcher::WebsiteAutoplayQuirk::PerDocumentAutoplayBehavior
+        PurCFetcher::WebsiteAutoplayQuirk,
+        PurCFetcher::WebsiteAutoplayQuirk::SynthesizedPauseEvents,
+        PurCFetcher::WebsiteAutoplayQuirk::InheritedUserGestures,
+        PurCFetcher::WebsiteAutoplayQuirk::ArbitraryUserGestures,
+        PurCFetcher::WebsiteAutoplayQuirk::PerDocumentAutoplayBehavior
     >;
 };
 

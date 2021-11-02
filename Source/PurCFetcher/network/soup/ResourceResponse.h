@@ -30,7 +30,7 @@
 #include <libsoup/soup.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ResourceResponse : public ResourceResponseBase {
 public:
@@ -109,4 +109,4 @@ bool ResourceResponse::decode(Decoder& decoder, ResourceResponse& response)
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

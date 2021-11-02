@@ -27,7 +27,7 @@
 
 #include <wtf/FileSystem.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 enum class DirectoryEntryType { Directory, File };

@@ -40,7 +40,7 @@
 #include <wtf/text/CString.h>
 
 namespace IPC {
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 void ArgumentCoder<ResourceRequest>::encodePlatformData(Encoder& encoder, const ResourceRequest& resourceRequest)
 {
@@ -271,7 +271,7 @@ void ArgumentCoder<SerializedPlatformDataCueValue>::encodePlatformData(Encoder& 
     ASSERT_NOT_REACHED();
 }
 
-Optional<SerializedPlatformDataCueValue>  ArgumentCoder<SerializedPlatformDataCueValue>::decodePlatformData(Decoder& decoder, PurcFetcher::SerializedPlatformDataCueValue::PlatformType platformType)
+Optional<SerializedPlatformDataCueValue>  ArgumentCoder<SerializedPlatformDataCueValue>::decodePlatformData(Decoder& decoder, PurCFetcher::SerializedPlatformDataCueValue::PlatformType platformType)
 {
     ASSERT_NOT_REACHED();
     return WTF::nullopt;

@@ -42,7 +42,7 @@
 #include <wtf/URL.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 constexpr unsigned maximumURLSize = 0x04000000;
 
@@ -614,4 +614,4 @@ bool SecurityOrigin::isLocalHostOrLoopbackIPAddress(StringView host)
     return false;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

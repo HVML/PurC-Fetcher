@@ -41,7 +41,7 @@
 OBJC_CLASS NSCachedURLResponse;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class Credential;
 class ProtectionSpace;

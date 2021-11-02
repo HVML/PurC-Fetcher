@@ -67,7 +67,7 @@ IGNORE_WARNINGS_BEGIN("implicit-fallthrough")
 // Older versions of gperf like to use the `register` keyword.
 #define register
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static const struct HeaderNameString {
     const char* const name;
@@ -650,7 +650,7 @@ StringView httpHeaderNameString(HTTPHeaderName headerName)
     return StringView { reinterpret_cast<const LChar*>(name.name), static_cast<unsigned>(name.length) };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #if defined(__clang__)
 IGNORE_WARNINGS_END

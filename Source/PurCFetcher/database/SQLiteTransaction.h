@@ -29,7 +29,7 @@
 #include <wtf/FastMalloc.h>
 #include <wtf/Noncopyable.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SQLiteDatabase;
 
@@ -55,6 +55,6 @@ private:
     bool m_readOnly;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // SQLiteTransation_H

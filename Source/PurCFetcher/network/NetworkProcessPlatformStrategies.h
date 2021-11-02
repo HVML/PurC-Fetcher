@@ -28,17 +28,17 @@
 #include "LoaderStrategy.h"
 #include "PlatformStrategies.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-class NetworkProcessPlatformStrategies : public PurcFetcher::PlatformStrategies {
+class NetworkProcessPlatformStrategies : public PurCFetcher::PlatformStrategies {
 public:
     static void initialize();
     
 private:
-    // PurcFetcher::PlatformStrategies
-    PurcFetcher::LoaderStrategy* createLoaderStrategy() override;
-    PurcFetcher::PasteboardStrategy* createPasteboardStrategy() override;
-    PurcFetcher::MediaStrategy* createMediaStrategy() override;
+    // PurCFetcher::PlatformStrategies
+    PurCFetcher::LoaderStrategy* createLoaderStrategy() override;
+    PurCFetcher::PasteboardStrategy* createPasteboardStrategy() override;
+    PurCFetcher::MediaStrategy* createMediaStrategy() override;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

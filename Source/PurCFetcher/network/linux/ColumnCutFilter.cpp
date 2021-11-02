@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnCutFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ColumnCutFilter::ColumnCutFilter()
 {
@@ -129,5 +129,5 @@ Vector<Row> ColumnCutFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

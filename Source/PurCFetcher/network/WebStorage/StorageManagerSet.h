@@ -33,15 +33,15 @@
 #include "SessionID.h"
 #include <wtf/WeakPtr.h>
 
-using PurcFetcher::SecurityOriginData;
+using PurCFetcher::SecurityOriginData;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SandboxExtension;
 
 using ConnectToStorageAreaCallback = CompletionHandler<void(const Optional<StorageAreaIdentifier>&)>;
 using GetValuesCallback = CompletionHandler<void(const HashMap<String, String>&)>;
-using GetOriginsCallback = CompletionHandler<void(HashSet<PurcFetcher::SecurityOriginData>&&)>;
+using GetOriginsCallback = CompletionHandler<void(HashSet<PurCFetcher::SecurityOriginData>&&)>;
 using GetOriginDetailsCallback = CompletionHandler<void(Vector<LocalStorageDatabaseTracker::OriginDetails>&&)>;
 using DeleteCallback = CompletionHandler<void()>;
 
@@ -64,10 +64,10 @@ public:
 
     void getSessionStorageOrigins(PAL::SessionID, GetOriginsCallback&&);
     void deleteSessionStorage(PAL::SessionID, DeleteCallback&&);
-    void deleteSessionStorageForOrigins(PAL::SessionID, const Vector<PurcFetcher::SecurityOriginData>&, DeleteCallback&&);
+    void deleteSessionStorageForOrigins(PAL::SessionID, const Vector<PurCFetcher::SecurityOriginData>&, DeleteCallback&&);
     void getLocalStorageOrigins(PAL::SessionID, GetOriginsCallback&&);
     void deleteLocalStorageModifiedSince(PAL::SessionID, WallTime, DeleteCallback&&);
-    void deleteLocalStorageForOrigins(PAL::SessionID, const Vector<PurcFetcher::SecurityOriginData>&, DeleteCallback&&);
+    void deleteLocalStorageForOrigins(PAL::SessionID, const Vector<PurCFetcher::SecurityOriginData>&, DeleteCallback&&);
     void getLocalStorageOriginDetails(PAL::SessionID, GetOriginDetailsCallback&&);
     void renameOrigin(PAL::SessionID, const URL&, const URL&, CompletionHandler<void()>&&);
 
@@ -105,4 +105,4 @@ private:
     Condition m_stateChangeCondition;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

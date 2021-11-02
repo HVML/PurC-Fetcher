@@ -34,9 +34,9 @@
 namespace WTF {
 namespace Persistence {
 
-template<> struct Coder<PurcFetcher::HTTPHeaderMap> {
-    static void encode(Encoder&, const PurcFetcher::HTTPHeaderMap&);
-    static Optional<PurcFetcher::HTTPHeaderMap> decode(Decoder&);
+template<> struct Coder<PurCFetcher::HTTPHeaderMap> {
+    static void encode(Encoder&, const PurCFetcher::HTTPHeaderMap&);
+    static Optional<PurCFetcher::HTTPHeaderMap> decode(Decoder&);
 };
 
 }

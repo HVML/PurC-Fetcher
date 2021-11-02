@@ -30,7 +30,7 @@
 
 #include "WKBase.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 ProcessAssertion::ProcessAssertion(ProcessID pid, const String&, ProcessAssertionType assertionType)
     : m_assertionType(assertionType)
@@ -45,6 +45,6 @@ bool ProcessAssertion::isValid() const
     return true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // !PLATFORM(IOS_FAMILY)

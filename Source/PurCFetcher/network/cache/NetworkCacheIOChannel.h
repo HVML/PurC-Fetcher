@@ -36,7 +36,7 @@
 #include <wtf/glib/GRefPtr.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 class IOChannel : public ThreadSafeRefCounted<IOChannel> {

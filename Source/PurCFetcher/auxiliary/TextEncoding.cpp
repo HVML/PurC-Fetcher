@@ -35,7 +35,7 @@
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/StringView.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static const TextEncoding& UTF7Encoding()
 {
@@ -194,4 +194,4 @@ String decodeURLEscapeSequences(StringView string, const TextEncoding& encoding)
     return decodeEscapeSequences<URLEscapeSequence>(string, encoding);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

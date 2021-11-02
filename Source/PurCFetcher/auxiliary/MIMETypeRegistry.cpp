@@ -62,7 +62,7 @@
 #include "ImageDecoderGStreamer.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 const HashSet<String, ASCIICaseInsensitiveHash>& MIMETypeRegistry::supportedImageMIMETypes()
 {
@@ -85,7 +85,7 @@ const HashSet<String, ASCIICaseInsensitiveHash>& MIMETypeRegistry::supportedImag
 #endif
 #if PLATFORM(IOS_FAMILY)
         // Add malformed image mimetype for compatibility with Mail and to handle malformed mimetypes from the net
-        // These were removed for <rdar://problem/6564538> Re-enable UTI code in PurcFetcher now that MobileCoreServices exists
+        // These were removed for <rdar://problem/6564538> Re-enable UTI code in PurCFetcher now that MobileCoreServices exists
         // But Mail relies on at least image/tif reported as being supported (should be image/tiff).
         // This can be removed when Mail addresses:
         // <rdar://problem/7879510> Mail should use standard image mimetypes
@@ -802,4 +802,4 @@ String MIMETypeRegistry::appendFileExtensionIfNecessary(const String& filename, 
     return makeString(filename, '.', preferredExtension);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

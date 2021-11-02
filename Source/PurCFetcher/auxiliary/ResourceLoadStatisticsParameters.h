@@ -31,7 +31,7 @@
 #include "RegistrableDomain.h"
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct ResourceLoadStatisticsParameters {
 
@@ -43,13 +43,13 @@ struct ResourceLoadStatisticsParameters {
     bool shouldIncludeLocalhost { true };
     bool enableDebugMode { false };
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    PurcFetcher::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode { PurcFetcher::ThirdPartyCookieBlockingMode::All };
-    PurcFetcher::SameSiteStrictEnforcementEnabled sameSiteStrictEnforcementEnabled { PurcFetcher::SameSiteStrictEnforcementEnabled::No };
+    PurCFetcher::ThirdPartyCookieBlockingMode thirdPartyCookieBlockingMode { PurCFetcher::ThirdPartyCookieBlockingMode::All };
+    PurCFetcher::SameSiteStrictEnforcementEnabled sameSiteStrictEnforcementEnabled { PurCFetcher::SameSiteStrictEnforcementEnabled::No };
 #endif
-    PurcFetcher::FirstPartyWebsiteDataRemovalMode firstPartyWebsiteDataRemovalMode { PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies };
-    PurcFetcher::RegistrableDomain standaloneApplicationDomain;
-    HashSet<PurcFetcher::RegistrableDomain> appBoundDomains;
-    PurcFetcher::RegistrableDomain manualPrevalentResource;
+    PurCFetcher::FirstPartyWebsiteDataRemovalMode firstPartyWebsiteDataRemovalMode { PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies };
+    PurCFetcher::RegistrableDomain standaloneApplicationDomain;
+    HashSet<PurCFetcher::RegistrableDomain> appBoundDomains;
+    PurCFetcher::RegistrableDomain manualPrevalentResource;
     
     void encode(IPC::Encoder& encoder) const
     {
@@ -108,33 +108,33 @@ struct ResourceLoadStatisticsParameters {
             return WTF::nullopt;
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-        Optional<PurcFetcher::ThirdPartyCookieBlockingMode> thirdPartyCookieBlockingMode;
+        Optional<PurCFetcher::ThirdPartyCookieBlockingMode> thirdPartyCookieBlockingMode;
         decoder >> thirdPartyCookieBlockingMode;
         if (!thirdPartyCookieBlockingMode)
             return WTF::nullopt;
 
-        Optional<PurcFetcher::SameSiteStrictEnforcementEnabled> sameSiteStrictEnforcementEnabled;
+        Optional<PurCFetcher::SameSiteStrictEnforcementEnabled> sameSiteStrictEnforcementEnabled;
         decoder >> sameSiteStrictEnforcementEnabled;
         if (!sameSiteStrictEnforcementEnabled)
             return WTF::nullopt;
 #endif
 
-        Optional<PurcFetcher::FirstPartyWebsiteDataRemovalMode> firstPartyWebsiteDataRemovalMode;
+        Optional<PurCFetcher::FirstPartyWebsiteDataRemovalMode> firstPartyWebsiteDataRemovalMode;
         decoder >> firstPartyWebsiteDataRemovalMode;
         if (!firstPartyWebsiteDataRemovalMode)
             return WTF::nullopt;
 
-        Optional<PurcFetcher::RegistrableDomain> standaloneApplicationDomain;
+        Optional<PurCFetcher::RegistrableDomain> standaloneApplicationDomain;
         decoder >> standaloneApplicationDomain;
         if (!standaloneApplicationDomain)
             return WTF::nullopt;
 
-        Optional<HashSet<PurcFetcher::RegistrableDomain>> appBoundDomains;
+        Optional<HashSet<PurCFetcher::RegistrableDomain>> appBoundDomains;
         decoder >> appBoundDomains;
         if (!appBoundDomains)
             return WTF::nullopt;
 
-        Optional<PurcFetcher::RegistrableDomain> manualPrevalentResource;
+        Optional<PurCFetcher::RegistrableDomain> manualPrevalentResource;
         decoder >> manualPrevalentResource;
         if (!manualPrevalentResource)
             return WTF::nullopt;
@@ -159,4 +159,4 @@ struct ResourceLoadStatisticsParameters {
     }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

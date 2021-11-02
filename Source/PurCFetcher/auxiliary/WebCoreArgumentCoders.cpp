@@ -48,7 +48,7 @@
 // FIXME: Seems like we could use std::tuple to cut down the code below a lot!
 
 namespace IPC {
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 static void encodeSharedBuffer(Encoder& encoder, const SharedBuffer* buffer)
 {
@@ -227,12 +227,12 @@ bool ArgumentCoder<Credential>::decode(Decoder& decoder, Credential& credential)
     return true;
 }
 
-void ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>>::encode(Encoder& encoder, const RefPtr<PurcFetcher::SharedBuffer>& buffer)
+void ArgumentCoder<RefPtr<PurCFetcher::SharedBuffer>>::encode(Encoder& encoder, const RefPtr<PurCFetcher::SharedBuffer>& buffer)
 {
     encodeSharedBuffer(encoder, buffer.get());
 }
 
-Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>>::decode(Decoder& decoder)
+Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<PurCFetcher::SharedBuffer>>::decode(Decoder& decoder)
 {
     RefPtr<SharedBuffer> buffer;
     if (!decodeSharedBuffer(decoder, buffer))
@@ -241,12 +241,12 @@ Optional<RefPtr<SharedBuffer>> ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>>:
     return buffer;
 }
 
-void ArgumentCoder<Ref<PurcFetcher::SharedBuffer>>::encode(Encoder& encoder, const Ref<PurcFetcher::SharedBuffer>& buffer)
+void ArgumentCoder<Ref<PurCFetcher::SharedBuffer>>::encode(Encoder& encoder, const Ref<PurCFetcher::SharedBuffer>& buffer)
 {
     encodeSharedBuffer(encoder, buffer.ptr());
 }
 
-Optional<Ref<SharedBuffer>> ArgumentCoder<Ref<PurcFetcher::SharedBuffer>>::decode(Decoder& decoder)
+Optional<Ref<SharedBuffer>> ArgumentCoder<Ref<PurCFetcher::SharedBuffer>>::decode(Decoder& decoder)
 {
     RefPtr<SharedBuffer> buffer;
     if (!decodeSharedBuffer(decoder, buffer) || !buffer)
@@ -450,11 +450,11 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(requestHeadersGuard))
         return WTF::nullopt;
 
-    PurcFetcher::ResourceRequest request;
+    PurCFetcher::ResourceRequest request;
     if (!decoder.decode(request))
         return WTF::nullopt;
 
-    Optional<PurcFetcher::FetchOptions> options;
+    Optional<PurCFetcher::FetchOptions> options;
     decoder >> options;
     if (!options)
         return WTF::nullopt;
@@ -467,7 +467,7 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(responseHeadersGuard))
         return WTF::nullopt;
 
-    PurcFetcher::ResourceResponse response;
+    PurCFetcher::ResourceResponse response;
     if (!decoder.decode(response))
         return WTF::nullopt;
 
@@ -479,7 +479,7 @@ Optional<DOMCacheEngine::Record> ArgumentCoder<DOMCacheEngine::Record>::decode(D
     if (!decoder.decode(responseBodySize))
         return WTF::nullopt;
 
-    PurcFetcher::DOMCacheEngine::ResponseBody responseBody;
+    PurCFetcher::DOMCacheEngine::ResponseBody responseBody;
     bool hasSharedBufferBody;
     if (!decoder.decode(hasSharedBufferBody))
         return WTF::nullopt;

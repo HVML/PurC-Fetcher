@@ -27,7 +27,7 @@
 
 #include <wtf/EnumTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class ResourceLoadPriority : uint8_t {
     VeryLow,
@@ -55,18 +55,18 @@ inline ResourceLoadPriority& operator--(ResourceLoadPriority& priority)
     return priority = static_cast<ResourceLoadPriority>(static_cast<int>(priority) - 1);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::ResourceLoadPriority> {
+template<> struct EnumTraits<PurCFetcher::ResourceLoadPriority> {
     using values = EnumValues<
-        PurcFetcher::ResourceLoadPriority,
-        PurcFetcher::ResourceLoadPriority::VeryLow,
-        PurcFetcher::ResourceLoadPriority::Low,
-        PurcFetcher::ResourceLoadPriority::Medium,
-        PurcFetcher::ResourceLoadPriority::High,
-        PurcFetcher::ResourceLoadPriority::VeryHigh
+        PurCFetcher::ResourceLoadPriority,
+        PurCFetcher::ResourceLoadPriority::VeryLow,
+        PurCFetcher::ResourceLoadPriority::Low,
+        PurCFetcher::ResourceLoadPriority::Medium,
+        PurCFetcher::ResourceLoadPriority::High,
+        PurCFetcher::ResourceLoadPriority::VeryHigh
     >;
 };
 

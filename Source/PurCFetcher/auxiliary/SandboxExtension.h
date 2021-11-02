@@ -39,7 +39,7 @@ class Encoder;
 class Decoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
     
 class SandboxExtensionImpl;
 
@@ -184,4 +184,4 @@ String resolvePathForSandboxExtension(const String& path);
 String resolveAndCreateReadWriteDirectoryForSandboxExtension(const String& path);
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

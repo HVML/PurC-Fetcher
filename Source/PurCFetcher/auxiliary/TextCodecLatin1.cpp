@@ -31,7 +31,7 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static const UChar latin1ConversionTable[256] = {
     0x0000, 0x0001, 0x0002, 0x0003, 0x0004, 0x0005, 0x0006, 0x0007, // 00-07
@@ -246,4 +246,4 @@ Vector<uint8_t> TextCodecLatin1::encode(StringView string, UnencodableHandling h
     return encodeComplexWindowsLatin1(string, handling);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

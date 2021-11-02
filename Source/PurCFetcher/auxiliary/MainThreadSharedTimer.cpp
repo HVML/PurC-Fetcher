@@ -35,7 +35,7 @@
 #include <wtf/glib/RunLoopSourcePriority.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 MainThreadSharedTimer& MainThreadSharedTimer::singleton()
 {
@@ -51,7 +51,7 @@ MainThreadSharedTimer::MainThreadSharedTimer()
 {
 #if USE(GLIB)
     m_timer.setPriority(RunLoopSourcePriority::MainThreadSharedTimer);
-    m_timer.setName("[PurcFetcher] MainThreadSharedTimer");
+    m_timer.setName("[PurCFetcher] MainThreadSharedTimer");
 #endif
 }
 
@@ -83,4 +83,4 @@ void MainThreadSharedTimer::fired()
     m_firedFunction();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

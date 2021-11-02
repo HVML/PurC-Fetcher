@@ -38,7 +38,7 @@
 #include <wtf/Variant.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 //class ContentSecurityPolicy;
 struct ContentSecurityPolicyClient;
 class SecurityOrigin;
@@ -46,7 +46,7 @@ enum class PreflightPolicy : uint8_t;
 enum class StoredCredentialsPolicy : uint8_t;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkCORSPreflightChecker;
 class NetworkProcess;
@@ -58,26 +58,26 @@ class NetworkLoadChecker : public CanMakeWeakPtr<NetworkLoadChecker> {
 public:
     enum class LoadType : bool { MainFrame, Other };
 
-    NetworkLoadChecker(NetworkProcess&, NetworkResourceLoader*, NetworkSchemeRegistry*, PurcFetcher::FetchOptions&&, PAL::SessionID, WebPageProxyIdentifier, PurcFetcher::HTTPHeaderMap&&, URL&&, RefPtr<PurcFetcher::SecurityOrigin>&&, RefPtr<PurcFetcher::SecurityOrigin>&& topOrigin, PurcFetcher::PreflightPolicy, String&& referrer, bool isHTTPSUpgradeEnabled = false, bool shouldCaptureExtraNetworkLoadMetrics = false, LoadType requestLoadType = LoadType::Other);
+    NetworkLoadChecker(NetworkProcess&, NetworkResourceLoader*, NetworkSchemeRegistry*, PurCFetcher::FetchOptions&&, PAL::SessionID, WebPageProxyIdentifier, PurCFetcher::HTTPHeaderMap&&, URL&&, RefPtr<PurCFetcher::SecurityOrigin>&&, RefPtr<PurCFetcher::SecurityOrigin>&& topOrigin, PurCFetcher::PreflightPolicy, String&& referrer, bool isHTTPSUpgradeEnabled = false, bool shouldCaptureExtraNetworkLoadMetrics = false, LoadType requestLoadType = LoadType::Other);
     ~NetworkLoadChecker();
 
     struct RedirectionTriplet {
-        PurcFetcher::ResourceRequest request;
-        PurcFetcher::ResourceRequest redirectRequest;
-        PurcFetcher::ResourceResponse redirectResponse;
+        PurCFetcher::ResourceRequest request;
+        PurCFetcher::ResourceRequest redirectRequest;
+        PurCFetcher::ResourceResponse redirectResponse;
     };
 
-    using RequestOrRedirectionTripletOrError = Variant<PurcFetcher::ResourceRequest, RedirectionTriplet, PurcFetcher::ResourceError>;
+    using RequestOrRedirectionTripletOrError = Variant<PurCFetcher::ResourceRequest, RedirectionTriplet, PurCFetcher::ResourceError>;
     using ValidationHandler = CompletionHandler<void(RequestOrRedirectionTripletOrError&&)>;
-    void check(PurcFetcher::ResourceRequest&&, PurcFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
+    void check(PurCFetcher::ResourceRequest&&, PurCFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
 
-    using RedirectionRequestOrError = Expected<RedirectionTriplet, PurcFetcher::ResourceError>;
+    using RedirectionRequestOrError = Expected<RedirectionTriplet, PurCFetcher::ResourceError>;
     using RedirectionValidationHandler = CompletionHandler<void(RedirectionRequestOrError&&)>;
-    void checkRedirection(PurcFetcher::ResourceRequest&& request, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ContentSecurityPolicyClient*, RedirectionValidationHandler&&);
+    void checkRedirection(PurCFetcher::ResourceRequest&& request, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse, PurCFetcher::ContentSecurityPolicyClient*, RedirectionValidationHandler&&);
 
-    PurcFetcher::ResourceError validateResponse(const PurcFetcher::ResourceRequest&, PurcFetcher::ResourceResponse&);
+    PurCFetcher::ResourceError validateResponse(const PurCFetcher::ResourceRequest&, PurCFetcher::ResourceResponse&);
 
-    void setCSPResponseHeaders(PurcFetcher::ContentSecurityPolicyResponseHeaders&& headers) { m_cspResponseHeaders = WTFMove(headers); }
+    void setCSPResponseHeaders(PurCFetcher::ContentSecurityPolicyResponseHeaders&& headers) { m_cspResponseHeaders = WTFMove(headers); }
 #if ENABLE(CONTENT_EXTENSIONS)
     void setContentExtensionController(URL&& mainDocumentURL, Optional<UserContentControllerIdentifier> identifier)
     {
@@ -89,55 +89,55 @@ public:
     NetworkProcess& networkProcess() { return m_networkProcess; }
 
     const URL& url() const { return m_url; }
-    PurcFetcher::StoredCredentialsPolicy storedCredentialsPolicy() const { return m_storedCredentialsPolicy; }
+    PurCFetcher::StoredCredentialsPolicy storedCredentialsPolicy() const { return m_storedCredentialsPolicy; }
 
-    PurcFetcher::NetworkLoadInformation takeNetworkLoadInformation() { return WTFMove(m_loadInformation); }
-    void storeRedirectionIfNeeded(const PurcFetcher::ResourceRequest&, const PurcFetcher::ResourceResponse&);
+    PurCFetcher::NetworkLoadInformation takeNetworkLoadInformation() { return WTFMove(m_loadInformation); }
+    void storeRedirectionIfNeeded(const PurCFetcher::ResourceRequest&, const PurCFetcher::ResourceResponse&);
 
     void enableContentExtensionsCheck() { m_checkContentExtensions = true; }
 
 private:
-    PurcFetcher::ContentSecurityPolicy* contentSecurityPolicy();
+    PurCFetcher::ContentSecurityPolicy* contentSecurityPolicy();
     bool isChecking() const { return !!m_corsPreflightChecker; }
     bool isRedirected() const { return m_redirectCount; }
 
-    void checkRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
+    void checkRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ContentSecurityPolicyClient*, ValidationHandler&&);
 
-    bool isAllowedByContentSecurityPolicy(const PurcFetcher::ResourceRequest&, PurcFetcher::ContentSecurityPolicyClient*);
+    bool isAllowedByContentSecurityPolicy(const PurCFetcher::ResourceRequest&, PurCFetcher::ContentSecurityPolicyClient*);
 
-    void continueCheckingRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
-    void continueCheckingRequestOrDoSyntheticRedirect(PurcFetcher::ResourceRequest&& originalRequest, PurcFetcher::ResourceRequest&& currentRequest, ValidationHandler&&);
+    void continueCheckingRequest(PurCFetcher::ResourceRequest&&, ValidationHandler&&);
+    void continueCheckingRequestOrDoSyntheticRedirect(PurCFetcher::ResourceRequest&& originalRequest, PurCFetcher::ResourceRequest&& currentRequest, ValidationHandler&&);
 
     bool doesNotNeedCORSCheck(const URL&) const;
-    void checkCORSRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
-    void checkCORSRedirectedRequest(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
-    void checkCORSRequestWithPreflight(PurcFetcher::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRequest(PurCFetcher::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRedirectedRequest(PurCFetcher::ResourceRequest&&, ValidationHandler&&);
+    void checkCORSRequestWithPreflight(PurCFetcher::ResourceRequest&&, ValidationHandler&&);
 
     RequestOrRedirectionTripletOrError accessControlErrorForValidationHandler(String&&);
 
 #if ENABLE(CONTENT_EXTENSIONS)
     struct ContentExtensionResult {
-        PurcFetcher::ResourceRequest request;
-        const PurcFetcher::ContentRuleListResults& results;
+        PurCFetcher::ResourceRequest request;
+        const PurCFetcher::ContentRuleListResults& results;
     };
-    using ContentExtensionResultOrError = Expected<ContentExtensionResult, PurcFetcher::ResourceError>;
+    using ContentExtensionResultOrError = Expected<ContentExtensionResult, PurCFetcher::ResourceError>;
     using ContentExtensionCallback = CompletionHandler<void(ContentExtensionResultOrError&&)>;
-    void processContentRuleListsForLoad(PurcFetcher::ResourceRequest&&, ContentExtensionCallback&&);
+    void processContentRuleListsForLoad(PurCFetcher::ResourceRequest&&, ContentExtensionCallback&&);
 #endif
 
-    void applyHTTPSUpgradeIfNeeded(PurcFetcher::ResourceRequest&&, CompletionHandler<void(PurcFetcher::ResourceRequest&&)>&&) const;
+    void applyHTTPSUpgradeIfNeeded(PurCFetcher::ResourceRequest&&, CompletionHandler<void(PurCFetcher::ResourceRequest&&)>&&) const;
 
-    PurcFetcher::FetchOptions m_options;
-    PurcFetcher::StoredCredentialsPolicy m_storedCredentialsPolicy;
+    PurCFetcher::FetchOptions m_options;
+    PurCFetcher::StoredCredentialsPolicy m_storedCredentialsPolicy;
     PAL::SessionID m_sessionID;
     Ref<NetworkProcess> m_networkProcess;
     WebPageProxyIdentifier m_webPageProxyID;
-    PurcFetcher::HTTPHeaderMap m_originalRequestHeaders; // Needed for CORS checks.
-    PurcFetcher::HTTPHeaderMap m_firstRequestHeaders; // Needed for CORS checks.
+    PurCFetcher::HTTPHeaderMap m_originalRequestHeaders; // Needed for CORS checks.
+    PurCFetcher::HTTPHeaderMap m_firstRequestHeaders; // Needed for CORS checks.
     URL m_url;
-    RefPtr<PurcFetcher::SecurityOrigin> m_origin;
-    RefPtr<PurcFetcher::SecurityOrigin> m_topOrigin;
-    Optional<PurcFetcher::ContentSecurityPolicyResponseHeaders> m_cspResponseHeaders;
+    RefPtr<PurCFetcher::SecurityOrigin> m_origin;
+    RefPtr<PurCFetcher::SecurityOrigin> m_topOrigin;
+    Optional<PurCFetcher::ContentSecurityPolicyResponseHeaders> m_cspResponseHeaders;
 #if ENABLE(CONTENT_EXTENSIONS)
     URL m_mainDocumentURL;
     Optional<UserContentControllerIdentifier> m_userContentControllerIdentifier;
@@ -146,10 +146,10 @@ private:
     std::unique_ptr<NetworkCORSPreflightChecker> m_corsPreflightChecker;
     bool m_isSameOriginRequest { true };
     bool m_isSimpleRequest { true };
-//    std::unique_ptr<PurcFetcher::ContentSecurityPolicy> m_contentSecurityPolicy;
+//    std::unique_ptr<PurCFetcher::ContentSecurityPolicy> m_contentSecurityPolicy;
     size_t m_redirectCount { 0 };
     URL m_previousURL;
-    PurcFetcher::PreflightPolicy m_preflightPolicy;
+    PurCFetcher::PreflightPolicy m_preflightPolicy;
     String m_referrer;
     bool m_checkContentExtensions { false };
     bool m_shouldCaptureExtraNetworkLoadMetrics { false };
@@ -158,7 +158,7 @@ private:
     bool m_isHTTPSUpgradeEnabled { false };
 #endif
 
-    PurcFetcher::NetworkLoadInformation m_loadInformation;
+    PurCFetcher::NetworkLoadInformation m_loadInformation;
 
     LoadType m_requestLoadType;
     RefPtr<NetworkSchemeRegistry> m_schemeRegistry;

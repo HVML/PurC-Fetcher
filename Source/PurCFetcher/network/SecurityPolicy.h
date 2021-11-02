@@ -31,7 +31,7 @@
 #include "FetchOptions.h"
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SecurityOrigin;
 class UserContentURLPattern;
@@ -76,4 +76,4 @@ public:
     static bool isAccessAllowed(const SecurityOrigin& activeOrigin, const URL& targetURL);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

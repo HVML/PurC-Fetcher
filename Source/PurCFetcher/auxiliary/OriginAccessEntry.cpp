@@ -33,7 +33,7 @@
 
 #include "SecurityOrigin.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
     
 OriginAccessEntry::OriginAccessEntry(const String& protocol, const String& host, SubdomainSetting subdomainSetting, IPAddressSetting ipAddressSetting)
     : m_protocol(protocol.convertToASCIILowercase())
@@ -77,4 +77,4 @@ bool OriginAccessEntry::matchesOrigin(const SecurityOrigin& origin) const
     return false;
 }
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher

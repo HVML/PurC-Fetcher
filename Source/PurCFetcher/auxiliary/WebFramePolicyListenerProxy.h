@@ -35,7 +35,7 @@ namespace API {
 class WebsitePolicies;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SafeBrowsingWarning;
 
@@ -46,7 +46,7 @@ enum class ShouldExpectAppBoundDomainResult : bool { No, Yes };
 class WebFramePolicyListenerProxy : public API::ObjectImpl<API::Object::Type::FramePolicyListener> {
 public:
 
-    using Reply = CompletionHandler<void(PurcFetcher::PolicyAction, API::WebsitePolicies*, ProcessSwapRequestedByClient, RefPtr<SafeBrowsingWarning>&&, Optional<NavigatingToAppBoundDomain>)>;
+    using Reply = CompletionHandler<void(PurCFetcher::PolicyAction, API::WebsitePolicies*, ProcessSwapRequestedByClient, RefPtr<SafeBrowsingWarning>&&, Optional<NavigatingToAppBoundDomain>)>;
     static Ref<WebFramePolicyListenerProxy> create(Reply&& reply, ShouldExpectSafeBrowsingResult expectSafeBrowsingResult, ShouldExpectAppBoundDomainResult expectAppBoundDomainResult)
     {
         return adoptRef(*new WebFramePolicyListenerProxy(WTFMove(reply), expectSafeBrowsingResult, expectAppBoundDomainResult));
@@ -69,4 +69,4 @@ private:
     Reply m_reply;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

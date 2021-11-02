@@ -30,7 +30,7 @@
 #include "ResourceResponse.h"
 #include <wtf/Vector.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct NetworkTransactionInformation {
     enum class Type { Redirection, Preflight };
@@ -53,16 +53,16 @@ struct NetworkLoadInformation {
 }
 
 namespace WTF {
-template<> struct EnumTraits<PurcFetcher::NetworkTransactionInformation::Type> {
+template<> struct EnumTraits<PurCFetcher::NetworkTransactionInformation::Type> {
     using values = EnumValues<
-        PurcFetcher::NetworkTransactionInformation::Type,
-        PurcFetcher::NetworkTransactionInformation::Type::Redirection,
-        PurcFetcher::NetworkTransactionInformation::Type::Preflight
+        PurCFetcher::NetworkTransactionInformation::Type,
+        PurCFetcher::NetworkTransactionInformation::Type::Redirection,
+        PurCFetcher::NetworkTransactionInformation::Type::Preflight
     >;
 };
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 template<class Encoder> inline void NetworkTransactionInformation::encode(Encoder& encoder) const
 {

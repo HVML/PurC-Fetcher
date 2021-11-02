@@ -43,8 +43,8 @@
 #include <wtf/FileSystem.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 // Suggested by https://www.w3.org/TR/webstorage/#disk-space
 const unsigned StorageManager::localStorageDatabaseQuotaInBytes = 5 * 1024 * 1024;
@@ -159,8 +159,8 @@ Vector<LocalStorageDatabaseTracker::OriginDetails> StorageManager::getLocalStora
 void StorageManager::renameOrigin(const URL& oldURL, const URL& newURL)
 {
     ASSERT(!RunLoop::isMain());
-    auto oldOrigin = PurcFetcher::SecurityOriginData::fromURL(oldURL);
-    auto newOrigin = PurcFetcher::SecurityOriginData::fromURL(newURL);
+    auto oldOrigin = PurCFetcher::SecurityOriginData::fromURL(oldURL);
+    auto newOrigin = PurCFetcher::SecurityOriginData::fromURL(newURL);
     for (auto& localStorageNamespace : m_localStorageNamespaces.values())
         localStorageNamespace->flushAndClose(oldOrigin);
 
@@ -312,4 +312,4 @@ Vector<StorageAreaIdentifier> StorageManager::allStorageAreaIdentifiers() const
     return identifiers;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

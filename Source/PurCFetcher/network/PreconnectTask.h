@@ -32,7 +32,7 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkLoad;
 class NetworkLoadParameters;
@@ -40,7 +40,7 @@ class NetworkProcess;
 
 class PreconnectTask final : public NetworkLoadClient {
 public:
-    PreconnectTask(NetworkProcess&, PAL::SessionID, NetworkLoadParameters&&, CompletionHandler<void(const PurcFetcher::ResourceError&)>&& completionHandler = { });
+    PreconnectTask(NetworkProcess&, PAL::SessionID, NetworkLoadParameters&&, CompletionHandler<void(const PurCFetcher::ResourceError&)>&& completionHandler = { });
     ~PreconnectTask();
 
 private:
@@ -48,19 +48,19 @@ private:
     bool isSynchronous() const final { return false; }
     bool isAllowedToAskUserForCredentials() const final { return false; }
     void didSendData(unsigned long long bytesSent, unsigned long long totalBytesToBeSent) final;
-    void willSendRedirectedRequest(PurcFetcher::ResourceRequest&&, PurcFetcher::ResourceRequest&& redirectRequest, PurcFetcher::ResourceResponse&& redirectResponse) final;
-    void didReceiveResponse(PurcFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
-    void didReceiveBuffer(Ref<PurcFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
-    void didFinishLoading(const PurcFetcher::NetworkLoadMetrics&) final;
-    void didFailLoading(const PurcFetcher::ResourceError&) final;
+    void willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, PurCFetcher::ResourceRequest&& redirectRequest, PurCFetcher::ResourceResponse&& redirectResponse) final;
+    void didReceiveResponse(PurCFetcher::ResourceResponse&&, ResponseCompletionHandler&&) final;
+    void didReceiveBuffer(Ref<PurCFetcher::SharedBuffer>&&, int reportedEncodedDataLength) final;
+    void didFinishLoading(const PurCFetcher::NetworkLoadMetrics&) final;
+    void didFailLoading(const PurCFetcher::ResourceError&) final;
 
-    void didFinish(const PurcFetcher::ResourceError&);
+    void didFinish(const PurCFetcher::ResourceError&);
 
     std::unique_ptr<NetworkLoad> m_networkLoad;
-    CompletionHandler<void(const PurcFetcher::ResourceError&)> m_completionHandler;
-    PurcFetcher::Timer m_timeoutTimer;
+    CompletionHandler<void(const PurCFetcher::ResourceError&)> m_completionHandler;
+    PurCFetcher::Timer m_timeoutTimer;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(SERVER_PRECONNECT)

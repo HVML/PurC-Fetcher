@@ -33,7 +33,7 @@
 #include "WebCoreThread.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static String originStringFromURL(const URL& url)
 {
@@ -202,4 +202,4 @@ void CredentialStorage::clearSessionCredentials()
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -37,9 +37,9 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(m_parameters.sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkCORSPreflightChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 NetworkCORSPreflightChecker::NetworkCORSPreflightChecker(NetworkProcess& networkProcess, NetworkResourceLoader* networkResourceLoader, Parameters&& parameters, bool shouldCaptureExtraNetworkLoadMetrics, CompletionCallback&& completionCallback)
     : m_parameters(WTFMove(parameters))
@@ -80,7 +80,7 @@ void NetworkCORSPreflightChecker::startPreflight()
         ASSERT_NOT_REACHED();
 }
 
-void NetworkCORSPreflightChecker::willPerformHTTPRedirection(PurcFetcher::ResourceResponse&& response, PurcFetcher::ResourceRequest&&, RedirectCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::willPerformHTTPRedirection(PurCFetcher::ResourceResponse&& response, PurCFetcher::ResourceRequest&&, RedirectCompletionHandler&& completionHandler)
 {
     if (m_shouldCaptureExtraNetworkLoadMetrics)
         m_loadInformation.response = WTFMove(response);
@@ -90,7 +90,7 @@ void NetworkCORSPreflightChecker::willPerformHTTPRedirection(PurcFetcher::Resour
     m_completionCallback(ResourceError { errorDomainWebKitInternal, 0, m_parameters.originalRequest.url(), "Preflight response is not successful"_s, ResourceError::Type::AccessControl });
 }
 
-void NetworkCORSPreflightChecker::didReceiveChallenge(PurcFetcher::AuthenticationChallenge&& challenge, NegotiatedLegacyTLS negotiatedLegacyTLS, ChallengeCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::didReceiveChallenge(PurCFetcher::AuthenticationChallenge&& challenge, NegotiatedLegacyTLS negotiatedLegacyTLS, ChallengeCompletionHandler&& completionHandler)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveChallenge, authentication scheme: %u", challenge.protectionSpace().authenticationScheme());
 
@@ -106,7 +106,7 @@ void NetworkCORSPreflightChecker::didReceiveChallenge(PurcFetcher::Authenticatio
     m_networkProcess->authenticationManager().didReceiveAuthenticationChallenge(m_parameters.sessionID, m_parameters.webPageProxyID, m_parameters.topOrigin ? &m_parameters.topOrigin->data() : nullptr, challenge, negotiatedLegacyTLS, WTFMove(completionHandler));
 }
 
-void NetworkCORSPreflightChecker::didReceiveResponse(PurcFetcher::ResourceResponse&& response, NegotiatedLegacyTLS, ResponseCompletionHandler&& completionHandler)
+void NetworkCORSPreflightChecker::didReceiveResponse(PurCFetcher::ResourceResponse&& response, NegotiatedLegacyTLS, ResponseCompletionHandler&& completionHandler)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveResponse");
 
@@ -117,12 +117,12 @@ void NetworkCORSPreflightChecker::didReceiveResponse(PurcFetcher::ResourceRespon
     completionHandler(PolicyAction::Use);
 }
 
-void NetworkCORSPreflightChecker::didReceiveData(Ref<PurcFetcher::SharedBuffer>&&)
+void NetworkCORSPreflightChecker::didReceiveData(Ref<PurCFetcher::SharedBuffer>&&)
 {
     RELEASE_LOG_IF_ALLOWED("didReceiveData");
 }
 
-void NetworkCORSPreflightChecker::didCompleteWithError(const PurcFetcher::ResourceError& preflightError, const PurcFetcher::NetworkLoadMetrics& metrics)
+void NetworkCORSPreflightChecker::didCompleteWithError(const PurCFetcher::ResourceError& preflightError, const PurCFetcher::NetworkLoadMetrics& metrics)
 {
     if (m_shouldCaptureExtraNetworkLoadMetrics)
         m_loadInformation.metrics = metrics;
@@ -178,6 +178,6 @@ NetworkTransactionInformation NetworkCORSPreflightChecker::takeInformation()
     return WTFMove(m_loadInformation);
 }
 
-} // Namespace PurcFetcher
+} // Namespace PurCFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

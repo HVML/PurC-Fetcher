@@ -29,7 +29,7 @@
 #include <mutex>
 #include <wtf/Lock.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace SQLiteDatabaseTracker {
 
@@ -76,4 +76,4 @@ bool hasTransactionInProgress()
 
 } // namespace SQLiteDatabaseTracker
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

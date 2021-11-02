@@ -33,7 +33,7 @@
 #include <wtf/RefPtr.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageAreaMap final : private IPC::MessageReceiver, public CanMakeWeakPtr<StorageAreaMap> {
     WTF_MAKE_FAST_ALLOCATED;
@@ -52,4 +52,4 @@ private:
     void clearCache();
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

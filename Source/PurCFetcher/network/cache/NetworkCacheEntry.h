@@ -34,18 +34,18 @@
 #include <wtf/Seconds.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SharedBuffer;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
 class Entry {
     WTF_MAKE_FAST_ALLOCATED;
 public:
-    Entry(const Key&, const PurcFetcher::ResourceResponse&, RefPtr<PurcFetcher::SharedBuffer>&&, const Vector<std::pair<String, String>>& varyingRequestHeaders);
-    Entry(const Key&, const PurcFetcher::ResourceResponse&, const PurcFetcher::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders);
+    Entry(const Key&, const PurCFetcher::ResourceResponse&, RefPtr<PurCFetcher::SharedBuffer>&&, const Vector<std::pair<String, String>>& varyingRequestHeaders);
+    Entry(const Key&, const PurCFetcher::ResourceResponse&, const PurCFetcher::ResourceRequest& redirectRequest, const Vector<std::pair<String, String>>& varyingRequestHeaders);
     explicit Entry(const Storage::Record&);
     Entry(const Entry&);
 
@@ -54,11 +54,11 @@ public:
 
     const Key& key() const { return m_key; }
     WallTime timeStamp() const { return m_timeStamp; }
-    const PurcFetcher::ResourceResponse& response() const { return m_response; }
+    const PurCFetcher::ResourceResponse& response() const { return m_response; }
     const Vector<std::pair<String, String>>& varyingRequestHeaders() const { return m_varyingRequestHeaders; }
 
-    PurcFetcher::SharedBuffer* buffer() const;
-    const Optional<PurcFetcher::ResourceRequest>& redirectRequest() const { return m_redirectRequest; }
+    PurCFetcher::SharedBuffer* buffer() const;
+    const Optional<PurCFetcher::ResourceRequest>& redirectRequest() const { return m_redirectRequest; }
 
 #if ENABLE(SHAREABLE_RESOURCE)
     ShareableResource::Handle& shareableResourceHandle() const;
@@ -84,11 +84,11 @@ private:
 
     Key m_key;
     WallTime m_timeStamp;
-    PurcFetcher::ResourceResponse m_response;
+    PurCFetcher::ResourceResponse m_response;
     Vector<std::pair<String, String>> m_varyingRequestHeaders;
 
-    Optional<PurcFetcher::ResourceRequest> m_redirectRequest;
-    mutable RefPtr<PurcFetcher::SharedBuffer> m_buffer;
+    Optional<PurCFetcher::ResourceRequest> m_redirectRequest;
+    mutable RefPtr<PurCFetcher::SharedBuffer> m_buffer;
 #if ENABLE(SHAREABLE_RESOURCE)
     mutable ShareableResource::Handle m_shareableResourceHandle;
 #endif

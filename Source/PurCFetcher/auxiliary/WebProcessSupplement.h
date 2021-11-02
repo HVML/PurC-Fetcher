@@ -27,7 +27,7 @@
 
 #include "AuxiliaryProcessSupplement.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct WebProcessCreationParameters;
 struct WebProcessDataStoreParameters;
@@ -38,4 +38,4 @@ public:
     virtual void setWebsiteDataStore(const WebProcessDataStoreParameters&) { }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

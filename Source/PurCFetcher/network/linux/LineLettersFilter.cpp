@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineLettersFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 
 String punctuation = " .!/_,$%^*()+\"'[]+——！，。？、~@#￥%……&*（）";
@@ -144,5 +144,5 @@ Vector<Row> LineLettersFilter::splitRow(Row& row, String param)
 }
 
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

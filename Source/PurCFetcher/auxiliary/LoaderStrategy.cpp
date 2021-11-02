@@ -28,7 +28,7 @@
 
 #include "NetworkLoadInformation.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 LoaderStrategy::~LoaderStrategy() = default;
 
@@ -47,4 +47,4 @@ Vector<NetworkTransactionInformation> LoaderStrategy::intermediateLoadInformatio
     return { };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

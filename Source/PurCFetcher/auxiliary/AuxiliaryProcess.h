@@ -35,7 +35,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SandboxInitializationParameters;
 struct AuxiliaryProcessInitializationParameters;
@@ -91,7 +91,7 @@ public:
     IPC::MessageReceiverMap& messageReceiverMap() { return m_messageReceiverMap; }
 
 #if PLATFORM(MAC)
-    static bool isSystemPurcFetcher();
+    static bool isSystemPurCFetcher();
 #endif
     
 #if PLATFORM(COCOA)
@@ -171,7 +171,7 @@ private:
 struct AuxiliaryProcessInitializationParameters {
     String uiProcessName;
     String clientIdentifier;
-    Optional<PurcFetcher::ProcessIdentifier> processIdentifier;
+    Optional<PurCFetcher::ProcessIdentifier> processIdentifier;
     IPC::Connection::Identifier connectionIdentifier;
     HashMap<String, String> extraInitializationData;
     AuxiliaryProcess::ProcessType processType;
@@ -180,5 +180,5 @@ struct AuxiliaryProcessInitializationParameters {
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

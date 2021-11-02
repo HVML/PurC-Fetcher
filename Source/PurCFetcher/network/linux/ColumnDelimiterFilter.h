@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ColumnDelimiterFilter : public FilterBase {
 public:
@@ -69,4 +69,4 @@ private:
     Vector<Row> splitRow(Row& row, String param);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

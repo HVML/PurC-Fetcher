@@ -29,7 +29,7 @@
 #include <wtf/URL.h>
 #include <wtf/text/StringView.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextEncoding : public WTF::URLTextEncoding {
 public:
@@ -83,4 +83,4 @@ inline String TextEncoding::decode(const char* characters, size_t length) const
     return decode(characters, length, false, ignored);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

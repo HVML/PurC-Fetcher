@@ -44,7 +44,7 @@ extern "C" CFStringRef const WebKit2HTTPProxyDefaultsKey;
 extern "C" CFStringRef const WebKit2HTTPSProxyDefaultsKey;
 #endif
     
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class AllowsCellularAccess : bool { No, Yes };
 
@@ -75,7 +75,7 @@ struct NetworkSessionCreationParameters {
 #endif
 #if USE(CURL)
     String cookiePersistentStorageFile;
-    PurcFetcher::CurlProxySettings proxySettings;
+    PurCFetcher::CurlProxySettings proxySettings;
 #endif
     bool deviceManagementRestrictionsEnabled { false };
     bool allLoadsBlockedByDeviceManagementRestrictionsForTesting { false };
@@ -96,4 +96,4 @@ struct NetworkSessionCreationParameters {
     ResourceLoadStatisticsParameters resourceLoadStatisticsParameters;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -37,7 +37,7 @@ class Decoder;
 class Encoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class WebsiteDataType : uint32_t;
 
@@ -45,7 +45,7 @@ enum class WebsiteDataProcessType { Network, UI, Web };
 
 struct WebsiteData {
     struct Entry {
-        PurcFetcher::SecurityOriginData origin;
+        PurCFetcher::SecurityOriginData origin;
         WebsiteDataType type;
         uint64_t size;
 
@@ -61,7 +61,7 @@ struct WebsiteData {
 #endif
     HashSet<String> hostNamesWithHSTSCache;
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-    HashSet<PurcFetcher::RegistrableDomain> registrableDomainsWithResourceLoadStatistics;
+    HashSet<PurCFetcher::RegistrableDomain> registrableDomainsWithResourceLoadStatistics;
 #endif
 
     void encode(IPC::Encoder&) const;

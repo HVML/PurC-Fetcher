@@ -32,7 +32,7 @@
 #include "StorageSessionProvider.h"
 #include <wtf/SystemTracing.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 
 Ref<CookieJar> CookieJar::create(Ref<StorageSessionProvider>&& storageSessionProvider)

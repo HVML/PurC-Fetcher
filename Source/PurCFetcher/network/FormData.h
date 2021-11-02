@@ -26,7 +26,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SharedBuffer;
 class TextEncoding;
@@ -300,5 +300,5 @@ RefPtr<FormData> FormData::decode(Decoder& decoder)
     return data;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

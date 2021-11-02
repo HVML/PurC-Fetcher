@@ -39,7 +39,7 @@ class Data;
 class FrameInfo;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class IntRect;
 class ProtectionSpace;
@@ -47,7 +47,7 @@ class ResourceError;
 class ResourceResponse;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class DownloadID;
 
@@ -67,17 +67,17 @@ private:
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
 
     // Message handlers.
-    void didStart(const PurcFetcher::ResourceRequest&, const String& suggestedFilename);
-    void didReceiveAuthenticationChallenge(PurcFetcher::AuthenticationChallenge&&, uint64_t challengeID);
-    void didReceiveResponse(const PurcFetcher::ResourceResponse&);
+    void didStart(const PurCFetcher::ResourceRequest&, const String& suggestedFilename);
+    void didReceiveAuthenticationChallenge(PurCFetcher::AuthenticationChallenge&&, uint64_t challengeID);
+    void didReceiveResponse(const PurCFetcher::ResourceResponse&);
     void didReceiveData(uint64_t bytesWritten, uint64_t totalBytesWritten, uint64_t totalBytesExpectedToWrite);
     void shouldDecodeSourceDataOfMIMEType(const String& mimeType, bool& result);
     void didCreateDestination(const String& path);
     void didFinish();
-    void didFail(const PurcFetcher::ResourceError&, const IPC::DataReference& resumeData);
+    void didFail(const PurCFetcher::ResourceError&, const IPC::DataReference& resumeData);
     void didCancel(const IPC::DataReference& resumeData);
-    void willSendRequest(PurcFetcher::ResourceRequest&& redirectRequest, const PurcFetcher::ResourceResponse& redirectResponse);
+    void willSendRequest(PurCFetcher::ResourceRequest&& redirectRequest, const PurCFetcher::ResourceResponse& redirectResponse);
     void decideDestinationWithSuggestedFilenameAsync(DownloadID, const String& suggestedFilename);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -36,12 +36,12 @@
 
 struct sqlite3;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SQLiteDatabase;
 
 // A class that abstracts the file system related operations required
-// by the PurcFetcher database code.
+// by the PurCFetcher database code.
 class SQLiteFileSystem {
 public:
     // Creates an absolute file path given a directory and a file name.
@@ -98,6 +98,6 @@ private:
     SQLiteFileSystem();
 }; // class SQLiteFileSystem
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif

@@ -40,7 +40,7 @@ class SharedBufferDataReference;
 class FormDataReference;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class NetworkLoadMetrics;
 class ResourceError;
 class ResourceLoader;
@@ -48,7 +48,7 @@ class ResourceRequest;
 class ResourceResponse;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 typedef uint64_t ResourceLoadIdentifier;
 
@@ -56,17 +56,17 @@ class WebResourceLoader : public RefCounted<WebResourceLoader>, public IPC::Mess
 public:
     struct TrackingParameters {
         WebPageProxyIdentifier webPageProxyID;
-        PurcFetcher::PageIdentifier pageID;
-        PurcFetcher::FrameIdentifier frameID;
+        PurCFetcher::PageIdentifier pageID;
+        PurCFetcher::FrameIdentifier frameID;
         ResourceLoadIdentifier resourceID { 0 };
     };
 
-    static Ref<WebResourceLoader> create(Ref<PurcFetcher::ResourceLoader>&&, const TrackingParameters&);
+    static Ref<WebResourceLoader> create(Ref<PurCFetcher::ResourceLoader>&&, const TrackingParameters&);
 
     ~WebResourceLoader();
 
 private:
-    WebResourceLoader(Ref<PurcFetcher::ResourceLoader>&&, const TrackingParameters&);
+    WebResourceLoader(Ref<PurCFetcher::ResourceLoader>&&, const TrackingParameters&);
 
     void didReceiveWebResourceLoaderMessage(IPC::Connection&, IPC::Decoder&);
 
@@ -74,18 +74,18 @@ private:
     IPC::Connection* messageSenderConnection() const override;
     uint64_t messageSenderDestinationID() const override;
 
-    void willSendRequest(PurcFetcher::ResourceRequest&&, IPC::FormDataReference&&, PurcFetcher::ResourceResponse&&);
+    void willSendRequest(PurCFetcher::ResourceRequest&&, IPC::FormDataReference&&, PurCFetcher::ResourceResponse&&);
     void didSendData(uint64_t, uint64_t);
-    void didReceiveResponse(const PurcFetcher::ResourceResponse&, bool);
+    void didReceiveResponse(const PurCFetcher::ResourceResponse&, bool);
     void didReceiveData(IPC::DataReference&&, int64_t);
     void didReceiveSharedBuffer(IPC::SharedBufferDataReference&&, int64_t);
-    void didFinishResourceLoad(const PurcFetcher::NetworkLoadMetrics&);
-    void didFailResourceLoad(const PurcFetcher::ResourceError&);
-    void didFailServiceWorkerLoad(const PurcFetcher::ResourceError&);
+    void didFinishResourceLoad(const PurCFetcher::NetworkLoadMetrics&);
+    void didFailResourceLoad(const PurCFetcher::ResourceError&);
+    void didFailServiceWorkerLoad(const PurCFetcher::ResourceError&);
     void serviceWorkerDidNotHandle();
     void didBlockAuthenticationChallenge();
 
-    void stopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(const PurcFetcher::ResourceResponse&);
+    void stopLoadingAfterXFrameOptionsOrContentSecurityPolicyDenied(const PurCFetcher::ResourceResponse&);
 
     void deferReceivingSharedBuffer(IPC::SharedBufferDataReference&&, int64_t);
     void processReceivedData(const char*, size_t, int64_t);
@@ -95,4 +95,4 @@ private:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

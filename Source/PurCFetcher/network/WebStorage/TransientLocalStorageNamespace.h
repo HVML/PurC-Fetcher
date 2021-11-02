@@ -31,7 +31,7 @@
 #include <wtf/HashMap.h>
 #include <wtf/WorkQueue.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class StorageArea;
 
@@ -42,17 +42,17 @@ public:
     TransientLocalStorageNamespace();
     ~TransientLocalStorageNamespace();
 
-    StorageArea& getOrCreateStorageArea(PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
-    Vector<PurcFetcher::SecurityOriginData> origins() const;
+    StorageArea& getOrCreateStorageArea(PurCFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    Vector<PurCFetcher::SecurityOriginData> origins() const;
 
-    void clearStorageAreasMatchingOrigin(const PurcFetcher::SecurityOriginData&);
+    void clearStorageAreasMatchingOrigin(const PurCFetcher::SecurityOriginData&);
     void clearAllStorageAreas();
 
     Vector<StorageAreaIdentifier> storageAreaIdentifiers() const;
 
 private:
     const unsigned m_quotaInBytes { 0 };
-    HashMap<PurcFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
+    HashMap<PurCFetcher::SecurityOriginData, std::unique_ptr<StorageArea>> m_storageAreaMap;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

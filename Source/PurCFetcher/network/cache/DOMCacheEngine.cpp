@@ -31,7 +31,7 @@
 #include "Exception.h"
 #include "HTTPParsers.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace DOMCacheEngine {
 
@@ -77,7 +77,7 @@ bool queryCacheMatch(const ResourceRequest& request, const ResourceRequest& cach
     if (options.ignoreVary)
         return true;
 
-    String varyValue = cachedResponse.httpHeaderField(PurcFetcher::HTTPHeaderName::Vary);
+    String varyValue = cachedResponse.httpHeaderField(PurCFetcher::HTTPHeaderName::Vary);
     if (varyValue.isNull())
         return true;
 
@@ -154,5 +154,5 @@ CacheInfos CacheInfos::isolatedCopy()
 
 } // namespace DOMCacheEngine
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

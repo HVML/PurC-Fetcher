@@ -32,9 +32,9 @@
 #include "FrameInfoData.h"
 #include "WebPageProxy.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-using namespace PurcFetcher;
+using namespace PurCFetcher;
 
 void WebDeviceOrientationAndMotionAccessController::shouldAllowAccess(WebPageProxy& page, WebFrameProxy& frame, FrameInfoData&& frameInfo, bool mayPrompt, CompletionHandler<void(DeviceOrientationOrMotionPermissionState)>&& completionHandler)
 {
@@ -44,7 +44,7 @@ void WebDeviceOrientationAndMotionAccessController::shouldAllowAccess(WebPagePro
         return completionHandler(currentPermission);
 
     auto& pendingRequests = m_pendingRequests.ensure(originData, [] {
-        return Vector<CompletionHandler<void(PurcFetcher::DeviceOrientationOrMotionPermissionState)>> { };
+        return Vector<CompletionHandler<void(PurCFetcher::DeviceOrientationOrMotionPermissionState)>> { };
     }).iterator->value;
     pendingRequests.append(WTFMove(completionHandler));
     if (pendingRequests.size() > 1)
@@ -76,6 +76,6 @@ void WebDeviceOrientationAndMotionAccessController::clearPermissions()
     m_deviceOrientationPermissionDecisions.clear();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(DEVICE_ORIENTATION)

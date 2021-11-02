@@ -31,11 +31,11 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/Deque.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class StorageQuotaManager;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace CacheStorage {
 
@@ -44,35 +44,35 @@ class Engine;
 class Caches final : public RefCounted<Caches> {
 public:
     static String cachesSizeFilename(const String& cachesRootsPath);
-    static Ref<Caches> create(Engine&, PurcFetcher::ClientOrigin&&, String&& rootPath);
+    static Ref<Caches> create(Engine&, PurCFetcher::ClientOrigin&&, String&& rootPath);
     ~Caches();
 
-    static void retrieveOriginFromDirectory(const String& folderPath, WorkQueue&, WTF::CompletionHandler<void(Optional<PurcFetcher::ClientOrigin>&&)>&&);
+    static void retrieveOriginFromDirectory(const String& folderPath, WorkQueue&, WTF::CompletionHandler<void(Optional<PurCFetcher::ClientOrigin>&&)>&&);
 
-    void initialize(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
-    void open(const String& name, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
-    void remove(uint64_t identifier, PurcFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void initialize(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
+    void open(const String& name, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
+    void remove(uint64_t identifier, PurCFetcher::DOMCacheEngine::CacheIdentifierCallback&&);
     void dispose(Cache&);
 
     void detach();
 
     bool isInitialized() const { return m_isInitialized; }
-    void cacheInfos(uint64_t updateCounter, PurcFetcher::DOMCacheEngine::CacheInfosCallback&&);
+    void cacheInfos(uint64_t updateCounter, PurCFetcher::DOMCacheEngine::CacheInfosCallback&&);
 
     Cache* find(uint64_t identifier);
     void appendRepresentation(StringBuilder&) const;
 
     void readRecordsList(Cache&, NetworkCache::Storage::TraverseHandler&&);
-    void readRecord(const NetworkCache::Key&, WTF::Function<void(Expected<PurcFetcher::DOMCacheEngine::Record, PurcFetcher::DOMCacheEngine::Error>&&)>&&);
+    void readRecord(const NetworkCache::Key&, WTF::Function<void(Expected<PurCFetcher::DOMCacheEngine::Record, PurCFetcher::DOMCacheEngine::Error>&&)>&&);
 
-    void requestSpace(uint64_t spaceRequired, PurcFetcher::DOMCacheEngine::CompletionCallback&&);
-    void writeRecord(const Cache&, const RecordInformation&, PurcFetcher::DOMCacheEngine::Record&&, uint64_t previousRecordSize, PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void requestSpace(uint64_t spaceRequired, PurCFetcher::DOMCacheEngine::CompletionCallback&&);
+    void writeRecord(const Cache&, const RecordInformation&, PurCFetcher::DOMCacheEngine::Record&&, uint64_t previousRecordSize, PurCFetcher::DOMCacheEngine::CompletionCallback&&);
 
     void removeCacheEntry(const NetworkCache::Key&);
     void removeRecord(const RecordInformation&);
 
     const NetworkCache::Salt& salt() const;
-    const PurcFetcher::ClientOrigin& origin() const { return m_origin; }
+    const PurCFetcher::ClientOrigin& origin() const { return m_origin; }
 
     bool shouldPersist() const { return !m_rootPath.isNull(); }
 
@@ -83,14 +83,14 @@ public:
     void updateSizeFile(CompletionHandler<void()>&&);
 
 private:
-    Caches(Engine&, PurcFetcher::ClientOrigin&&, String&& rootPath);
+    Caches(Engine&, PurCFetcher::ClientOrigin&&, String&& rootPath);
 
     void initializeSize();
-    void readCachesFromDisk(WTF::Function<void(Expected<Vector<Cache>, PurcFetcher::DOMCacheEngine::Error>&&)>&&);
-    void writeCachesToDisk(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void readCachesFromDisk(WTF::Function<void(Expected<Vector<Cache>, PurCFetcher::DOMCacheEngine::Error>&&)>&&);
+    void writeCachesToDisk(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
 
-    void storeOrigin(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
-    static Optional<PurcFetcher::ClientOrigin> readOrigin(const NetworkCache::Data&);
+    void storeOrigin(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
+    static Optional<PurCFetcher::ClientOrigin> readOrigin(const NetworkCache::Data&);
 
     Cache* find(const String& name);
     void clearPendingWritingCachesToDiskCallbacks();
@@ -103,19 +103,19 @@ private:
     bool m_isInitialized { false };
     Engine* m_engine { nullptr };
     uint64_t m_updateCounter { 0 };
-    PurcFetcher::ClientOrigin m_origin;
+    PurCFetcher::ClientOrigin m_origin;
     String m_rootPath;
     uint64_t m_size { 0 };
     Vector<Cache> m_caches;
     Vector<Cache> m_removedCaches;
     RefPtr<NetworkCache::Storage> m_storage;
-    HashMap<NetworkCache::Key, PurcFetcher::DOMCacheEngine::Record> m_volatileStorage;
+    HashMap<NetworkCache::Key, PurCFetcher::DOMCacheEngine::Record> m_volatileStorage;
     mutable Optional<NetworkCache::Salt> m_volatileSalt;
-    Vector<PurcFetcher::DOMCacheEngine::CompletionCallback> m_pendingInitializationCallbacks;
+    Vector<PurCFetcher::DOMCacheEngine::CompletionCallback> m_pendingInitializationCallbacks;
     bool m_isWritingCachesToDisk { false };
-    Deque<CompletionHandler<void(Optional<PurcFetcher::DOMCacheEngine::Error>)>> m_pendingWritingCachesToDiskCallbacks;
+    Deque<CompletionHandler<void(Optional<PurCFetcher::DOMCacheEngine::Error>)>> m_pendingWritingCachesToDiskCallbacks;
 };
 
 } // namespace CacheStorage
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

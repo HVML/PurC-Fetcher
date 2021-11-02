@@ -34,7 +34,7 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 extern const int SQLAuthAllow;
 extern const int SQLAuthIgnore;
@@ -120,4 +120,4 @@ private:
     HashSet<String, ASCIICaseInsensitiveHash> m_allowedFunctions;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

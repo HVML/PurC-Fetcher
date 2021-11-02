@@ -27,7 +27,7 @@
 
 #include <wtf/ThreadSafeRefCounted.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkStorageSession;
 
@@ -38,4 +38,4 @@ public:
     virtual ~StorageSessionProvider() { }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

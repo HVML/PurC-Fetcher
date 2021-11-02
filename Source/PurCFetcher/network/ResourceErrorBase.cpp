@@ -27,7 +27,7 @@
 #include "config.h"
 #include "ResourceError.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 const char* const errorDomainWebKitInternal = "WebKitInternal";
 const char* const errorDomainWebKitServiceWorker = "WebKitServiceWorker";
@@ -88,4 +88,4 @@ bool ResourceErrorBase::compare(const ResourceError& a, const ResourceError& b)
     return ResourceError::platformCompare(a, b);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -31,7 +31,7 @@
 #include <wtf/Noncopyable.h>
 #include <wtf/Seconds.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // Each thread has its own single instance of shared timer, which implements this interface.
 // This instance is shared by all timers in the thread.
@@ -50,6 +50,6 @@ public:
     virtual void invalidate() { }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // SharedTimer_h

@@ -46,16 +46,16 @@
 #include "WebsiteData.h"
 #include "WebsiteDataStoreClient.h"
 #include "WebsiteDataStoreParameters.h"
-#include <PurcFetcher/ApplicationCacheStorage.h>
-#include <PurcFetcher/CredentialStorage.h>
-#include <PurcFetcher/DatabaseTracker.h>
-#include <PurcFetcher/HTMLMediaElement.h>
-#include <PurcFetcher/NetworkStorageSession.h>
-#include <PurcFetcher/OriginLock.h>
-#include <PurcFetcher/RegistrableDomain.h>
-#include <PurcFetcher/SecurityOrigin.h>
-#include <PurcFetcher/SecurityOriginData.h>
-#include <PurcFetcher/StorageQuotaManager.h>
+#include <PurCFetcher/ApplicationCacheStorage.h>
+#include <PurCFetcher/CredentialStorage.h>
+#include <PurCFetcher/DatabaseTracker.h>
+#include <PurCFetcher/HTMLMediaElement.h>
+#include <PurCFetcher/NetworkStorageSession.h>
+#include <PurCFetcher/OriginLock.h>
+#include <PurCFetcher/RegistrableDomain.h>
+#include <PurCFetcher/SecurityOrigin.h>
+#include <PurCFetcher/SecurityOriginData.h>
+#include <PurCFetcher/StorageQuotaManager.h>
 #include <wtf/CallbackAggregator.h>
 #include <wtf/CompletionHandler.h>
 #include <wtf/CrossThreadCopier.h>
@@ -75,7 +75,7 @@
 #include "SOAuthorizationCoordinator.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static bool allowsWebsiteDataRecordsForAllOrigins;
 void WebsiteDataStore::allowWebsiteDataRecordsForAllOrigins()
@@ -105,7 +105,7 @@ WebsiteDataStore::WebsiteDataStore(Ref<WebsiteDataStoreConfiguration>&& configur
     , m_resolvedConfiguration(WTFMove(configuration))
     , m_configuration(m_resolvedConfiguration->copy())
     , m_deviceIdHashSaltStorage(DeviceIdHashSaltStorage::create(isPersistent() ? m_configuration->deviceIdHashSaltsStorageDirectory() : String()))
-    , m_queue(WorkQueue::create("com.apple.PurcFetcher.WebsiteDataStore"))
+    , m_queue(WorkQueue::create("com.apple.PurCFetcher.WebsiteDataStore"))
 #if ENABLE(WEB_AUTHN)
     , m_authenticatorManager(makeUniqueRef<AuthenticatorManager>())
 #endif
@@ -420,7 +420,7 @@ void WebsiteDataStore::fetchDataAndApply(OptionSet<WebsiteDataType> dataTypes, O
         callbackAggregator->addPendingCallback();
         m_queue->dispatch([mediaCacheDirectory = m_configuration->mediaCacheDirectory().isolatedCopy(), callbackAggregator] {
             // FIXME: Make HTMLMediaElement::originsInMediaCache return a collection of SecurityOriginDatas.
-            HashSet<RefPtr<PurcFetcher::SecurityOrigin>> origins = PurcFetcher::HTMLMediaElement::originsInMediaCache(mediaCacheDirectory);
+            HashSet<RefPtr<PurCFetcher::SecurityOrigin>> origins = PurCFetcher::HTMLMediaElement::originsInMediaCache(mediaCacheDirectory);
             WebsiteData websiteData;
             
             for (auto& origin : origins) {
@@ -502,7 +502,7 @@ void WebsiteDataStore::fetchDataAndApply(OptionSet<WebsiteDataType> dataTypes, O
         callbackAggregator->addPendingCallback();
 
         m_queue->dispatch([fetchOptions, applicationCacheDirectory = m_configuration->applicationCacheDirectory().isolatedCopy(), applicationCacheFlatFileSubdirectoryName = m_configuration->applicationCacheFlatFileSubdirectoryName().isolatedCopy(), callbackAggregator] {
-            auto storage = PurcFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
+            auto storage = PurCFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
 
             WebsiteData websiteData;
 
@@ -526,7 +526,7 @@ void WebsiteDataStore::fetchDataAndApply(OptionSet<WebsiteDataType> dataTypes, O
         callbackAggregator->addPendingCallback();
 
         m_queue->dispatch([webSQLDatabaseDirectory = m_configuration->webSQLDatabaseDirectory().isolatedCopy(), callbackAggregator] {
-            auto origins = PurcFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory)->origins();
+            auto origins = PurCFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory)->origins();
             RunLoop::main().dispatch([callbackAggregator, origins = WTFMove(origins)]() mutable {
                 WebsiteData websiteData;
                 for (auto& origin : origins)
@@ -609,13 +609,13 @@ void WebsiteDataStore::fetchDataAndApply(OptionSet<WebsiteDataType> dataTypes, O
 }
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-void WebsiteDataStore::fetchDataForRegistrableDomains(OptionSet<WebsiteDataType> dataTypes, OptionSet<WebsiteDataFetchOption> fetchOptions, const Vector<PurcFetcher::RegistrableDomain>& domains, CompletionHandler<void(Vector<WebsiteDataRecord>&&, HashSet<PurcFetcher::RegistrableDomain>&&)>&& completionHandler)
+void WebsiteDataStore::fetchDataForRegistrableDomains(OptionSet<WebsiteDataType> dataTypes, OptionSet<WebsiteDataFetchOption> fetchOptions, const Vector<PurCFetcher::RegistrableDomain>& domains, CompletionHandler<void(Vector<WebsiteDataRecord>&&, HashSet<PurCFetcher::RegistrableDomain>&&)>&& completionHandler)
 {
     fetchDataAndApply(dataTypes, fetchOptions, m_queue.copyRef(), [domains = crossThreadCopy(domains), completionHandler = WTFMove(completionHandler)] (auto&& existingDataRecords) mutable {
         ASSERT(!RunLoop::isMain());
         
         Vector<WebsiteDataRecord> matchingDataRecords;
-        HashSet<PurcFetcher::RegistrableDomain> domainsWithMatchingDataRecords;
+        HashSet<PurCFetcher::RegistrableDomain> domainsWithMatchingDataRecords;
         for (auto&& dataRecord : existingDataRecords) {
             for (auto& domain : domains) {
                 if (dataRecord.matches(domain)) {
@@ -707,7 +707,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, WallTime
     if (dataTypes.contains(WebsiteDataType::DiskCache)) {
         callbackAggregator->addPendingCallback();
         m_queue->dispatch([modifiedSince, mediaCacheDirectory = m_configuration->mediaCacheDirectory().isolatedCopy(), callbackAggregator] {
-            PurcFetcher::HTMLMediaElement::clearMediaCache(mediaCacheDirectory, modifiedSince);
+            PurCFetcher::HTMLMediaElement::clearMediaCache(mediaCacheDirectory, modifiedSince);
             
             WTF::RunLoop::main().dispatch([callbackAggregator] {
                 callbackAggregator->removePendingCallback();
@@ -791,7 +791,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, WallTime
         callbackAggregator->addPendingCallback();
 
         m_queue->dispatch([applicationCacheDirectory = m_configuration->applicationCacheDirectory().isolatedCopy(), applicationCacheFlatFileSubdirectoryName = m_configuration->applicationCacheFlatFileSubdirectoryName().isolatedCopy(), callbackAggregator] {
-            auto storage = PurcFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
+            auto storage = PurCFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
 
             storage->deleteAllCaches();
 
@@ -805,7 +805,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, WallTime
         callbackAggregator->addPendingCallback();
 
         m_queue->dispatch([webSQLDatabaseDirectory = m_configuration->webSQLDatabaseDirectory().isolatedCopy(), callbackAggregator, modifiedSince] {
-            PurcFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory)->deleteDatabasesModifiedSince(modifiedSince);
+            PurCFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory)->deleteDatabasesModifiedSince(modifiedSince);
 
             RunLoop::main().dispatch([callbackAggregator] {
                 callbackAggregator->removePendingCallback();
@@ -912,7 +912,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, WallTime
 
 void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Vector<WebsiteDataRecord>& dataRecords, Function<void()>&& completionHandler)
 {
-    Vector<PurcFetcher::SecurityOriginData> origins;
+    Vector<PurCFetcher::SecurityOriginData> origins;
 
     for (const auto& dataRecord : dataRecords) {
         for (auto& origin : dataRecord.origins)
@@ -960,7 +960,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
     RefPtr<CallbackAggregator> callbackAggregator = adoptRef(new CallbackAggregator(*this, WTFMove(completionHandler)));
     
     if (dataTypes.contains(WebsiteDataType::DiskCache)) {
-        HashSet<PurcFetcher::SecurityOriginData> origins;
+        HashSet<PurCFetcher::SecurityOriginData> origins;
         for (const auto& dataRecord : dataRecords) {
             for (const auto& origin : dataRecord.origins)
                 origins.add(origin);
@@ -972,10 +972,10 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
 
             // FIXME: Move SecurityOrigin::toRawString to SecurityOriginData and
             // make HTMLMediaElement::clearMediaCacheForOrigins take SecurityOriginData.
-            HashSet<RefPtr<PurcFetcher::SecurityOrigin>> securityOrigins;
+            HashSet<RefPtr<PurCFetcher::SecurityOrigin>> securityOrigins;
             for (auto& origin : origins)
                 securityOrigins.add(origin.securityOrigin());
-            PurcFetcher::HTMLMediaElement::clearMediaCacheForOrigins(mediaCacheDirectory, securityOrigins);
+            PurCFetcher::HTMLMediaElement::clearMediaCacheForOrigins(mediaCacheDirectory, securityOrigins);
             
             WTF::RunLoop::main().dispatch([callbackAggregator] {
                 callbackAggregator->removePendingCallback();
@@ -1004,7 +1004,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
 
             Vector<String> cookieHostNames;
             Vector<String> HSTSCacheHostNames;
-            Vector<PurcFetcher::RegistrableDomain> registrableDomains;
+            Vector<PurCFetcher::RegistrableDomain> registrableDomains;
             for (const auto& dataRecord : dataRecords) {
                 for (auto& hostName : dataRecord.cookieHostNames)
                     cookieHostNames.append(hostName);
@@ -1056,7 +1056,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
     }
 
     if (dataTypes.contains(WebsiteDataType::OfflineWebApplicationCache) && isPersistent()) {
-        HashSet<PurcFetcher::SecurityOriginData> origins;
+        HashSet<PurCFetcher::SecurityOriginData> origins;
         for (const auto& dataRecord : dataRecords) {
             for (const auto& origin : dataRecord.origins)
                 origins.add(origin);
@@ -1064,7 +1064,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
 
         callbackAggregator->addPendingCallback();
         m_queue->dispatch([origins = WTFMove(origins), applicationCacheDirectory = m_configuration->applicationCacheDirectory().isolatedCopy(), applicationCacheFlatFileSubdirectoryName = m_configuration->applicationCacheFlatFileSubdirectoryName().isolatedCopy(), callbackAggregator] {
-            auto storage = PurcFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
+            auto storage = PurCFetcher::ApplicationCacheStorage::create(applicationCacheDirectory, applicationCacheFlatFileSubdirectoryName);
 
             for (const auto& origin : origins)
                 storage->deleteCacheForOrigin(origin.securityOrigin());
@@ -1076,7 +1076,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
     }
 
     if (dataTypes.contains(WebsiteDataType::WebSQLDatabases) && isPersistent()) {
-        HashSet<PurcFetcher::SecurityOriginData> origins;
+        HashSet<PurCFetcher::SecurityOriginData> origins;
         for (const auto& dataRecord : dataRecords) {
             for (const auto& origin : dataRecord.origins)
                 origins.add(origin);
@@ -1084,7 +1084,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
 
         callbackAggregator->addPendingCallback();
         m_queue->dispatch([origins = WTFMove(origins), callbackAggregator, webSQLDatabaseDirectory = m_configuration->webSQLDatabaseDirectory().isolatedCopy()] {
-            auto databaseTracker = PurcFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory);
+            auto databaseTracker = PurCFetcher::DatabaseTracker::trackerWithDatabasePath(webSQLDatabaseDirectory);
             for (auto& origin : origins)
                 databaseTracker->deleteOrigin(origin);
             RunLoop::main().dispatch([callbackAggregator] {
@@ -1094,7 +1094,7 @@ void WebsiteDataStore::removeData(OptionSet<WebsiteDataType> dataTypes, const Ve
     }
 
     if (dataTypes.contains(WebsiteDataType::MediaKeys) && isPersistent()) {
-        HashSet<PurcFetcher::SecurityOriginData> origins;
+        HashSet<PurCFetcher::SecurityOriginData> origins;
         for (const auto& dataRecord : dataRecords) {
             for (const auto& origin : dataRecord.origins)
                 origins.add(origin);
@@ -1236,7 +1236,7 @@ void WebsiteDataStore::isPrevalentResource(const URL& url, CompletionHandler<voi
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isPrevalentResource(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            process->isPrevalentResource(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             break;
         }
     }
@@ -1253,7 +1253,7 @@ void WebsiteDataStore::isGrandfathered(const URL& url, CompletionHandler<void(bo
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isGrandfathered(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            process->isGrandfathered(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             break;
         }
     }
@@ -1271,7 +1271,7 @@ void WebsiteDataStore::setPrevalentResource(const URL& url, CompletionHandler<vo
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
 
     for (auto& processPool : ensureProcessPools())
-        processPool->ensureNetworkProcess().setPrevalentResource(m_sessionID, PurcFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+        processPool->ensureNetworkProcess().setPrevalentResource(m_sessionID, PurCFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
 }
 
 void WebsiteDataStore::setPrevalentResourceForDebugMode(const URL& url, CompletionHandler<void()>&& completionHandler)
@@ -1287,7 +1287,7 @@ void WebsiteDataStore::setPrevalentResourceForDebugMode(const URL& url, Completi
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setPrevalentResourceForDebugMode(m_sessionID, PurcFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setPrevalentResourceForDebugMode(m_sessionID, PurCFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1302,7 +1302,7 @@ void WebsiteDataStore::isVeryPrevalentResource(const URL& url, CompletionHandler
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isVeryPrevalentResource(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            process->isVeryPrevalentResource(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             break;
         }
     }
@@ -1321,7 +1321,7 @@ void WebsiteDataStore::setVeryPrevalentResource(const URL& url, CompletionHandle
     
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess())
-            networkProcess->setVeryPrevalentResource(m_sessionID, PurcFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            networkProcess->setVeryPrevalentResource(m_sessionID, PurCFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1348,7 +1348,7 @@ void WebsiteDataStore::setSubframeUnderTopFrameDomain(const URL& subFrameURL, co
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setSubframeUnderTopFrameDomain(m_sessionID, PurcFetcher::RegistrableDomain { subFrameURL }, PurcFetcher::RegistrableDomain { topFrameURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setSubframeUnderTopFrameDomain(m_sessionID, PurCFetcher::RegistrableDomain { subFrameURL }, PurCFetcher::RegistrableDomain { topFrameURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1358,7 +1358,7 @@ void WebsiteDataStore::isRegisteredAsSubFrameUnder(const URL& subFrameURL, const
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isRegisteredAsSubFrameUnder(m_sessionID, PurcFetcher::RegistrableDomain { subFrameURL }, PurcFetcher::RegistrableDomain { topFrameURL }, WTFMove(completionHandler));
+            process->isRegisteredAsSubFrameUnder(m_sessionID, PurCFetcher::RegistrableDomain { subFrameURL }, PurCFetcher::RegistrableDomain { topFrameURL }, WTFMove(completionHandler));
             break;
         }
     }
@@ -1377,7 +1377,7 @@ void WebsiteDataStore::setSubresourceUnderTopFrameDomain(const URL& subresourceU
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setSubresourceUnderTopFrameDomain(m_sessionID, PurcFetcher::RegistrableDomain { subresourceURL }, PurcFetcher::RegistrableDomain { topFrameURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setSubresourceUnderTopFrameDomain(m_sessionID, PurCFetcher::RegistrableDomain { subresourceURL }, PurCFetcher::RegistrableDomain { topFrameURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1387,7 +1387,7 @@ void WebsiteDataStore::isRegisteredAsSubresourceUnder(const URL& subresourceURL,
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isRegisteredAsSubresourceUnder(m_sessionID, PurcFetcher::RegistrableDomain { subresourceURL }, PurcFetcher::RegistrableDomain { topFrameURL }, WTFMove(completionHandler));
+            process->isRegisteredAsSubresourceUnder(m_sessionID, PurCFetcher::RegistrableDomain { subresourceURL }, PurCFetcher::RegistrableDomain { topFrameURL }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1407,7 +1407,7 @@ void WebsiteDataStore::setSubresourceUniqueRedirectTo(const URL& subresourceURL,
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setSubresourceUniqueRedirectTo(m_sessionID, PurcFetcher::RegistrableDomain { subresourceURL }, PurcFetcher::RegistrableDomain { urlRedirectedTo }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setSubresourceUniqueRedirectTo(m_sessionID, PurCFetcher::RegistrableDomain { subresourceURL }, PurCFetcher::RegistrableDomain { urlRedirectedTo }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1424,7 +1424,7 @@ void WebsiteDataStore::setSubresourceUniqueRedirectFrom(const URL& subresourceUR
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setSubresourceUniqueRedirectFrom(m_sessionID, PurcFetcher::RegistrableDomain { subresourceURL }, PurcFetcher::RegistrableDomain { urlRedirectedFrom }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setSubresourceUniqueRedirectFrom(m_sessionID, PurCFetcher::RegistrableDomain { subresourceURL }, PurCFetcher::RegistrableDomain { urlRedirectedFrom }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1441,7 +1441,7 @@ void WebsiteDataStore::setTopFrameUniqueRedirectTo(const URL& topFrameURL, const
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setTopFrameUniqueRedirectTo(m_sessionID, PurcFetcher::RegistrableDomain { topFrameURL }, PurcFetcher::RegistrableDomain { urlRedirectedTo }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setTopFrameUniqueRedirectTo(m_sessionID, PurCFetcher::RegistrableDomain { topFrameURL }, PurCFetcher::RegistrableDomain { urlRedirectedTo }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1458,7 +1458,7 @@ void WebsiteDataStore::setTopFrameUniqueRedirectFrom(const URL& topFrameURL, con
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setTopFrameUniqueRedirectFrom(m_sessionID, PurcFetcher::RegistrableDomain { topFrameURL }, PurcFetcher::RegistrableDomain { urlRedirectedFrom }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setTopFrameUniqueRedirectFrom(m_sessionID, PurCFetcher::RegistrableDomain { topFrameURL }, PurCFetcher::RegistrableDomain { urlRedirectedFrom }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1468,7 +1468,7 @@ void WebsiteDataStore::isRegisteredAsRedirectingTo(const URL& urlRedirectedFrom,
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isRegisteredAsRedirectingTo(m_sessionID, PurcFetcher::RegistrableDomain { urlRedirectedFrom }, PurcFetcher::RegistrableDomain { urlRedirectedTo }, WTFMove(completionHandler));
+            process->isRegisteredAsRedirectingTo(m_sessionID, PurCFetcher::RegistrableDomain { urlRedirectedFrom }, PurCFetcher::RegistrableDomain { urlRedirectedTo }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1488,7 +1488,7 @@ void WebsiteDataStore::clearPrevalentResource(const URL& url, CompletionHandler<
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->clearPrevalentResource(m_sessionID, PurcFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->clearPrevalentResource(m_sessionID, PurCFetcher::RegistrableDomain { url }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1621,7 +1621,7 @@ void WebsiteDataStore::setLastSeen(const URL& url, Seconds seconds, CompletionHa
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setLastSeen(m_sessionID, PurcFetcher::RegistrableDomain { url }, seconds, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setLastSeen(m_sessionID, PurCFetcher::RegistrableDomain { url }, seconds, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1648,7 +1648,7 @@ void WebsiteDataStore::mergeStatisticForTesting(const URL& url, const URL& topFr
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->mergeStatisticForTesting(m_sessionID, PurcFetcher::RegistrableDomain { url }, PurcFetcher::RegistrableDomain { topFrameUrl1 }, PurcFetcher::RegistrableDomain { topFrameUrl2 }, lastSeen, hadUserInteraction, mostRecentUserInteraction, isGrandfathered, isPrevalent, isVeryPrevalent, dataRecordsRemoved, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->mergeStatisticForTesting(m_sessionID, PurCFetcher::RegistrableDomain { url }, PurCFetcher::RegistrableDomain { topFrameUrl1 }, PurCFetcher::RegistrableDomain { topFrameUrl2 }, lastSeen, hadUserInteraction, mostRecentUserInteraction, isGrandfathered, isPrevalent, isVeryPrevalent, dataRecordsRemoved, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1663,7 +1663,7 @@ void WebsiteDataStore::insertExpiredStatisticForTesting(const URL& url, bool had
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->insertExpiredStatisticForTesting(m_sessionID, PurcFetcher::RegistrableDomain { url }, hadUserInteraction, isScheduledForAllButCookieDataRemoval, isPrevalent, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->insertExpiredStatisticForTesting(m_sessionID, PurCFetcher::RegistrableDomain { url }, hadUserInteraction, isScheduledForAllButCookieDataRemoval, isPrevalent, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1725,7 +1725,7 @@ void WebsiteDataStore::logUserInteraction(const URL& url, CompletionHandler<void
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->logUserInteraction(m_sessionID, PurcFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
+            process->logUserInteraction(m_sessionID, PurCFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1740,7 +1740,7 @@ void WebsiteDataStore::hasHadUserInteraction(const URL& url, CompletionHandler<v
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->hasHadUserInteraction(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            process->hasHadUserInteraction(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1758,7 +1758,7 @@ void WebsiteDataStore::isRelationshipOnlyInDatabaseOnce(const URL& subUrl, const
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess()) {
-            process->isRelationshipOnlyInDatabaseOnce(m_sessionID, PurcFetcher::RegistrableDomain { subUrl }, PurcFetcher::RegistrableDomain { topUrl }, WTFMove(completionHandler));
+            process->isRelationshipOnlyInDatabaseOnce(m_sessionID, PurCFetcher::RegistrableDomain { subUrl }, PurCFetcher::RegistrableDomain { topUrl }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1778,7 +1778,7 @@ void WebsiteDataStore::clearUserInteraction(const URL& url, CompletionHandler<vo
 
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->clearUserInteraction(m_sessionID, PurcFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
+            process->clearUserInteraction(m_sessionID, PurCFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1795,7 +1795,7 @@ void WebsiteDataStore::setGrandfathered(const URL& url, bool isGrandfathered, Co
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setGrandfathered(m_sessionID, PurcFetcher::RegistrableDomain { url }, isGrandfathered, [callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setGrandfathered(m_sessionID, PurCFetcher::RegistrableDomain { url }, isGrandfathered, [callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1819,7 +1819,7 @@ void WebsiteDataStore::setCrossSiteLoadWithLinkDecorationForTesting(const URL& f
     
     for (auto& processPool : processPools()) {
         if (auto* process = processPool->networkProcess())
-            process->setCrossSiteLoadWithLinkDecorationForTesting(m_sessionID, PurcFetcher::RegistrableDomain { fromURL }, PurcFetcher::RegistrableDomain { toURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
+            process->setCrossSiteLoadWithLinkDecorationForTesting(m_sessionID, PurCFetcher::RegistrableDomain { fromURL }, PurCFetcher::RegistrableDomain { toURL }, [processPool, callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1839,7 +1839,7 @@ void WebsiteDataStore::deleteCookiesForTesting(const URL& url, bool includeHttpO
     
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess())
-            networkProcess->deleteCookiesForTesting(m_sessionID, PurcFetcher::RegistrableDomain { url }, includeHttpOnlyCookies, [callbackAggregator = callbackAggregator.copyRef()] { });
+            networkProcess->deleteCookiesForTesting(m_sessionID, PurCFetcher::RegistrableDomain { url }, includeHttpOnlyCookies, [callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 
@@ -1847,7 +1847,7 @@ void WebsiteDataStore::hasLocalStorageForTesting(const URL& url, CompletionHandl
 {
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess()) {
-            networkProcess->hasLocalStorage(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            networkProcess->hasLocalStorage(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1858,7 +1858,7 @@ void WebsiteDataStore::hasIsolatedSessionForTesting(const URL& url, CompletionHa
 {
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess()) {
-            networkProcess->hasIsolatedSession(m_sessionID, PurcFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
+            networkProcess->hasIsolatedSession(m_sessionID, PurCFetcher::RegistrableDomain { url }, WTFMove(completionHandler));
             return;
         }
     }
@@ -1876,10 +1876,10 @@ void WebsiteDataStore::setResourceLoadStatisticsShouldDowngradeReferrerForTestin
 }
 
 #if !PLATFORM(COCOA)
-PurcFetcher::ThirdPartyCookieBlockingMode WebsiteDataStore::thirdPartyCookieBlockingMode() const
+PurCFetcher::ThirdPartyCookieBlockingMode WebsiteDataStore::thirdPartyCookieBlockingMode() const
 {
     if (!m_thirdPartyCookieBlockingMode)
-        m_thirdPartyCookieBlockingMode = PurcFetcher::ThirdPartyCookieBlockingMode::All;
+        m_thirdPartyCookieBlockingMode = PurCFetcher::ThirdPartyCookieBlockingMode::All;
     return *m_thirdPartyCookieBlockingMode;
 }
 #endif
@@ -1887,13 +1887,13 @@ PurcFetcher::ThirdPartyCookieBlockingMode WebsiteDataStore::thirdPartyCookieBloc
 void WebsiteDataStore::setResourceLoadStatisticsShouldBlockThirdPartyCookiesForTesting(bool enabled, bool onlyOnSitesWithoutUserInteraction, CompletionHandler<void()>&& completionHandler)
 {
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
-    PurcFetcher::ThirdPartyCookieBlockingMode blockingMode = PurcFetcher::ThirdPartyCookieBlockingMode::OnlyAccordingToPerDomainPolicy;
+    PurCFetcher::ThirdPartyCookieBlockingMode blockingMode = PurCFetcher::ThirdPartyCookieBlockingMode::OnlyAccordingToPerDomainPolicy;
     if (enabled)
-        blockingMode = onlyOnSitesWithoutUserInteraction ? PurcFetcher::ThirdPartyCookieBlockingMode::AllOnSitesWithoutUserInteraction : PurcFetcher::ThirdPartyCookieBlockingMode::All;
+        blockingMode = onlyOnSitesWithoutUserInteraction ? PurCFetcher::ThirdPartyCookieBlockingMode::AllOnSitesWithoutUserInteraction : PurCFetcher::ThirdPartyCookieBlockingMode::All;
     setThirdPartyCookieBlockingMode(blockingMode, WTFMove(completionHandler));
 }
 
-void WebsiteDataStore::setThirdPartyCookieBlockingMode(PurcFetcher::ThirdPartyCookieBlockingMode blockingMode, CompletionHandler<void()>&& completionHandler)
+void WebsiteDataStore::setThirdPartyCookieBlockingMode(PurCFetcher::ThirdPartyCookieBlockingMode blockingMode, CompletionHandler<void()>&& completionHandler)
 {
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
 
@@ -1911,7 +1911,7 @@ void WebsiteDataStore::setThirdPartyCookieBlockingMode(PurcFetcher::ThirdPartyCo
 
 void WebsiteDataStore::setResourceLoadStatisticsShouldEnbleSameSiteStrictEnforcementForTesting(bool enabled, CompletionHandler<void()>&& completionHandler)
 {
-    auto flag = enabled ? PurcFetcher::SameSiteStrictEnforcementEnabled::Yes : PurcFetcher::SameSiteStrictEnforcementEnabled::No;
+    auto flag = enabled ? PurCFetcher::SameSiteStrictEnforcementEnabled::Yes : PurCFetcher::SameSiteStrictEnforcementEnabled::No;
 
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
     for (auto& processPool : processPools()) {
@@ -1923,7 +1923,7 @@ void WebsiteDataStore::setResourceLoadStatisticsShouldEnbleSameSiteStrictEnforce
 void WebsiteDataStore::setResourceLoadStatisticsFirstPartyWebsiteDataRemovalModeForTesting(bool enabled, CompletionHandler<void()>&& completionHandler)
 {
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
-    auto mode = enabled ? PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies : PurcFetcher::FirstPartyWebsiteDataRemovalMode::None;
+    auto mode = enabled ? PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies : PurCFetcher::FirstPartyWebsiteDataRemovalMode::None;
 
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess())
@@ -1937,7 +1937,7 @@ void WebsiteDataStore::setResourceLoadStatisticsToSameSiteStrictCookiesForTestin
 
     for (auto& processPool : processPools()) {
         if (auto* networkProcess = processPool->networkProcess())
-            networkProcess->setToSameSiteStrictCookiesForTesting(m_sessionID, PurcFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
+            networkProcess->setToSameSiteStrictCookiesForTesting(m_sessionID, PurCFetcher::RegistrableDomain { url }, [callbackAggregator = callbackAggregator.copyRef()] { });
     }
 }
 #endif // ENABLE(RESOURCE_LOAD_STATISTICS)
@@ -2029,11 +2029,11 @@ static String computeMediaKeyFile(const String& mediaKeyDirectory)
     return FileSystem::pathByAppendingComponent(mediaKeyDirectory, "SecureStop.plist");
 }
 
-Vector<PurcFetcher::SecurityOriginData> WebsiteDataStore::mediaKeyOrigins(const String& mediaKeysStorageDirectory)
+Vector<PurCFetcher::SecurityOriginData> WebsiteDataStore::mediaKeyOrigins(const String& mediaKeysStorageDirectory)
 {
     ASSERT(!mediaKeysStorageDirectory.isEmpty());
 
-    Vector<PurcFetcher::SecurityOriginData> origins;
+    Vector<PurCFetcher::SecurityOriginData> origins;
 
     for (const auto& originPath : FileSystem::listDirectory(mediaKeysStorageDirectory, "*")) {
         auto mediaKeyFile = computeMediaKeyFile(originPath);
@@ -2042,7 +2042,7 @@ Vector<PurcFetcher::SecurityOriginData> WebsiteDataStore::mediaKeyOrigins(const 
 
         auto mediaKeyIdentifier = FileSystem::pathGetFileName(originPath);
 
-        if (auto securityOrigin = PurcFetcher::SecurityOriginData::fromDatabaseIdentifier(mediaKeyIdentifier))
+        if (auto securityOrigin = PurCFetcher::SecurityOriginData::fromDatabaseIdentifier(mediaKeyIdentifier))
             origins.append(*securityOrigin);
     }
 
@@ -2068,7 +2068,7 @@ void WebsiteDataStore::removeMediaKeys(const String& mediaKeysStorageDirectory, 
     }
 }
 
-void WebsiteDataStore::removeMediaKeys(const String& mediaKeysStorageDirectory, const HashSet<PurcFetcher::SecurityOriginData>& origins)
+void WebsiteDataStore::removeMediaKeys(const String& mediaKeysStorageDirectory, const HashSet<PurCFetcher::SecurityOriginData>& origins)
 {
     ASSERT(!mediaKeysStorageDirectory.isEmpty());
 
@@ -2203,12 +2203,12 @@ void WebsiteDataStore::clearResourceLoadStatisticsInWebProcesses(CompletionHandl
 }
 #endif
 
-Vector<PurcFetcher::Cookie> WebsiteDataStore::pendingCookies() const
+Vector<PurCFetcher::Cookie> WebsiteDataStore::pendingCookies() const
 {
     return copyToVector(m_pendingCookies);
 }
 
-void WebsiteDataStore::addPendingCookie(const PurcFetcher::Cookie& cookie)
+void WebsiteDataStore::addPendingCookie(const PurCFetcher::Cookie& cookie)
 {
     m_pendingCookies.removeIf([&cookie](auto& pendingCookie) {
         return pendingCookie.isKeyEqual(cookie);
@@ -2216,7 +2216,7 @@ void WebsiteDataStore::addPendingCookie(const PurcFetcher::Cookie& cookie)
     m_pendingCookies.add(cookie);
 }
 
-void WebsiteDataStore::removePendingCookie(const PurcFetcher::Cookie& cookie)
+void WebsiteDataStore::removePendingCookie(const PurCFetcher::Cookie& cookie)
 {
     m_pendingCookies.remove(cookie);
 }
@@ -2229,7 +2229,7 @@ void WebsiteDataStore::clearPendingCookies()
 uint64_t WebsiteDataStore::perThirdPartyOriginStorageQuota() const
 {
     // FIXME: Consider whether allowing to set a perThirdPartyOriginStorageQuota from a WebsiteDataStore.
-    return PurcFetcher::StorageQuotaManager::defaultThirdPartyQuotaFromPerOriginQuota(perOriginStorageQuota());
+    return PurCFetcher::StorageQuotaManager::defaultThirdPartyQuotaFromPerOriginQuota(perOriginStorageQuota());
 }
 
 void WebsiteDataStore::setCacheModelSynchronouslyForTesting(CacheModel cacheModel)
@@ -2258,14 +2258,14 @@ WebsiteDataStoreParameters WebsiteDataStore::parameters()
 
     bool shouldIncludeLocalhostInResourceLoadStatistics = false;
     bool enableResourceLoadStatisticsDebugMode = false;
-    auto firstPartyWebsiteDataRemovalMode = PurcFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies;
-    PurcFetcher::RegistrableDomain standaloneApplicationDomain;
-    HashSet<PurcFetcher::RegistrableDomain> appBoundDomains;
+    auto firstPartyWebsiteDataRemovalMode = PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookies;
+    PurCFetcher::RegistrableDomain standaloneApplicationDomain;
+    HashSet<PurCFetcher::RegistrableDomain> appBoundDomains;
 #if PLATFORM(COCOA)
     if (isAppBoundITPRelaxationEnabled)
-        appBoundDomains = appBoundDomainsIfInitialized().valueOr(HashSet<PurcFetcher::RegistrableDomain> { });
+        appBoundDomains = appBoundDomainsIfInitialized().valueOr(HashSet<PurCFetcher::RegistrableDomain> { });
 #endif
-    PurcFetcher::RegistrableDomain resourceLoadStatisticsManualPrevalentResource;
+    PurCFetcher::RegistrableDomain resourceLoadStatisticsManualPrevalentResource;
     ResourceLoadStatisticsParameters resourceLoadStatisticsParameters = {
         WTFMove(resourceLoadStatisticsDirectory),
         WTFMove(resourceLoadStatisticsDirectoryHandle),
@@ -2281,7 +2281,7 @@ WebsiteDataStoreParameters WebsiteDataStore::parameters()
         enableResourceLoadStatisticsDebugMode,
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
         thirdPartyCookieBlockingMode(),
-        PurcFetcher::SameSiteStrictEnforcementEnabled::No,
+        PurCFetcher::SameSiteStrictEnforcementEnabled::No,
 #endif
         firstPartyWebsiteDataRemovalMode,
         WTFMove(standaloneApplicationDomain),
@@ -2355,7 +2355,7 @@ void WebsiteDataStore::addSecKeyProxyStore(Ref<SecKeyProxyStore>&& store)
 #endif
 
 #if ENABLE(WEB_AUTHN)
-void WebsiteDataStore::setMockWebAuthenticationConfiguration(PurcFetcher::MockWebAuthenticationConfiguration&& configuration)
+void WebsiteDataStore::setMockWebAuthenticationConfiguration(PurCFetcher::MockWebAuthenticationConfiguration&& configuration)
 {
     if (!m_authenticatorManager->isMock()) {
         m_authenticatorManager = makeUniqueRef<MockAuthenticatorManager>(WTFMove(configuration));
@@ -2476,12 +2476,12 @@ void WebsiteDataStore::forwardAppBoundDomainsToITPIfInitialized(CompletionHandle
     if (!appBoundDomains)
         return;
 
-    auto propagateAppBoundDomains = [callbackAggregator = callbackAggregator.copyRef()] (WebsiteDataStore* store, const HashSet<PurcFetcher::RegistrableDomain>& domains) {
+    auto propagateAppBoundDomains = [callbackAggregator = callbackAggregator.copyRef()] (WebsiteDataStore* store, const HashSet<PurCFetcher::RegistrableDomain>& domains) {
         if (!store)
             return;
 
-        if (store->thirdPartyCookieBlockingMode() != PurcFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains)
-            store->setThirdPartyCookieBlockingMode(PurcFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains, [callbackAggregator = callbackAggregator.copyRef()] { });
+        if (store->thirdPartyCookieBlockingMode() != PurCFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains)
+            store->setThirdPartyCookieBlockingMode(PurCFetcher::ThirdPartyCookieBlockingMode::AllExceptBetweenAppBoundDomains, [callbackAggregator = callbackAggregator.copyRef()] { });
 
         store->setAppBoundDomainsForITP(domains, [callbackAggregator = callbackAggregator.copyRef()] { });
     };
@@ -2492,7 +2492,7 @@ void WebsiteDataStore::forwardAppBoundDomainsToITPIfInitialized(CompletionHandle
         propagateAppBoundDomains(store, *appBoundDomains);
 }
 
-void WebsiteDataStore::setAppBoundDomainsForITP(const HashSet<PurcFetcher::RegistrableDomain>& domains, CompletionHandler<void()>&& completionHandler)
+void WebsiteDataStore::setAppBoundDomainsForITP(const HashSet<PurCFetcher::RegistrableDomain>& domains, CompletionHandler<void()>&& completionHandler)
 {
     auto callbackAggregator = CallbackAggregator::create(WTFMove(completionHandler));
 

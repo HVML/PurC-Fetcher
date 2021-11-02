@@ -35,12 +35,12 @@ namespace IPC {
 class FormDataReference {
 public:
     FormDataReference() = default;
-    explicit FormDataReference(RefPtr<PurcFetcher::FormData>&& data)
+    explicit FormDataReference(RefPtr<PurCFetcher::FormData>&& data)
         : m_data(WTFMove(data))
     {
     }
 
-    RefPtr<PurcFetcher::FormData> takeData() { return WTFMove(m_data); }
+    RefPtr<PurCFetcher::FormData> takeData() { return WTFMove(m_data); }
 
     void encode(Encoder& encoder) const
     {
@@ -52,16 +52,16 @@ public:
 
         auto& elements = m_data->elements();
         size_t fileCount = std::count_if(elements.begin(), elements.end(), [](auto& element) {
-            return WTF::holds_alternative<PurcFetcher::FormDataElement::EncodedFileData>(element.data);
+            return WTF::holds_alternative<PurCFetcher::FormDataElement::EncodedFileData>(element.data);
         });
 
-        PurcFetcher::SandboxExtension::HandleArray sandboxExtensionHandles;
+        PurCFetcher::SandboxExtension::HandleArray sandboxExtensionHandles;
         sandboxExtensionHandles.allocate(fileCount);
         size_t extensionIndex = 0;
         for (auto& element : elements) {
-            if (auto* fileData = WTF::get_if<PurcFetcher::FormDataElement::EncodedFileData>(element.data)) {
+            if (auto* fileData = WTF::get_if<PurCFetcher::FormDataElement::EncodedFileData>(element.data)) {
                 const String& path = fileData->filename;
-                PurcFetcher::SandboxExtension::createHandle(path, PurcFetcher::SandboxExtension::Type::ReadOnly, sandboxExtensionHandles[extensionIndex++]);
+                PurCFetcher::SandboxExtension::createHandle(path, PurCFetcher::SandboxExtension::Type::ReadOnly, sandboxExtensionHandles[extensionIndex++]);
             }
         }
         encoder << sandboxExtensionHandles;
@@ -76,22 +76,22 @@ public:
         if (!hasFormData.value())
             return FormDataReference { };
 
-        auto formData = PurcFetcher::FormData::decode(decoder);
+        auto formData = PurCFetcher::FormData::decode(decoder);
         if (!formData)
             return WTF::nullopt;
 
-        Optional<PurcFetcher::SandboxExtension::HandleArray> sandboxExtensionHandles;
+        Optional<PurCFetcher::SandboxExtension::HandleArray> sandboxExtensionHandles;
         decoder >> sandboxExtensionHandles;
         if (!sandboxExtensionHandles)
             return WTF::nullopt;
 
-        PurcFetcher::SandboxExtension::consumePermanently(*sandboxExtensionHandles);
+        PurCFetcher::SandboxExtension::consumePermanently(*sandboxExtensionHandles);
 
         return FormDataReference { formData.releaseNonNull() };
     }
 
 private:
-    RefPtr<PurcFetcher::FormData> m_data;
+    RefPtr<PurCFetcher::FormData> m_data;
 };
 
 } // namespace IPC

@@ -29,7 +29,7 @@
 #include <wtf/Markable.h>
 #include <wtf/WallTime.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class CookieJar;
 class HTTPHeaderMap;

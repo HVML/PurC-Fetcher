@@ -45,13 +45,13 @@ namespace PAL {
 class SessionID;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class AuthenticationChallenge;
 class Credential;
 struct SecurityOriginData;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class Download;
 class DownloadID;
@@ -60,7 +60,7 @@ class WebFrame;
 enum class NegotiatedLegacyTLS : bool { No, Yes };
 
 enum class AuthenticationChallengeDisposition : uint8_t;
-using ChallengeCompletionHandler = CompletionHandler<void(AuthenticationChallengeDisposition, const PurcFetcher::Credential&)>;
+using ChallengeCompletionHandler = CompletionHandler<void(AuthenticationChallengeDisposition, const PurCFetcher::Credential&)>;
 
 class AuthenticationManager : public NetworkProcessSupplement, public IPC::MessageReceiver, public CanMakeWeakPtr<AuthenticationManager> {
     WTF_MAKE_FAST_ALLOCATED;
@@ -71,17 +71,17 @@ public:
 
     static const char* supplementName();
 
-    void didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const PurcFetcher::SecurityOriginData* , const PurcFetcher::AuthenticationChallenge&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&);
-    void didReceiveAuthenticationChallenge(IPC::MessageSender& download, const PurcFetcher::AuthenticationChallenge&, ChallengeCompletionHandler&&);
+    void didReceiveAuthenticationChallenge(PAL::SessionID, WebPageProxyIdentifier, const PurCFetcher::SecurityOriginData* , const PurCFetcher::AuthenticationChallenge&, NegotiatedLegacyTLS, ChallengeCompletionHandler&&);
+    void didReceiveAuthenticationChallenge(IPC::MessageSender& download, const PurCFetcher::AuthenticationChallenge&, ChallengeCompletionHandler&&);
 
-    void completeAuthenticationChallenge(uint64_t challengeID, AuthenticationChallengeDisposition, PurcFetcher::Credential&&);
+    void completeAuthenticationChallenge(uint64_t challengeID, AuthenticationChallengeDisposition, PurCFetcher::Credential&&);
 
     void negotiatedLegacyTLS(WebPageProxyIdentifier) const;
 
 private:
     struct Challenge {
         WebPageProxyIdentifier pageID;
-        PurcFetcher::AuthenticationChallenge challenge;
+        PurCFetcher::AuthenticationChallenge challenge;
         ChallengeCompletionHandler completionHandler;
     };
 
@@ -94,7 +94,7 @@ private:
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
 
     uint64_t addChallengeToChallengeMap(Challenge&&);
-    bool shouldCoalesceChallenge(WebPageProxyIdentifier, uint64_t challengeID, const PurcFetcher::AuthenticationChallenge&) const;
+    bool shouldCoalesceChallenge(WebPageProxyIdentifier, uint64_t challengeID, const PurCFetcher::AuthenticationChallenge&) const;
 
     Vector<uint64_t> coalesceChallengesMatching(uint64_t challengeID) const;
 
@@ -103,4 +103,4 @@ private:
     HashMap<uint64_t, Challenge> m_challenges;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

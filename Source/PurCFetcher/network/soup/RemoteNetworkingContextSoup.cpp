@@ -33,8 +33,8 @@
 #include "WebsiteDataStoreParameters.h"
 #include "NetworkStorageSession.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 void RemoteNetworkingContext::ensureWebsiteDataStoreSession(NetworkProcess& networkProcess, WebsiteDataStoreParameters&& parameters)
 {

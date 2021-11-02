@@ -29,12 +29,12 @@
 
 #if ENABLE(PUBLIC_SUFFIX_LIST)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 PURCFETCHER_EXPORT bool isPublicSuffix(const String& domain);
 PURCFETCHER_EXPORT String topPrivatelyControlledDomain(const String& domain);
 String decodeHostName(const String& domain);
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(PUBLIC_SUFFIX_LIST)

@@ -76,14 +76,14 @@ _expected_results = {
         {
             'name': 'TouchEvent',
             'parameters': (
-                ('PurcFetcher::WebTouchEvent', 'event'),
+                ('PurCFetcher::WebTouchEvent', 'event'),
             ),
             'conditions': ('(ENABLE(TOUCH_EVENTS) && (NESTED_MESSAGE_CONDITION || SOME_OTHER_MESSAGE_CONDITION))'),
         },
         {
             'name': 'AddEvent',
             'parameters': (
-                ('PurcFetcher::WebTouchEvent', 'event'),
+                ('PurCFetcher::WebTouchEvent', 'event'),
             ),
             'conditions': ('(ENABLE(TOUCH_EVENTS) && (NESTED_MESSAGE_CONDITION && SOME_OTHER_MESSAGE_CONDITION))'),
         },
@@ -111,7 +111,7 @@ _expected_results = {
         {
             'name': 'PreferencesDidChange',
             'parameters': (
-                ('PurcFetcher::WebPreferencesStore', 'store'),
+                ('PurCFetcher::WebPreferencesStore', 'store'),
             ),
             'conditions': (None),
         },
@@ -135,7 +135,7 @@ _expected_results = {
             'name': 'CreatePlugin',
             'parameters': (
                 ('uint64_t', 'pluginInstanceID'),
-                ('PurcFetcher::Plugin::Parameters', 'parameters')
+                ('PurCFetcher::Plugin::Parameters', 'parameters')
             ),
             'reply_parameters': (
                 ('bool', 'result'),
@@ -206,7 +206,7 @@ _expected_results = {
             'name': 'DidCreateWebProcessConnection',
             'parameters': (
                 ('IPC::MachPort', 'connectionIdentifier'),
-                ('OptionSet<PurcFetcher::SelectionFlags>', 'flags'),
+                ('OptionSet<PurCFetcher::SelectionFlags>', 'flags'),
             ),
             'conditions': ('PLATFORM(MAC)'),
         },
@@ -252,7 +252,7 @@ _expected_superclass_results = {
         {
             'name': 'TestAsyncMessage',
             'parameters': (
-                ('PurcFetcher::TestTwoStateEnum', 'twoStateEnum'),
+                ('PurCFetcher::TestTwoStateEnum', 'twoStateEnum'),
             ),
             'reply_parameters': (
                 ('uint64_t', 'result'),
@@ -300,7 +300,7 @@ _expected_superclass_results = {
                 ('bool', 'value'),
             ),
             'reply_parameters': (
-                ('Optional<PurcFetcher::TestClassName>', 'optionalReply'),
+                ('Optional<PurCFetcher::TestClassName>', 'optionalReply'),
             ),
             'conditions': (None),
         },

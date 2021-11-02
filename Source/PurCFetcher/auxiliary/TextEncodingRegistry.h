@@ -28,7 +28,7 @@
 #include <memory>
 #include <wtf/Forward.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class TextCodec;
 class TextEncoding;
@@ -50,4 +50,4 @@ PURCFETCHER_EXPORT String defaultTextEncodingNameForSystemLanguage();
 PURCFETCHER_EXPORT CFStringEncoding webDefaultCFStringEncoding();
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

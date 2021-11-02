@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class NavigatingToAppBoundDomain : bool { Yes, No };
 

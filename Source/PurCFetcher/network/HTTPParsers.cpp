@@ -44,7 +44,7 @@
 #include <wtf/unicode/CharacterNames.h>
 
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // True if characters which satisfy the predicate are present, incrementing
 // "pos" to the next character which does not satisfy the predicate.

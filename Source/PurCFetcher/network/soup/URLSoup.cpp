@@ -28,7 +28,7 @@
 
 #include <wtf/URL.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 URL soupURIToURL(SoupURI* soupURI)
 {
@@ -58,4 +58,4 @@ GUniquePtr<SoupURI> urlToSoupURI(const URL& url)
     return GUniquePtr<SoupURI>(soup_uri_new(url.string().utf8().data()));
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -31,7 +31,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class CachedResource;
 
@@ -80,13 +80,13 @@ ResourceCryptographicDigest cryptographicDigestForBytes(ResourceCryptographicDig
 
 namespace WTF {
 
-template<> struct DefaultHash<PurcFetcher::ResourceCryptographicDigest> {
+template<> struct DefaultHash<PurCFetcher::ResourceCryptographicDigest> {
     struct Hash {
-        static unsigned hash(const PurcFetcher::ResourceCryptographicDigest& digest)
+        static unsigned hash(const PurCFetcher::ResourceCryptographicDigest& digest)
         {
             return pairIntHash(intHash(static_cast<unsigned>(digest.algorithm)), StringHasher::computeHash(digest.value.data(), digest.value.size()));
         }
-        static bool equal(const PurcFetcher::ResourceCryptographicDigest& a, const PurcFetcher::ResourceCryptographicDigest& b)
+        static bool equal(const PurCFetcher::ResourceCryptographicDigest& a, const PurCFetcher::ResourceCryptographicDigest& b)
         {
             return a == b;
         }
@@ -94,25 +94,25 @@ template<> struct DefaultHash<PurcFetcher::ResourceCryptographicDigest> {
     };
 };
 
-template<> struct HashTraits<PurcFetcher::ResourceCryptographicDigest> : GenericHashTraits<PurcFetcher::ResourceCryptographicDigest> {
-    using Algorithm = PurcFetcher::ResourceCryptographicDigest::Algorithm;
+template<> struct HashTraits<PurCFetcher::ResourceCryptographicDigest> : GenericHashTraits<PurCFetcher::ResourceCryptographicDigest> {
+    using Algorithm = PurCFetcher::ResourceCryptographicDigest::Algorithm;
     using AlgorithmUnderlyingType = typename std::underlying_type<Algorithm>::type;
     static constexpr auto emptyAlgorithmValue = static_cast<Algorithm>(std::numeric_limits<AlgorithmUnderlyingType>::max());
     static constexpr auto deletedAlgorithmValue = static_cast<Algorithm>(std::numeric_limits<AlgorithmUnderlyingType>::max() - 1);
 
     static const bool emptyValueIsZero = false;
 
-    static PurcFetcher::ResourceCryptographicDigest emptyValue()
+    static PurCFetcher::ResourceCryptographicDigest emptyValue()
     {
         return { emptyAlgorithmValue, { } };
     }
 
-    static void constructDeletedValue(PurcFetcher::ResourceCryptographicDigest& slot)
+    static void constructDeletedValue(PurCFetcher::ResourceCryptographicDigest& slot)
     {
         slot.algorithm = deletedAlgorithmValue;
     }
 
-    static bool isDeletedValue(const PurcFetcher::ResourceCryptographicDigest& slot)
+    static bool isDeletedValue(const PurCFetcher::ResourceCryptographicDigest& slot)
     {
         return slot.algorithm == deletedAlgorithmValue;
     }

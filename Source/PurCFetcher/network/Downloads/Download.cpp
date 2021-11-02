@@ -47,8 +47,8 @@
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(isAlwaysOnLoggingAllowed(), Network, "%p - Download::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 Download::Download(DownloadManager& downloadManager, DownloadID downloadID, NetworkDataTask& download, NetworkSession& session, const String& suggestedName)
     : m_downloadManager(downloadManager)
@@ -102,7 +102,7 @@ void Download::cancel()
     platformCancelNetworkLoad();
 }
 
-void Download::didReceiveChallenge(const PurcFetcher::AuthenticationChallenge& challenge, ChallengeCompletionHandler&& completionHandler)
+void Download::didReceiveChallenge(const PurCFetcher::AuthenticationChallenge& challenge, ChallengeCompletionHandler&& completionHandler)
 {
     if (challenge.protectionSpace().isPasswordBased() && !challenge.proposedCredential().isEmpty() && !challenge.previousFailureCount()) {
         completionHandler(AuthenticationChallengeDisposition::UseCredential, challenge.proposedCredential());
@@ -199,6 +199,6 @@ void Download::platformDestroyDownload()
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #undef RELEASE_LOG_IF_ALLOWED

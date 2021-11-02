@@ -30,11 +30,11 @@
 
 typedef struct _SoupSession SoupSession;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SoupNetworkSession;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct NetworkSessionCreationParameters;
 
@@ -47,7 +47,7 @@ public:
     NetworkSessionSoup(NetworkProcess&, NetworkSessionCreationParameters&&);
     ~NetworkSessionSoup();
 
-    PurcFetcher::SoupNetworkSession& soupNetworkSession() const { return *m_networkSession; }
+    PurCFetcher::SoupNetworkSession& soupNetworkSession() const { return *m_networkSession; }
     SoupSession* soupSession() const;
 
     void setCookiePersistentStorage(const String& storagePath, SoupCookiePersistentStorageType);
@@ -55,7 +55,7 @@ public:
 private:
     void clearCredentials() final;
 
-    std::unique_ptr<PurcFetcher::SoupNetworkSession> m_networkSession;
+    std::unique_ptr<PurCFetcher::SoupNetworkSession> m_networkSession;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

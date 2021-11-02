@@ -28,20 +28,20 @@ messages -> WebCookieManager NotRefCounted {
     void DeleteCookiesForHostnames(PAL::SessionID sessionID, Vector<String> hostnames)
     void DeleteAllCookies(PAL::SessionID sessionID)
 
-    void SetCookie(PAL::SessionID sessionID, Vector<PurcFetcher::Cookie> cookie) -> () Async
-    void SetCookies(PAL::SessionID sessionID, Vector<PurcFetcher::Cookie> cookies, URL url, URL mainDocumentURL) -> () Async
-    void GetAllCookies(PAL::SessionID sessionID) -> (Vector<PurcFetcher::Cookie> cookies) Async
-    void GetCookies(PAL::SessionID sessionID, URL url) -> (Vector<PurcFetcher::Cookie> cookies) Async
-    void DeleteCookie(PAL::SessionID sessionID, struct PurcFetcher::Cookie cookie) -> () Async
+    void SetCookie(PAL::SessionID sessionID, Vector<PurCFetcher::Cookie> cookie) -> () Async
+    void SetCookies(PAL::SessionID sessionID, Vector<PurCFetcher::Cookie> cookies, URL url, URL mainDocumentURL) -> () Async
+    void GetAllCookies(PAL::SessionID sessionID) -> (Vector<PurCFetcher::Cookie> cookies) Async
+    void GetCookies(PAL::SessionID sessionID, URL url) -> (Vector<PurCFetcher::Cookie> cookies) Async
+    void DeleteCookie(PAL::SessionID sessionID, struct PurCFetcher::Cookie cookie) -> () Async
     void DeleteAllCookiesModifiedSince(PAL::SessionID sessionID, WallTime time) -> () Async
 
-    void SetHTTPCookieAcceptPolicy(enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy policy) -> () Async
-    void GetHTTPCookieAcceptPolicy() -> (enum:uint8_t PurcFetcher::HTTPCookieAcceptPolicy policy) Async
+    void SetHTTPCookieAcceptPolicy(enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy policy) -> () Async
+    void GetHTTPCookieAcceptPolicy() -> (enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy policy) Async
     
     void StartObservingCookieChanges(PAL::SessionID sessionID)
     void StopObservingCookieChanges(PAL::SessionID sessionID)
 
 #if USE(SOUP)
-    void SetCookiePersistentStorage(PAL::SessionID sessionID, String storagePath, enum:bool PurcFetcher::SoupCookiePersistentStorageType storageType)
+    void SetCookiePersistentStorage(PAL::SessionID sessionID, String storagePath, enum:bool PurCFetcher::SoupCookiePersistentStorageType storageType)
 #endif
 }

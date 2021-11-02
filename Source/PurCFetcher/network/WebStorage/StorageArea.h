@@ -32,11 +32,11 @@
 #include <wtf/Forward.h>
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class StorageMap;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LocalStorageDatabase;
 class LocalStorageNamespace;
@@ -47,10 +47,10 @@ class StorageArea : public CanMakeWeakPtr<StorageArea> {
 public:
     using Identifier = StorageAreaIdentifier;
     
-    StorageArea(LocalStorageNamespace*, const PurcFetcher::SecurityOriginData&, unsigned quotaInBytes, Ref<WorkQueue>&&);
+    StorageArea(LocalStorageNamespace*, const PurCFetcher::SecurityOriginData&, unsigned quotaInBytes, Ref<WorkQueue>&&);
     ~StorageArea();
 
-    const PurcFetcher::SecurityOriginData& securityOrigin() const { return m_securityOrigin; }
+    const PurCFetcher::SecurityOriginData& securityOrigin() const { return m_securityOrigin; }
     Identifier identifier() { return m_identifier; }
 
     void addListener(IPC::Connection::UniqueID);
@@ -81,14 +81,14 @@ private:
     mutable RefPtr<LocalStorageDatabase> m_localStorageDatabase;
     mutable bool m_didImportItemsFromDatabase { false };
 
-    PurcFetcher::SecurityOriginData m_securityOrigin;
+    PurCFetcher::SecurityOriginData m_securityOrigin;
     unsigned m_quotaInBytes { 0 };
 
-    RefPtr<PurcFetcher::StorageMap> m_storageMap;
+    RefPtr<PurCFetcher::StorageMap> m_storageMap;
     HashSet<IPC::Connection::UniqueID> m_eventListeners;
 
     Identifier m_identifier;
     Ref<WorkQueue> m_queue;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

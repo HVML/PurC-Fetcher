@@ -33,7 +33,7 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SecurityOrigin : public ThreadSafeRefCounted<SecurityOrigin> {
 public:
@@ -68,7 +68,7 @@ public:
     //
     // We're supposed to use "http://example.com" as the origin.
     //
-    // Generally, we add URL schemes to this list when PurcFetcher support them. For
+    // Generally, we add URL schemes to this list when PurCFetcher support them. For
     // example, we don't include the "jar" scheme, even though Firefox
     // understands that "jar" uses an inner URL for it's security origin.
     static bool shouldUseInnerURL(const URL&);
@@ -132,7 +132,7 @@ public:
     // SecurityOrigin.
     //
     // Note: This method exists only to support backwards compatibility
-    //       with older versions of PurcFetcher.
+    //       with older versions of PurCFetcher.
     void grantLoadLocalResources();
 
     // Explicitly grant the ability to access very other SecurityOrigin.
@@ -307,16 +307,16 @@ template<class Decoder> inline RefPtr<SecurityOrigin> SecurityOrigin::decode(Dec
     return origin;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::SecurityOrigin::StorageBlockingPolicy> {
+template<> struct EnumTraits<PurCFetcher::SecurityOrigin::StorageBlockingPolicy> {
     using values = EnumValues<
-        PurcFetcher::SecurityOrigin::StorageBlockingPolicy,
-        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::AllowAllStorage,
-        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::BlockThirdPartyStorage,
-        PurcFetcher::SecurityOrigin::StorageBlockingPolicy::BlockAllStorage
+        PurCFetcher::SecurityOrigin::StorageBlockingPolicy,
+        PurCFetcher::SecurityOrigin::StorageBlockingPolicy::AllowAllStorage,
+        PurCFetcher::SecurityOrigin::StorageBlockingPolicy::BlockThirdPartyStorage,
+        PurCFetcher::SecurityOrigin::StorageBlockingPolicy::BlockAllStorage
     >;
 };
 

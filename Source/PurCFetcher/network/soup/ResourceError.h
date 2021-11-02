@@ -36,7 +36,7 @@ typedef struct _GTlsCertificate GTlsCertificate;
 typedef struct _SoupRequest SoupRequest;
 typedef struct _SoupMessage SoupMessage;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ResourceError : public ResourceErrorBase
 {

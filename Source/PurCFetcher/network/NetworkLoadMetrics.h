@@ -37,7 +37,7 @@
 OBJC_CLASS NSDictionary;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class NetworkLoadPriority : uint8_t {
     Low,
@@ -246,19 +246,19 @@ bool NetworkLoadMetrics::decode(Decoder& decoder, NetworkLoadMetrics& metrics)
         && decoder.decode(metrics.responseBodyDecodedSize);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 // NetworkLoadMetrics should not be stored by the WTF::Persistence::Decoder.
 namespace WTF {
 namespace Persistence {
 
-template<> struct Coder<Optional<PurcFetcher::NetworkLoadPriority>> {
-    static NO_RETURN_DUE_TO_ASSERT void encode(Encoder&, const Optional<PurcFetcher::NetworkLoadPriority>&)
+template<> struct Coder<Optional<PurCFetcher::NetworkLoadPriority>> {
+    static NO_RETURN_DUE_TO_ASSERT void encode(Encoder&, const Optional<PurCFetcher::NetworkLoadPriority>&)
     {
         ASSERT_NOT_REACHED();
     }
 
-    static bool decode(Decoder&, Optional<PurcFetcher::NetworkLoadPriority>&)
+    static bool decode(Decoder&, Optional<PurCFetcher::NetworkLoadPriority>&)
     {
         ASSERT_NOT_REACHED();
         return false;

@@ -31,7 +31,7 @@
 
 struct sqlite3_stmt;
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SQLiteStatement {
     WTF_MAKE_NONCOPYABLE(SQLiteStatement); WTF_MAKE_FAST_ALLOCATED;
@@ -103,4 +103,4 @@ private:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

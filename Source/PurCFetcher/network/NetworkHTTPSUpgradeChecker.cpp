@@ -39,7 +39,7 @@
 #define RELEASE_LOG_IF_ALLOWED(sessionID, fmt, ...) RELEASE_LOG_IF(sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkHTTPSUpgradeChecker::" fmt, this, ##__VA_ARGS__)
 #define RELEASE_LOG_ERROR_IF_ALLOWED(sessionID, fmt, ...) RELEASE_LOG_ERROR_IF(sessionID.isAlwaysOnLoggingAllowed(), Network, "%p - NetworkHTTPSUpgradeChecker::" fmt, this, ##__VA_ARGS__)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 constexpr auto httpsUpgradeCheckerQuery = "SELECT host FROM hosts WHERE host = ?"_s;
 
@@ -48,7 +48,7 @@ static const String& networkHTTPSUpgradeCheckerDatabasePath()
     static NeverDestroyed<String> networkHTTPSUpgradeCheckerDatabasePath;
 #if PLATFORM(COCOA)
     if (networkHTTPSUpgradeCheckerDatabasePath.get().isNull()) {
-        CFBundleRef webKitBundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.PurcFetcher"));
+        CFBundleRef webKitBundle = CFBundleGetBundleWithIdentifier(CFSTR("com.apple.PurCFetcher"));
         auto resourceURL = adoptCF(CFBundleCopyResourceURL(webKitBundle, CFSTR("HTTPSUpgradeList"), CFSTR("db"), nullptr));
         if (resourceURL)
             networkHTTPSUpgradeCheckerDatabasePath.get() = CFURLGetString(resourceURL.get());
@@ -69,8 +69,8 @@ NetworkHTTPSUpgradeChecker::NetworkHTTPSUpgradeChecker()
             return;
         }
 
-        m_database = makeUnique<PurcFetcher::SQLiteDatabase>();
-        bool isDatabaseOpen = m_database->open(path, PurcFetcher::SQLiteDatabase::OpenMode::ReadOnly);
+        m_database = makeUnique<PurCFetcher::SQLiteDatabase>();
+        bool isDatabaseOpen = m_database->open(path, PurCFetcher::SQLiteDatabase::OpenMode::ReadOnly);
         if (!isDatabaseOpen) {
 #if PLATFORM(COCOA)
             RELEASE_LOG_ERROR(Network, "%p - NetworkHTTPSUpgradeChecker::open failed, error message: %{public}s, database path: %{public}s", this, m_database->lastErrorMsg(), path.utf8().data());
@@ -82,7 +82,7 @@ NetworkHTTPSUpgradeChecker::NetworkHTTPSUpgradeChecker()
         // Since we are using a workerQueue, the sequential dispatch blocks may be called by different threads.
         m_database->disableThreadingChecks();
 
-        m_statement = makeUnique<PurcFetcher::SQLiteStatement>(*m_database, httpsUpgradeCheckerQuery);
+        m_statement = makeUnique<PurCFetcher::SQLiteStatement>(*m_database, httpsUpgradeCheckerQuery);
         int isStatementPrepared = (m_statement->prepare() == SQLITE_OK);
         ASSERT(isStatementPrepared);
         if (!isStatementPrepared)
@@ -133,5 +133,5 @@ void NetworkHTTPSUpgradeChecker::query(String&& host, PAL::SessionID sessionID, 
     });
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

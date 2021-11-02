@@ -26,7 +26,7 @@
 #include "config.h"
 #include "NetworkProcessConnection.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 NetworkProcessConnection::NetworkProcessConnection(IPC::Connection::Identifier, HTTPCookieAcceptPolicy)
 {
@@ -53,11 +53,11 @@ void NetworkProcessConnection::didReceiveInvalidMessage(IPC::Connection&, IPC::M
 }
 
 
-void NetworkProcessConnection::didFinishPingLoad(uint64_t, PurcFetcher::ResourceError&&, PurcFetcher::ResourceResponse&&)
+void NetworkProcessConnection::didFinishPingLoad(uint64_t, PurCFetcher::ResourceError&&, PurCFetcher::ResourceResponse&&)
 {
 }
 
-void NetworkProcessConnection::didFinishPreconnection(uint64_t, PurcFetcher::ResourceError&&)
+void NetworkProcessConnection::didFinishPreconnection(uint64_t, PurCFetcher::ResourceError&&)
 {
 }
 
@@ -65,27 +65,27 @@ void NetworkProcessConnection::setOnLineState(bool)
 {
 }
 
-void NetworkProcessConnection::cookieAcceptPolicyChanged(PurcFetcher::HTTPCookieAcceptPolicy)
+void NetworkProcessConnection::cookieAcceptPolicyChanged(PurCFetcher::HTTPCookieAcceptPolicy)
 {
 }
 
 
-void NetworkProcessConnection::checkProcessLocalPortForActivity(const PurcFetcher::MessagePortIdentifier&, CompletionHandler<void(PurcFetcher::MessagePortChannelProvider::HasActivity)>&&)
+void NetworkProcessConnection::checkProcessLocalPortForActivity(const PurCFetcher::MessagePortIdentifier&, CompletionHandler<void(PurCFetcher::MessagePortChannelProvider::HasActivity)>&&)
 {
 }
 
-void NetworkProcessConnection::messagesAvailableForPort(const PurcFetcher::MessagePortIdentifier&)
+void NetworkProcessConnection::messagesAvailableForPort(const PurCFetcher::MessagePortIdentifier&)
 {
 }
 
 
 #if ENABLE(SHAREABLE_RESOURCE)
 // Message handlers.
-void NetworkProcessConnection::didCacheResource(const PurcFetcher::ResourceRequest&, const ShareableResource::Handle&)
+void NetworkProcessConnection::didCacheResource(const PurCFetcher::ResourceRequest&, const ShareableResource::Handle&)
 {
 }
 
 #endif
 
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

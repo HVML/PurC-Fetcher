@@ -24,7 +24,7 @@
 
 #include <glib.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 SharedBuffer::SharedBuffer(GBytes* bytes)
 {
@@ -64,4 +64,4 @@ RefPtr<SharedBuffer> SharedBuffer::createFromReadingFile(const String& filePath)
     return SharedBuffer::create(contents.get(), size);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

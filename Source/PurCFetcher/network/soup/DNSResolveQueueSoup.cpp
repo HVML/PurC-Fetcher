@@ -37,7 +37,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // Initially true to ensure prefetch stays disabled until we have proxy settings.
 static bool isUsingHttpProxy = true;
@@ -140,7 +140,7 @@ static void resolvedWithObserverCallback(SoupAddress* address, guint status, voi
         return;
     }
 
-    Vector<PurcFetcher::IPAddress> addresses;
+    Vector<PurCFetcher::IPAddress> addresses;
     addresses.reserveInitialCapacity(1);
     int len;
     // FIXME: Support multiple addresses, IPv6 and IPv4.
@@ -150,7 +150,7 @@ static void resolvedWithObserverCallback(SoupAddress* address, guint status, voi
             addresses.uncheckedAppend(*address);
     }
     if (addresses.isEmpty()) {
-        completionHandler(makeUnexpected(PurcFetcher::DNSError::CannotResolve));
+        completionHandler(makeUnexpected(PurCFetcher::DNSError::CannotResolve));
         return;
     }
 

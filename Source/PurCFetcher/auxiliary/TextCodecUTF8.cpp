@@ -32,7 +32,7 @@
 #include <wtf/text/WTFString.h>
 #include <wtf/unicode/CharacterNames.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 using namespace WTF::Unicode;
 
@@ -46,7 +46,7 @@ void TextCodecUTF8::registerEncodingNames(EncodingNameRegistrar registrar)
     registrar("unicode-1-1-utf-8", "UTF-8");
 
     // Additional aliases that originally were present in the encoding
-    // table in PurcFetcher on Macintosh, and subsequently added by
+    // table in PurCFetcher on Macintosh, and subsequently added by
     // TextCodecICU. Perhaps we can prove some are not used on the web
     // and remove them.
     registrar("unicode11utf8", "UTF-8");
@@ -446,4 +446,4 @@ Vector<uint8_t> TextCodecUTF8::encode(StringView string, UnencodableHandling)
     return bytes;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

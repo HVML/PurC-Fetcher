@@ -37,8 +37,8 @@
 //#include "WebPageProxyMessages.h"
 #include "AuthenticationChallenge.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 static uint64_t generateAuthenticationChallengeID()
 {
@@ -48,7 +48,7 @@ static uint64_t generateAuthenticationChallengeID()
     return ++uniqueAuthenticationChallengeID;
 }
 
-static bool canCoalesceChallenge(const PurcFetcher::AuthenticationChallenge& challenge)
+static bool canCoalesceChallenge(const PurCFetcher::AuthenticationChallenge& challenge)
 {
     // Do not coalesce server trust evaluation requests because ProtectionSpace comparison does not evaluate server trust (e.g. certificate).
     return challenge.protectionSpace().authenticationScheme() != ProtectionSpaceAuthenticationSchemeServerTrustEvaluationRequested;
@@ -129,7 +129,7 @@ void AuthenticationManager::didReceiveAuthenticationChallenge(PAL::SessionID ses
     m_process.send(Messages::NetworkProcessProxy::DidReceiveAuthenticationChallenge(sessionID, pageID, topOriginData, authenticationChallenge, negotiatedLegacyTLS == NegotiatedLegacyTLS::Yes, challengeID));
 }
 
-void AuthenticationManager::didReceiveAuthenticationChallenge(IPC::MessageSender& download, const PurcFetcher::AuthenticationChallenge& authenticationChallenge, ChallengeCompletionHandler&& completionHandler)
+void AuthenticationManager::didReceiveAuthenticationChallenge(IPC::MessageSender& download, const PurCFetcher::AuthenticationChallenge& authenticationChallenge, ChallengeCompletionHandler&& completionHandler)
 {
     WebPageProxyIdentifier dummyPageID;
     uint64_t challengeID = addChallengeToChallengeMap({ dummyPageID, authenticationChallenge, WTFMove(completionHandler) });
@@ -141,7 +141,7 @@ void AuthenticationManager::didReceiveAuthenticationChallenge(IPC::MessageSender
     download.send(Messages::DownloadProxy::DidReceiveAuthenticationChallenge(authenticationChallenge, challengeID));
 }
 
-void AuthenticationManager::completeAuthenticationChallenge(uint64_t challengeID, AuthenticationChallengeDisposition disposition, PurcFetcher::Credential&& credential)
+void AuthenticationManager::completeAuthenticationChallenge(uint64_t challengeID, AuthenticationChallengeDisposition disposition, PurCFetcher::Credential&& credential)
 {
     ASSERT(RunLoop::isMain());
 
@@ -161,4 +161,4 @@ void AuthenticationManager::didReceiveMessage(IPC::Connection&, IPC::Decoder&)
 {
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

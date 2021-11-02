@@ -29,7 +29,7 @@ namespace IPC {
 class Connection;
 } // namespace IPC
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuxiliaryProcessSupplement {
 public:
@@ -42,4 +42,4 @@ public:
     }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

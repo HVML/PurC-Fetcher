@@ -37,7 +37,7 @@
 #include "WebCoreThread.h"
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // Fire timers for this length of time, and then quit to let the run loop process user input events.
 static constexpr auto maxDurationOfFiringTimers { 16_ms };
@@ -160,5 +160,5 @@ void ThreadTimers::breakFireLoopForRenderingUpdate()
     m_shouldBreakFireLoopForRenderingUpdate = true;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

@@ -36,7 +36,7 @@ class Connection;
 class Decoder;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class NetworkProcess;
 
@@ -47,7 +47,7 @@ public:
 
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
 
-    using BackendCallback = CompletionHandler<void(PurcFetcher::ContentExtensions::ContentExtensionsBackend&)>;
+    using BackendCallback = CompletionHandler<void(PurCFetcher::ContentExtensions::ContentExtensionsBackend&)>;
     void contentExtensionsBackend(UserContentControllerIdentifier, BackendCallback&&);
 
 private:
@@ -56,11 +56,11 @@ private:
     void removeAllContentRuleLists(UserContentControllerIdentifier);
     void remove(UserContentControllerIdentifier);
 
-    HashMap<UserContentControllerIdentifier, std::unique_ptr<PurcFetcher::ContentExtensions::ContentExtensionsBackend>> m_contentExtensionBackends;
+    HashMap<UserContentControllerIdentifier, std::unique_ptr<PurCFetcher::ContentExtensions::ContentExtensionsBackend>> m_contentExtensionBackends;
     HashMap<UserContentControllerIdentifier, Vector<BackendCallback>> m_pendingCallbacks;
     NetworkProcess& m_networkProcess;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

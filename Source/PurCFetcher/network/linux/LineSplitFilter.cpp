@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineSplitFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 LineSplitFilter::LineSplitFilter()
 {
@@ -120,5 +120,5 @@ Vector<Row> LineSplitFilter::splitRowByUChar(Row& row, UChar uc)
     return rowVec;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

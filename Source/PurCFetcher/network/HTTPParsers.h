@@ -34,7 +34,7 @@
 #include <wtf/WallTime.h>
 #include <wtf/text/StringHash.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 typedef HashSet<String, ASCIICaseInsensitiveHash> HTTPHeaderSet;
 

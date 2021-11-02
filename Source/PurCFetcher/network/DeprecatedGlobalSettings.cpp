@@ -29,7 +29,7 @@
 #include "RuntimeApplicationChecks.h"
 #include <wtf/NeverDestroyed.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 #if USE(AVFOUNDATION)
 bool DeprecatedGlobalSettings::gAVFoundationEnabled = true;
@@ -216,4 +216,4 @@ bool DeprecatedGlobalSettings::allowsAnySSLCertificate()
     return gAllowsAnySSLCertificate;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

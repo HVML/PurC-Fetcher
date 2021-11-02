@@ -21,7 +21,7 @@
 
 #if USE(SOUP)
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 void startObservingCookieChanges(const NetworkStorageSession&, WTF::Function<void ()>&&)
 {

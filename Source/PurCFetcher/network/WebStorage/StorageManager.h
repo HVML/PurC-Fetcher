@@ -35,11 +35,11 @@
 #include <wtf/HashSet.h>
 #include <wtf/text/StringHash.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class SecurityOrigin;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LocalStorageDatabaseTracker;
 class LocalStorageNamespace;
@@ -61,13 +61,13 @@ public:
     void destroySessionStorageNamespace(StorageNamespaceIdentifier);
     void cloneSessionStorageNamespace(StorageNamespaceIdentifier oldStorageNamespaceID, StorageNamespaceIdentifier newStorageNamespaceID);
 
-    HashSet<PurcFetcher::SecurityOriginData> getSessionStorageOriginsCrossThreadCopy() const;
+    HashSet<PurCFetcher::SecurityOriginData> getSessionStorageOriginsCrossThreadCopy() const;
     void deleteSessionStorageOrigins();
-    void deleteSessionStorageEntriesForOrigins(const Vector<PurcFetcher::SecurityOriginData>&);
+    void deleteSessionStorageEntriesForOrigins(const Vector<PurCFetcher::SecurityOriginData>&);
 
-    HashSet<PurcFetcher::SecurityOriginData> getLocalStorageOriginsCrossThreadCopy() const;
+    HashSet<PurCFetcher::SecurityOriginData> getLocalStorageOriginsCrossThreadCopy() const;
     void deleteLocalStorageOriginsModifiedSince(WallTime);
-    void deleteLocalStorageEntriesForOrigins(const Vector<PurcFetcher::SecurityOriginData>&);
+    void deleteLocalStorageEntriesForOrigins(const Vector<PurCFetcher::SecurityOriginData>&);
     Vector<LocalStorageDatabaseTracker::OriginDetails> getLocalStorageOriginDetailsCrossThreadCopy() const;
     void renameOrigin(const URL&, const URL&);
 
@@ -80,21 +80,21 @@ public:
     
     static const unsigned localStorageDatabaseQuotaInBytes;
 
-    StorageArea* createLocalStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
-    StorageArea* createTransientLocalStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
-    StorageArea* createSessionStorageArea(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createLocalStorageArea(StorageNamespaceIdentifier, PurCFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createTransientLocalStorageArea(StorageNamespaceIdentifier, PurCFetcher::SecurityOriginData&&, PurCFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
+    StorageArea* createSessionStorageArea(StorageNamespaceIdentifier, PurCFetcher::SecurityOriginData&&, Ref<WorkQueue>&&);
 
     Vector<StorageAreaIdentifier> allStorageAreaIdentifiers() const;
 
 private:
     LocalStorageNamespace* getOrCreateLocalStorageNamespace(StorageNamespaceIdentifier);
-    TransientLocalStorageNamespace* getOrCreateTransientLocalStorageNamespace(StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData&& topLevelOrigin);
+    TransientLocalStorageNamespace* getOrCreateTransientLocalStorageNamespace(StorageNamespaceIdentifier, PurCFetcher::SecurityOriginData&& topLevelOrigin);
     SessionStorageNamespace* getOrCreateSessionStorageNamespace(StorageNamespaceIdentifier);
 
     RefPtr<LocalStorageDatabaseTracker> m_localStorageDatabaseTracker;
     HashMap<StorageNamespaceIdentifier, std::unique_ptr<LocalStorageNamespace>> m_localStorageNamespaces;
-    HashMap<std::pair<StorageNamespaceIdentifier, PurcFetcher::SecurityOriginData>, std::unique_ptr<TransientLocalStorageNamespace>> m_transientLocalStorageNamespaces;
+    HashMap<std::pair<StorageNamespaceIdentifier, PurCFetcher::SecurityOriginData>, std::unique_ptr<TransientLocalStorageNamespace>> m_transientLocalStorageNamespaces;
     HashMap<StorageNamespaceIdentifier, std::unique_ptr<SessionStorageNamespace>> m_sessionStorageNamespaces;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

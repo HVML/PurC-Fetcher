@@ -32,7 +32,7 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 class NetworkLoadMetrics;
 class ResourceError;
 class ResourceResponse;
@@ -42,7 +42,7 @@ struct RequestStorageAccessResult;
 namespace Messages {
 namespace NetworkConnectionToWebProcess {
 
-using PerformSynchronousLoadDelayedReply = CompletionHandler<void(const PurcFetcher::ResourceError& error, const PurcFetcher::ResourceResponse& response, const Vector<char>& data)>;
+using PerformSynchronousLoadDelayedReply = CompletionHandler<void(const PurCFetcher::ResourceError& error, const PurCFetcher::ResourceResponse& response, const Vector<char>& data)>;
 
 using TestProcessIncomingSyncMessagesWhenWaitingForSyncReplyDelayedReply = CompletionHandler<void(bool handled)>;
 
@@ -50,9 +50,9 @@ using CookiesForDOMDelayedReply = CompletionHandler<void(const String& cookieStr
 
 using CookieRequestHeaderFieldValueDelayedReply = CompletionHandler<void(const String& cookieString, bool didAccessSecureCookies)>;
 
-using GetRawCookiesDelayedReply = CompletionHandler<void(const Vector<PurcFetcher::Cookie>& cookies)>;
+using GetRawCookiesDelayedReply = CompletionHandler<void(const Vector<PurCFetcher::Cookie>& cookies)>;
 
-using DomCookiesForHostDelayedReply = CompletionHandler<void(const Vector<PurcFetcher::Cookie>& cookies)>;
+using DomCookiesForHostDelayedReply = CompletionHandler<void(const Vector<PurCFetcher::Cookie>& cookies)>;
 
 using BlobSizeDelayedReply = CompletionHandler<void(uint64_t resultSize)>;
 
@@ -63,20 +63,20 @@ using HasStorageAccessAsyncReply = CompletionHandler<void(bool hasStorageAccess)
 #endif
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
-using RequestStorageAccessAsyncReply = CompletionHandler<void(const PurcFetcher::RequestStorageAccessResult& result)>;
+using RequestStorageAccessAsyncReply = CompletionHandler<void(const PurCFetcher::RequestStorageAccessResult& result)>;
 #endif
 
-using GetNetworkLoadInformationResponseDelayedReply = CompletionHandler<void(const PurcFetcher::ResourceResponse& response)>;
+using GetNetworkLoadInformationResponseDelayedReply = CompletionHandler<void(const PurCFetcher::ResourceResponse& response)>;
 
-using GetNetworkLoadIntermediateInformationDelayedReply = CompletionHandler<void(const Vector<PurcFetcher::NetworkTransactionInformation>& transactions)>;
+using GetNetworkLoadIntermediateInformationDelayedReply = CompletionHandler<void(const Vector<PurCFetcher::NetworkTransactionInformation>& transactions)>;
 
-using TakeNetworkLoadInformationMetricsDelayedReply = CompletionHandler<void(const PurcFetcher::NetworkLoadMetrics& networkMetrics)>;
+using TakeNetworkLoadInformationMetricsDelayedReply = CompletionHandler<void(const PurCFetcher::NetworkLoadMetrics& networkMetrics)>;
 
 #if ENABLE(SERVICE_WORKER)
 using EstablishSWContextConnectionAsyncReply = CompletionHandler<void()>;
 #endif
 
-//using TakeAllMessagesForPortAsyncReply = CompletionHandler<void(const Vector<PurcFetcher::MessageWithMessagePorts>& messages, uint64_t messageBatchIdentifier)>;
+//using TakeAllMessagesForPortAsyncReply = CompletionHandler<void(const Vector<PurCFetcher::MessageWithMessagePorts>& messages, uint64_t messageBatchIdentifier)>;
 
 using CheckRemotePortForActivityAsyncReply = CompletionHandler<void(bool hasActivity)>;
 

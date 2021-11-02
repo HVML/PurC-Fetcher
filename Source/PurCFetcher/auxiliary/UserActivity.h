@@ -35,7 +35,7 @@
 OBJC_CLASS NSString;
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // The UserActivity type is used to indicate to the operating system that
 // a user initiated or visible action is taking place, and as such that
@@ -64,8 +64,8 @@ private:
     Impl m_impl;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
-using PurcFetcher::UserActivity;
+using PurCFetcher::UserActivity;
 
 #endif // UserActivity_h

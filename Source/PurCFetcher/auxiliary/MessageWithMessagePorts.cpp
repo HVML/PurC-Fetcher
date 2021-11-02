@@ -26,6 +26,6 @@
 #include "config.h"
 #include "MessageWithMessagePorts.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

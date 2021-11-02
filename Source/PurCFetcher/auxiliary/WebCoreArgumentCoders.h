@@ -31,7 +31,7 @@
 #include "StoredCredentialsPolicy.h"
 #include <wtf/EnumTraits.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class AuthenticationChallenge;
 class CertificateInfo;
@@ -54,106 +54,106 @@ struct Record;
 }
 
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace IPC {
 
-template<> struct ArgumentCoder<PurcFetcher::AuthenticationChallenge> {
-    static void encode(Encoder&, const PurcFetcher::AuthenticationChallenge&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::AuthenticationChallenge&);
+template<> struct ArgumentCoder<PurCFetcher::AuthenticationChallenge> {
+    static void encode(Encoder&, const PurCFetcher::AuthenticationChallenge&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::AuthenticationChallenge&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::ProtectionSpace> {
-    static void encode(Encoder&, const PurcFetcher::ProtectionSpace&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ProtectionSpace&);
-    static void encodePlatformData(Encoder&, const PurcFetcher::ProtectionSpace&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ProtectionSpace&);
+template<> struct ArgumentCoder<PurCFetcher::ProtectionSpace> {
+    static void encode(Encoder&, const PurCFetcher::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::ProtectionSpace&);
+    static void encodePlatformData(Encoder&, const PurCFetcher::ProtectionSpace&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurCFetcher::ProtectionSpace&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::Credential> {
-    static void encode(Encoder&, const PurcFetcher::Credential&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::Credential&);
-    static void encodePlatformData(Encoder&, const PurcFetcher::Credential&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::Credential&);
+template<> struct ArgumentCoder<PurCFetcher::Credential> {
+    static void encode(Encoder&, const PurCFetcher::Credential&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::Credential&);
+    static void encodePlatformData(Encoder&, const PurCFetcher::Credential&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurCFetcher::Credential&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::CertificateInfo> {
-    static void encode(Encoder&, const PurcFetcher::CertificateInfo&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::CertificateInfo&);
+template<> struct ArgumentCoder<PurCFetcher::CertificateInfo> {
+    static void encode(Encoder&, const PurCFetcher::CertificateInfo&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::CertificateInfo&);
 };
 
-template<> struct ArgumentCoder<RefPtr<PurcFetcher::SharedBuffer>> {
-    static void encode(Encoder&, const RefPtr<PurcFetcher::SharedBuffer>&);
-    static Optional<RefPtr<PurcFetcher::SharedBuffer>> decode(Decoder&);
+template<> struct ArgumentCoder<RefPtr<PurCFetcher::SharedBuffer>> {
+    static void encode(Encoder&, const RefPtr<PurCFetcher::SharedBuffer>&);
+    static Optional<RefPtr<PurCFetcher::SharedBuffer>> decode(Decoder&);
 };
 
-template<> struct ArgumentCoder<Ref<PurcFetcher::SharedBuffer>> {
-    static void encode(Encoder&, const Ref<PurcFetcher::SharedBuffer>&);
-    static Optional<Ref<PurcFetcher::SharedBuffer>> decode(Decoder&);
+template<> struct ArgumentCoder<Ref<PurCFetcher::SharedBuffer>> {
+    static void encode(Encoder&, const Ref<PurCFetcher::SharedBuffer>&);
+    static Optional<Ref<PurCFetcher::SharedBuffer>> decode(Decoder&);
 };
 
 
-template<> struct ArgumentCoder<PurcFetcher::ResourceError> {
-    static void encode(Encoder&, const PurcFetcher::ResourceError&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ResourceError&);
-    static void encodePlatformData(Encoder&, const PurcFetcher::ResourceError&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ResourceError&);
+template<> struct ArgumentCoder<PurCFetcher::ResourceError> {
+    static void encode(Encoder&, const PurCFetcher::ResourceError&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::ResourceError&);
+    static void encodePlatformData(Encoder&, const PurCFetcher::ResourceError&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurCFetcher::ResourceError&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::ResourceRequest> {
-    static void encode(Encoder&, const PurcFetcher::ResourceRequest&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::ResourceRequest&);
-    static void encodePlatformData(Encoder&, const PurcFetcher::ResourceRequest&);
-    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurcFetcher::ResourceRequest&);
+template<> struct ArgumentCoder<PurCFetcher::ResourceRequest> {
+    static void encode(Encoder&, const PurCFetcher::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::ResourceRequest&);
+    static void encodePlatformData(Encoder&, const PurCFetcher::ResourceRequest&);
+    static WARN_UNUSED_RETURN bool decodePlatformData(Decoder&, PurCFetcher::ResourceRequest&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::CacheQueryOptions> {
-    static void encode(Encoder&, const PurcFetcher::CacheQueryOptions&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::CacheQueryOptions&);
+template<> struct ArgumentCoder<PurCFetcher::CacheQueryOptions> {
+    static void encode(Encoder&, const PurCFetcher::CacheQueryOptions&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::CacheQueryOptions&);
 };
 
 #if USE(SOUP)
-template<> struct ArgumentCoder<PurcFetcher::SoupNetworkProxySettings> {
-    static void encode(Encoder&, const PurcFetcher::SoupNetworkProxySettings&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, PurcFetcher::SoupNetworkProxySettings&);
+template<> struct ArgumentCoder<PurCFetcher::SoupNetworkProxySettings> {
+    static void encode(Encoder&, const PurCFetcher::SoupNetworkProxySettings&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, PurCFetcher::SoupNetworkProxySettings&);
 };
 #endif
 
-template<> struct ArgumentCoder<Vector<RefPtr<PurcFetcher::SecurityOrigin>>> {
-    static void encode(Encoder&, const Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
-    static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<PurcFetcher::SecurityOrigin>>&);
+template<> struct ArgumentCoder<Vector<RefPtr<PurCFetcher::SecurityOrigin>>> {
+    static void encode(Encoder&, const Vector<RefPtr<PurCFetcher::SecurityOrigin>>&);
+    static WARN_UNUSED_RETURN bool decode(Decoder&, Vector<RefPtr<PurCFetcher::SecurityOrigin>>&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::DOMCacheEngine::CacheInfo> {
-    static void encode(Encoder&, const PurcFetcher::DOMCacheEngine::CacheInfo&);
-    static Optional<PurcFetcher::DOMCacheEngine::CacheInfo> decode(Decoder&);
+template<> struct ArgumentCoder<PurCFetcher::DOMCacheEngine::CacheInfo> {
+    static void encode(Encoder&, const PurCFetcher::DOMCacheEngine::CacheInfo&);
+    static Optional<PurCFetcher::DOMCacheEngine::CacheInfo> decode(Decoder&);
 };
 
-template<> struct ArgumentCoder<PurcFetcher::DOMCacheEngine::Record> {
-    static void encode(Encoder&, const PurcFetcher::DOMCacheEngine::Record&);
-    static Optional<PurcFetcher::DOMCacheEngine::Record> decode(Decoder&);
+template<> struct ArgumentCoder<PurCFetcher::DOMCacheEngine::Record> {
+    static void encode(Encoder&, const PurCFetcher::DOMCacheEngine::Record&);
+    static Optional<PurCFetcher::DOMCacheEngine::Record> decode(Decoder&);
 };
 
 } // namespace IPC
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::NetworkLoadPriority> {
+template<> struct EnumTraits<PurCFetcher::NetworkLoadPriority> {
     using values = EnumValues<
-        PurcFetcher::NetworkLoadPriority,
-        PurcFetcher::NetworkLoadPriority::Low,
-        PurcFetcher::NetworkLoadPriority::Medium,
-        PurcFetcher::NetworkLoadPriority::High,
-        PurcFetcher::NetworkLoadPriority::Unknown
+        PurCFetcher::NetworkLoadPriority,
+        PurCFetcher::NetworkLoadPriority::Low,
+        PurCFetcher::NetworkLoadPriority::Medium,
+        PurCFetcher::NetworkLoadPriority::High,
+        PurCFetcher::NetworkLoadPriority::Unknown
     >;
 };
 
-template<> struct EnumTraits<PurcFetcher::StoredCredentialsPolicy> {
+template<> struct EnumTraits<PurCFetcher::StoredCredentialsPolicy> {
     using values = EnumValues<
-        PurcFetcher::StoredCredentialsPolicy,
-        PurcFetcher::StoredCredentialsPolicy::DoNotUse,
-        PurcFetcher::StoredCredentialsPolicy::Use,
-        PurcFetcher::StoredCredentialsPolicy::EphemeralStateless
+        PurCFetcher::StoredCredentialsPolicy,
+        PurCFetcher::StoredCredentialsPolicy::DoNotUse,
+        PurCFetcher::StoredCredentialsPolicy::Use,
+        PurCFetcher::StoredCredentialsPolicy::EphemeralStateless
     >;
 };
 

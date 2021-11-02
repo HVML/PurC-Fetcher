@@ -27,7 +27,7 @@
 #include "NetworkResourceLoadMap.h"
 #include "NetworkResourceLoader.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 NetworkResourceLoadMap::NetworkResourceLoadMap(Function<void(bool hasUpload)>&& hasUploadChangeListener)
     : m_hasUploadChangeListener(WTFMove(hasUploadChangeListener))
@@ -87,4 +87,4 @@ void NetworkResourceLoadMap::setHasUpload(bool hasUpload)
         m_hasUploadChangeListener(m_hasUpload);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -30,18 +30,18 @@
 //#include "AuthenticationDecisionListener.h"
 #include <wtf/CompletionHandler.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 struct SecurityOriginData;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class WebsiteDataStoreClient {
     WTF_MAKE_FAST_ALLOCATED;
 public:
     virtual ~WebsiteDataStoreClient() { }
 
-    virtual void requestStorageSpace(const PurcFetcher::SecurityOriginData& topOrigin, const PurcFetcher::SecurityOriginData& frameOrigin, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&& completionHandler)
+    virtual void requestStorageSpace(const PurCFetcher::SecurityOriginData& topOrigin, const PurCFetcher::SecurityOriginData& frameOrigin, uint64_t quota, uint64_t currentSize, uint64_t spaceRequired, CompletionHandler<void(Optional<uint64_t>)>&& completionHandler)
     {
         completionHandler({ });
     }
@@ -54,4 +54,4 @@ public:
 #endif
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

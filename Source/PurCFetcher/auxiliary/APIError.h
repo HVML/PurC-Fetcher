@@ -44,7 +44,7 @@ public:
         return adoptRef(*new Error);
     }
 
-    static Ref<Error> create(const PurcFetcher::ResourceError& error)
+    static Ref<Error> create(const PurCFetcher::ResourceError& error)
     {
         return adoptRef(*new Error(error));
     }
@@ -104,7 +104,7 @@ public:
     const WTF::String& failingURL() const { return m_platformError.failingURL().string(); }
     const WTF::String& localizedDescription() const { return m_platformError.localizedDescription(); }
 
-    const PurcFetcher::ResourceError& platformError() const { return m_platformError; }
+    const PurCFetcher::ResourceError& platformError() const { return m_platformError; }
 
     void encode(IPC::Encoder&) const;
     static WARN_UNUSED_RETURN bool decode(IPC::Decoder&, RefPtr<Object>&);
@@ -114,12 +114,12 @@ private:
     {
     }
 
-    Error(const PurcFetcher::ResourceError& error)
+    Error(const PurCFetcher::ResourceError& error)
         : m_platformError(error)
     {
     }
 
-    PurcFetcher::ResourceError m_platformError;
+    PurCFetcher::ResourceError m_platformError;
 };
 
 } // namespace API

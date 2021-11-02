@@ -33,7 +33,7 @@
 #include <wtf/CrossThreadCopier.h>
 #include <wtf/threads/BinarySemaphore.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 Ref<StorageManagerSet> StorageManagerSet::create()
 {
@@ -41,12 +41,12 @@ Ref<StorageManagerSet> StorageManagerSet::create()
 }
 
 StorageManagerSet::StorageManagerSet()
-    : m_queue(WorkQueue::create("com.apple.PurcFetcher.WebStorage"))
+    : m_queue(WorkQueue::create("com.apple.PurCFetcher.WebStorage"))
 {
     ASSERT(RunLoop::isMain());
 
     // Make sure the encoding is initialized before we start dispatching things to the queue.
-    PurcFetcher::UTF8Encoding();
+    PurCFetcher::UTF8Encoding();
 }
 
 StorageManagerSet::~StorageManagerSet()
@@ -224,7 +224,7 @@ void StorageManagerSet::deleteSessionStorage(PAL::SessionID sessionID, DeleteCal
     });
 }
 
-void StorageManagerSet::deleteSessionStorageForOrigins(PAL::SessionID sessionID, const Vector<PurcFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
+void StorageManagerSet::deleteSessionStorageForOrigins(PAL::SessionID sessionID, const Vector<PurCFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
 {
     ASSERT(RunLoop::isMain());
 
@@ -265,7 +265,7 @@ void StorageManagerSet::deleteLocalStorageModifiedSince(PAL::SessionID sessionID
     });
 }
 
-void StorageManagerSet::deleteLocalStorageForOrigins(PAL::SessionID sessionID, const Vector<PurcFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
+void StorageManagerSet::deleteLocalStorageForOrigins(PAL::SessionID sessionID, const Vector<PurCFetcher::SecurityOriginData>& originDatas, DeleteCallback&& completionHandler)
 {
     ASSERT(RunLoop::isMain());
 
@@ -450,4 +450,4 @@ void StorageManagerSet::cloneSessionStorageNamespace(IPC::Connection&, PAL::Sess
         storageManager->cloneSessionStorageNamespace(fromStorageNamespaceID, toStorageNamespaceID);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

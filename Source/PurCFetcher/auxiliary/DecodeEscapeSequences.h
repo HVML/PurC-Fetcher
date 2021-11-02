@@ -34,7 +34,7 @@
 #include <wtf/Assertions.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // See <http://en.wikipedia.org/wiki/Percent-encoding#Non-standard_implementations>.
 struct Unicode16BitEscapeSequence {
@@ -188,5 +188,5 @@ inline Vector<uint8_t> decodeURLEscapeSequencesAsData(StringView string, const T
     }
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

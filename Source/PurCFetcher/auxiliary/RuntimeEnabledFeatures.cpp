@@ -38,7 +38,7 @@
 #include <JavaScriptCore/Options.h>
 #include <wtf/NeverDestroyed.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 RuntimeEnabledFeatures::RuntimeEnabledFeatures()
 {
@@ -67,4 +67,4 @@ bool RuntimeEnabledFeatures::touchEventsEnabled() const
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

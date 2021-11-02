@@ -35,7 +35,7 @@
 #include <wtf/persistence/PersistentDecoder.h>
 #include <wtf/persistence/PersistentEncoder.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class ResourceError;
 class ResourceResponse;
@@ -43,8 +43,8 @@ class ResourceResponse;
 class CertificateInfo  : public CertificateInfoBase {
 public:
     CertificateInfo();
-    explicit CertificateInfo(const PurcFetcher::ResourceResponse&);
-    explicit CertificateInfo(const PurcFetcher::ResourceError&);
+    explicit CertificateInfo(const PurCFetcher::ResourceResponse&);
+    explicit CertificateInfo(const PurCFetcher::ResourceError&);
     explicit CertificateInfo(GTlsCertificate*, GTlsCertificateFlags);
     PURCFETCHER_EXPORT ~CertificateInfo();
 
@@ -64,7 +64,7 @@ private:
     GTlsCertificateFlags m_tlsErrors;
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 namespace Persistence {
@@ -91,7 +91,7 @@ template<> struct Coder<GRefPtr<GByteArray>> {
     }
 };
 
-static Vector<GRefPtr<GByteArray>> certificatesDataListFromCertificateInfo(const PurcFetcher::CertificateInfo &certificateInfo)
+static Vector<GRefPtr<GByteArray>> certificatesDataListFromCertificateInfo(const PurCFetcher::CertificateInfo &certificateInfo)
 {
     auto* certificate = certificateInfo.certificate();
     if (!certificate)
@@ -129,8 +129,8 @@ static GRefPtr<GTlsCertificate> certificateFromCertificatesDataList(const Vector
     return certificate;
 }
 
-template<> struct Coder<PurcFetcher::CertificateInfo> {
-    static void encode(Encoder& encoder, const PurcFetcher::CertificateInfo& certificateInfo)
+template<> struct Coder<PurCFetcher::CertificateInfo> {
+    static void encode(Encoder& encoder, const PurCFetcher::CertificateInfo& certificateInfo)
     {
         auto certificatesDataList = certificatesDataListFromCertificateInfo(certificateInfo);
 
@@ -142,14 +142,14 @@ template<> struct Coder<PurcFetcher::CertificateInfo> {
         encoder << static_cast<uint32_t>(certificateInfo.tlsErrors());
     }
 
-    static Optional<PurcFetcher::CertificateInfo> decode(Decoder& decoder)
+    static Optional<PurCFetcher::CertificateInfo> decode(Decoder& decoder)
     {
         Optional<Vector<GRefPtr<GByteArray>>> certificatesDataList;
         decoder >> certificatesDataList;
         if (!certificatesDataList)
             return WTF::nullopt;
 
-        PurcFetcher::CertificateInfo certificateInfo;
+        PurCFetcher::CertificateInfo certificateInfo;
         if (certificatesDataList->isEmpty())
             return certificateInfo;
 

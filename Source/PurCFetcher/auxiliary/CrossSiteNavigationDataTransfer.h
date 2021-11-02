@@ -28,7 +28,7 @@
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
 #include <wtf/OptionSet.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 struct CrossSiteNavigationDataTransfer {
     enum class Flag : uint8_t {
@@ -37,15 +37,15 @@ struct CrossSiteNavigationDataTransfer {
     };
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 namespace WTF {
 
-template<> struct EnumTraits<PurcFetcher::CrossSiteNavigationDataTransfer::Flag> {
+template<> struct EnumTraits<PurCFetcher::CrossSiteNavigationDataTransfer::Flag> {
     using values = EnumValues<
-        PurcFetcher::CrossSiteNavigationDataTransfer::Flag,
-        PurcFetcher::CrossSiteNavigationDataTransfer::Flag::DestinationLinkDecoration,
-        PurcFetcher::CrossSiteNavigationDataTransfer::Flag::ReferrerLinkDecoration
+        PurCFetcher::CrossSiteNavigationDataTransfer::Flag,
+        PurCFetcher::CrossSiteNavigationDataTransfer::Flag::DestinationLinkDecoration,
+        PurCFetcher::CrossSiteNavigationDataTransfer::Flag::ReferrerLinkDecoration
     >;
 };
 

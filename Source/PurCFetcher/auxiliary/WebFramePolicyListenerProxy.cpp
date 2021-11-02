@@ -33,7 +33,7 @@
 #include "WebsiteDataStore.h"
 #include "WebsitePoliciesData.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 WebFramePolicyListenerProxy::WebFramePolicyListenerProxy(Reply&& reply, ShouldExpectSafeBrowsingResult expectSafeBrowsingResult, ShouldExpectAppBoundDomainResult expectAppBoundDomainResult)
     : m_reply(WTFMove(reply))
@@ -52,7 +52,7 @@ void WebFramePolicyListenerProxy::didReceiveAppBoundDomainResult(Optional<Naviga
 
     if (m_policyResult && m_safeBrowsingWarning) {
         if (m_reply)
-            m_reply(PurcFetcher::PolicyAction::Use, m_policyResult->first.get(), m_policyResult->second, WTFMove(*m_safeBrowsingWarning), isNavigatingToAppBoundDomain);
+            m_reply(PurCFetcher::PolicyAction::Use, m_policyResult->first.get(), m_policyResult->second, WTFMove(*m_safeBrowsingWarning), isNavigatingToAppBoundDomain);
     } else
         m_isNavigatingToAppBoundDomain = isNavigatingToAppBoundDomain;
 }
@@ -63,7 +63,7 @@ void WebFramePolicyListenerProxy::didReceiveSafeBrowsingResults(RefPtr<SafeBrows
     ASSERT(!m_safeBrowsingWarning);
     if (m_policyResult && m_isNavigatingToAppBoundDomain) {
         if (m_reply)
-            m_reply(PurcFetcher::PolicyAction::Use, m_policyResult->first.get(), m_policyResult->second, WTFMove(safeBrowsingWarning), *m_isNavigatingToAppBoundDomain);
+            m_reply(PurCFetcher::PolicyAction::Use, m_policyResult->first.get(), m_policyResult->second, WTFMove(safeBrowsingWarning), *m_isNavigatingToAppBoundDomain);
     } else
         m_safeBrowsingWarning = WTFMove(safeBrowsingWarning);
 }
@@ -72,7 +72,7 @@ void WebFramePolicyListenerProxy::use(API::WebsitePolicies* policies, ProcessSwa
 {
     if (m_safeBrowsingWarning && m_isNavigatingToAppBoundDomain) {
         if (m_reply)
-            m_reply(PurcFetcher::PolicyAction::Use, policies, processSwapRequestedByClient, WTFMove(*m_safeBrowsingWarning), *m_isNavigatingToAppBoundDomain);
+            m_reply(PurCFetcher::PolicyAction::Use, policies, processSwapRequestedByClient, WTFMove(*m_safeBrowsingWarning), *m_isNavigatingToAppBoundDomain);
     } else if (!m_policyResult)
         m_policyResult = {{ policies, processSwapRequestedByClient }};
 }
@@ -80,13 +80,13 @@ void WebFramePolicyListenerProxy::use(API::WebsitePolicies* policies, ProcessSwa
 void WebFramePolicyListenerProxy::download()
 {
     if (m_reply)
-        m_reply(PurcFetcher::PolicyAction::Download, nullptr, ProcessSwapRequestedByClient::No, { }, { });
+        m_reply(PurCFetcher::PolicyAction::Download, nullptr, ProcessSwapRequestedByClient::No, { }, { });
 }
 
 void WebFramePolicyListenerProxy::ignore()
 {
     if (m_reply)
-        m_reply(PurcFetcher::PolicyAction::Ignore, nullptr, ProcessSwapRequestedByClient::No, { }, { });
+        m_reply(PurCFetcher::PolicyAction::Ignore, nullptr, ProcessSwapRequestedByClient::No, { }, { });
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "LineTailFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 LineTailFilter::LineTailFilter()
 {
@@ -83,5 +83,5 @@ Vector<Row> LineTailFilter::doFilter(Vector<Row> lines, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

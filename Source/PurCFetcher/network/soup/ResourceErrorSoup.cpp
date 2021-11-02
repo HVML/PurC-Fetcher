@@ -33,7 +33,7 @@
 #include <wtf/glib/GUniquePtr.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static URL failingURI(SoupURI* soupURI)
 {
@@ -110,6 +110,6 @@ bool ResourceError::platformCompare(const ResourceError& a, const ResourceError&
     return a.tlsErrors() == b.tlsErrors();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif

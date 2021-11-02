@@ -52,7 +52,7 @@
 #include <wtf/RunLoop.h>
 #include <wtf/glib/GRefPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class LineCutFilter : public FilterBase {
 public:
@@ -63,4 +63,4 @@ public:
     virtual Vector<Row> doFilter(Vector<Row> lines, String param);
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

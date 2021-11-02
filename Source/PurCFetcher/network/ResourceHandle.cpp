@@ -39,7 +39,7 @@
 #include <wtf/text/AtomStringHash.h>
 #include <wtf/text/CString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static bool shouldForceContentSniffing;
 
@@ -248,4 +248,4 @@ void ResourceHandle::setDefersLoading(bool defers)
     platformSetDefersLoading(defers);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

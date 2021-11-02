@@ -46,8 +46,8 @@
 #include <wtf/text/CString.h>
 #include <wtf/text/StringBuilder.h>
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 static CString buildAcceptLanguages(const Vector<String>& languages)
 {
@@ -94,19 +94,19 @@ static CString buildAcceptLanguages(const Vector<String>& languages)
     return builder.toString().utf8();
 }
 
-void NetworkProcess::getHostNamesWithHSTSCache(PurcFetcher::NetworkStorageSession& storageSession, HashSet<String>& hostNames)
+void NetworkProcess::getHostNamesWithHSTSCache(PurCFetcher::NetworkStorageSession& storageSession, HashSet<String>& hostNames)
 {
     const auto* session = static_cast<NetworkSessionSoup*>(networkSession(storageSession.sessionID()));
     session->soupNetworkSession().getHostNamesWithHSTSCache(hostNames);
 }
 
-void NetworkProcess::deleteHSTSCacheForHostNames(PurcFetcher::NetworkStorageSession& storageSession, const Vector<String>& hostNames)
+void NetworkProcess::deleteHSTSCacheForHostNames(PurCFetcher::NetworkStorageSession& storageSession, const Vector<String>& hostNames)
 {
     const auto* session = static_cast<NetworkSessionSoup*>(networkSession(storageSession.sessionID()));
     session->soupNetworkSession().deleteHSTSCacheForHostNames(hostNames);
 }
 
-void NetworkProcess::clearHSTSCache(PurcFetcher::NetworkStorageSession& storageSession, WallTime modifiedSince)
+void NetworkProcess::clearHSTSCache(PurCFetcher::NetworkStorageSession& storageSession, WallTime modifiedSince)
 {
     const auto* session = static_cast<NetworkSessionSoup*>(networkSession(storageSession.sessionID()));
     session->soupNetworkSession().clearHSTSCache(modifiedSince);
@@ -144,9 +144,9 @@ void NetworkProcess::platformInitializeNetworkProcess(const NetworkProcessCreati
     });
 }
 
-std::unique_ptr<PurcFetcher::NetworkStorageSession> NetworkProcess::platformCreateDefaultStorageSession() const
+std::unique_ptr<PurCFetcher::NetworkStorageSession> NetworkProcess::platformCreateDefaultStorageSession() const
 {
-    return makeUnique<PurcFetcher::NetworkStorageSession>(PAL::SessionID::defaultSessionID());
+    return makeUnique<PurCFetcher::NetworkStorageSession>(PAL::SessionID::defaultSessionID());
 }
 
 void NetworkProcess::setIgnoreTLSErrors(bool ignoreTLSErrors)
@@ -191,4 +191,4 @@ void NetworkProcess::platformProcessDidTransitionToBackground()
     notImplemented();
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

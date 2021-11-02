@@ -39,14 +39,14 @@
     #define notImplemented() ((void)0)
     #define notImplementedHBD() ((void)0)
 #else
-namespace PurcFetcher {
+namespace PurCFetcher {
 PURCFETCHER_EXPORT WTFLogChannel* notImplementedLoggingChannel();
 }
 
 #define notImplementedHBD() do { \
         static bool havePrintedd = false; \
         if (!havePrintedd) { \
-            WTFLogVerboseHBD(__FILE__, __LINE__, WTF_PRETTY_FUNCTION, PurcFetcher::notImplementedLoggingChannel(), "UNIMPLEMENTED: "); \
+            WTFLogVerboseHBD(__FILE__, __LINE__, WTF_PRETTY_FUNCTION, PurCFetcher::notImplementedLoggingChannel(), "UNIMPLEMENTED: "); \
             havePrintedd = true; \
         } \
     } while (0)
@@ -54,7 +54,7 @@ PURCFETCHER_EXPORT WTFLogChannel* notImplementedLoggingChannel();
 #define notImplemented() do { \
         static bool havePrinted = false; \
         if (!havePrinted && !suppressNotImplementedWarning()) { \
-            WTFLogVerbose(__FILE__, __LINE__, WTF_PRETTY_FUNCTION, PurcFetcher::notImplementedLoggingChannel(), "UNIMPLEMENTED: "); \
+            WTFLogVerbose(__FILE__, __LINE__, WTF_PRETTY_FUNCTION, PurCFetcher::notImplementedLoggingChannel(), "UNIMPLEMENTED: "); \
             havePrinted = true; \
         } \
     } while (0)

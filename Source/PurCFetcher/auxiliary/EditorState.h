@@ -27,20 +27,20 @@
 #pragma once
 
 #include "ArgumentCoders.h"
-#include <PurcFetcher/FontAttributes.h>
-#include <PurcFetcher/IntRect.h>
-#include <PurcFetcher/WritingDirection.h>
+#include <PurCFetcher/FontAttributes.h>
+#include <PurCFetcher/IntRect.h>
+#include <PurCFetcher/WritingDirection.h>
 #include <wtf/text/WTFString.h>
 
 #if PLATFORM(IOS_FAMILY)
-#include <PurcFetcher/SelectionRect.h>
+#include <PurCFetcher/SelectionRect.h>
 #endif
 
 namespace WTF {
 class TextStream;
 };
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum TypingAttributes {
     AttributeNone = 0,
@@ -79,23 +79,23 @@ struct EditorState {
     struct PostLayoutData {
         uint32_t typingAttributes { AttributeNone };
 #if PLATFORM(IOS_FAMILY) || PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(HBD)
-        PurcFetcher::IntRect caretRectAtStart;
+        PurCFetcher::IntRect caretRectAtStart;
 #endif
 #if PLATFORM(COCOA)
-        PurcFetcher::IntRect focusedElementRect;
+        PurCFetcher::IntRect focusedElementRect;
         uint64_t selectedTextLength { 0 };
         uint32_t textAlignment { NoAlignment };
-        PurcFetcher::Color textColor { PurcFetcher::Color::black };
+        PurCFetcher::Color textColor { PurCFetcher::Color::black };
         uint32_t enclosingListType { NoList };
-        PurcFetcher::WritingDirection baseWritingDirection { PurcFetcher::WritingDirection::Natural };
+        PurCFetcher::WritingDirection baseWritingDirection { PurCFetcher::WritingDirection::Natural };
 #endif
 #if PLATFORM(IOS_FAMILY)
-        PurcFetcher::IntRect caretRectAtEnd;
-        Vector<PurcFetcher::SelectionRect> selectionRects;
-        Vector<PurcFetcher::SelectionRect> markedTextRects;
+        PurCFetcher::IntRect caretRectAtEnd;
+        Vector<PurCFetcher::SelectionRect> selectionRects;
+        Vector<PurCFetcher::SelectionRect> markedTextRects;
         String markedText;
-        PurcFetcher::IntRect markedTextCaretRectAtStart;
-        PurcFetcher::IntRect markedTextCaretRectAtEnd;
+        PurCFetcher::IntRect markedTextCaretRectAtStart;
+        PurCFetcher::IntRect markedTextCaretRectAtEnd;
         String wordAtSelection;
         UChar32 characterAfterSelection { 0 };
         UChar32 characterBeforeSelection { 0 };
@@ -106,7 +106,7 @@ struct EditorState {
         bool insideFixedPosition { false };
         bool hasPlainText { false };
         bool editableRootIsTransparentOrFullyClipped { false };
-        PurcFetcher::Color caretColor;
+        PurCFetcher::Color caretColor;
         bool atStartOfSentence { false };
         bool selectionStartIsAtParagraphBoundary { false };
         bool selectionEndIsAtParagraphBoundary { false };
@@ -122,7 +122,7 @@ struct EditorState {
         uint64_t surroundingContextSelectionPosition { 0 };
 #endif
 
-        Optional<PurcFetcher::FontAttributes> fontAttributes;
+        Optional<PurCFetcher::FontAttributes> fontAttributes;
 
         bool canCut { false };
         bool canCopy { false };
@@ -156,4 +156,4 @@ inline auto EditorState::postLayoutData() const -> const PostLayoutData&
 
 WTF::TextStream& operator<<(WTF::TextStream&, const EditorState&);
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

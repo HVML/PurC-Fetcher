@@ -28,7 +28,7 @@
 #include "HTTPParsers.h"
 #include <wtf/Optional.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum class ShouldParseLegacyKeywords { No, Yes };
 
@@ -115,4 +115,4 @@ String referrerPolicyToString(const ReferrerPolicy& referrerPolicy)
     return { };
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

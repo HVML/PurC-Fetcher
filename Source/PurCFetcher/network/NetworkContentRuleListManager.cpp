@@ -32,8 +32,8 @@
 #include "NetworkProcessProxyMessages.h"
 #include "WebCompiledContentRuleList.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 NetworkContentRuleListManager::NetworkContentRuleListManager(NetworkProcess& networkProcess)
     : m_networkProcess(networkProcess)
@@ -46,7 +46,7 @@ NetworkContentRuleListManager::~NetworkContentRuleListManager()
     if (pendingCallbacks.isEmpty())
         return;
 
-    PurcFetcher::ContentExtensions::ContentExtensionsBackend backend;
+    PurCFetcher::ContentExtensions::ContentExtensionsBackend backend;
     for (auto& callbacks : pendingCallbacks.values()) {
         for (auto& callback : callbacks)
             callback(backend);
@@ -69,7 +69,7 @@ void NetworkContentRuleListManager::contentExtensionsBackend(UserContentControll
 void NetworkContentRuleListManager::addContentRuleLists(UserContentControllerIdentifier identifier, Vector<std::pair<String, WebCompiledContentRuleListData>>&& contentRuleLists)
 {
     auto& backend = *m_contentExtensionBackends.ensure(identifier, [] {
-        return makeUnique<PurcFetcher::ContentExtensions::ContentExtensionsBackend>();
+        return makeUnique<PurCFetcher::ContentExtensions::ContentExtensionsBackend>();
     }).iterator->value;
 
     for (auto&& contentRuleList : contentRuleLists) {
@@ -106,6 +106,6 @@ void NetworkContentRuleListManager::remove(UserContentControllerIdentifier ident
     m_contentExtensionBackends.remove(identifier);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(CONTENT_EXTENSIONS)

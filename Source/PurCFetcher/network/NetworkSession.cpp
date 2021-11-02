@@ -50,8 +50,8 @@
 #include "NetworkSessionCurl.h"
 #endif
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 std::unique_ptr<NetworkSession> NetworkSession::create(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
 {
@@ -108,7 +108,7 @@ NetworkSession::NetworkSession(NetworkProcess& networkProcess, const NetworkSess
             m_cache = NetworkCache::Cache::open(networkProcess, networkCacheDirectory, cacheOptions, m_sessionID);
 
             if (!m_cache)
-                RELEASE_LOG_ERROR(NetworkCache, "Failed to initialize the PurcFetcher network disk cache");
+                RELEASE_LOG_ERROR(NetworkCache, "Failed to initialize the PurCFetcher network disk cache");
         }
 
         if (!parameters.resourceLoadStatisticsParameters.directory.isEmpty())
@@ -219,7 +219,7 @@ void NetworkSession::notifyResourceLoadStatisticsProcessed()
     m_networkProcess->parentProcessConnection()->send(Messages::NetworkProcessProxy::NotifyResourceLoadStatisticsProcessed(), 0);
 }
 
-void NetworkSession::logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, PurcFetcher::ShouldSample shouldSample)
+void NetworkSession::logDiagnosticMessageWithValue(const String& message, const String& description, unsigned value, unsigned significantFigures, PurCFetcher::ShouldSample shouldSample)
 {
     m_networkProcess->parentProcessConnection()->send(Messages::WebPageProxy::LogDiagnosticMessageWithValue(message, description, value, significantFigures, shouldSample), 0);
 }
@@ -263,7 +263,7 @@ void NetworkSession::setThirdPartyCookieBlockingMode(ThirdPartyCookieBlockingMod
         m_resourceLoadStatistics->setThirdPartyCookieBlockingMode(blockingMode);
 }
 
-void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(PurcFetcher::SameSiteStrictEnforcementEnabled enabled)
+void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(PurCFetcher::SameSiteStrictEnforcementEnabled enabled)
 {
     ASSERT(m_resourceLoadStatistics);
     m_sameSiteStrictEnforcementEnabled = enabled;
@@ -272,13 +272,13 @@ void NetworkSession::setShouldEnbleSameSiteStrictEnforcement(PurcFetcher::SameSi
 }
 #endif // ENABLE(RESOURCE_LOAD_STATISTICS)
 
-void NetworkSession::storeAdClickAttribution(PurcFetcher::AdClickAttribution&&)
+void NetworkSession::storeAdClickAttribution(PurCFetcher::AdClickAttribution&&)
 {
 }
 
 void NetworkSession::handleAdClickAttributionConversion(
         AdClickAttribution::Conversion&&, const URL&,
-        const PurcFetcher::ResourceRequest&)
+        const PurCFetcher::ResourceRequest&)
 {
 }
 
@@ -290,7 +290,7 @@ void NetworkSession::clearAdClickAttribution()
 {
 }
 
-void NetworkSession::clearAdClickAttributionForRegistrableDomain(PurcFetcher::RegistrableDomain&&)
+void NetworkSession::clearAdClickAttributionForRegistrableDomain(PurCFetcher::RegistrableDomain&&)
 {
 }
 
@@ -320,4 +320,4 @@ void NetworkSession::removeKeptAliveLoad(NetworkResourceLoader& loader)
     m_keptAliveLoads.remove(loader);
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

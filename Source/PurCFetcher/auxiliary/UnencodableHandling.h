@@ -25,7 +25,7 @@
 
 #pragma once
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // Specifies what will happen when a character is encountered that is
 // not encodable in the character set.

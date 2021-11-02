@@ -39,7 +39,7 @@
 
 #include "SessionID.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 class SocketStreamError;
 class SocketStreamHandleClient;
@@ -74,6 +74,6 @@ private:
     }
 };
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // USE(SOUP)

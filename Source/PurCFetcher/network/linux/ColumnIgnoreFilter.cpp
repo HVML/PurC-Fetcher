@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnIgnoreFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ColumnIgnoreFilter::ColumnIgnoreFilter()
 {
@@ -132,5 +132,5 @@ Vector<Row> ColumnIgnoreFilter::doFilter(Vector<Row> rowVec, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

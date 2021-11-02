@@ -30,11 +30,11 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 struct RetrieveRecordsOptions;
 }
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 namespace CacheStorage {
 
@@ -63,29 +63,29 @@ public:
     Cache(Caches&, uint64_t identifier, State, String&& name, String&& uniqueName);
 
     bool isOpened() const { return m_state == State::Open; }
-    void open(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
+    void open(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
 
     uint64_t identifier() const { return m_identifier; }
     const String& name() const { return m_name; }
     const String& uniqueName() const { return m_uniqueName; }
     bool isActive() const { return m_state != State::Uninitialized; }
 
-    void retrieveRecords(const PurcFetcher::RetrieveRecordsOptions&, PurcFetcher::DOMCacheEngine::RecordsCallback&&);
-    PurcFetcher::DOMCacheEngine::CacheInfo info() const { return { m_identifier, m_name }; }
+    void retrieveRecords(const PurCFetcher::RetrieveRecordsOptions&, PurCFetcher::DOMCacheEngine::RecordsCallback&&);
+    PurCFetcher::DOMCacheEngine::CacheInfo info() const { return { m_identifier, m_name }; }
 
-    void put(Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
-    void remove(PurcFetcher::ResourceRequest&&, PurcFetcher::CacheQueryOptions&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void put(Vector<PurCFetcher::DOMCacheEngine::Record>&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void remove(PurCFetcher::ResourceRequest&&, PurCFetcher::CacheQueryOptions&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
     Vector<NetworkCache::Key> keys() const;
 
     void dispose();
     void clearMemoryRepresentation();
 
-    static Optional<PurcFetcher::DOMCacheEngine::Record> decode(const NetworkCache::Storage::Record&);
-    static NetworkCache::Storage::Record encode(const RecordInformation&, const PurcFetcher::DOMCacheEngine::Record&);
+    static Optional<PurCFetcher::DOMCacheEngine::Record> decode(const NetworkCache::Storage::Record&);
+    static NetworkCache::Storage::Record encode(const RecordInformation&, const PurCFetcher::DOMCacheEngine::Record&);
 
     struct DecodedRecord {
-        DecodedRecord(double insertionTime, uint64_t size, PurcFetcher::DOMCacheEngine::Record&& record)
+        DecodedRecord(double insertionTime, uint64_t size, PurCFetcher::DOMCacheEngine::Record&& record)
             : insertionTime(insertionTime)
             , size(size)
             , record(WTFMove(record))
@@ -93,7 +93,7 @@ public:
 
         double insertionTime { 0 };
         uint64_t size { 0 };
-        PurcFetcher::DOMCacheEngine::Record record;
+        PurCFetcher::DOMCacheEngine::Record record;
     };
     static Optional<DecodedRecord> decodeRecordHeader(const NetworkCache::Storage::Record&);
 
@@ -102,20 +102,20 @@ public:
 private:
     Vector<RecordInformation>* recordsFromURL(const URL&);
     const Vector<RecordInformation>* recordsFromURL(const URL&) const;
-    RecordInformation& addRecord(Vector<RecordInformation>*, const PurcFetcher::DOMCacheEngine::Record&);
+    RecordInformation& addRecord(Vector<RecordInformation>*, const PurCFetcher::DOMCacheEngine::Record&);
 
-    void storeRecords(Vector<PurcFetcher::DOMCacheEngine::Record>&&, PurcFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
+    void storeRecords(Vector<PurCFetcher::DOMCacheEngine::Record>&&, PurCFetcher::DOMCacheEngine::RecordIdentifiersCallback&&);
 
-    RecordInformation toRecordInformation(const PurcFetcher::DOMCacheEngine::Record&);
+    RecordInformation toRecordInformation(const PurCFetcher::DOMCacheEngine::Record&);
 
-    void finishOpening(PurcFetcher::DOMCacheEngine::CompletionCallback&&, Optional<PurcFetcher::DOMCacheEngine::Error>&&);
+    void finishOpening(PurCFetcher::DOMCacheEngine::CompletionCallback&&, Optional<PurCFetcher::DOMCacheEngine::Error>&&);
     void retrieveRecord(const RecordInformation&, Ref<ReadRecordTaskCounter>&&);
 
-    void readRecordsList(PurcFetcher::DOMCacheEngine::CompletionCallback&&);
-    void writeRecordToDisk(const RecordInformation&, PurcFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&, uint64_t previousRecordSize);
-    void updateRecordToDisk(RecordInformation&, PurcFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&);
+    void readRecordsList(PurCFetcher::DOMCacheEngine::CompletionCallback&&);
+    void writeRecordToDisk(const RecordInformation&, PurCFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&, uint64_t previousRecordSize);
+    void updateRecordToDisk(RecordInformation&, PurCFetcher::DOMCacheEngine::Record&&, Ref<AsynchronousPutTaskCounter>&&);
     void removeRecordFromDisk(const RecordInformation&);
-    void readRecordFromDisk(const RecordInformation&, WTF::Function<void(Expected<PurcFetcher::DOMCacheEngine::Record, PurcFetcher::DOMCacheEngine::Error>&&)>&&);
+    void readRecordFromDisk(const RecordInformation&, WTF::Function<void(Expected<PurCFetcher::DOMCacheEngine::Record, PurCFetcher::DOMCacheEngine::Error>&&)>&&);
     void removeFromRecordList(const Vector<uint64_t>&);
 
     Caches& m_caches;
@@ -125,9 +125,9 @@ private:
     String m_uniqueName;
     HashMap<String, Vector<RecordInformation>> m_records;
     uint64_t m_nextRecordIdentifier { 0 };
-    Vector<PurcFetcher::DOMCacheEngine::CompletionCallback> m_pendingOpeningCallbacks;
+    Vector<PurCFetcher::DOMCacheEngine::CompletionCallback> m_pendingOpeningCallbacks;
 };
 
 } // namespace CacheStorage
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

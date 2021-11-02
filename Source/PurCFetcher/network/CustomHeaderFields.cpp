@@ -29,7 +29,7 @@
 #include "HTTPHeaderField.h"
 #include "RegistrableDomain.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 bool CustomHeaderFields::thirdPartyDomainsMatch(const URL& url) const
 {

@@ -26,7 +26,7 @@
 #include "config.h"
 #include "DiagnosticLoggingKeys.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 String DiagnosticLoggingKeys::mediaLoadedKey()
 {
@@ -790,12 +790,12 @@ String DiagnosticLoggingKeys::prunedDueToProcessSuspended()
     return "pruned.processSuspended"_s;
 }
 
-String PurcFetcher::DiagnosticLoggingKeys::notHTTPFamilyKey()
+String PurCFetcher::DiagnosticLoggingKeys::notHTTPFamilyKey()
 {
     return "notHTTPFamily"_s;
 }
 
-String PurcFetcher::DiagnosticLoggingKeys::webGLStateKey()
+String PurCFetcher::DiagnosticLoggingKeys::webGLStateKey()
 {
     return "webGLState"_s;
 }
@@ -864,5 +864,5 @@ String DiagnosticLoggingKeys::resourceLoadStatisticsTelemetryKey()
     return "resourceLoadStatisticsTelemetry"_s;
 }
     
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

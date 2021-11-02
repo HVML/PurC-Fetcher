@@ -31,9 +31,9 @@
 #include "SessionID.h"
 #include <wtf/WeakPtr.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-class NetworkStorageSessionProvider final : public PurcFetcher::StorageSessionProvider {
+class NetworkStorageSessionProvider final : public PurCFetcher::StorageSessionProvider {
 public:
     static Ref<NetworkStorageSessionProvider> create(NetworkProcess& networkProcess, const PAL::SessionID& sessionID) { return adoptRef(*new NetworkStorageSessionProvider(networkProcess, sessionID)); }
     
@@ -42,7 +42,7 @@ private:
         : m_networkProcess(makeWeakPtr(networkProcess))
         , m_sessionID(sessionID) { }
 
-    PurcFetcher::NetworkStorageSession* storageSession() const final
+    PurCFetcher::NetworkStorageSession* storageSession() const final
     {
         if (m_networkProcess)
             return m_networkProcess->storageSession(m_sessionID);

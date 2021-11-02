@@ -32,7 +32,7 @@
 #include <CFNetwork/CFURLProtectionSpacePriv.h>
 #endif
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 // Need to enforce empty, non-null strings due to the pickiness of the String == String operator
 // combined with the semantics of the String(NSString*) constructor

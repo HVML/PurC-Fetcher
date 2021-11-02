@@ -50,8 +50,8 @@
 #include <stdio.h>
 #include "ColumnDelimiterFilter.h"
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ColumnDelimiterFilter::ColumnDelimiterFilter()
 {
@@ -109,5 +109,5 @@ Vector<Row> ColumnDelimiterFilter::splitRow(Row& row, String param)
     return result;
 }
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 

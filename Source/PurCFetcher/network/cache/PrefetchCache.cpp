@@ -28,14 +28,14 @@
 
 #include "HTTPHeaderNames.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
-PrefetchCache::Entry::Entry(PurcFetcher::ResourceResponse&& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer)
+PrefetchCache::Entry::Entry(PurCFetcher::ResourceResponse&& response, RefPtr<PurCFetcher::SharedBuffer>&& buffer)
     : response(WTFMove(response)), buffer(WTFMove(buffer))
 {
 }
 
-PrefetchCache::Entry::Entry(PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ResourceRequest&& redirectRequest)
+PrefetchCache::Entry::Entry(PurCFetcher::ResourceResponse&& redirectResponse, PurCFetcher::ResourceRequest&& redirectRequest)
     : response(WTFMove(redirectResponse)), redirectRequest(WTFMove(redirectRequest))
 {
 }
@@ -66,13 +66,13 @@ std::unique_ptr<PrefetchCache::Entry> PrefetchCache::take(const URL& url)
         return std::get<0>(tuple) == url;
     });
     auto entry = resources->take(url);
-    ASSERT(!entry || !entry->response.httpHeaderField(PurcFetcher::HTTPHeaderName::Vary).contains("Cookie"));
+    ASSERT(!entry || !entry->response.httpHeaderField(PurCFetcher::HTTPHeaderName::Vary).contains("Cookie"));
     return entry;
 }
 
 static const Seconds expirationTimeout { 5_s };
 
-void PrefetchCache::store(const URL& requestUrl, PurcFetcher::ResourceResponse&& response, RefPtr<PurcFetcher::SharedBuffer>&& buffer)
+void PrefetchCache::store(const URL& requestUrl, PurCFetcher::ResourceResponse&& response, RefPtr<PurCFetcher::SharedBuffer>&& buffer)
 {
     if (!m_sessionPrefetches)
         m_sessionPrefetches = makeUnique<PrefetchEntriesMap>();
@@ -85,7 +85,7 @@ void PrefetchCache::store(const URL& requestUrl, PurcFetcher::ResourceResponse&&
         m_expirationTimer.startOneShot(expirationTimeout);
 }
 
-void PrefetchCache::storeRedirect(const URL& requestUrl, PurcFetcher::ResourceResponse&& redirectResponse, PurcFetcher::ResourceRequest&& redirectRequest)
+void PrefetchCache::storeRedirect(const URL& requestUrl, PurCFetcher::ResourceResponse&& redirectResponse, PurCFetcher::ResourceRequest&& redirectRequest)
 {
     if (!m_sessionPrefetches)
         m_sessionPrefetches = makeUnique<PrefetchEntriesMap>();

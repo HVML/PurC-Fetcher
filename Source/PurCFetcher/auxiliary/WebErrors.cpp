@@ -36,8 +36,8 @@
 
 #define WEB_UI_STRING(string, description)  string
 
-namespace PurcFetcher {
-using namespace PurcFetcher;
+namespace PurCFetcher {
+using namespace PurCFetcher;
 
 ResourceError blockedError(const ResourceRequest& request)
 {
@@ -91,7 +91,7 @@ ResourceError internalError(const URL& url)
     RELEASE_LOG_ERROR(Loading, "Internal error called");
     RELEASE_LOG_STACKTRACE(Loading);
 
-    return ResourceError(API::Error::webKitErrorDomain(), API::Error::General::Internal, url, WEB_UI_STRING("PurcFetcher encountered an internal error", "WebKitErrorInternal description"));
+    return ResourceError(API::Error::webKitErrorDomain(), API::Error::General::Internal, url, WEB_UI_STRING("PurCFetcher encountered an internal error", "WebKitErrorInternal description"));
 }
 
 #if !PLATFORM(COCOA)
@@ -106,4 +106,4 @@ ResourceError fileDoesNotExistError(const ResourceResponse& response)
 }
 #endif
 
-} // namespace PurcFetcher
+} // namespace PurCFetcher

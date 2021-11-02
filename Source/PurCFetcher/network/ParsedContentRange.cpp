@@ -29,7 +29,7 @@
 #include <wtf/StdLibExtras.h>
 #include <wtf/text/StringConcatenateNumbers.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 static bool areContentRangeValuesValid(int64_t firstBytePosition, int64_t lastBytePosition, int64_t instanceLength)
 {

@@ -30,26 +30,26 @@
 #include "CacheValidation.h"
 #include "ResourceRequest.h"
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 namespace NetworkCache {
 
-static inline PurcFetcher::ResourceRequest constructRevalidationRequest(const Key& key, const PurcFetcher::ResourceRequest& request, const Entry& entry)
+static inline PurCFetcher::ResourceRequest constructRevalidationRequest(const Key& key, const PurCFetcher::ResourceRequest& request, const Entry& entry)
 {
-    PurcFetcher::ResourceRequest revalidationRequest = request;
+    PurCFetcher::ResourceRequest revalidationRequest = request;
     if (!key.partition().isEmpty())
         revalidationRequest.setCachePartition(key.partition());
     ASSERT_WITH_MESSAGE(key.range().isEmpty(), "range is not supported");
 
     revalidationRequest.makeUnconditional();
-    auto eTag = entry.response().httpHeaderField(PurcFetcher::HTTPHeaderName::ETag);
+    auto eTag = entry.response().httpHeaderField(PurCFetcher::HTTPHeaderName::ETag);
     if (!eTag.isEmpty())
-        revalidationRequest.setHTTPHeaderField(PurcFetcher::HTTPHeaderName::IfNoneMatch, eTag);
+        revalidationRequest.setHTTPHeaderField(PurCFetcher::HTTPHeaderName::IfNoneMatch, eTag);
 
-    auto lastModified = entry.response().httpHeaderField(PurcFetcher::HTTPHeaderName::LastModified);
+    auto lastModified = entry.response().httpHeaderField(PurCFetcher::HTTPHeaderName::LastModified);
     if (!lastModified.isEmpty())
-        revalidationRequest.setHTTPHeaderField(PurcFetcher::HTTPHeaderName::IfModifiedSince, lastModified);
+        revalidationRequest.setHTTPHeaderField(PurCFetcher::HTTPHeaderName::IfModifiedSince, lastModified);
 
-    revalidationRequest.setPriority(PurcFetcher::ResourceLoadPriority::Low);
+    revalidationRequest.setPriority(PurCFetcher::ResourceLoadPriority::Low);
 
     return revalidationRequest;
 }
@@ -66,14 +66,14 @@ void AsyncRevalidation::staleWhileRevalidateEnding()
         m_completionHandler(Result::Timeout);
 }
 
-AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID, const PurcFetcher::ResourceRequest& request, std::unique_ptr<NetworkCache::Entry>&& entry, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, CompletionHandler<void(Result)>&& handler)
+AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID, const PurCFetcher::ResourceRequest& request, std::unique_ptr<NetworkCache::Entry>&& entry, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, CompletionHandler<void(Result)>&& handler)
     : m_timer(*this, &AsyncRevalidation::staleWhileRevalidateEnding)
     , m_completionHandler(WTFMove(handler))
 {
     auto key = entry->key();
     auto revalidationRequest = constructRevalidationRequest(key, request, *entry.get());
-    auto age = PurcFetcher::computeCurrentAge(entry->response(), entry->timeStamp());
-    auto lifetime = PurcFetcher::computeFreshnessLifetimeForHTTPFamily(entry->response(), entry->timeStamp());
+    auto age = PurCFetcher::computeCurrentAge(entry->response(), entry->timeStamp());
+    auto lifetime = PurCFetcher::computeFreshnessLifetimeForHTTPFamily(entry->response(), entry->timeStamp());
     auto responseMaxStaleness = entry->response().cacheControlStaleWhileRevalidate();
     ASSERT(responseMaxStaleness);
     m_timer.startOneShot(*responseMaxStaleness + (lifetime - age));
@@ -86,6 +86,6 @@ AsyncRevalidation::AsyncRevalidation(Cache& cache, const GlobalFrameID& frameID,
 }
 
 } // namespace NetworkCache
-} // namespace PurcFetcher
+} // namespace PurCFetcher
 
 #endif // ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)

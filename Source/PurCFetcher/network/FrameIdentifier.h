@@ -27,7 +27,7 @@
 
 #include <wtf/ObjectIdentifier.h>
 
-namespace PurcFetcher {
+namespace PurCFetcher {
 
 enum FrameIdentifierType { };
 using FrameIdentifier = ObjectIdentifier<FrameIdentifierType>;

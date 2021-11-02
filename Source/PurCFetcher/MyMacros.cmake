@@ -31,6 +31,8 @@ macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
     endforeach ()
     list(APPEND ${_output_source} ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.cpp)
 
+    set(message_header_file ${PURCFETCHER_DIR}/messages/MessageNames.h)
+    set(message_source_file ${PURCFETCHER_DIR}/messages/MessageNames.cpp)
     add_custom_command(
         OUTPUT
             ${MESSAGES_DERIVED_SOURCES_DIR}/MessageNames.cpp
@@ -44,6 +46,8 @@ macro(GENERATE_MESSAGE_SOURCES _output_source _inputs)
             ${TOOLS_DIR}/Scripts/generator/parser.py
             ${_input_files}
             COMMAND ${PYTHON_EXECUTABLE} ${TOOLS_DIR}/Scripts/generate-message-receiver.py ${PURCFETCHER_DIR} ${_inputs}
+            COMMAND ${CMAKE_COMMAND} -E copy ${message_header_file} ${MESSAGES_DERIVED_SOURCES_DIR}/
+            COMMAND ${CMAKE_COMMAND} -E copy ${message_source_file} ${MESSAGES_DERIVED_SOURCES_DIR}/
         WORKING_DIRECTORY ${MESSAGES_DERIVED_SOURCES_DIR}
         VERBATIM
     )

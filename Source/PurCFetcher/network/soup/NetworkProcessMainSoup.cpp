@@ -52,6 +52,14 @@ void initializeAuxiliaryProcess<NetworkProcess>(AuxiliaryProcessInitializationPa
     globalNetworkProcess = &networkProcess.get();
 }
 
+void InitializeFetcher()
+{
+    RunLoop::initializeMain();
+    AtomString::init();
+
+    WTF::RefCountedBase::enableThreadingChecksGlobally();
+}
+
 } // namespace PurcFetcher
 
 int NetworkProcessMain(int argc, char** argv)

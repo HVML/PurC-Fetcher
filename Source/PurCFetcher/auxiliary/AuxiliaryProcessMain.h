@@ -50,6 +50,8 @@ void initializeAuxiliaryProcess(AuxiliaryProcessInitializationParameters&& param
     AuxiliaryProcessType::singleton().initialize(WTFMove(parameters));
 }
 
+void InitializeFetcher();
+
 template<typename AuxiliaryProcessType, typename AuxiliaryProcessMainType>
 int AuxiliaryProcessMain(int argc, char** argv)
 {
@@ -61,9 +63,8 @@ int AuxiliaryProcessMain(int argc, char** argv)
     if (!auxiliaryMain.parseCommandLine(argc, argv))
         return EXIT_FAILURE;
 
-#if 0  // BY xue 2021-10-21
-    InitializeWebKit2();
-#endif
+
+    InitializeFetcher();
 
     initializeAuxiliaryProcess<AuxiliaryProcessType>(auxiliaryMain.takeInitializationParameters());
     RunLoop::run();

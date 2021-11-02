@@ -758,7 +758,6 @@ void NetworkResourceLoader::didReceiveBuffer(Ref<SharedBuffer>&& buffer, int rep
 #ifdef gengyue
     printf("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ NetworkResourceLoader::didReceiveBuffer\n");
 #endif
-    fprintf(stderr, "%s:%d:%s \n", __FILE__, __LINE__, __func__);
     if (!m_numBytesReceived)
         RELEASE_LOG_IF_ALLOWED("didReceiveBuffer: Started receiving data (reportedEncodedDataLength=%d)", reportedEncodedDataLength);
     m_numBytesReceived += buffer->size();
@@ -1153,7 +1152,6 @@ void NetworkResourceLoader::bufferingTimerFired()
     if (m_bufferedData->isEmpty())
         return;
 
-    fprintf(stderr, "%s:%d:%s data=%s\n", __FILE__, __LINE__, __func__, m_bufferedData->data());
     send(Messages::WebResourceLoader::DidReceiveSharedBuffer({ *m_bufferedData }, m_bufferedDataEncodedDataLength));
 
     m_bufferedData = SharedBuffer::create();

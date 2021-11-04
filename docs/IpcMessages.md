@@ -1,5 +1,11 @@
 # 进程间通讯消息
 
+- [概述](#概述)
+- [通讯协议](#通讯协议)
+- [消息](#消息)
+   + [消息类的结构](#消息类的结构)
+   + [消息类的生成](#消息类的生成)
+- [一次网络请求的消息交互](#一次网络请求的消息交互)
 
 ## 概述
 
@@ -64,9 +70,47 @@ messages -> NetworkProcess LegacyReceiver {
     # Initializes the network process.
     InitializeNetworkProcess(struct PurCFetcher::NetworkProcessCreationParameters processCreationParameters)
 
+    SetAllowsAnySSLCertificateForWebSocket(bool enabled) -> () Synchronous
     ...
 
 }
+
+```
+
+* `NetworkProcess` 和 `InitializeNetworkProcess` 组合生成了消息的唯一标识 `IPC::MessageName::NetworkProcess_InitializeNetworkProcess`
+* `InitializeNetworkProcess`: 是消息类的名称
+* `struct PurCFetcher::NetworkProcessCreationParameters processCreationParameters`: 消息类构造函数的参数
+* 默认情况下，生成的消息类的 `isSync = false`，当消息标注为 `Synchronous` 时，生成的 `isSync = true`。
+
+## 一次网络请求的消息交互
+
+```
+
+PurC ---> PurCFetcher : NetworkProcess::InitializeNetworkProcess
+PurC ---> PurCFetcher : NetworkProcess::CreateNetworkConnectionToWebProcess
+PurCFetcher ---> PurC : NetworkProcess::CreateNetworkConnectionToWebProcessReply
+PurCFetcher ---> PurC : NetworkProcessConnection::SetOnLineState
+PurCFetcher ---> PurC : NetworkProcessConnection::SetOnLineState
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::RegisterURLSchemesAsCORSEnabled
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::BrowsingContextRemoved
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::ScheduleResourceLoad
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveResponse
+PurC ---> PurCFetcher : NetworkResourceLoader::ContinueDidReceiveResponse
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveSharedBuffer
+PurCFetcher ---> PurC : WebResourceLoader::DidFinishResourceLoad
+PurCFetcher ---> PurC : IPC::SyncMessageReply
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::ScheduleResourceLoad
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveResponse
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::ScheduleResourceLoad
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveResponse
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveSharedBuffer
+PurCFetcher ---> PurC : WebResourceLoader::DidFinishResourceLoad
+PurCFetcher ---> PurC : WebResourceLoader::DidReceiveSharedBuffer
+PurCFetcher ---> PurC : WebResourceLoader::DidFinishResourceLoad
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::RemoveLoadIdentifier
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::RemoveLoadIdentifier
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::RemoveLoadIdentifier
+PurC ---> PurCFetcher : NetworkConnectionToWebProcess::PageLoadCompleted
 
 ```
 

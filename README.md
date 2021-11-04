@@ -34,6 +34,7 @@ The source tree of PurC Fetcher contains the following modules:
 - `Source/test/`: The unit test programs.
 - `Source/samples/`: Examples for using the interfaces of PurCFetcher.
 - `tools/`: The tools (executables), e.g., the command line program.
+- `docs/`: Some documents for developers.
 
 ## Building
 

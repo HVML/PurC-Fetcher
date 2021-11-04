@@ -70,3 +70,4 @@ network/linux/NetworkDataTaskLsql.cpp
 network/linux/NetworkDataTaskRsql.cpp
 
 auxiliary/soup/WebErrorsSoup.cpp
+auxiliary/soup/ProcessLauncherGLib.cpp

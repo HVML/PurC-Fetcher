@@ -132,6 +132,7 @@ Connection::SyncMessageState& Connection::SyncMessageState::singleton()
 
 bool Connection::SyncMessageState::processIncomingMessage(Connection& connection, std::unique_ptr<Decoder>& message)
 {
+    fprintf(stderr, "fetcher|                receive messasge=%s\n", description(message->messageName()));
     switch (message->shouldDispatchMessageWhenWaitingForSyncReply()) {
     case ShouldDispatchWhenWaitingForSyncReply::No:
         return false;
@@ -446,6 +447,7 @@ std::unique_ptr<Encoder> Connection::createSyncMessageEncoder(MessageName messag
 
 bool Connection::sendMessage(std::unique_ptr<Encoder> encoder, OptionSet<SendOption> sendOptions)
 {
+    fprintf(stderr, "fetcher|                send messasge=%s\n", description(encoder->messageName()));
     if (!isValid())
         return false;
 

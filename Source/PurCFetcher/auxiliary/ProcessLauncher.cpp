@@ -47,7 +47,7 @@ void ProcessLauncher::didFinishLaunchingProcess(ProcessID processIdentifier, IPC
     tracePoint(ProcessLaunchEnd);
     m_processIdentifier = processIdentifier;
     m_isLaunching = false;
-    
+
     if (!m_client) {
         // FIXME: Make Identifier a move-only object and release port rights/connections in the destructor.
 #if OS(DARWIN) && !PLATFORM(GTK) && !PLATFORM(HBD)
@@ -57,7 +57,7 @@ void ProcessLauncher::didFinishLaunchingProcess(ProcessID processIdentifier, IPC
 #endif
         return;
     }
-    
+
     fprintf(stderr, "%s:%d:%s\n", __FILE__, __LINE__, __func__);
     m_client->didFinishLaunching(this, identifier);
 }

@@ -224,7 +224,7 @@ static void printCallSite(const char* file, int line, const char* function)
     // By using this format, which matches the format used by MSVC for compiler errors, developers
     // using Visual Studio can double-click the file/line number in the Output Window to have the
     // editor navigate to that line of code. It seems fine for other developers, too.
-#if PLATFORM(Linux)
+#if PLATFORM(LINUX)
     printf_stderr_common("============================================================ Linux UNIMPLEMENTED FUNCTION: %s(%d) : %s\n", file, line, function);
 #else
     printf_stderr_common("%s(%d) : %s\n", file, line, function);
@@ -463,7 +463,7 @@ void WTFLog(WTFLogChannel* channel, const char* format, ...)
 
 void WTFLogVerboseLinux(const char* file, int line, const char* function, WTFLogChannel* channel, const char* format, ...)
 {
-#if PLATFORM(Linux)
+#if PLATFORM(LINUX)
     va_list args;
     va_start(args, format);
 

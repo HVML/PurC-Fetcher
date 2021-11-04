@@ -51,7 +51,7 @@
 #if defined(BUILDING_GTK__)
 #define WTF_PLATFORM_GTK 1
 #elif defined(BUILDING_LINUX__)
-#define WTF_PLATFORM_Linux 1
+#define WTF_PLATFORM_LINUX 1
 #elif defined(BUILDING_WPE__)
 #define WTF_PLATFORM_WPE 1
 #elif defined(BUILDING_JSCONLY__)

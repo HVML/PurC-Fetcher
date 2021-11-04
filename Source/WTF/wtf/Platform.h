@@ -83,7 +83,7 @@
    belong as part of Platform.h at all. */
 
 
-#if PLATFORM(GTK) || PLATFORM(Linux)
+#if PLATFORM(GTK) || PLATFORM(LINUX)
 #define GLIB_VERSION_MIN_REQUIRED GLIB_VERSION_2_44
 #if USE(GTK4)
 #define GDK_VERSION_MIN_REQUIRED GDK_VERSION_3_92

@@ -26,6 +26,7 @@ class ProcessLauncherClient :  public ProcessLauncher::Client, public IPC::Conne
 
         this->conn = IPC::Connection::createServerConnection(identifier, *this);
         NetworkProcessCreationParameters parameters;
+        this->conn->open();
         this->conn->send(Messages::NetworkProcess::InitializeNetworkProcess(parameters), 0);
     }
     void didClose(IPC::Connection&) {}

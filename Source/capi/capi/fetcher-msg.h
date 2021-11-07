@@ -39,10 +39,10 @@ struct pcfetcher_msg {
 };
 
 // bool, char, int, float, double (signed, unsigned)
-#define encode_basic(encoder, v) \
-    encode_data(encoder, (const uint8_t*)&v, sizeof(v))
-#define decode_basic(decoder, v) \
-    decode_data(decoder, (uint8_t*)&v, sizeof(v))
+#define pcfetcher_encoder_encode_basic(encoder, v) \
+    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v, sizeof(v))
+#define pcfetcher_decoder_decode_basic(decoder, v) \
+    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v))
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,10 +57,11 @@ struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
         size_t size, bool free_buffer);
 void pcfetcher_decoder_destroy(struct pcfetcher_decoder* encoder);
 
-void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
-        size_t size);
+void pcfetcher_encoder_encode_data(struct pcfetcher_encoder* encoder,
+        const uint8_t* data, size_t size);
 
-bool decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size);
+bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
+        uint8_t* data, size_t size);
 
 #ifdef __cplusplus
 }

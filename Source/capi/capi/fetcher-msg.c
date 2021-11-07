@@ -108,25 +108,22 @@ void pcfetcher_decoder_destroy(struct pcfetcher_decoder* decoder)
 {
     if (decoder) {
         if (decoder->free_buffer) {
-            free((uint8_t*)decoder->buffer);
+            free((uint8_t*)(decoder->buffer));
         }
         free(decoder);
     }
 }
 
-void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
-        size_t size)
+void pcfetcher_encoder_encode_data(struct pcfetcher_encoder* encoder,
+        const uint8_t* data, size_t size)
 {
-    fprintf(stderr, "encode...............encoder=%p|data=%x|size=%ld\n",
-            encoder, data[0], size);
     uint8_t* buffer = pcfetcher_encode_grow_buffer(encoder, size);
     memcpy(buffer, data, size);
 }
 
-bool decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size)
+bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
+        uint8_t* data, size_t size)
 {
-    fprintf(stderr, "decode...............decoder=%p|buf=%p|size=%ld\n",
-            decoder, data, size);
     if (decoder->buffer_pos + size > decoder->buffer_end) {
         return false;
     }

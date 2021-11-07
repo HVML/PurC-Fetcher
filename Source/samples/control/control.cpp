@@ -55,35 +55,23 @@ int main(int argc, char** argv)
     struct pcfetcher_encoder* encoder = pcfetcher_encoder_create();
     size_t size = 0;
     const uint8_t* buffer = pcfetcher_encoder_get_buffer(encoder, &size);
-    fprintf(stderr, "0...............................buffer=%p|size=%ld\n", buffer, size);
     bool b = true;
-    encode_basic(encoder, b);
-
+    pcfetcher_encoder_encode_basic(encoder, b);
     float c = 1.2f;
-    encode_basic(encoder, c);
-
+    pcfetcher_encoder_encode_basic(encoder, c);
     int d = 10010;
-    encode_basic(encoder, d);
+    pcfetcher_encoder_encode_basic(encoder, d);
 
     buffer = pcfetcher_encoder_get_buffer(encoder, &size);
-    fprintf(stderr, "1...............................buffer=%p|size=%ld\n", buffer, size);
-
     struct pcfetcher_decoder* decoder = pcfetcher_decoder_create(buffer, size, false);
-
     bool eb = false;
-    decode_basic(decoder, eb);
-    fprintf(stderr, "....decode eb=%d\n", eb);
-
+    pcfetcher_decoder_decode_basic(decoder, eb);
     float ec;
-    decode_basic(decoder, ec);
-    fprintf(stderr, "....decode ec=%f\n", ec);
-
+    pcfetcher_decoder_decode_basic(decoder, ec);
     int ed;
-    decode_basic(decoder, ed);
-    fprintf(stderr, "....decode ed=%d\n", ed);
+    pcfetcher_decoder_decode_basic(decoder, ed);
 
     pcfetcher_decoder_destroy(decoder);
-
     pcfetcher_encoder_destroy(encoder);
 #endif
 

@@ -27,6 +27,7 @@
 
 #include <stddef.h>
 #include <stdint.h>
+#include <stdbool.h>
 
 struct pcfetcher_encoder;
 struct pcfetcher_decoder;
@@ -46,6 +47,13 @@ struct pcfetcher_msg {
 #ifdef __cplusplus
 extern "C" {
 #endif  /* __cplusplus */
+
+struct pcfetcher_encoder* pcfetcher_encoder_create();
+void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder);
+
+struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
+        size_t size, bool free_buffer);
+void pcfetcher_decoder_destroy(struct pcfetcher_decoder* encoder);
 
 void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
         size_t size);

@@ -25,15 +25,67 @@
 #include "fetcher-msg.h"
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+#define INIT_BUFFER_SIZE 512
 
 struct pcfetcher_encoder
 {
+    uint8_t* buffer;
+    uint8_t* buffer_pos;
+    size_t buffer_size;
+    size_t buffer_capacity;
 };
 
 struct pcfetcher_decoder
 {
+    bool free_buffer;
+    const uint8_t* buffer;
+    const uint8_t* buffer_pos;
+    const uint8_t* buffer_end;
 };
+
+struct pcfetcher_encoder* pcfetcher_encoder_create()
+{
+    struct pcfetcher_encoder* encoder = (struct pcfetcher_encoder*)malloc(
+            sizeof(struct pcfetcher_encoder));
+    encoder->buffer = (uint8_t*)calloc(INIT_BUFFER_SIZE, 1);
+    encoder->buffer_pos = encoder->buffer;
+    encoder->buffer_size = 0;
+    encoder->buffer_capacity = INIT_BUFFER_SIZE;
+    return encoder;
+}
+
+void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder)
+{
+    if (encoder) {
+        free(encoder->buffer);
+        free(encoder);
+    }
+}
+
+struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
+        size_t size, bool free_buffer)
+{
+    struct pcfetcher_decoder* decoder = (struct pcfetcher_decoder*)malloc(
+            sizeof(struct pcfetcher_decoder));
+    decoder->free_buffer = free_buffer;
+    decoder->buffer = buffer;
+    decoder->buffer_pos = buffer;
+    decoder->buffer_end = buffer + size;
+    return decoder;
+}
+
+void pcfetcher_decoder_destroy(struct pcfetcher_decoder* decoder)
+{
+    if (decoder) {
+        if (decoder->free_buffer) {
+            free((uint8_t*)decoder->buffer);
+        }
+        free(decoder);
+    }
+}
 
 void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
         size_t size)

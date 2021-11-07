@@ -38,10 +38,17 @@
 struct pcfetcher_encoder;
 struct pcfetcher_decoder;
 
-struct pcfetcher_msg {
+struct pcfetcher_msg_header {
     uint8_t flags;
     uint16_t name;
     uint64_t dest_id;
+};
+
+// base type
+struct pcfetcher_string {
+    bool is_8bit;
+    uint32_t length;
+    uint8_t* buffer;
 };
 
 #ifdef __cplusplus
@@ -62,6 +69,14 @@ void pcfetcher_encoder_encode_data(struct pcfetcher_encoder* encoder,
 
 bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
         uint8_t* data, size_t size);
+
+// base type
+
+void pcfetcher_encoder_encode_string(struct pcfetcher_encoder* encoder,
+        struct pcfetcher_string* s);
+
+bool pcfetcher_decoder_decode_string(struct pcfetcher_decoder* decoder,
+        struct pcfetcher_string* s);
 
 #ifdef __cplusplus
 }

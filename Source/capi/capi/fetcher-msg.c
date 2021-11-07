@@ -132,4 +132,42 @@ bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
     return true;
 }
 
+void pcfetcher_encoder_encode_string(struct pcfetcher_encoder* encoder,
+        struct pcfetcher_string* s)
+{
+    if (encoder->buffer == NULL || s->length == 0) {
+        uint32_t length = UINT32_MAX;
+        pcfetcher_encoder_encode_basic(encoder, length);
+        return;
+    }
+
+    pcfetcher_encoder_encode_basic(encoder, s->length);
+    pcfetcher_encoder_encode_basic(encoder, s->is_8bit);
+    if (s->is_8bit) {
+        pcfetcher_encoder_encode_data(encoder, s->buffer, s->length);
+    }
+    else {
+        pcfetcher_encoder_encode_data(encoder, s->buffer, s->length * 2);
+    }
+}
+
+bool pcfetcher_decoder_decode_string(struct pcfetcher_decoder* decoder,
+        struct pcfetcher_string* s)
+{
+    uint32_t length = 0;
+    pcfetcher_decoder_decode_basic(decoder, length);
+    if (length == UINT32_MAX) {
+        s->length = 0;
+        return true;
+    }
+    s->length = length;
+    pcfetcher_decoder_decode_basic(decoder, s->is_8bit);
+    if (s->is_8bit) {
+        pcfetcher_decoder_decode_data(decoder, s->buffer, s->length);
+    }
+    else {
+        pcfetcher_decoder_decode_data(decoder, s->buffer, s->length * 2);
+    }
+    return true;
+}
 

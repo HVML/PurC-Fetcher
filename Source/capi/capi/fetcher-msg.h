@@ -29,6 +29,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// bool, char, int, float, double (signed, unsigned)
+#define pcfetcher_encoder_encode_basic(encoder, v) \
+    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v, sizeof(v))
+#define pcfetcher_decoder_decode_basic(decoder, v) \
+    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v))
+
 struct pcfetcher_encoder;
 struct pcfetcher_decoder;
 
@@ -37,12 +43,6 @@ struct pcfetcher_msg {
     uint16_t name;
     uint64_t dest_id;
 };
-
-// bool, char, int, float, double (signed, unsigned)
-#define pcfetcher_encoder_encode_basic(encoder, v) \
-    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v, sizeof(v))
-#define pcfetcher_decoder_decode_basic(decoder, v) \
-    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v))
 
 #ifdef __cplusplus
 extern "C" {

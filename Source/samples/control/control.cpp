@@ -4,6 +4,7 @@
 #include "ProcessLauncher.h"
 #include "NetworkProcessCreationParameters.h"
 #include "NetworkProcessMessages.h"
+#include "Encoder.h"
 
 #include "capi/fetcher-msg.h"
 
@@ -23,7 +24,6 @@ using namespace PurCFetcher;
 class ProcessLauncherClient :  public ProcessLauncher::Client, public IPC::Connection::Client {
     void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier identifier)
     {
-        fprintf(stderr, "..................................finishing launching\n");
         this->identifier = identifier;
 
         this->conn = IPC::Connection::createServerConnection(identifier, *this);
@@ -52,27 +52,30 @@ int main(int argc, char** argv)
 
     RunLoop::run();
 #else
-    struct pcfetcher_encoder* encoder = pcfetcher_encoder_create();
-    size_t size = 0;
-    const uint8_t* buffer = pcfetcher_encoder_get_buffer(encoder, &size);
-    bool b = true;
-    pcfetcher_encoder_encode_basic(encoder, b);
-    float c = 1.2f;
-    pcfetcher_encoder_encode_basic(encoder, c);
-    int d = 10010;
-    pcfetcher_encoder_encode_basic(encoder, d);
 
-    buffer = pcfetcher_encoder_get_buffer(encoder, &size);
-    struct pcfetcher_decoder* decoder = pcfetcher_decoder_create(buffer, size, false);
-    bool eb = false;
-    pcfetcher_decoder_decode_basic(decoder, eb);
-    float ec;
-    pcfetcher_decoder_decode_basic(decoder, ec);
-    int ed;
-    pcfetcher_decoder_decode_basic(decoder, ed);
+
+
+    // test compare with encode
+    IPC::Encoder* ipc_encoder = new IPC::Encoder(IPC::MessageName(0x12), 0x5678);
+    String origin = "This is origin text.";
+    ipc_encoder->encode(origin);
+
+    struct pcfetcher_decoder* decoder = pcfetcher_decoder_create(
+            ipc_encoder->buffer(), ipc_encoder->bufferSize(), false);
+
+    struct pcfetcher_msg_header msg;
+    pcfetcher_decoder_decode_msg_header(decoder, &msg);
+
+    struct pcfetcher_string* s;
+
+    pcfetcher_decoder_decode_string(decoder, &s);
+    fprintf(stderr, "s=%s\n", s->buffer);
+
+    pcfetcher_destory_string(s);
+
+    delete ipc_encoder;
 
     pcfetcher_decoder_destroy(decoder);
-    pcfetcher_encoder_destroy(encoder);
 #endif
 
     return 0;

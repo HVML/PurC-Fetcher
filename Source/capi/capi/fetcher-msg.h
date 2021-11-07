@@ -31,9 +31,10 @@
 
 // bool, char, int, float, double (signed, unsigned)
 #define pcfetcher_encoder_encode_basic(encoder, v) \
-    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v, sizeof(v))
+    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v,\
+            sizeof(v), sizeof(v))
 #define pcfetcher_decoder_decode_basic(decoder, v) \
-    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v))
+    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v), sizeof(v))
 
 struct pcfetcher_encoder;
 struct pcfetcher_decoder;
@@ -46,8 +47,8 @@ struct pcfetcher_msg_header {
 
 // base type
 struct pcfetcher_string {
-    bool is_8bit;
     uint32_t length;
+    bool is_8bit;
     uint8_t* buffer;
 };
 
@@ -65,10 +66,17 @@ struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
 void pcfetcher_decoder_destroy(struct pcfetcher_decoder* encoder);
 
 void pcfetcher_encoder_encode_data(struct pcfetcher_encoder* encoder,
-        const uint8_t* data, size_t size);
+        const uint8_t* data, size_t size, size_t alignment);
 
 bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
-        uint8_t* data, size_t size);
+        uint8_t* data, size_t size, size_t alignment);
+
+// msg header
+void pcfetcher_encoder_encode_msg_header(struct pcfetcher_encoder* encoder,
+        struct pcfetcher_msg_header* s);
+
+bool pcfetcher_decoder_decode_msg_header(struct pcfetcher_decoder* decoder,
+        struct pcfetcher_msg_header* s);
 
 // base type
 
@@ -76,7 +84,9 @@ void pcfetcher_encoder_encode_string(struct pcfetcher_encoder* encoder,
         struct pcfetcher_string* s);
 
 bool pcfetcher_decoder_decode_string(struct pcfetcher_decoder* decoder,
-        struct pcfetcher_string* s);
+        struct pcfetcher_string** s);
+
+void pcfetcher_destory_string(struct pcfetcher_string* s);
 
 #ifdef __cplusplus
 }

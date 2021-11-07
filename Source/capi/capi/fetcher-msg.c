@@ -65,6 +65,33 @@ void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder)
     }
 }
 
+const uint8_t* pcfetcher_encoder_get_buffer(struct pcfetcher_encoder* encoder,
+        size_t* size)
+{
+    if (size) {
+        *size = encoder->buffer_size;
+    }
+    return encoder->buffer;
+}
+
+uint8_t* pcfetcher_encode_grow_buffer(struct pcfetcher_encoder* encoder,
+        size_t size)
+{
+    size_t sz = encoder->buffer_size + size;
+    if (sz >= encoder->buffer_capacity) {
+        // TODO calc new_size fibonacci
+        size_t new_size = sz + 10;
+        // grow buffer
+        uint8_t* newbuf = (uint8_t*) realloc(encoder->buffer, new_size + 1);
+        encoder->buffer = newbuf;
+        encoder->buffer_pos = newbuf + encoder->buffer_size;
+        encoder->buffer_capacity = new_size;
+    }
+    encoder->buffer_pos += size;
+    encoder->buffer_size += size;
+    return encoder->buffer_pos - size;
+}
+
 struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
         size_t size, bool free_buffer)
 {
@@ -92,12 +119,20 @@ void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
 {
     fprintf(stderr, "encode...............encoder=%p|data=%x|size=%ld\n",
             encoder, data[0], size);
+    uint8_t* buffer = pcfetcher_encode_grow_buffer(encoder, size);
+    memcpy(buffer, data, size);
 }
 
-void decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size)
+bool decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size)
 {
     fprintf(stderr, "decode...............decoder=%p|buf=%p|size=%ld\n",
             decoder, data, size);
+    if (decoder->buffer_pos + size > decoder->buffer_end) {
+        return false;
+    }
+    memcpy(data, decoder->buffer_pos, size);
+    decoder->buffer_pos += size;
+    return true;
 }
 
 

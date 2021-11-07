@@ -38,13 +38,19 @@ struct pcfetcher_msg {
 };
 
 // bool, char, int, float, double (signed, unsigned)
-#define encode_basic(v) encode_data((const uint8_t*)&v, sizeof(v))
+#define encode_basic(encoder, v) \
+    encode_data(encoder, (const uint8_t*)&v, sizeof(v))
+#define decode_basic(decoder, v) \
+    decode_data(decoder, (uint8_t*)v, sizeof(*v))
 
 #ifdef __cplusplus
 extern "C" {
 #endif  /* __cplusplus */
 
-struct pcfetcher_encoder* encode_data(const uint8_t* data, size_t size);
+void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
+        size_t size);
+
+void decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size);
 
 #ifdef __cplusplus
 }

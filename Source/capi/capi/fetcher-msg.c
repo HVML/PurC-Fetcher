@@ -25,6 +25,7 @@
 #include "fetcher-msg.h"
 
 #include <stdio.h>
+#include <string.h>
 
 struct pcfetcher_encoder
 {
@@ -34,11 +35,17 @@ struct pcfetcher_decoder
 {
 };
 
-struct pcfetcher_encoder* encode_data(const uint8_t* data, size_t size)
+void encode_data(struct pcfetcher_encoder* encoder, const uint8_t* data,
+        size_t size)
 {
-    fprintf(stderr, "..........................data=%x|size=%ld\n", data[0], size);
-    return NULL;
+    fprintf(stderr, "encode...............encoder=%p|data=%x|size=%ld\n",
+            encoder, data[0], size);
 }
 
+void decode_data(struct pcfetcher_decoder* decoder, uint8_t* data, size_t size)
+{
+    fprintf(stderr, "decode...............decoder=%p|buf=%p|size=%ld\n",
+            decoder, data, size);
+}
 
 

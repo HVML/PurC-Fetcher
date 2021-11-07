@@ -28,6 +28,7 @@ set(control_SOURCES
 
 set(control_LIBRARIES
     PurCFetcher::PurCFetcher
+    PurCFetcher::fetcher_capi
     pthread
 )
 

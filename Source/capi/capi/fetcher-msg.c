@@ -36,7 +36,7 @@ struct pcfetcher_decoder
 
 struct pcfetcher_encoder* encode_data(const uint8_t* data, size_t size)
 {
-    fprintf(stderr, "..........................data=%s|size=%ld\n", data, size);
+    fprintf(stderr, "..........................data=%x|size=%ld\n", data[0], size);
     return NULL;
 }
 

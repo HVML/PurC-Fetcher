@@ -5,6 +5,8 @@
 #include "NetworkProcessCreationParameters.h"
 #include "NetworkProcessMessages.h"
 
+#include "capi/fetcher-msg.h"
+
 #include <glib.h>
 #include <wtf/glib/GLibUtilities.h>
 #include <wtf/glib/GUniquePtr.h>
@@ -39,6 +41,10 @@ public:
 int main(int argc, char** argv)
 {
     fprintf(stderr, "argc=%d|argv[0]=%s\n", argc, argv[0]);
+
+    long double x = 1.0f;
+    encode_basic(x);
+
     RunLoop::initializeMain();
 
     ProcessLauncherClient processClient;

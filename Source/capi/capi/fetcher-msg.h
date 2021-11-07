@@ -37,11 +37,14 @@ struct pcfetcher_msg {
     uint64_t dest_id;
 };
 
+// bool, char, int, float, double (signed, unsigned)
+#define encode_basic(v) encode_data((const uint8_t*)&v, sizeof(v))
+
+#ifdef __cplusplus
+extern "C" {
+#endif  /* __cplusplus */
 
 struct pcfetcher_encoder* encode_data(const uint8_t* data, size_t size);
-
-#define encode_bool(v) encode_data((const uint8_t*)&v, sizeof(bool))
-
 
 #ifdef __cplusplus
 }

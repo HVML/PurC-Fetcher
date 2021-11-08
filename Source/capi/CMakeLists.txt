@@ -2,7 +2,7 @@ set_property(DIRECTORY . PROPERTY FOLDER "fetcher_capi")
 
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${BMALLOC_DIR}"
-    "${PURC_INCLUDE_DIR}"
+    "${PURC_INCLUDE_DIRS}"
 )
 
 set(fetcher_capi_SOURCES

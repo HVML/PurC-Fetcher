@@ -150,14 +150,65 @@ def gen_msg_header(receiver):
 
     return ''.join(result)
 
+def gen_msg_source(receiver):
+    result = []
+
+    result.append('#include "pcfetcher_msg_%s.h"\n' % receiver.name)
+    result.append('\n')
+
+    for parameter in receiver.iterparameters():
+        kind = parameter.kind
+        type = parameter.type
+        name = parameter.name
+        if kind != 'base' and type != 'pcfetcher_string':
+            result.append('#include "%s.h"\n' % type)
+
+    result.append('\n')
+    result.append('void pcfetcher_encode_%s(pcfetcher_encoder* encoder, void* v)\n' % receiver.name)
+    result.append('{\n')
+
+    for parameter in receiver.iterparameters():
+        kind = parameter.kind
+        type = parameter.type
+        name = parameter.name
+        if kind == 'base':
+            result.append('    pcfetcher_encode_base(encoder, %s);\n' % name)
+        elif kind == 'struct':
+            result.append('    pcfetcher_encode_%s(encoder, %s);\n' % (type, name))
+        elif kind == 'array':
+            result.append('    pcfetcher_encode_array(encoder, %s, pcfetcher_encode_%s);\n' % (name, name))
+
+    result.append('}\n\n')
+
+    result.append('bool pcfetcher_decode_%s(pcfetcher_decoder* decoder, void** v)\n' % receiver.name)
+    result.append('{\n')
+
+    for parameter in receiver.iterparameters():
+        kind = parameter.kind
+        type = parameter.type
+        name = parameter.name
+        if kind == 'base':
+            result.append('    pcfetcher_decode_base(decoder, %s);\n' % name)
+        elif kind == 'struct':
+            result.append('    pcfetcher_decode_%s(decoder, %s);\n' % (type, name))
+        elif kind == 'array':
+            result.append('    pcfetcher_decode_array(decoder, %s, pcfetcher_encode_%s);\n' % (name, name))
+
+    result.append('}\n\n')
+
+    return ''.join(result)
+
 def main(argv):
     receiver = None
     with open(argv[1]) as source_file:
         receiver = parse(source_file)
 
     receiver_name = receiver.name
-    with open('%s.h' % receiver_name, "w+") as implementation_output:
-        implementation_output.write(gen_msg_header(receiver))
+    with open('pcfetcher_msg_%s.h' % receiver_name, "w+") as header_output:
+        header_output.write(gen_msg_header(receiver))
+
+    with open('pcfetcher_msg_%s.c' % receiver_name, "w+") as implementation_output:
+        implementation_output.write(gen_msg_source(receiver))
     return 0
 
 if __name__ == '__main__':

@@ -1,0 +1,5 @@
+msg -> init_param {
+    uint32_t id;
+    struct pcfetcher_string name;
+    struct pcutils_arrlist addrs;
+}

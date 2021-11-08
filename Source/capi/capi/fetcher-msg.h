@@ -30,11 +30,11 @@
 #include <stdbool.h>
 
 // bool, char, int, float, double (signed, unsigned)
-#define pcfetcher_encoder_encode_basic(encoder, v) \
-    pcfetcher_encoder_encode_data(encoder, (const uint8_t*)&v,\
+#define pcfetcher_encode_basic(encoder, v) \
+    pcfetcher_encode_data(encoder, (const uint8_t*)&v,\
             sizeof(v), sizeof(v))
-#define pcfetcher_decoder_decode_basic(decoder, v) \
-    pcfetcher_decoder_decode_data(decoder, (uint8_t*)&v, sizeof(v), sizeof(v))
+#define pcfetcher_decode_basic(decoder, v) \
+    pcfetcher_decode_data(decoder, (uint8_t*)&v, sizeof(v), sizeof(v))
 
 struct pcfetcher_encoder;
 struct pcfetcher_decoder;
@@ -56,6 +56,9 @@ struct pcfetcher_string {
 extern "C" {
 #endif  /* __cplusplus */
 
+typedef void (*PCFETCHER_ENCODE_FUN)(struct pcfetcher_encoder*, void*);
+typedef bool (*PCFETCHER_DECODER_FUN)(struct pcfetcher_encoder*, void**);
+
 struct pcfetcher_encoder* pcfetcher_encoder_create(void);
 void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder);
 const uint8_t* pcfetcher_encoder_get_buffer(struct pcfetcher_encoder* encoder,
@@ -65,28 +68,28 @@ struct pcfetcher_decoder* pcfetcher_decoder_create(const uint8_t* buffer,
         size_t size, bool free_buffer);
 void pcfetcher_decoder_destroy(struct pcfetcher_decoder* encoder);
 
-void pcfetcher_encoder_encode_data(struct pcfetcher_encoder* encoder,
+void pcfetcher_encode_data(struct pcfetcher_encoder* encoder,
         const uint8_t* data, size_t size, size_t alignment);
 
-bool pcfetcher_decoder_decode_data(struct pcfetcher_decoder* decoder,
+bool pcfetcher_decode_data(struct pcfetcher_decoder* decoder,
         uint8_t* data, size_t size, size_t alignment);
 
 // msg header
-void pcfetcher_encoder_encode_msg_header(struct pcfetcher_encoder* encoder,
+void pcfetcher_encode_msg_header(struct pcfetcher_encoder* encoder,
         struct pcfetcher_msg_header* s);
 
-bool pcfetcher_decoder_decode_msg_header(struct pcfetcher_decoder* decoder,
+bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
         struct pcfetcher_msg_header* s);
 
 // base type
 
-void pcfetcher_encoder_encode_string(struct pcfetcher_encoder* encoder,
+void pcfetcher_destory_string(struct pcfetcher_string* s);
+
+void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,
         struct pcfetcher_string* s);
 
-bool pcfetcher_decoder_decode_string(struct pcfetcher_decoder* decoder,
+bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder,
         struct pcfetcher_string** s);
-
-void pcfetcher_destory_string(struct pcfetcher_string* s);
 
 #ifdef __cplusplus
 }

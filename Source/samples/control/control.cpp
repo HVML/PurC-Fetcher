@@ -76,11 +76,11 @@ int main(int argc, char** argv)
             ipc_encoder->buffer(), ipc_encoder->bufferSize(), false);
 
     struct pcfetcher_msg_header msg;
-    pcfetcher_decoder_decode_msg_header(decoder, &msg);
+    pcfetcher_decode_msg_header(decoder, &msg);
 
     struct pcfetcher_string* s;
 
-    pcfetcher_decoder_decode_string(decoder, &s);
+    pcfetcher_decode_string(decoder, &s);
     fprintf(stderr, "s=%s\n", s->buffer);
 
     pcfetcher_destory_string(s);

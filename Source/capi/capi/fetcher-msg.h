@@ -83,7 +83,11 @@ bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
 
 // base type
 
-void pcfetcher_destory_string(struct pcfetcher_string* s);
+struct pcfetcher_string* pcfetcher_string_create(void);
+
+void pcfetcher_string_destroy(struct pcfetcher_string* s);
+
+void pcfetcher_string_destroy_in_array(void* v);
 
 void pcfetcher_encode_string(struct pcfetcher_encoder* encoder, void* s);
 

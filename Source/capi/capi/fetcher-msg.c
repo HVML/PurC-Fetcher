@@ -166,7 +166,12 @@ bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-void pcfetcher_destory_string(struct pcfetcher_string* s)
+struct pcfetcher_string* pcfetcher_string_create(void)
+{
+    return (struct pcfetcher_string*) calloc(sizeof(struct pcfetcher_string), 1);
+}
+
+void pcfetcher_string_destroy(struct pcfetcher_string* s)
 {
     if (s) {
         if (s->buffer) {
@@ -174,6 +179,11 @@ void pcfetcher_destory_string(struct pcfetcher_string* s)
         }
         free(s);
     }
+}
+
+void pcfetcher_string_destroy_in_array(void* v)
+{
+    pcfetcher_string_destroy((struct pcfetcher_string*)v);
 }
 
 void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,

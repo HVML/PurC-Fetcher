@@ -166,9 +166,20 @@ bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,
-        struct pcfetcher_string* s)
+void pcfetcher_destory_string(struct pcfetcher_string* s)
 {
+    if (s) {
+        if (s->buffer) {
+            free(s->buffer);
+        }
+        free(s);
+    }
+}
+
+void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,
+        void* v)
+{
+    struct pcfetcher_string* s = (struct pcfetcher_string*)v;
     if (encoder->buffer == NULL || s->length == 0) {
         uint32_t length = UINT32_MAX;
         pcfetcher_encode_basic(encoder, length);
@@ -186,8 +197,9 @@ void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,
 }
 
 bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder,
-        struct pcfetcher_string** str)
+        void** v)
 {
+    struct pcfetcher_string** str = (struct pcfetcher_string**)v;
     uint32_t length = 0;
     pcfetcher_decode_basic(decoder, length);
     if (length == UINT32_MAX) {
@@ -210,13 +222,18 @@ bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-void pcfetcher_destory_string(struct pcfetcher_string* s)
+void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_ENCODE_FUNC func)
 {
-    if (s) {
-        if (s->buffer) {
-            free(s->buffer);
-        }
-        free(s);
+    uint64_t size = pcutils_arrlist_length(array);
+    fprintf(stderr, "...........................size=%ld\n", size);
+    pcfetcher_encode_basic(encoder, size);
+    for (uint64_t i = 0; i < size; i++) {
+        void* item = pcutils_arrlist_get_idx(array, i);
+        fprintf(stderr, "...........................i=%ld\n", i);
+        func(encoder, item);
     }
 }
+
 

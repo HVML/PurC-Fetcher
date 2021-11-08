@@ -7,6 +7,7 @@
 #include "Encoder.h"
 
 #include "capi/fetcher-msg.h"
+#include "purc/purc-arraylist.h"
 
 #include <glib.h>
 #include <wtf/glib/GLibUtilities.h>
@@ -54,14 +55,37 @@ int main(int argc, char** argv)
 #else
 
 
-
     // test compare with encode
+    struct pcutils_arrlist* array = pcutils_arrlist_new(NULL);
+
+    uint8_t c1[] = "abcdef";
+    struct pcfetcher_string s1 = {6, 1, c1};
+    uint8_t c2[] = "123456";
+    struct pcfetcher_string s2 = {6, 1, c2};
+ //   uint8_t c3[] = "789abc";
+//    struct pcfetcher_string s3 = {6, 1, c3};
+
+    pcutils_arrlist_add(array, &s1);
+    pcutils_arrlist_add(array, &s2);
+//    pcutils_arrlist_add(array, &s3);
+
+    struct pcfetcher_encoder* encoder = pcfetcher_encoder_create();
+
+    struct pcfetcher_msg_header msg = {0, 0x12, 0x5678};
+    pcfetcher_encode_msg_header(encoder, &msg);
+    pcfetcher_encode_array(encoder, array, pcfetcher_encode_string);
+
+    size_t len = 0;
+    const uint8_t* buf = pcfetcher_encoder_get_buffer(encoder, &len);
+    for (size_t i = 0; i < len; i++) {
+        fprintf(stderr, "i=%ld|buf[i]=%d|buf[i]=%c\n", i, buf[i], buf[i]);
+    }
+
+#if 0
     IPC::Encoder* ipc_encoder = new IPC::Encoder(IPC::MessageName(0x12), 0x5678);
-    String origin = "abcdef";
-//    ipc_encoder->encode(origin);
 
     Vector<String> vec;
-    vec.append(origin);
+    vec.append("abcdef");
     vec.append("123456");
     ipc_encoder->encode(vec);
 
@@ -71,7 +95,6 @@ int main(int argc, char** argv)
         fprintf(stderr, "i=%ld|buf[i]=%d|buf[i]=%c\n", i, buf[i], buf[i]);
     }
 
-#if 0
     struct pcfetcher_decoder* decoder = pcfetcher_decoder_create(
             ipc_encoder->buffer(), ipc_encoder->bufferSize(), false);
 
@@ -89,6 +112,8 @@ int main(int argc, char** argv)
 
     pcfetcher_decoder_destroy(decoder);
 #endif
+
+    pcutils_arrlist_free(array);
 #endif
 
     return 0;

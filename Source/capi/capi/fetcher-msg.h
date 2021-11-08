@@ -56,8 +56,8 @@ struct pcfetcher_string {
 extern "C" {
 #endif  /* __cplusplus */
 
-typedef void (*PCFETCHER_ENCODE_FUN)(struct pcfetcher_encoder*, void*);
-typedef bool (*PCFETCHER_DECODER_FUN)(struct pcfetcher_encoder*, void**);
+typedef void (*PCFETCHER_ENCODE_FUNC)(struct pcfetcher_encoder*, void*);
+typedef bool (*PCFETCHER_DECODER_FUNC)(struct pcfetcher_encoder*, void**);
 
 struct pcfetcher_encoder* pcfetcher_encoder_create(void);
 void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder);
@@ -85,11 +85,16 @@ bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
 
 void pcfetcher_destory_string(struct pcfetcher_string* s);
 
-void pcfetcher_encode_string(struct pcfetcher_encoder* encoder,
-        struct pcfetcher_string* s);
+void pcfetcher_encode_string(struct pcfetcher_encoder* encoder, void* s);
 
-bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder,
-        struct pcfetcher_string** s);
+bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder, void** s);
+
+// array
+struct pcutils_arrlist;
+
+void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_ENCODE_FUNC func);
 
 #ifdef __cplusplus
 }

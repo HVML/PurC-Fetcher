@@ -58,16 +58,14 @@ int main(int argc, char** argv)
     // test compare with encode
     struct pcutils_arrlist* array = pcutils_arrlist_new(NULL);
 
+#if 0
     uint8_t c1[] = "abcdef";
     struct pcfetcher_string s1 = {6, 1, c1};
     uint8_t c2[] = "123456";
     struct pcfetcher_string s2 = {6, 1, c2};
- //   uint8_t c3[] = "789abc";
-//    struct pcfetcher_string s3 = {6, 1, c3};
 
     pcutils_arrlist_add(array, &s1);
     pcutils_arrlist_add(array, &s2);
-//    pcutils_arrlist_add(array, &s3);
 
     struct pcfetcher_encoder* encoder = pcfetcher_encoder_create();
 
@@ -80,8 +78,9 @@ int main(int argc, char** argv)
     for (size_t i = 0; i < len; i++) {
         fprintf(stderr, "i=%ld|buf[i]=%d|buf[i]=%c\n", i, buf[i], buf[i]);
     }
+#endif
 
-#if 0
+#if 1
     IPC::Encoder* ipc_encoder = new IPC::Encoder(IPC::MessageName(0x12), 0x5678);
 
     Vector<String> vec;
@@ -89,7 +88,7 @@ int main(int argc, char** argv)
     vec.append("123456");
     ipc_encoder->encode(vec);
 
-    uint8_t* buf = ipc_encoder->buffer();
+    const uint8_t* buf = ipc_encoder->buffer();
     size_t len = ipc_encoder->bufferSize();
     for (size_t i = 0; i < len; i++) {
         fprintf(stderr, "i=%ld|buf[i]=%d|buf[i]=%c\n", i, buf[i], buf[i]);
@@ -100,16 +99,16 @@ int main(int argc, char** argv)
 
     struct pcfetcher_msg_header msg;
     pcfetcher_decode_msg_header(decoder, &msg);
+    pcfetcher_decode_array(decoder, array, pcfetcher_decode_string);
 
-    struct pcfetcher_string* s;
-
-    pcfetcher_decode_string(decoder, &s);
-    fprintf(stderr, "s=%s\n", s->buffer);
-
-    pcfetcher_destory_string(s);
+    uint64_t size = pcutils_arrlist_length(array);
+    for (uint64_t i = 0; i < size; i++) {
+        void* item = pcutils_arrlist_get_idx(array, i);
+        struct pcfetcher_string* str = (struct pcfetcher_string*) item;
+        fprintf(stderr, "..................i=%ld|str=%s\n", i, str->buffer);
+    }
 
     delete ipc_encoder;
-
     pcfetcher_decoder_destroy(decoder);
 #endif
 

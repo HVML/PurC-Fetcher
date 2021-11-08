@@ -57,7 +57,7 @@ extern "C" {
 #endif  /* __cplusplus */
 
 typedef void (*PCFETCHER_ENCODE_FUNC)(struct pcfetcher_encoder*, void*);
-typedef bool (*PCFETCHER_DECODER_FUNC)(struct pcfetcher_encoder*, void**);
+typedef bool (*PCFETCHER_DECODE_FUNC)(struct pcfetcher_decoder*, void**);
 
 struct pcfetcher_encoder* pcfetcher_encoder_create(void);
 void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder);
@@ -95,6 +95,10 @@ struct pcutils_arrlist;
 void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
         struct pcutils_arrlist* array,
         PCFETCHER_ENCODE_FUNC func);
+
+void pcfetcher_decode_array(struct pcfetcher_decoder* decoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_DECODE_FUNC func);
 
 #ifdef __cplusplus
 }

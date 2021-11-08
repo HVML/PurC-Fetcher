@@ -227,13 +227,22 @@ void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
         PCFETCHER_ENCODE_FUNC func)
 {
     uint64_t size = pcutils_arrlist_length(array);
-    fprintf(stderr, "...........................size=%ld\n", size);
     pcfetcher_encode_basic(encoder, size);
     for (uint64_t i = 0; i < size; i++) {
         void* item = pcutils_arrlist_get_idx(array, i);
-        fprintf(stderr, "...........................i=%ld\n", i);
         func(encoder, item);
     }
 }
 
-
+void pcfetcher_decode_array(struct pcfetcher_decoder* decoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_DECODE_FUNC func)
+{
+    uint64_t size = 0;
+    pcfetcher_decode_basic(decoder, size);
+    for (uint64_t i = 0; i < size; i++) {
+        void* item = NULL;
+        func(decoder, &item);
+        pcutils_arrlist_add(array, item);
+    }
+}

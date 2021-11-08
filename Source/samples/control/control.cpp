@@ -57,9 +57,21 @@ int main(int argc, char** argv)
 
     // test compare with encode
     IPC::Encoder* ipc_encoder = new IPC::Encoder(IPC::MessageName(0x12), 0x5678);
-    String origin = "This is origin text.";
-    ipc_encoder->encode(origin);
+    String origin = "abcdef";
+//    ipc_encoder->encode(origin);
 
+    Vector<String> vec;
+    vec.append(origin);
+    vec.append("123456");
+    ipc_encoder->encode(vec);
+
+    uint8_t* buf = ipc_encoder->buffer();
+    size_t len = ipc_encoder->bufferSize();
+    for (size_t i = 0; i < len; i++) {
+        fprintf(stderr, "i=%ld|buf[i]=%d|buf[i]=%c\n", i, buf[i], buf[i]);
+    }
+
+#if 0
     struct pcfetcher_decoder* decoder = pcfetcher_decoder_create(
             ipc_encoder->buffer(), ipc_encoder->bufferSize(), false);
 
@@ -76,6 +88,7 @@ int main(int argc, char** argv)
     delete ipc_encoder;
 
     pcfetcher_decoder_destroy(decoder);
+#endif
 #endif
 
     return 0;

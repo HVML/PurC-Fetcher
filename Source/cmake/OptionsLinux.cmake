@@ -28,6 +28,7 @@ find_package(ZLIB 1.2.0)
 find_package(Threads REQUIRED)
 find_package(ICU 60.2 REQUIRED COMPONENTS data i18n uc)
 find_package(LibGcrypt 1.6.0 REQUIRED)
+find_package(PurC REQUIRED)
 
 if (NOT GLIB_FOUND)
     set(ENABLE_SOCKET_STREAM_DEFAULT OFF)

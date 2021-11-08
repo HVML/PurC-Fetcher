@@ -23,6 +23,7 @@
  */
 
 #include "fetcher-msg.h"
+#include "purc/purc-arraylist.h"
 
 #include <stdio.h>
 #include <stdlib.h>

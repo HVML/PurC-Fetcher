@@ -18,6 +18,7 @@ list(APPEND control_PRIVATE_INCLUDE_DIRECTORIES
     "${MESSAGES_DERIVED_SOURCES_DIR}"
     "${GIO_UNIX_INCLUDE_DIRS}"
     "${GLIB_INCLUDE_DIRS}"
+    "${PURC_INCLUDE_DIR}"
 )
 
 PURCFETCHER_EXECUTABLE(control)
@@ -29,7 +30,8 @@ set(control_SOURCES
 set(control_LIBRARIES
     PurCFetcher::PurCFetcher
     PurCFetcher::fetcher_capi
-    pthread
+    ${PURC_LIBRARIES}
+    -lpthread
 )
 
 #PURCFETCHER_COMPUTE_SOURCES(control)

@@ -161,9 +161,7 @@ def gen_msg_header(receiver):
         elif kind == 'array':
             result.append('\n')
             result.append('    // %s array\n' % type)
-            result.append('    array_list_free_fn* %s_free_fn;\n' % name)
             result.append('    struct pcutils_arrlist* %s;\n' % name)
-            result.append('\n')
 
     result.append('}\n\n')
 
@@ -199,9 +197,11 @@ def gen_msg_header(receiver):
 
     result.append('\n')
     result.append('static inline void pcfetcher_%s_array_decode(\n' % receiver.name)
-    result.append('        struct pcfetcher_decoder* decoder, struct pcutils_arrlist* array)\n')
+    result.append('        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array)\n')
     result.append('{\n')
-    result.append('    pcfetcher_array_decode(decoder, array, pcfetcher_%s_decode);\n' % receiver.name)
+    result.append('    pcfetcher_array_decode(decoder, array,\n')
+    result.append('         pcfetcher_%s_array_create,\n' % receiver.name)
+    result.append('         pcfetcher_%s_decode);\n' % receiver.name)
     result.append('}\n')
 
     return ''.join(result)
@@ -264,7 +264,7 @@ def gen_msg_source(receiver):
         elif kind == 'struct':
             result.append('    %s_decode(decoder, &msg->%s);\n' % (type, name))
         elif kind == 'array':
-            result.append('    %s_array_decode(decoder, msg->%s);\n' % (type, name))
+            result.append('    %s_array_decode(decoder, &msg->%s);\n' % (type, name))
 
     result.append('}\n\n')
 

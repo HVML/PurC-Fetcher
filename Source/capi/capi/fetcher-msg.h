@@ -60,6 +60,7 @@ extern "C" {
 
 typedef void (*PCFETCHER_ENCODE_FUNC)(struct pcfetcher_encoder*, void*);
 typedef bool (*PCFETCHER_DECODE_FUNC)(struct pcfetcher_decoder*, void**);
+typedef struct pcutils_arrlist* (*PCFETCHER_ARRAY_CREATE_FUNC)(void);
 
 struct pcfetcher_encoder* pcfetcher_encoder_create(void);
 void pcfetcher_encoder_destroy(struct pcfetcher_encoder* encoder);
@@ -86,7 +87,8 @@ void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
         PCFETCHER_ENCODE_FUNC func);
 
 void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
-        struct pcutils_arrlist* array,
+        struct pcutils_arrlist** array,
+        PCFETCHER_ARRAY_CREATE_FUNC creator,
         PCFETCHER_DECODE_FUNC func);
 
 // msg header
@@ -104,7 +106,7 @@ bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder, void** s);
 
 static inline void pcfetcher_string_array_free_fn(void* v)
 {
-    pcutils_arrlist_free((struct pcutils_arrlist*)v);
+    pcfetcher_string_destroy((struct pcfetcher_string*)v);
 }
 
 static inline struct pcutils_arrlist* pcfetcher_string_array_create(void)
@@ -124,9 +126,10 @@ static inline void pcfetcher_string_array_encode(
 }
 
 static inline void pcfetcher_string_array_decode(
-        struct pcfetcher_decoder* decoder, struct pcutils_arrlist* array)
+        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array)
 {
-    pcfetcher_array_decode(decoder, array, pcfetcher_string_decode);
+    pcfetcher_array_decode(decoder, array, pcfetcher_string_array_create,
+            pcfetcher_string_decode);
 }
 
 #ifdef __cplusplus

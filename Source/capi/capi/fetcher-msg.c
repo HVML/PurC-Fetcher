@@ -173,15 +173,17 @@ void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
 }
 
 void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
-        struct pcutils_arrlist* array,
+        struct pcutils_arrlist** array,
+        PCFETCHER_ARRAY_CREATE_FUNC creator,
         PCFETCHER_DECODE_FUNC func)
 {
+    *array = creator();
     uint64_t size = 0;
     pcfetcher_basic_decode(decoder, size);
     for (uint64_t i = 0; i < size; i++) {
         void* item = NULL;
         func(decoder, &item);
-        pcutils_arrlist_add(array, item);
+        pcutils_arrlist_add(*array, item);
     }
 }
 

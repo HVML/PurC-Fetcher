@@ -83,18 +83,6 @@ void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,
 bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
         struct pcfetcher_msg_header* s);
 
-// base type
-
-struct pcfetcher_string* pcfetcher_string_create(void);
-
-void pcfetcher_string_destroy(struct pcfetcher_string* s);
-
-void pcfetcher_string_destroy_in_array(void* v);
-
-void pcfetcher_string_encode(struct pcfetcher_encoder* encoder, void* s);
-
-bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder, void** s);
-
 // array
 struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn *free_fn);
 
@@ -109,6 +97,19 @@ void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
 void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
         struct pcutils_arrlist* array,
         PCFETCHER_DECODE_FUNC func);
+
+// base type
+
+struct pcfetcher_string* pcfetcher_string_create(void);
+
+void pcfetcher_string_destroy(struct pcfetcher_string* s);
+
+void pcfetcher_string_destroy_in_array(void* v);
+
+void pcfetcher_string_encode(struct pcfetcher_encoder* encoder, void* s);
+
+bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder, void** s);
+
 
 #ifdef __cplusplus
 }

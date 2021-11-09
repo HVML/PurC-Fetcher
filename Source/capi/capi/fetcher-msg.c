@@ -165,6 +165,46 @@ bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
     return true;
 }
 
+struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
+{
+    return pcutils_arrlist_new(free_fn);
+}
+
+void pcfetcher_array_destroy(struct pcutils_arrlist* array)
+{
+    pcutils_arrlist_free(array);
+}
+
+void pcfetcher_array_destroy_in_array(void* v)
+{
+    pcutils_arrlist_free((struct pcutils_arrlist*)v);
+}
+
+void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_ENCODE_FUNC func)
+{
+    uint64_t size = pcutils_arrlist_length(array);
+    pcfetcher_basic_encode(encoder, size);
+    for (uint64_t i = 0; i < size; i++) {
+        void* item = pcutils_arrlist_get_idx(array, i);
+        func(encoder, item);
+    }
+}
+
+void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_DECODE_FUNC func)
+{
+    uint64_t size = 0;
+    pcfetcher_basic_decode(decoder, size);
+    for (uint64_t i = 0; i < size; i++) {
+        void* item = NULL;
+        func(decoder, &item);
+        pcutils_arrlist_add(array, item);
+    }
+}
+
 struct pcfetcher_string* pcfetcher_string_create(void)
 {
     return (struct pcfetcher_string*) calloc(sizeof(struct pcfetcher_string), 1);
@@ -231,42 +271,3 @@ bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
-{
-    return pcutils_arrlist_new(free_fn);
-}
-
-void pcfetcher_array_destroy(struct pcutils_arrlist* array)
-{
-    pcutils_arrlist_free(array);
-}
-
-void pcfetcher_array_destroy_in_array(void* v)
-{
-    pcutils_arrlist_free((struct pcutils_arrlist*)v);
-}
-
-void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
-        struct pcutils_arrlist* array,
-        PCFETCHER_ENCODE_FUNC func)
-{
-    uint64_t size = pcutils_arrlist_length(array);
-    pcfetcher_basic_encode(encoder, size);
-    for (uint64_t i = 0; i < size; i++) {
-        void* item = pcutils_arrlist_get_idx(array, i);
-        func(encoder, item);
-    }
-}
-
-void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
-        struct pcutils_arrlist* array,
-        PCFETCHER_DECODE_FUNC func)
-{
-    uint64_t size = 0;
-    pcfetcher_basic_decode(decoder, size);
-    for (uint64_t i = 0; i < size; i++) {
-        void* item = NULL;
-        func(decoder, &item);
-        pcutils_arrlist_add(array, item);
-    }
-}

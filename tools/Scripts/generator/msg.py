@@ -160,12 +160,12 @@ def gen_msg_header(receiver):
             result.append('    // %s array\n' % type)
             result.append('    struct pcutils_arrlist* %s;\n' % name)
 
-    result.append('}\n\n')
+    result.append('};\n\n')
 
     result.append('struct pcfetcher_%s* pcfetcher_%s_create(void);\n\n' % (receiver.name, receiver.name))
-    result.append('void pcfetcher_%s_destroy(struct pcfetcher_msg_%s*);\n\n' % (receiver.name, receiver.name))
-    result.append('void pcfetcher_%s_encode(pcfetcher_encoder*, void*);\n\n' % receiver.name)
-    result.append('bool pcfetcher_%s_decode(pcfetcher_decoder*, void**);\n\n' % receiver.name)
+    result.append('void pcfetcher_%s_destroy(struct pcfetcher_%s*);\n\n' % (receiver.name, receiver.name))
+    result.append('void pcfetcher_%s_encode(struct pcfetcher_encoder*, void*);\n\n' % receiver.name)
+    result.append('bool pcfetcher_%s_decode(struct pcfetcher_decoder*, void**);\n\n' % receiver.name)
 
     result.append('\n')
     result.append('static inline void pcfetcher_%s_array_free_fn(void* v)\n' % receiver.name)
@@ -180,7 +180,7 @@ def gen_msg_header(receiver):
     result.append('}\n')
 
     result.append('\n')
-    result.append('static inline void pcfetcher_%s_array_destory(struct pcutils_arrlist* array)\n')
+    result.append('static inline void pcfetcher_%s_array_destory(struct pcutils_arrlist* array)\n' % receiver.name)
     result.append('{\n')
     result.append('    pcfetcher_array_destroy(array);\n')
     result.append('}\n')
@@ -217,6 +217,8 @@ def gen_msg_source(receiver):
 
     result.append('#include "fetcher-%s.h"\n' % msg_name.replace('_', '-'))
     result.append('\n')
+    result.append('#include <stdlib.h>\n')
+    result.append('\n')
 
     result.append('struct pcfetcher_%s* pcfetcher_%s_create(void)\n' % (msg_name, msg_name))
     result.append('{\n')
@@ -224,7 +226,7 @@ def gen_msg_source(receiver):
     result.append('            calloc(sizeof(struct pcfetcher_%s), 1);\n' % msg_name);
     result.append('}\n\n')
 
-    result.append('void pcfetcher_%s_destroy(struct pcfetcher_msg_%s* msg)\n' % (msg_name, msg_name))
+    result.append('void pcfetcher_%s_destroy(struct pcfetcher_%s* msg)\n' % (msg_name, msg_name))
     result.append('{\n')
     result.append('    if (!msg) {\n');
     result.append('        return;\n');
@@ -239,7 +241,7 @@ def gen_msg_source(receiver):
             result.append('    %s_array_destroy(msg->%s);\n' % (type, name))
     result.append('}\n\n')
 
-    result.append('void pcfetcher_%s_encode(pcfetcher_encoder* encode, void* v)\n' % msg_name)
+    result.append('void pcfetcher_%s_encode(struct pcfetcher_encoder* encoder, void* v)\n' % msg_name)
     result.append('{\n')
     result.append('    struct pcfetcher_%s* msg = (struct pcfetcher_%s*)v;\n' % (msg_name, msg_name))
 
@@ -251,7 +253,7 @@ def gen_msg_source(receiver):
         type = parameter.type
         name = parameter.name
         if kind == 'base':
-            result.append('    pcfetcher_base_encode(encoder, msg->%s);\n' % name)
+            result.append('    pcfetcher_basic_encode(encoder, msg->%s);\n' % name)
         elif kind == 'struct':
             result.append('    %s_encode(encoder, msg->%s);\n' % (type, name))
         elif kind == 'array':
@@ -259,24 +261,27 @@ def gen_msg_source(receiver):
 
     result.append('}\n\n')
 
-    result.append('bool pcfetcher_%s_decode(pcfetcher_decoder* decoder, void** v)\n' % msg_name)
+    result.append('bool pcfetcher_%s_decode(struct pcfetcher_decoder* decoder, void** v)\n' % msg_name)
     result.append('{\n')
-    result.append('    struct pcfetcher_%s* msg = pcfetcher_%s_create()\n' % (msg_name, msg_name));
+    result.append('    struct pcfetcher_%s* msg = pcfetcher_%s_create();\n' % (msg_name, msg_name));
 
     if receiver.condition:
-        result.append('    pcfetcher_msg_header_decoder(decoder, &msg->header);\n')
+        result.append('    pcfetcher_msg_header_decode(decoder, &msg->header);\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind
         type = parameter.type
         name = parameter.name
         if kind == 'base':
-            result.append('    pcfetcher_base_decode(decoder, msg->%s);\n' % name)
+            result.append('    pcfetcher_basic_decode(decoder, msg->%s);\n' % name)
         elif kind == 'struct':
-            result.append('    %s_decode(decoder, &msg->%s);\n' % (type, name))
+            result.append('    %s_decode(decoder, (void**)&msg->%s);\n' % (type, name))
         elif kind == 'array':
             result.append('    %s_array_decode(decoder, &msg->%s);\n' % (type, name))
 
+    result.append('\n')
+    result.append('    *v = msg;\n')
+    result.append('    return true;\n')
     result.append('}\n\n')
 
     return ''.join(result)

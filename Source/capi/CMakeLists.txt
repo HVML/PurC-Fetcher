@@ -1,8 +1,10 @@
 set_property(DIRECTORY . PROPERTY FOLDER "fetcher_capi")
+include(MyMacros.cmake)
 
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
+    "${CMAKE_SOURCE_DIR}/Source/capi/capi"
 )
 
 set(fetcher_capi_SOURCES
@@ -16,6 +18,11 @@ set(fetcher_capi_PUBLIC_HEADERS
 set(fetcher_capi_LIBRARIES
     ${CMAKE_DL_LIBS}
 )
+
+set(fetcher_capi_MSG_IN_FILES
+    msg/msg-init
+)
+GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 
 set(fetcher_capi_INTERFACE_LIBRARIES fetcher_capi)
 set(fetcher_capi_INTERFACE_INCLUDE_DIRECTORIES ${fetcher_capi_FRAMEWORK_HEADERS_DIR})

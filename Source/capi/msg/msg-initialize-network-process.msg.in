@@ -1,0 +1,21 @@
+ID NetworkProcess_InitializeNetworkProcess
+msg -> initialize-network-process {
+    uint8_t cache_model;
+    bool should_suppress_memory_pressure_handler;
+    array pcfetcher_string url_schemes_registered_for_custom_protocols;
+    struct pcfetcher_website_data_store_parameters default_data_store_parameters;
+
+    uint8_t cookie_accept_policy;
+    bool ignore_tls_errors;
+    array pcfetcher_string languages;
+    struct pcfetcher_soup_network_proxy_settings proxy_settings;
+
+    array pcfetcher_string url_schemes_registered_as_secure;
+    array pcfetcher_string url_schemes_registered_as_bypassing_content_security_policy;
+    array pcfetcher_string url_schemes_registered_as_local;
+    array pcfetcher_string url_schemes_registered_as_no_access;
+
+    bool should_enable_itp_database;
+    bool enable_adclick_attribution_debug_mode;
+    array pcfetcher_string hsts_storage_directory;
+}

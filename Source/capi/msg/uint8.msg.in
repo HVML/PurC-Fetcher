@@ -1,0 +1,3 @@
+base -> uint8 {
+    uint8_t value;
+}

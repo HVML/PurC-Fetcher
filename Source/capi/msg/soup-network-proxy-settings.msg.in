@@ -1,0 +1,3 @@
+base -> soup_network_proxy_settings {
+    uint32_t mode;
+}

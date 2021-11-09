@@ -1,0 +1,3 @@
+base -> website-data-store-parameters {
+    array pcfetcher_uint8 ui_process_cookie_storage_identifier;
+}

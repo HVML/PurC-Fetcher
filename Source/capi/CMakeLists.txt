@@ -20,7 +20,10 @@ set(fetcher_capi_LIBRARIES
 )
 
 set(fetcher_capi_MSG_IN_FILES
-    msg/msg-init
+    msg/uint8
+    msg/website-data-store-parameters
+    msg/soup-network-proxy-settings
+    msg/msg-initialize-network-process
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

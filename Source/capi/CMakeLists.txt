@@ -4,7 +4,7 @@ include(MyMacros.cmake)
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
-    "${CMAKE_SOURCE_DIR}/Source/capi/capi"
+    "${FORWARDING_HEADERS_DIR}/capi"
 )
 
 set(fetcher_capi_SOURCES

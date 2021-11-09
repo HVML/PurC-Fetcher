@@ -1,0 +1,4 @@
+ID NetworkConnectionToWebProcess_RemoveLoadIdentifier
+msg -> remove_load_identifier {
+    uint64_t resource_load_identifier;
+}

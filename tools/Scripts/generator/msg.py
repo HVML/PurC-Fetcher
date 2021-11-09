@@ -47,20 +47,22 @@ def parse(file, msg_ids):
         match = re.search(r'ID (?P<name>[A-Za-z_0-9]+)', line)
         if match:
             msg_id = msg_ids[match.group('name')]
-        match = re.search(r'msg -> (?P<name>[A-Za-z_0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
+        match = re.search(r'msg -> (?P<name>[A-Za-z_\-0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
         if match:
             receiver_attributes = parse_attributes_string(match.group('attributes'))
             if match.group('superclass'):
                 superclass = match.group('superclass')
             name = 'msg_' + match.group('name')
+            name = name.replace('-', '_')
             conditions = True
             continue
-        match = re.search(r'base -> (?P<name>[A-Za-z_0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
+        match = re.search(r'base -> (?P<name>[A-Za-z_\-0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
         if match:
             receiver_attributes = parse_attributes_string(match.group('attributes'))
             if match.group('superclass'):
                 superclass = match.group('superclass')
             name = match.group('name')
+            name = name.replace('-', '_')
             conditions = False
             continue
         match = re.search(r'(.*);', line)
@@ -139,12 +141,13 @@ def gen_msg_header(receiver):
         if type in g_inner_type:
             continue
 
-        if kind == 'struct':
+        if kind == 'struct' or kind == 'array':
             result.append('#include "%s.h"\n' % type.replace('_', '-').replace('pcfetcher', 'fetcher'))
 
     result.append('\n')
     result.append('struct pcfetcher_%s {\n' % receiver.name)
-    result.append('    struct pcfetcher_msg_header header;\n')
+    if receiver.condition:
+        result.append('    struct pcfetcher_msg_header header;\n')
     result.append('\n')
 
     for parameter in receiver.iterparameters():
@@ -180,7 +183,7 @@ def gen_msg_header(receiver):
     result.append('}\n')
 
     result.append('\n')
-    result.append('static inline void pcfetcher_%s_array_destory(struct pcutils_arrlist* array)\n' % receiver.name)
+    result.append('static inline void pcfetcher_%s_array_destroy(struct pcutils_arrlist* array)\n' % receiver.name)
     result.append('{\n')
     result.append('    pcfetcher_array_destroy(array);\n')
     result.append('}\n')

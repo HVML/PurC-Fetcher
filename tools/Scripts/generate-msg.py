@@ -57,6 +57,7 @@ def main(argv):
             continue
 
         receiver_name = parameter.rsplit('/', 1).pop()
+        receiver_name = receiver_name.replace('_', '-')
 
         with open('%s/%s.msg.in' % (base_dir, parameter)) as source_file:
             receiver = generator.msg.parse(source_file, msg_ids)

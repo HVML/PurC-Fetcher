@@ -32,10 +32,10 @@
 #include <stdbool.h>
 
 // bool, char, int, float, double (signed, unsigned)
-#define pcfetcher_encode_basic(encoder, v) \
+#define pcfetcher_basic_encode(encoder, v) \
     pcfetcher_encode_data(encoder, (const uint8_t*)&v,\
             sizeof(v), sizeof(v))
-#define pcfetcher_decode_basic(decoder, v) \
+#define pcfetcher_basic_decode(decoder, v) \
     pcfetcher_decode_data(decoder, (uint8_t*)&v, sizeof(v), sizeof(v))
 
 struct pcfetcher_encoder;
@@ -77,10 +77,10 @@ bool pcfetcher_decode_data(struct pcfetcher_decoder* decoder,
         uint8_t* data, size_t size, size_t alignment);
 
 // msg header
-void pcfetcher_encode_msg_header(struct pcfetcher_encoder* encoder,
+void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,
         struct pcfetcher_msg_header* s);
 
-bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
+bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
         struct pcfetcher_msg_header* s);
 
 // base type

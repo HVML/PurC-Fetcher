@@ -148,20 +148,20 @@ bool pcfetcher_decode_data(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-void pcfetcher_encode_msg_header(struct pcfetcher_encoder* encoder,
+void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,
         struct pcfetcher_msg_header* s)
 {
-    pcfetcher_encode_basic(encoder, s->flags);
-    pcfetcher_encode_basic(encoder, s->name);
-    pcfetcher_encode_basic(encoder, s->dest_id);
+    pcfetcher_basic_encode(encoder, s->flags);
+    pcfetcher_basic_encode(encoder, s->name);
+    pcfetcher_basic_encode(encoder, s->dest_id);
 }
 
-bool pcfetcher_decode_msg_header(struct pcfetcher_decoder* decoder,
+bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
         struct pcfetcher_msg_header* s)
 {
-    pcfetcher_decode_basic(decoder, s->flags);
-    pcfetcher_decode_basic(decoder, s->name);
-    pcfetcher_decode_basic(decoder, s->dest_id);
+    pcfetcher_basic_decode(decoder, s->flags);
+    pcfetcher_basic_decode(decoder, s->name);
+    pcfetcher_basic_decode(decoder, s->dest_id);
     return true;
 }
 
@@ -191,12 +191,12 @@ void pcfetcher_string_encode(struct pcfetcher_encoder* encoder,
     struct pcfetcher_string* s = (struct pcfetcher_string*)v;
     if (encoder->buffer == NULL || s->length == 0) {
         uint32_t length = UINT32_MAX;
-        pcfetcher_encode_basic(encoder, length);
+        pcfetcher_basic_encode(encoder, length);
         return;
     }
 
-    pcfetcher_encode_basic(encoder, s->length);
-    pcfetcher_encode_basic(encoder, s->is_8bit);
+    pcfetcher_basic_encode(encoder, s->length);
+    pcfetcher_basic_encode(encoder, s->is_8bit);
     if (s->is_8bit) {
         pcfetcher_encode_data(encoder, s->buffer, s->length, 1);
     }
@@ -210,7 +210,7 @@ bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder,
 {
     struct pcfetcher_string** str = (struct pcfetcher_string**)v;
     uint32_t length = 0;
-    pcfetcher_decode_basic(decoder, length);
+    pcfetcher_basic_decode(decoder, length);
     if (length == UINT32_MAX) {
         *str= NULL;
         return true;
@@ -218,7 +218,7 @@ bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder,
     struct pcfetcher_string *s = (struct pcfetcher_string*) malloc(
             sizeof(struct pcfetcher_string));
     s->length = length;
-    pcfetcher_decode_basic(decoder, s->is_8bit);
+    pcfetcher_basic_decode(decoder, s->is_8bit);
     if (s->is_8bit) {
         s->buffer = (uint8_t*) malloc(s->length + 1);
         pcfetcher_decode_data(decoder, s->buffer, s->length, 1);
@@ -251,7 +251,7 @@ void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
         PCFETCHER_ENCODE_FUNC func)
 {
     uint64_t size = pcutils_arrlist_length(array);
-    pcfetcher_encode_basic(encoder, size);
+    pcfetcher_basic_encode(encoder, size);
     for (uint64_t i = 0; i < size; i++) {
         void* item = pcutils_arrlist_get_idx(array, i);
         func(encoder, item);
@@ -263,7 +263,7 @@ void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
         PCFETCHER_DECODE_FUNC func)
 {
     uint64_t size = 0;
-    pcfetcher_decode_basic(decoder, size);
+    pcfetcher_basic_decode(decoder, size);
     for (uint64_t i = 0; i < size; i++) {
         void* item = NULL;
         func(decoder, &item);

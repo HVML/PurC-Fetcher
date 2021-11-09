@@ -69,7 +69,7 @@ int main(int argc, char** argv)
     struct pcfetcher_encoder* encoder = pcfetcher_encoder_create();
 
     struct pcfetcher_msg_header msg = {0, 0x12, 0x5678};
-    pcfetcher_encode_msg_header(encoder, &msg);
+    pcfetcher_msg_header_encode(encoder, &msg);
     pcfetcher_encode_array(encoder, array, pcfetcher_encode_string);
 
     size_t len = 0;
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
             ipc_encoder->buffer(), ipc_encoder->bufferSize(), false);
 
     struct pcfetcher_msg_header msg;
-    pcfetcher_decode_msg_header(decoder, &msg);
+    pcfetcher_msg_header_decode(decoder, &msg);
     pcfetcher_array_decode(decoder, array, pcfetcher_string_decode);
 
     uint64_t size = pcutils_arrlist_length(array);

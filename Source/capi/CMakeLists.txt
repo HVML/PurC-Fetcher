@@ -25,6 +25,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/soup-network-proxy-settings
     msg/msg-initialize-network-process
     msg/msg-set-on-line-state
+    msg/msg-register-url-schemes-as-cors-enabled
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

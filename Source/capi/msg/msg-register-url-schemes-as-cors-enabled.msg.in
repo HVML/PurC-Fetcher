@@ -1,0 +1,4 @@
+ID NetworkConnectionToWebProcess_RegisterURLSchemesAsCORSEnabled
+msg -> register_url_schemes_as_cors_enabled {
+    array pcfetcher_string schemes;
+}

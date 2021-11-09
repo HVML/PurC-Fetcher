@@ -155,7 +155,9 @@ struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
 
 void pcfetcher_array_destroy(struct pcutils_arrlist* array)
 {
-    pcutils_arrlist_free(array);
+    if (array) {
+        pcutils_arrlist_free(array);
+    }
 }
 
 void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,

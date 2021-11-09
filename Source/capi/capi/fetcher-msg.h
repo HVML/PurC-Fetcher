@@ -107,14 +107,14 @@ static inline void pcfetcher_string_array_free_fn(void* v)
     pcutils_arrlist_free((struct pcutils_arrlist*)v);
 }
 
-static inline struct pcutils_arrlist* pcfetcher_string_array_create()
+static inline struct pcutils_arrlist* pcfetcher_string_array_create(void)
 {
     return pcfetcher_array_create(pcfetcher_string_array_free_fn);
 }
 
-static inline void pcfetcher_string_array_destroy(struct pcutils_arrlist* l)
+static inline void pcfetcher_string_array_destroy(struct pcutils_arrlist* array)
 {
-    pcfetcher_array_destroy(l);
+    pcfetcher_array_destroy(array);
 }
 
 static inline void pcfetcher_string_array_encode(

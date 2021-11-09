@@ -237,6 +237,7 @@ def gen_msg_source(receiver):
     result.append('void pcfetcher_%s_encode(pcfetcher_encoder* encode, void* v)\n' % msg_name)
     result.append('{\n')
     result.append('    struct pcfetcher_%s* msg = (struct pcfetcher_%s*)v;\n' % (msg_name, msg_name))
+    result.append('    pcfetcher_msg_header_encode(encoder, &msg->header);\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind
@@ -254,6 +255,7 @@ def gen_msg_source(receiver):
     result.append('bool pcfetcher_%s_decode(pcfetcher_decoder* decoder, void** v)\n' % msg_name)
     result.append('{\n')
     result.append('    struct pcfetcher_%s* msg = pcfetcher_%s_create()\n' % (msg_name, msg_name));
+    result.append('    pcfetcher_msg_header_decoder(decoder, &msg->header);\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind

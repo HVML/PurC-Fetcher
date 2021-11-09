@@ -24,12 +24,13 @@ import itertools
 
 
 class MessageReceiver(object):
-    def __init__(self, name, superclass, attributes, messages, condition):
+    def __init__(self, name, superclass, attributes, messages, condition, msg_id=-1):
         self.name = name
         self.superclass = superclass
         self.attributes = frozenset(attributes or [])
         self.messages = messages
         self.condition = condition
+        self.msg_id = msg_id
 
     def iterparameters(self):
         return itertools.chain((parameter for message in self.messages for parameter in message.parameters),

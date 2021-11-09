@@ -33,7 +33,7 @@ def bracket_if_needed(condition):
     else:
         return condition
 
-def parse(file):
+def parse(file, msg_ids):
     receiver_attributes = None
     destination = None
     name = None
@@ -41,8 +41,12 @@ def parse(file):
     conditions = False
     master_condition = None
     superclass = []
+    msg_id = -1
     for line in file:
         line = line.strip()
+        match = re.search(r'ID (?P<name>[A-Za-z_0-9]+)', line)
+        if match:
+            msg_id = msg_ids[match.group('name')]
         match = re.search(r'msg -> (?P<name>[A-Za-z_0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
         if match:
             receiver_attributes = parse_attributes_string(match.group('attributes'))
@@ -68,7 +72,7 @@ def parse(file):
                 parameters = []
 
             messages.append(model.Message(name, parameters, None, None, conditions))
-    return model.MessageReceiver(name, superclass, receiver_attributes, messages, conditions)
+    return model.MessageReceiver(name, superclass, receiver_attributes, messages, conditions, msg_id)
 
 
 def parse_attributes_string(attributes_string):
@@ -128,7 +132,6 @@ def gen_msg_header(receiver):
     result = []
 
     result.append('#include "fetcher-msg.h"\n')
-    result.append('\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind
@@ -197,6 +200,14 @@ def gen_msg_header(receiver):
     result.append('         pcfetcher_%s_array_create,\n' % receiver.name)
     result.append('         pcfetcher_%s_decode);\n' % receiver.name)
     result.append('}\n')
+
+    if receiver.msg_id > 0:
+        result.append('\n')
+        result.append('static inline uint32_t pcfetcher_%s_id(void)\n' % (receiver.name))
+        result.append('{\n')
+        result.append('    return %s;\n' % receiver.msg_id)
+        result.append('}\n')
+
 
     return ''.join(result)
 

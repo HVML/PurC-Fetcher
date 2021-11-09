@@ -1,3 +1,4 @@
+ID NetworkProcess_InitializeNetworkProcess
 msg -> init {
     uint32_t id;
     struct pcfetcher_string name;

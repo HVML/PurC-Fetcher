@@ -25,13 +25,27 @@
 
 from __future__ import with_statement
 import sys
+import re
 
 import generator.msg
 
+def load_msg_id():
+    msg_ids = {}
+    with open('MessageNames.h') as in_file:
+        for line in in_file:
+            line = line.strip()
+            line = line.replace(', ', '')
+            match = re.search(r'(?P<name>[A-Za-z_0-9]+) =\s*(?P<value>[0-9]+)', line)
+            if match:
+                name = match.group('name')
+                value = match.group('value')
+                msg_ids[name]=value
+    return msg_ids
 
 def main(argv):
     first_arg = True
     second_arg = False
+    msg_ids = load_msg_id()
     for parameter in argv:
         if first_arg:
             first_arg = False
@@ -45,7 +59,7 @@ def main(argv):
         receiver_name = parameter.rsplit('/', 1).pop()
 
         with open('%s/%s.msg.in' % (base_dir, parameter)) as source_file:
-            receiver = generator.msg.parse(source_file)
+            receiver = generator.msg.parse(source_file, msg_ids)
 
         with open('fetcher-%s.h' % receiver_name, "w+") as header_output:
             header_output.write(generator.msg.gen_msg_header(receiver))

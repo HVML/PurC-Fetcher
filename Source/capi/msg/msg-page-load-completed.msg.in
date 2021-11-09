@@ -1,0 +1,4 @@
+ID NetworkConnectionToWebProcess_PageLoadCompleted
+msg -> page_load_completed {
+    uint64_t web_page_id;
+}

@@ -76,6 +76,11 @@ set(PurCFetcher_MESSAGES_IN_FILES
 )
 GENERATE_MESSAGE_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MESSAGES_IN_FILES}")
 
+#set(PurCFetcher_MSG_IN_FILES
+#    msg/msg-init
+#)
+#GENERATE_MSG_SOURCES(PurCFetcher_SOURCES "${PurCFetcher_MSG_IN_FILES}")
+
 set(PurCFetcher_LIBRARIES)
 
 # TODO: the source files and libraries for optional features.

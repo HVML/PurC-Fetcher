@@ -23,7 +23,6 @@
  */
 
 #include "fetcher-msg.h"
-#include "purc/purc-arraylist.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -230,6 +229,21 @@ bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder,
     }
     *str = s;
     return true;
+}
+
+struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
+{
+    return pcutils_arrlist_new(free_fn);
+}
+
+void pcfetcher_array_destroy(struct pcutils_arrlist* array)
+{
+    pcutils_arrlist_free(array);
+}
+
+void pcfetcher_array_destroy_in_array(void* v)
+{
+    pcutils_arrlist_free((struct pcutils_arrlist*)v);
 }
 
 void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,

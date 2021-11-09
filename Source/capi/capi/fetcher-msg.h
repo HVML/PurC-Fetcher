@@ -25,6 +25,8 @@
 #ifndef PURC_FETCHER_MESSAGE_H
 #define PURC_FETCHER_MESSAGE_H
 
+#include "purc/purc-arraylist.h"
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -94,7 +96,11 @@ void pcfetcher_encode_string(struct pcfetcher_encoder* encoder, void* s);
 bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder, void** s);
 
 // array
-struct pcutils_arrlist;
+struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn *free_fn);
+
+void pcfetcher_array_destroy(struct pcutils_arrlist*);
+
+void pcfetcher_array_destroy_in_array(void* v);
 
 void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
         struct pcutils_arrlist* array,

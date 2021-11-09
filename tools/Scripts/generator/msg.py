@@ -1,4 +1,5 @@
 # Copyright (C) 2010-2017 Apple Inc. All rights reserved.
+# Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
@@ -21,7 +22,6 @@
 # OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import re
-import sys
 
 from generator import model
 
@@ -127,7 +127,7 @@ def parse_parameters_string(parameters_string):
 def gen_msg_header(receiver):
     result = []
 
-    result.append('#include "pcfetcher_msg.h"\n')
+    result.append('#include "fetcher-msg.h"\n')
     result.append('\n')
 
     for parameter in receiver.iterparameters():
@@ -137,7 +137,7 @@ def gen_msg_header(receiver):
             continue
 
         if kind == 'struct':
-            result.append('#include "%s.h"\n' % type)
+            result.append('#include "%s.h"\n' % type.replace('_', '-').replace('pcfetcher', 'fetcher'))
 
     result.append('\n')
     result.append('struct pcfetcher_%s {\n' % receiver.name)
@@ -204,7 +204,7 @@ def gen_msg_source(receiver):
     result = []
     msg_name = receiver.name
 
-    result.append('#include "pcfetcher_%s.h"\n' % msg_name)
+    result.append('#include "fetcher-%s.h"\n' % msg_name.replace('_', '-'))
     result.append('\n')
 
     result.append('struct pcfetcher_%s* pcfetcher_%s_create(void)\n' % (msg_name, msg_name))
@@ -270,18 +270,3 @@ def gen_msg_source(receiver):
 
     return ''.join(result)
 
-def main(argv):
-    receiver = None
-    with open(argv[1]) as source_file:
-        receiver = parse(source_file)
-
-    receiver_name = receiver.name
-    with open('pcfetcher_%s.h' % receiver_name, "w+") as header_output:
-        header_output.write(gen_msg_header(receiver))
-
-    with open('pcfetcher_%s.c' % receiver_name, "w+") as implementation_output:
-        implementation_output.write(gen_msg_source(receiver))
-    return 0
-
-if __name__ == '__main__':
-    sys.exit(main(sys.argv))

@@ -1,0 +1,4 @@
+ID NetworkProcessConnection_SetOnLineState
+msg -> set_on_line_state {
+    bool is_on_line;
+}

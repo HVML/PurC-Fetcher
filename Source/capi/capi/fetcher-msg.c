@@ -220,11 +220,6 @@ void pcfetcher_string_destroy(struct pcfetcher_string* s)
     }
 }
 
-void pcfetcher_string_destroy_in_array(void* v)
-{
-    pcfetcher_string_destroy((struct pcfetcher_string*)v);
-}
-
 void pcfetcher_string_encode(struct pcfetcher_encoder* encoder,
         void* v)
 {

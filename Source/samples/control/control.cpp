@@ -98,7 +98,7 @@ int main(int argc, char** argv)
 
     struct pcfetcher_msg_header msg;
     pcfetcher_msg_header_decode(decoder, &msg);
-    pcfetcher_array_decode(decoder, array, pcfetcher_string_decode);
+    pcfetcher_string_array_decode(decoder, array);
 
     uint64_t size = pcutils_arrlist_length(array);
     for (uint64_t i = 0; i < size; i++) {

@@ -25,7 +25,7 @@
 #ifndef PURC_FETCHER_MESSAGE_H
 #define PURC_FETCHER_MESSAGE_H
 
-#include "purc/purc-arraylist.h"
+#include "purc/purc.h"
 
 #include <stddef.h>
 #include <stdint.h>
@@ -91,9 +91,9 @@ void pcfetcher_string_destroy(struct pcfetcher_string* s);
 
 void pcfetcher_string_destroy_in_array(void* v);
 
-void pcfetcher_encode_string(struct pcfetcher_encoder* encoder, void* s);
+void pcfetcher_string_encode(struct pcfetcher_encoder* encoder, void* s);
 
-bool pcfetcher_decode_string(struct pcfetcher_decoder* decoder, void** s);
+bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder, void** s);
 
 // array
 struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn *free_fn);
@@ -102,11 +102,11 @@ void pcfetcher_array_destroy(struct pcutils_arrlist*);
 
 void pcfetcher_array_destroy_in_array(void* v);
 
-void pcfetcher_encode_array(struct pcfetcher_encoder* encoder,
+void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
         struct pcutils_arrlist* array,
         PCFETCHER_ENCODE_FUNC func);
 
-void pcfetcher_decode_array(struct pcfetcher_decoder* decoder,
+void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
         struct pcutils_arrlist* array,
         PCFETCHER_DECODE_FUNC func);
 

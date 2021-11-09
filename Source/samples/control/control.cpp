@@ -7,7 +7,6 @@
 #include "Encoder.h"
 
 #include "capi/fetcher-msg.h"
-#include "purc/purc-arraylist.h"
 
 #include <glib.h>
 #include <wtf/glib/GLibUtilities.h>
@@ -99,7 +98,7 @@ int main(int argc, char** argv)
 
     struct pcfetcher_msg_header msg;
     pcfetcher_decode_msg_header(decoder, &msg);
-    pcfetcher_decode_array(decoder, array, pcfetcher_decode_string);
+    pcfetcher_array_decode(decoder, array, pcfetcher_string_decode);
 
     uint64_t size = pcutils_arrlist_length(array);
     for (uint64_t i = 0; i < size; i++) {

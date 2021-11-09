@@ -27,16 +27,6 @@ from generator import model
 
 g_inner_type = ['pcfetcher_string']
 
-def combine_condition(conditions):
-    if conditions:
-        if len(conditions) == 1:
-            return conditions[0]
-        else:
-            return bracket_if_needed(' && '.join(map(bracket_if_needed, conditions)))
-    else:
-        return None
-
-
 def bracket_if_needed(condition):
     if re.match(r'.*(&&|\|\|).*', condition):
         return '(%s)' % condition
@@ -48,7 +38,7 @@ def parse(file):
     destination = None
     name = None
     messages = []
-    conditions = []
+    conditions = False
     master_condition = None
     superclass = []
     for line in file:
@@ -58,23 +48,27 @@ def parse(file):
             receiver_attributes = parse_attributes_string(match.group('attributes'))
             if match.group('superclass'):
                 superclass = match.group('superclass')
-            if conditions:
-                master_condition = conditions
-                conditions = []
             name = 'msg_' + match.group('name')
+            conditions = True
+            continue
+        match = re.search(r'base -> (?P<name>[A-Za-z_0-9]+) \s*(?::\s*(?P<superclass>.*?) \s*)?(?:(?P<attributes>.*?)\s+)?{', line)
+        if match:
+            receiver_attributes = parse_attributes_string(match.group('attributes'))
+            if match.group('superclass'):
+                superclass = match.group('superclass')
+            name = match.group('name')
+            conditions = False
             continue
         match = re.search(r'(.*);', line)
         if match:
             parameters_string = match.groups()
             if parameters_string:
                 parameters = parse_parameters_string(parameters_string)
-                for parameter in parameters:
-                    parameter.condition = combine_condition(conditions)
             else:
                 parameters = []
 
-            messages.append(model.Message(name, parameters, None, None, combine_condition(conditions)))
-    return model.MessageReceiver(name, superclass, receiver_attributes, messages, combine_condition(master_condition))
+            messages.append(model.Message(name, parameters, None, None, conditions))
+    return model.MessageReceiver(name, superclass, receiver_attributes, messages, conditions)
 
 
 def parse_attributes_string(attributes_string):
@@ -237,7 +231,9 @@ def gen_msg_source(receiver):
     result.append('void pcfetcher_%s_encode(pcfetcher_encoder* encode, void* v)\n' % msg_name)
     result.append('{\n')
     result.append('    struct pcfetcher_%s* msg = (struct pcfetcher_%s*)v;\n' % (msg_name, msg_name))
-    result.append('    pcfetcher_msg_header_encode(encoder, &msg->header);\n')
+
+    if receiver.condition:
+        result.append('    pcfetcher_msg_header_encode(encoder, &msg->header);\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind
@@ -255,7 +251,9 @@ def gen_msg_source(receiver):
     result.append('bool pcfetcher_%s_decode(pcfetcher_decoder* decoder, void** v)\n' % msg_name)
     result.append('{\n')
     result.append('    struct pcfetcher_%s* msg = pcfetcher_%s_create()\n' % (msg_name, msg_name));
-    result.append('    pcfetcher_msg_header_decoder(decoder, &msg->header);\n')
+
+    if receiver.condition:
+        result.append('    pcfetcher_msg_header_decoder(decoder, &msg->header);\n')
 
     for parameter in receiver.iterparameters():
         kind = parameter.kind

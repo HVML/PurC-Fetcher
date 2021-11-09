@@ -148,23 +148,6 @@ bool pcfetcher_decode_data(struct pcfetcher_decoder* decoder,
     return true;
 }
 
-void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,
-        struct pcfetcher_msg_header* s)
-{
-    pcfetcher_basic_encode(encoder, s->flags);
-    pcfetcher_basic_encode(encoder, s->name);
-    pcfetcher_basic_encode(encoder, s->dest_id);
-}
-
-bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
-        struct pcfetcher_msg_header* s)
-{
-    pcfetcher_basic_decode(decoder, s->flags);
-    pcfetcher_basic_decode(decoder, s->name);
-    pcfetcher_basic_decode(decoder, s->dest_id);
-    return true;
-}
-
 struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
 {
     return pcutils_arrlist_new(free_fn);
@@ -173,11 +156,6 @@ struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
 void pcfetcher_array_destroy(struct pcutils_arrlist* array)
 {
     pcutils_arrlist_free(array);
-}
-
-void pcfetcher_array_destroy_in_array(void* v)
-{
-    pcutils_arrlist_free((struct pcutils_arrlist*)v);
 }
 
 void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
@@ -203,6 +181,23 @@ void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
         func(decoder, &item);
         pcutils_arrlist_add(array, item);
     }
+}
+
+void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,
+        struct pcfetcher_msg_header* s)
+{
+    pcfetcher_basic_encode(encoder, s->flags);
+    pcfetcher_basic_encode(encoder, s->name);
+    pcfetcher_basic_encode(encoder, s->dest_id);
+}
+
+bool pcfetcher_msg_header_decode(struct pcfetcher_decoder* decoder,
+        struct pcfetcher_msg_header* s)
+{
+    pcfetcher_basic_decode(decoder, s->flags);
+    pcfetcher_basic_decode(decoder, s->name);
+    pcfetcher_basic_decode(decoder, s->dest_id);
+    return true;
 }
 
 struct pcfetcher_string* pcfetcher_string_create(void)

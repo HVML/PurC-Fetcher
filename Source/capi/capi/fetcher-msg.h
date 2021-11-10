@@ -54,6 +54,11 @@ struct pcfetcher_string {
     uint8_t* buffer;
 };
 
+struct pcfetcher_data_reference {
+    const uint8_t* data;
+    size_t size;
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif  /* __cplusplus */
@@ -130,6 +135,40 @@ static inline void pcfetcher_string_array_decode(
 {
     pcfetcher_array_decode(decoder, array, pcfetcher_string_array_create,
             pcfetcher_string_decode);
+}
+
+
+struct pcfetcher_data_reference* pcfetcher_data_reference_create(void);
+void pcfetcher_data_reference_destroy(struct pcfetcher_data_reference* s);
+void pcfetcher_data_reference_encode(struct pcfetcher_encoder* encoder, void* s);
+bool pcfetcher_data_reference_decode(struct pcfetcher_decoder* decoder, void** s);
+
+static inline void pcfetcher_data_reference_array_free_fn(void* v)
+{
+    pcfetcher_data_reference_destroy((struct pcfetcher_data_reference*)v);
+}
+
+static inline struct pcutils_arrlist* pcfetcher_data_reference_array_create(void)
+{
+    return pcfetcher_array_create(pcfetcher_data_reference_array_free_fn);
+}
+
+static inline void pcfetcher_data_reference_array_destroy(struct pcutils_arrlist* array)
+{
+    pcfetcher_array_destroy(array);
+}
+
+static inline void pcfetcher_data_reference_array_encode(
+        struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array)
+{
+    pcfetcher_array_encode(encoder, array, pcfetcher_data_reference_encode);
+}
+
+static inline void pcfetcher_data_reference_array_decode(
+        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array)
+{
+    pcfetcher_array_decode(decoder, array, pcfetcher_data_reference_array_create,
+            pcfetcher_data_reference_decode);
 }
 
 #ifdef __cplusplus

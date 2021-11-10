@@ -148,6 +148,19 @@ bool pcfetcher_decode_data(struct pcfetcher_decoder* decoder,
     return true;
 }
 
+bool pcfetcher_decode_data_reference(struct pcfetcher_decoder* decoder,
+        const uint8_t** data, size_t size, size_t alignment)
+{
+    decoder->buffer_pos = decoder_round_up_to_alignment(decoder->buffer_pos,
+            alignment);
+    if (decoder->buffer_pos + size > decoder->buffer_end) {
+        return false;
+    }
+    *data = decoder->buffer_pos;
+    decoder->buffer_pos += size;
+    return true;
+}
+
 struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn* free_fn)
 {
     return pcutils_arrlist_new(free_fn);
@@ -262,6 +275,41 @@ bool pcfetcher_string_decode(struct pcfetcher_decoder* decoder,
         pcfetcher_decode_data(decoder, s->buffer, s->length * 2, 1);
     }
     *str = s;
+    return true;
+}
+
+struct pcfetcher_data_reference* pcfetcher_data_reference_create(void)
+{
+    return (struct pcfetcher_data_reference*) calloc(sizeof(struct pcfetcher_data_reference), 1);
+}
+
+void pcfetcher_data_reference_destroy(struct pcfetcher_data_reference* s)
+{
+    (void)s;
+}
+
+void pcfetcher_data_reference_encode(struct pcfetcher_encoder* encoder,
+        void* v)
+{
+    struct pcfetcher_data_reference* s = (struct pcfetcher_data_reference*)v;
+    pcfetcher_basic_encode(encoder, s->size);
+    pcfetcher_encode_data(encoder, s->data, s->size, 1);
+}
+
+bool pcfetcher_data_reference_decode(struct pcfetcher_decoder* decoder,
+        void** v)
+{
+    struct pcfetcher_data_reference** ref = (struct pcfetcher_data_reference**)v;
+    uint32_t length = 0;
+    pcfetcher_basic_decode(decoder, length);
+
+    struct pcfetcher_data_reference *s = (struct pcfetcher_data_reference*) malloc(
+            sizeof(struct pcfetcher_data_reference));
+    s->size = length;
+    if (s->size) {
+        pcfetcher_decode_data_reference(decoder, &s->data, s->size, 1);
+    }
+    *ref = s;
     return true;
 }
 

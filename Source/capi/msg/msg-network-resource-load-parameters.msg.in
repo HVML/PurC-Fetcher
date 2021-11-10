@@ -1,0 +1,7 @@
+ID NetworkConnectionToWebProcess_ScheduleResourceLoad
+msg -> network_resource_load_parameters {
+    uint64_t identifier;
+    struct pcfetcher_web_page_proxy_identifier web_page_proxy_id;
+    struct pcfetcher_page_identifier web_page_id;
+    struct pcfetcher_frame_identifier web_frame_id;
+}

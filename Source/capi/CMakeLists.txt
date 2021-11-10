@@ -14,6 +14,7 @@ set(fetcher_capi_SOURCES
 set(fetcher_capi_PUBLIC_HEADERS
     capi/fetcher-msg.h
     capi/fetcher-http-header-name.h
+    capi/fetcher-network-load-priority.h
 )
 
 set(fetcher_capi_LIBRARIES
@@ -22,9 +23,13 @@ set(fetcher_capi_LIBRARIES
 
 set(fetcher_capi_MSG_IN_FILES
     msg/uint8
+    msg/second
+
     msg/common-header
     msg/uncommon-header
+    msg/http-header-map
     msg/website-data-store-parameters
+    msg/network-load-metrics
 
     msg/soup-network-proxy-settings
     msg/msg-initialize-network-process

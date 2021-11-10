@@ -1,0 +1,3 @@
+base -> second {
+    double value;
+}

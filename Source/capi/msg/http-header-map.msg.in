@@ -1,0 +1,4 @@
+base -> http_header_map {
+    struct pcfetcher_common_header common_header;
+    struct pcfetcher_uncommon_header uncommon_header;
+}

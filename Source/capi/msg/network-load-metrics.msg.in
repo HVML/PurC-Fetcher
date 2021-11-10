@@ -1,0 +1,29 @@
+base -> network_load_metrics {
+    struct pcfetcher_second fetch_start;
+    struct pcfetcher_second domain_lookup_start;
+    struct pcfetcher_second domain_lookup_end;
+    struct pcfetcher_second connect_start;
+    struct pcfetcher_second secure_connection_start;
+    struct pcfetcher_second connect_end;
+    struct pcfetcher_second request_start;
+    struct pcfetcher_second response_start;
+    struct pcfetcher_second response_end;
+    bool complete;
+    bool cellular;
+    bool expensive;
+    bool constrained;
+    bool multipath;
+    bool is_reused_connection;
+    struct pcfetcher_string protocol;
+    struct pcfetcher_string remote_address;
+    struct pcfetcher_string connection_identifier;
+    struct pcfetcher_string tls_protocol;
+    struct pcfetcher_string tls_cipher;
+    enum pcfetcher_network_load_priority priority;
+    struct pcfetcher_http_header_map request_headers;
+    uint64_t request_header_bytes_sent;
+    uint64_t request_body_bytes_sent;
+    uint64_t response_header_bytes_received;
+    uint64_t response_body_bytes_received;
+    uint64_t response_body_decoded_size;
+}

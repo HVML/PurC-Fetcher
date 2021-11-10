@@ -133,6 +133,10 @@ def parse_parameters_string(parameters_string):
 def gen_msg_header(receiver):
     result = []
 
+    result.append('#ifndef PURC_FETCHER_%s_H\n' % receiver.name.upper())
+    result.append('#define PURC_FETCHER_%s_H\n' % receiver.name.upper())
+    result.append('\n')
+
     result.append('#include "fetcher-msg.h"\n')
 
     for parameter in receiver.iterparameters():
@@ -213,6 +217,9 @@ def gen_msg_header(receiver):
         result.append('    return %s;\n' % receiver.msg_id)
         result.append('}\n')
 
+    result.append('\n')
+    result.append('#endif /* PURC_FETCHER_%s_H */\n' % receiver.name.upper())
+    result.append('\n')
 
     return ''.join(result)
 

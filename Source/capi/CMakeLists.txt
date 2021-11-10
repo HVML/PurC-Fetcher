@@ -51,6 +51,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/msg-browsing-context-removed
     msg/msg-create-network-connection-to-web-process
     msg/msg-create-network-connection-to-web-process-reply
+    msg/msg-did-receive-response
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

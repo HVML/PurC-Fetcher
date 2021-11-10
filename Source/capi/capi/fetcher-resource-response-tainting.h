@@ -26,11 +26,11 @@
 #define PURC_FETCHER_RETAINTING_RESPONSE_TAINTING_H
 
 enum pcfetcher_resource_response_tainting {
-    Basic,
-    Cors,
-    Opaque,
-    Opaqueredirect
-}
+    tainting_basic,
+    tainting_cors,
+    tainting_opaque,
+    tainting_opaqueredirect
+};
 
 #endif /* not defined PURC_FETCHER_RETAINTING_RESPONSE_TAINTING_H */
 

@@ -26,17 +26,17 @@
 #define PURC_FETCHER_RESOURCE_RESPONSE_SOURCE_H
 
 enum pcfetcher_resource_response_source {
-    Unknown,
-    Network,
-    DiskCache,
-    DiskCacheAfterValidation,
-    MemoryCache,
-    MemoryCacheAfterValidation,
-    ServiceWorker,
-    ApplicationCache,
-    DOMCache,
-    InspectorOverride
-}
+    source_unknown,
+    source_network,
+    source_disk_cache,
+    source_disk_cache_after_validation,
+    source_memory_cache,
+    source_memory_cache_after_validation,
+    source_service_worker,
+    source_application_cache,
+    source_dom_cache,
+    source_inspector_override
+};
 
 #endif /* not defined PURC_FETCHER_RESOURCE_RESPONSE_SOURCE_H */
 

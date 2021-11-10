@@ -1,0 +1,20 @@
+ID WebResourceLoader_DidReceiveResponse
+msg -> did_receive_response {
+    bool is_null;
+    struct pcfetcher_string url;
+    struct pcfetcher_string mime_type;
+    int64_t expected_content_length;
+    struct pcfetcher_string text_encoding_name;
+    struct pcfetcher_string http_status_text;
+    struct pcfetcher_string http_version;
+    struct pcfetcher_http_header_map http_header_fields;
+    struct pcfetcher_network_load_metrics network_load_metrics;
+    short http_status_code;
+    struct pcfetcher_certificate_info certificate_info;
+    enum pcfetcher_resource_response_source source;
+    enum pcfetcher_resource_response_type type;
+    enum pcfetcher_resource_response_tainting tainting;
+    bool is_redirected;
+    bool used_legacy_tls;
+    bool is_range_requested;
+}

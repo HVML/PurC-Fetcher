@@ -26,13 +26,13 @@
 #define PURC_FETCHER_RETYPE_RESPONSE_TYPE_H
 
 enum pcfetcher_resource_response_type {
-    Basic,
-    Cors,
-    Default,
-    Error,
-    Opaque,
-    Opaqueredirect
-}
+    type_basic,
+    type_cors,
+    type_default,
+    type_error,
+    type_opaque,
+    type_opaqueredirect
+};
 
 #endif /* not defined PURC_FETCHER_RETYPE_RESPONSE_TYPE_H */
 

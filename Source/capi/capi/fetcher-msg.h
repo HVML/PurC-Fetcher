@@ -173,18 +173,34 @@ static inline void pcfetcher_data_reference_array_destroy(struct pcutils_arrlist
     pcfetcher_array_destroy(array);
 }
 
+static inline void pcfetcher_data_reference_array_encode_ex(
+        struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array,
+        bool use_short_size)
+{
+    pcfetcher_array_encode_ex(encoder, array, pcfetcher_data_reference_encode,
+            use_short_size);
+}
+
 static inline void pcfetcher_data_reference_array_encode(
         struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array)
 {
-    pcfetcher_array_encode(encoder, array, pcfetcher_data_reference_encode);
+    pcfetcher_data_reference_array_encode_ex(encoder, array, false);
+}
+
+static inline void pcfetcher_data_reference_array_decode_ex(
+        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array,
+        bool use_short_size)
+{
+    pcfetcher_array_decode_ex(decoder, array, pcfetcher_data_reference_array_create,
+            pcfetcher_data_reference_decode, use_short_size);
 }
 
 static inline void pcfetcher_data_reference_array_decode(
         struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array)
 {
-    pcfetcher_array_decode(decoder, array, pcfetcher_data_reference_array_create,
-            pcfetcher_data_reference_decode);
+    pcfetcher_data_reference_array_decode_ex(decoder, array, false);
 }
+
 
 #ifdef __cplusplus
 }

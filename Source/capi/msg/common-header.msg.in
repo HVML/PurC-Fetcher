@@ -1,0 +1,4 @@
+base -> common_header {
+    enum pcfetcher_http_header_name key;
+    struct pcfetcher_string value;
+}

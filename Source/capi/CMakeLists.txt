@@ -13,6 +13,7 @@ set(fetcher_capi_SOURCES
 
 set(fetcher_capi_PUBLIC_HEADERS
     capi/fetcher-msg.h
+    capi/fetcher-http-header-name.h
 )
 
 set(fetcher_capi_LIBRARIES
@@ -21,7 +22,10 @@ set(fetcher_capi_LIBRARIES
 
 set(fetcher_capi_MSG_IN_FILES
     msg/uint8
+    msg/common-header
+    msg/uncommon-header
     msg/website-data-store-parameters
+
     msg/soup-network-proxy-settings
     msg/msg-initialize-network-process
     msg/msg-set-on-line-state

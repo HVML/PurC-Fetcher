@@ -87,6 +87,16 @@ int main(int argc, char** argv)
     delete ipc_encoder;
     pcfetcher_decoder_destroy(decoder);
     pcfetcher_string_array_destroy(array);
+    enum aa {
+        a1,a2
+    };
+    enum aa x = a2;
+    uint8_t *p = (uint8_t*)&x;
+    fprintf(stderr, ".................sizeof(enum)=%ld\n", sizeof(enum aa));
+    fprintf(stderr, ".................0=%x\n", p[0]);
+    fprintf(stderr, ".................1=%x\n", p[1]);
+    fprintf(stderr, ".................2=%x\n", p[2]);
+    fprintf(stderr, ".................3=%x\n", p[3]);
 #endif
 
 #endif

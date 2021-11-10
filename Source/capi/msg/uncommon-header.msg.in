@@ -1,0 +1,4 @@
+base -> uncommon_header {
+    struct pcfetcher_string key;
+    struct pcfetcher_string value;
+}

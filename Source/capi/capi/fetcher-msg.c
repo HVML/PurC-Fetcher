@@ -173,26 +173,40 @@ void pcfetcher_array_destroy(struct pcutils_arrlist* array)
     }
 }
 
-void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
+void pcfetcher_array_encode_ex(struct pcfetcher_encoder* encoder,
         struct pcutils_arrlist* array,
-        PCFETCHER_ENCODE_FUNC func)
+        PCFETCHER_ENCODE_FUNC func, bool use_short_size)
 {
     uint64_t size = pcutils_arrlist_length(array);
-    pcfetcher_basic_encode(encoder, size);
+    if (use_short_size) {
+        uint32_t short_size = size;
+        pcfetcher_basic_encode(encoder, short_size);
+    }
+    else {
+        pcfetcher_basic_encode(encoder, size);
+    }
     for (uint64_t i = 0; i < size; i++) {
         void* item = pcutils_arrlist_get_idx(array, i);
         func(encoder, item);
     }
 }
 
-void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
+void pcfetcher_array_decode_ex(struct pcfetcher_decoder* decoder,
         struct pcutils_arrlist** array,
         PCFETCHER_ARRAY_CREATE_FUNC creator,
-        PCFETCHER_DECODE_FUNC func)
+        PCFETCHER_DECODE_FUNC func,
+        bool use_short_size)
 {
     *array = creator();
     uint64_t size = 0;
-    pcfetcher_basic_decode(decoder, size);
+    if (use_short_size) {
+        uint32_t short_size = 0;
+        pcfetcher_basic_decode(decoder, short_size);
+        size = short_size;
+    }
+    else {
+        pcfetcher_basic_decode(decoder, size);
+    }
     for (uint64_t i = 0; i < size; i++) {
         void* item = NULL;
         func(decoder, &item);

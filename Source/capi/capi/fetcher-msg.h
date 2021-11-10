@@ -87,14 +87,29 @@ struct pcutils_arrlist* pcfetcher_array_create(array_list_free_fn *free_fn);
 
 void pcfetcher_array_destroy(struct pcutils_arrlist*);
 
-void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
+void pcfetcher_array_encode_ex(struct pcfetcher_encoder* encoder,
         struct pcutils_arrlist* array,
-        PCFETCHER_ENCODE_FUNC func);
+        PCFETCHER_ENCODE_FUNC func, bool use_short_size);
 
-void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
+static inline void pcfetcher_array_encode(struct pcfetcher_encoder* encoder,
+        struct pcutils_arrlist* array,
+        PCFETCHER_ENCODE_FUNC func)
+{
+    pcfetcher_array_encode_ex(encoder, array, func, false);
+}
+
+void pcfetcher_array_decode_ex(struct pcfetcher_decoder* decoder,
         struct pcutils_arrlist** array,
         PCFETCHER_ARRAY_CREATE_FUNC creator,
-        PCFETCHER_DECODE_FUNC func);
+        PCFETCHER_DECODE_FUNC func, bool use_short_size);
+
+static inline void pcfetcher_array_decode(struct pcfetcher_decoder* decoder,
+        struct pcutils_arrlist** array,
+        PCFETCHER_ARRAY_CREATE_FUNC creator,
+        PCFETCHER_DECODE_FUNC func)
+{
+    pcfetcher_array_decode_ex(decoder, array, creator, func, false);
+}
 
 // msg header
 void pcfetcher_msg_header_encode(struct pcfetcher_encoder* encoder,

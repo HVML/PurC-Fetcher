@@ -33,6 +33,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/frame-identifier
     msg/page-identifier
     msg/web-page-proxy-identifier
+    msg/session-id
 
     msg/soup-network-proxy-settings
     msg/msg-initialize-network-process

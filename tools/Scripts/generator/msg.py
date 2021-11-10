@@ -120,7 +120,7 @@ def parse_parameters_string(parameters_string):
         elif split[0].startswith('struct '):
             parameter_kind = 'struct'
             split[0] = split[0][7:]
-        elif split[0].startswith('enum:'):
+        elif split[0].startswith('enum'):
             parameter_kind = split[0][:split[0].find(' ')]
             split[0] = split[0][split[0].find(' ') + 1:]
 
@@ -141,7 +141,7 @@ def gen_msg_header(receiver):
         if type in g_inner_type:
             continue
 
-        if kind == 'struct' or kind == 'array':
+        if kind != 'base':
             result.append('#include "%s.h"\n' % type.replace('_', '-').replace('pcfetcher', 'fetcher'))
 
     result.append('\n')
@@ -158,6 +158,8 @@ def gen_msg_header(receiver):
             result.append('    %s %s;\n' % (type, name))
         elif kind == 'struct':
             result.append('    struct %s* %s;\n' % (type, name))
+        elif kind == 'enum':
+            result.append('    enum %s %s;\n' % (type, name))
         elif kind == 'array':
             result.append('\n')
             result.append('    // %s array\n' % type)
@@ -257,6 +259,8 @@ def gen_msg_source(receiver):
         name = parameter.name
         if kind == 'base':
             result.append('    pcfetcher_basic_encode(encoder, msg->%s);\n' % name)
+        elif kind == 'enum':
+            result.append('    pcfetcher_basic_encode(encoder, msg->%s);\n' % name)
         elif kind == 'struct':
             result.append('    %s_encode(encoder, msg->%s);\n' % (type, name))
         elif kind == 'array':
@@ -276,6 +280,8 @@ def gen_msg_source(receiver):
         type = parameter.type
         name = parameter.name
         if kind == 'base':
+            result.append('    pcfetcher_basic_decode(decoder, msg->%s);\n' % name)
+        elif kind == 'enum':
             result.append('    pcfetcher_basic_decode(decoder, msg->%s);\n' % name)
         elif kind == 'struct':
             result.append('    %s_decode(decoder, (void**)&msg->%s);\n' % (type, name))

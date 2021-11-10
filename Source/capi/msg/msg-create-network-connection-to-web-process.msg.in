@@ -1,0 +1,5 @@
+ID NetworkProcess_CreateNetworkConnectionToWebProcess
+msg -> create_network_connection_to_web_process {
+    struct pcfetcher_process_identifier process_identifier;
+    struct pcfetcher_session_id session_id;
+}

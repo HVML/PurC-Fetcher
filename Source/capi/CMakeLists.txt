@@ -45,6 +45,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/msg-page-load-completed
     msg/msg-did-finish-resource-load
     msg/msg-browsing-context-removed
+    msg/msg-create-network-connection-to-web-process
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

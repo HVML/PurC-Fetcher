@@ -163,7 +163,7 @@ static inline void pcfetcher_data_reference_array_destroy(struct pcutils_arrlist
     pcfetcher_array_destroy(array);
 }
 
-static inline void pcfetcher_data_reference_array_encode_ex(
+static inline void pcfetcher_data_reference_array_encode(
         struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array,
         uint8_t header_bytes)
 {
@@ -171,7 +171,7 @@ static inline void pcfetcher_data_reference_array_encode_ex(
             header_bytes);
 }
 
-static inline void pcfetcher_data_reference_array_decode_ex(
+static inline void pcfetcher_data_reference_array_decode(
         struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array,
         uint8_t header_bytes)
 {

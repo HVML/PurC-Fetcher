@@ -1,0 +1,4 @@
+base -> certificate_info {
+    array_4 pcfetcher_data_reference certs;
+    uint32_t tls_errors;
+}

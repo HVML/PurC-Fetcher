@@ -25,7 +25,7 @@ import re
 
 from generator import model
 
-g_inner_type = ['pcfetcher_string']
+g_inner_type = ['pcfetcher_string', 'pcfetcher_data_reference']
 
 def bracket_if_needed(condition):
     if re.match(r'.*(&&|\|\|).*', condition):

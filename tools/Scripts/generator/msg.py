@@ -196,18 +196,18 @@ def gen_msg_header(receiver):
 
     result.append('\n')
     result.append('static inline void pcfetcher_%s_array_encode(\n' % receiver.name)
-    result.append('        struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array)\n')
+    result.append('        struct pcfetcher_encoder* encoder, struct pcutils_arrlist* array, uint8_t header_bytes)\n')
     result.append('{\n')
-    result.append('    pcfetcher_array_encode(encoder, array, pcfetcher_%s_encode);\n' % receiver.name)
+    result.append('    pcfetcher_array_encode(encoder, array, pcfetcher_%s_encode, header_bytes);\n' % receiver.name)
     result.append('}\n')
 
     result.append('\n')
     result.append('static inline void pcfetcher_%s_array_decode(\n' % receiver.name)
-    result.append('        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array)\n')
+    result.append('        struct pcfetcher_decoder* decoder, struct pcutils_arrlist** array, uint8_t header_bytes)\n')
     result.append('{\n')
     result.append('    pcfetcher_array_decode(decoder, array,\n')
     result.append('         pcfetcher_%s_array_create,\n' % receiver.name)
-    result.append('         pcfetcher_%s_decode);\n' % receiver.name)
+    result.append('         pcfetcher_%s_decode, header_bytes);\n' % receiver.name)
     result.append('}\n')
 
     if receiver.msg_id > 0:
@@ -271,7 +271,7 @@ def gen_msg_source(receiver):
         elif kind == 'struct':
             result.append('    %s_encode(encoder, msg->%s);\n' % (type, name))
         elif kind == 'array':
-            result.append('    %s_array_encode(encoder, msg->%s);\n' % (type, name))
+            result.append('    %s_array_encode(encoder, msg->%s, 8);\n' % (type, name))
 
     result.append('}\n\n')
 
@@ -293,7 +293,7 @@ def gen_msg_source(receiver):
         elif kind == 'struct':
             result.append('    %s_decode(decoder, (void**)&msg->%s);\n' % (type, name))
         elif kind == 'array':
-            result.append('    %s_array_decode(decoder, &msg->%s);\n' % (type, name))
+            result.append('    %s_array_decode(decoder, &msg->%s, 8);\n' % (type, name))
 
     result.append('\n')
     result.append('    *v = msg;\n')

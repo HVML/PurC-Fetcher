@@ -42,6 +42,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/msg-remove-load-identifier
     msg/msg-page-load-completed
     msg/msg-did-finish-resource-load
+    msg/msg-browsing-context-removed
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

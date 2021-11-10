@@ -1,0 +1,6 @@
+ID NetworkConnectionToWebProcess_BrowsingContextRemoved
+msg -> browsing_context_removed {
+    struct pcfetcher_web_page_proxy_identifier web_page_proxy_identifier;
+    struct pcfetcher_page_identifier page_identifier;
+    struct pcfetcher_frame_identifier frame_identifier;
+}

@@ -1,0 +1,4 @@
+ID WebResourceLoader_DidFinishResourceLoad
+msg -> did_finish_resource_load {
+    struct pcfetcher_network_load_metrics network_load_metrics;
+}

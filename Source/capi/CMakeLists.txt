@@ -38,6 +38,7 @@ set(fetcher_capi_MSG_IN_FILES
     msg/msg-continue-did-receive-response
     msg/msg-remove-load-identifier
     msg/msg-page-load-completed
+    msg/msg-did-finish-resource-load
 )
 GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 

@@ -15,6 +15,9 @@ set(fetcher_capi_PUBLIC_HEADERS
     capi/fetcher-msg.h
     capi/fetcher-http-header-name.h
     capi/fetcher-network-load-priority.h
+    capi/fetcher-resource-response-source.h
+    capi/fetcher-resource-response-type.h
+    capi/fetcher-resource-response-tainting.h
 )
 
 set(fetcher_capi_LIBRARIES

@@ -117,6 +117,9 @@ def parse_parameters_string(parameters_string):
         if split[0].startswith('array '):
             parameter_kind = 'array'
             split[0] = split[0][6:]
+        elif split[0].startswith('array_4 '):
+            parameter_kind = 'array_4'
+            split[0] = split[0][8:]
         elif split[0].startswith('struct '):
             parameter_kind = 'struct'
             split[0] = split[0][7:]
@@ -167,6 +170,10 @@ def gen_msg_header(receiver):
         elif kind == 'array':
             result.append('\n')
             result.append('    // %s array\n' % type)
+            result.append('    struct pcutils_arrlist* %s;\n' % name)
+        elif kind == 'array_4':
+            result.append('\n')
+            result.append('    // %s array, header 4 bytes\n' % type)
             result.append('    struct pcutils_arrlist* %s;\n' % name)
 
     result.append('};\n\n')
@@ -251,6 +258,8 @@ def gen_msg_source(receiver):
             result.append('    %s_destroy(msg->%s);\n' % (type, name))
         elif kind == 'array':
             result.append('    %s_array_destroy(msg->%s);\n' % (type, name))
+        elif kind == 'array_4':
+            result.append('    %s_array_destroy(msg->%s);\n' % (type, name))
     result.append('}\n\n')
 
     result.append('void pcfetcher_%s_encode(struct pcfetcher_encoder* encoder, void* v)\n' % msg_name)
@@ -272,6 +281,8 @@ def gen_msg_source(receiver):
             result.append('    %s_encode(encoder, msg->%s);\n' % (type, name))
         elif kind == 'array':
             result.append('    %s_array_encode(encoder, msg->%s, 8);\n' % (type, name))
+        elif kind == 'array_4':
+            result.append('    %s_array_encode(encoder, msg->%s, 4);\n' % (type, name))
 
     result.append('}\n\n')
 
@@ -294,6 +305,8 @@ def gen_msg_source(receiver):
             result.append('    %s_decode(decoder, (void**)&msg->%s);\n' % (type, name))
         elif kind == 'array':
             result.append('    %s_array_decode(decoder, &msg->%s, 8);\n' % (type, name))
+        elif kind == 'array_4':
+            result.append('    %s_array_decode(decoder, &msg->%s, 4);\n' % (type, name))
 
     result.append('\n')
     result.append('    *v = msg;\n')

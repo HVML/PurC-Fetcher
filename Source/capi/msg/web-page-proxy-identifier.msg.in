@@ -1,0 +1,3 @@
+base -> web_page_proxy_identifier {
+    uint64_t identifier;
+}

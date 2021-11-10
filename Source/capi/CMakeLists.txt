@@ -30,6 +30,9 @@ set(fetcher_capi_MSG_IN_FILES
     msg/http-header-map
     msg/website-data-store-parameters
     msg/network-load-metrics
+    msg/frame-identifier
+    msg/page-identifier
+    msg/web-page-proxy-identifier
 
     msg/soup-network-proxy-settings
     msg/msg-initialize-network-process

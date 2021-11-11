@@ -27,9 +27,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+#include <poll.h>
 
 #include <sys/types.h>
 #include <sys/socket.h>
+
+struct pcfetcher_message_info {
+    size_t body_size;
+    size_t attachment_count;
+    bool is_body_out_of_line;
+};
 
 struct pcfetcher_conn_socket_pair pcfetcher_conn_create_socket_pair(void)
 {
@@ -57,12 +65,74 @@ struct pcfetcher_conn* pcfetcher_conn(int socket, bool is_server,
 bool pcfetcher_conn_send_msg(struct pcfetcher_conn* conn, const uint8_t* data,
         size_t size)
 {
+    struct pcfetcher_message_info messageInfo = {size, 0, false};
+
+    struct msghdr message;
+    memset(&message, 0, sizeof(message));
+
+    struct iovec iov[3];
+    memset(&iov, 0, sizeof(iov));
+
+    message.msg_iov = iov;
+    int iovLength = 1;
+
+    iov[0].iov_base = (void*)&messageInfo;
+    iov[0].iov_len = sizeof(messageInfo);
+
+    if (!messageInfo.is_body_out_of_line && messageInfo.body_size) {
+        iov[iovLength].iov_base = (void*)data;
+        iov[iovLength].iov_len = size;
+        ++iovLength;
+    }
+
+    message.msg_iovlen = iovLength;
+
+    while (sendmsg(conn->socket, &message, MSG_NOSIGNAL) == -1) {
+        if (errno == EINTR)
+            continue;
+        if (errno == EAGAIN || errno == EWOULDBLOCK) {
+            struct pollfd pollfd;
+            pollfd.fd = conn->socket;
+            pollfd.events = POLLOUT;
+            pollfd.revents = 0;
+            poll(&pollfd, 1, -1);
+            continue;
+        }
+
+        return false;
+    }
+    return true;
+}
+
+ssize_t pcfetcher_conn_read_bytes_from_socket(struct pcfetcher_conn* conn)
+{
     (void)conn;
-    (void)data;
-    (void)size;
+    return 0;
+}
+
+bool pcfetcher_conn_process_message(struct pcfetcher_conn* conn)
+{
+    (void)conn;
     return false;
 }
 
-void pcfetcher_conn_read_socket()
+void pcfetcher_conn_read_socket(struct pcfetcher_conn* conn)
 {
+    while (true) {
+        ssize_t bytesRead = pcfetcher_conn_read_bytes_from_socket(conn);
+
+        if (bytesRead < 0) {
+            return;
+        }
+
+        if (!bytesRead) {
+            return;
+        }
+
+        // Process messages from data received.
+        while (true) {
+            if (!pcfetcher_conn_process_message(conn))
+                break;
+        }
+    }
 }

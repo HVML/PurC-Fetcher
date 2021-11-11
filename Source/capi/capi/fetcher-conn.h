@@ -54,13 +54,13 @@ struct pcfetcher_conn {
 
 struct pcfetcher_conn_socket_pair pcfetcher_conn_create_socket_pair(void);
 
-struct pcfetcher_conn* pcfetcher_conn(int socket, bool is_server, 
+struct pcfetcher_conn* pcfetcher_conn(int socket, bool is_server,
         pcfetcher_on_recv_data_func func);
 
 bool pcfetcher_conn_send_msg(struct pcfetcher_conn* conn, const uint8_t* data,
         size_t size);
 
-void pcfetcher_conn_read_socket();
+void pcfetcher_conn_read_socket(struct pcfetcher_conn* conn);
 
 #ifdef __cplusplus
 }

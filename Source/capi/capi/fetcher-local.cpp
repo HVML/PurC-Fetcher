@@ -29,7 +29,7 @@
 
 #include "fetcher-local.h"
 
-#include <wtf/RunLoop.h>
+#if !ENABLE(LINK_PURC_FETCHER)
 
 int pcfetcher_local_init(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota)
@@ -116,4 +116,5 @@ int pcfetcher_local_check_response(struct pcfetcher* fetcher)
     return 0;
 }
 
+#endif // !ENABLE(LINK_PURC_FETCHER)
 

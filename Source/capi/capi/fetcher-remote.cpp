@@ -31,8 +31,6 @@
 
 #if ENABLE(LINK_PURC_FETCHER)
 
-#include <wtf/RunLoop.h>
-
 int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota)
 {

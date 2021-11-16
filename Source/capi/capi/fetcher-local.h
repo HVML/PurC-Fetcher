@@ -25,6 +25,8 @@
 #ifndef PURC_FETCHER_LOCAL_H
 #define PURC_FETCHER_LOCAL_H
 
+#if !ENABLE(LINK_PURC_FETCHER)
+
 #include "purc/purc.h"
 #include "fetcher-internal.h"
 
@@ -66,6 +68,8 @@ int pcfetcher_local_check_response(struct pcfetcher* fetcher);
 #ifdef __cplusplus
 }
 #endif  /* __cplusplus */
+
+#endif // !ENABLE(LINK_PURC_FETCHER)
 
 #endif /* not defined PURC_FETCHER_LOCAL_H */
 

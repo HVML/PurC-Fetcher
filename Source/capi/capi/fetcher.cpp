@@ -27,6 +27,13 @@
 #include "fetcher.h"
 #include "fetcher-internal.h"
 
+#if ENABLE(LINK_PURC_FETCHER)
+#include "fetcher-remote.h"
+#else
+#include "fetcher-local.h"
+#endif
+
+
 #include <wtf/RunLoop.h>
 
 static struct pcfetcher* s_pcfetcher;
@@ -40,8 +47,25 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
     s_pcfetcher->max_conns = max_conns;
     s_pcfetcher->cache_quota = cache_quota;
 
-// TODO
-
+#if ENABLE(LINK_PURC_FETCHER)
+    s_pcfetcher->init = pcfetcher_remote_init;
+    s_pcfetcher->term = pcfetcher_remote_term;
+    s_pcfetcher->set_cookie = pcfetcher_remote_set_cookie;
+    s_pcfetcher->get_cookie = pcfetcher_remote_get_cookie;
+    s_pcfetcher->remove_cookie = pcfetcher_remote_remove_cookie;
+    s_pcfetcher->request_async = pcfetcher_remote_request_async;
+    s_pcfetcher->request_sync = pcfetcher_remote_request_sync;
+    s_pcfetcher->check_response = pcfetcher_remote_check_response;
+#else
+    s_pcfetcher->init = pcfetcher_local_init;
+    s_pcfetcher->term = pcfetcher_local_term;
+    s_pcfetcher->set_cookie = pcfetcher_local_set_cookie;
+    s_pcfetcher->get_cookie = pcfetcher_local_get_cookie;
+    s_pcfetcher->remove_cookie = pcfetcher_local_remove_cookie;
+    s_pcfetcher->request_async = pcfetcher_local_request_async;
+    s_pcfetcher->request_sync = pcfetcher_local_request_sync;
+    s_pcfetcher->check_response = pcfetcher_local_check_response;
+#endif
 
     s_pcfetcher->init(s_pcfetcher, max_conns, cache_quota);
     return 0;

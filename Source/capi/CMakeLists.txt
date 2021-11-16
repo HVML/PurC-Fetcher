@@ -8,11 +8,13 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
 )
 
 set(fetcher_capi_SOURCES
+    capi/fetcher.c
     capi/fetcher-msg.c
     capi/fetcher-conn.c
 )
 
 set(fetcher_capi_PUBLIC_HEADERS
+    capi/fetcher.h
     capi/fetcher-msg.h
     capi/fetcher-conn.h
     capi/fetcher-http-header-name.h

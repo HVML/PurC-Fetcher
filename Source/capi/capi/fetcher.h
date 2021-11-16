@@ -83,7 +83,7 @@ purc_rwstream_t pcfetcher_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
 
-int pcfetch_check_response(void);
+int pcfetcher_check_response(void);
 
 #ifdef __cplusplus
 }

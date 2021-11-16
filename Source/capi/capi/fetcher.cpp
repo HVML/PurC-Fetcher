@@ -29,10 +29,50 @@
 
 typedef int pcfetcher_connid;
 
+struct pcfetcher;
+
+typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
+        size_t cache_quota);
+typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
+typedef void (*pcfetcher_set_cookie_fn)(struct pcfetcher* fetcher,
+        const char* url, const char* cookie, double expires, bool secure);
+typedef const char* (*pcfetcher_get_cookie_fn)(struct pcfetcher* fetcher,
+        const char* url);
+typedef void (*pcfetcher_remove_cookie_fn)(struct pcfetcher* fetcher,
+        const char* url);
+
+typedef purc_variant_t (*pcfetcher_request_async_fn)(
+        struct pcfetcher* fetcher,
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        response_handler handler,
+        void* ctxt);
+
+typedef purc_rwstream_t (*pcfetcher_request_sync_fn)(
+        struct pcfetcher* fetcher,
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        struct pcfetcher_resp_header *resp_header);
+
+typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher);
+
 struct pcfetcher {
     size_t max_conns;
     size_t cache_quota;
     pcfetcher_connid connect_id;
+
+    pcfetcher_init_fn init;
+    pcfetcher_term_fn term;
+    pcfetcher_set_cookie_fn set_cookie;
+    pcfetcher_get_cookie_fn get_cookie;
+    pcfetcher_remove_cookie_fn remove_cookie;
+    pcfetcher_request_async_fn request_async;
+    pcfetcher_request_sync_fn request_sync;
+    pcfetcher_check_response_fn check_response;
 };
 
 static struct pcfetcher* s_pcfetcher;
@@ -45,41 +85,47 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
     s_pcfetcher = (struct pcfetcher*)malloc(sizeof(struct pcfetcher));
     s_pcfetcher->max_conns = max_conns;
     s_pcfetcher->cache_quota = cache_quota;
+
+// TODO
+
+
+    s_pcfetcher->init(s_pcfetcher, max_conns, cache_quota);
     return 0;
 }
 
 int pcfetcher_term(void)
 {
-    if (s_pcfetcher) {
-        free(s_pcfetcher);
-        s_pcfetcher = NULL;
+    if (!s_pcfetcher) {
+        return 0;
     }
-// send msg to network RunLoop::main().stop();
-    return 0;
+
+    int ret = s_pcfetcher->term(s_pcfetcher);
+
+    free(s_pcfetcher);
+    s_pcfetcher = NULL;
+    return ret;
 }
 
-#if 0
-pcfetcher_connid pcfetcher_get_connidUNUSED_PARAM();
-#endif
+//pcfetcher_connid pcfetcher_get_connid(void);
 
 void pcfetcher_set_cookie(const char* url, const char* cookie, double expires,
         bool secure)
 {
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(cookie);
-    UNUSED_PARAM(expires);
-    UNUSED_PARAM(secure);
+    if (s_pcfetcher) {
+        s_pcfetcher->set_cookie(s_pcfetcher, url, cookie, expires, secure);
+    }
 }
 
 const char* pcfetcher_get_cookie(const char* url)
 {
-    UNUSED_PARAM(url);
-    return NULL;
+    return s_pcfetcher ? s_pcfetcher->get_cookie(s_pcfetcher, url) : NULL;
 }
 
 void pcfetcher_remove_cookie(const char* url)
 {
-    UNUSED_PARAM(url);
+    if (s_pcfetcher) {
+        s_pcfetcher->remove_cookie(s_pcfetcher, url);
+    }
 }
 
 purc_variant_t pcfetcher_request_async(
@@ -90,13 +136,8 @@ purc_variant_t pcfetcher_request_async(
         response_handler handler,
         void* ctxt)
 {
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(handler);
-    UNUSED_PARAM(ctxt);
-    return NULL;
+    return s_pcfetcher ? s_pcfetcher->request_async(s_pcfetcher, url, method,
+            params, timeout, handler, ctxt) : PURC_VARIANT_INVALID;
 }
 
 purc_rwstream_t pcfetcher_request_sync(
@@ -106,18 +147,14 @@ purc_rwstream_t pcfetcher_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header)
 {
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(resp_header);
-    return NULL;
+    return s_pcfetcher ? s_pcfetcher->request_sync(s_pcfetcher, url, method,
+            params, timeout, resp_header) : NULL;
 }
 
 
-int pcfetch_check_response(void)
+int pcfetcher_check_response(void)
 {
-    return 0;
+    return s_pcfetcher ? s_pcfetcher->check_response(s_pcfetcher) : 0;
 }
 
 

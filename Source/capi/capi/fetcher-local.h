@@ -1,8 +1,8 @@
 /*
- * @file fetcher-internal.h
+ * @file fetcher-local.h
  * @author XueShuming
  * @date 2021/11/16
- * @brief The interfaces for fetcher internal.
+ * @brief The interfaces for fetcher local.
  *
  * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
@@ -22,26 +22,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef PURC_FETCHER_INTERNAL_H
-#define PURC_FETCHER_INTERNAL_H
+#ifndef PURC_FETCHER_LOCAL_H
+#define PURC_FETCHER_LOCAL_H
 
-#include "fetcher.h"
+#include "purc/purc.h"
+#include "fetcher-internal.h"
 
-typedef int pcfetcher_connid;
 
-struct pcfetcher;
+#ifdef __cplusplus
+extern "C" {
+#endif  /* __cplusplus */
 
-typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
+
+int pcfetcher_local_init(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota);
-typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
-typedef void (*pcfetcher_set_cookie_fn)(struct pcfetcher* fetcher,
+int pcfetcher_local_term(struct pcfetcher* fetcher);
+void pcfetcher_local_set_cookie(struct pcfetcher* fetcher,
         const char* url, const char* cookie, double expires, bool secure);
-typedef const char* (*pcfetcher_get_cookie_fn)(struct pcfetcher* fetcher,
+const char* pcfetcher_local_get_cookie(struct pcfetcher* fetcher,
         const char* url);
-typedef void (*pcfetcher_remove_cookie_fn)(struct pcfetcher* fetcher,
+void pcfetcher_local_remove_cookie(struct pcfetcher* fetcher,
         const char* url);
 
-typedef purc_variant_t (*pcfetcher_request_async_fn)(
+purc_variant_t pcfetcher_local_request_async(
         struct pcfetcher* fetcher,
         const char* url,
         enum pcfetcher_request_method method,
@@ -50,7 +53,7 @@ typedef purc_variant_t (*pcfetcher_request_async_fn)(
         response_handler handler,
         void* ctxt);
 
-typedef purc_rwstream_t (*pcfetcher_request_sync_fn)(
+purc_rwstream_t pcfetcher_local_request_sync(
         struct pcfetcher* fetcher,
         const char* url,
         enum pcfetcher_request_method method,
@@ -58,23 +61,12 @@ typedef purc_rwstream_t (*pcfetcher_request_sync_fn)(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
 
-typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher);
+int pcfetcher_local_check_response(struct pcfetcher* fetcher);
 
-struct pcfetcher {
-    size_t max_conns;
-    size_t cache_quota;
-    pcfetcher_connid connect_id;
+#ifdef __cplusplus
+}
+#endif  /* __cplusplus */
 
-    pcfetcher_init_fn init;
-    pcfetcher_term_fn term;
-    pcfetcher_set_cookie_fn set_cookie;
-    pcfetcher_get_cookie_fn get_cookie;
-    pcfetcher_remove_cookie_fn remove_cookie;
-    pcfetcher_request_async_fn request_async;
-    pcfetcher_request_sync_fn request_sync;
-    pcfetcher_check_response_fn check_response;
-};
-
-#endif /* not defined PURC_FETCHER_INTERNAL_H */
+#endif /* not defined PURC_FETCHER_LOCAL_H */
 
 

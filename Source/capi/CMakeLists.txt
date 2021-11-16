@@ -25,6 +25,7 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
 
 set(fetcher_capi_SOURCES
     capi/fetcher.cpp
+    capi/fetcher-local.cpp
     capi/fetcher-msg.c
     capi/fetcher-conn.c
 )

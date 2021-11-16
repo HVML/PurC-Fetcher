@@ -2,13 +2,29 @@ set_property(DIRECTORY . PROPERTY FOLDER "fetcher_capi")
 include(MyMacros.cmake)
 
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
+    "${CMAKE_BINARY_DIR}"
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
+    "${PURCFETCHER_DIR}"
+    "${PURCFETCHER_DIR}/include"
+    "${PURCFETCHER_DIR}/ipc"
+    "${PURCFETCHER_DIR}/auxiliary"
+    "${PURCFETCHER_DIR}/auxiliary/soup"
+    "${PURCFETCHER_DIR}/network"
+    "${PURCFETCHER_DIR}/network/soup"
+    "${PURCFETCHER_DIR}/network/WebStorage"
+    "${FORWARDING_HEADERS_DIR}"
     "${FORWARDING_HEADERS_DIR}/capi"
+    "${PurCFetcher_DERIVED_SOURCES_DIR}"
+    "${PurCFetcher_DERIVED_SOURCES_DIR}"
+    "${MESSAGES_DERIVED_SOURCES_DIR}"
+    "${GIO_UNIX_INCLUDE_DIRS}"
+    "${GLIB_INCLUDE_DIRS}"
+    "${PURC_INCLUDE_DIRS}"
 )
 
 set(fetcher_capi_SOURCES
-    capi/fetcher.c
+    capi/fetcher.cpp
     capi/fetcher-msg.c
     capi/fetcher-conn.c
 )
@@ -26,6 +42,8 @@ set(fetcher_capi_PUBLIC_HEADERS
 
 set(fetcher_capi_LIBRARIES
     ${CMAKE_DL_LIBS}
+    PurCFetcher::PurCFetcher
+    ${PURC_LIBRARIES}
 )
 
 set(fetcher_capi_MSG_IN_FILES

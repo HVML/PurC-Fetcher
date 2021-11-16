@@ -22,17 +22,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "config.h"
 #include "fetcher.h"
+
+#include <wtf/RunLoop.h>
+
+typedef int pcfetcher_connid;
+
+struct pcfetcher {
+    size_t max_conns;
+    size_t cache_quota;
+    pcfetcher_connid connect_id;
+};
+
+static struct pcfetcher* s_pcfetcher;
 
 int pcfetcher_init(size_t max_conns, size_t cache_quota)
 {
-    (void)max_conns;
-    (void)cache_quota;
+    if (s_pcfetcher) {
+        return 0;
+    }
+    s_pcfetcher = (struct pcfetcher*)malloc(sizeof(struct pcfetcher));
+    s_pcfetcher->max_conns = max_conns;
+    s_pcfetcher->cache_quota = cache_quota;
     return 0;
 }
 
 int pcfetcher_term(void)
 {
+    if (s_pcfetcher) {
+        free(s_pcfetcher);
+        s_pcfetcher = NULL;
+    }
+// send msg to network RunLoop::main().stop();
     return 0;
 }
 

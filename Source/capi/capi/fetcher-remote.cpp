@@ -29,12 +29,42 @@
 
 #include "fetcher-remote.h"
 
+#include "ProcessLauncher.h"
+
 #if ENABLE(LINK_PURC_FETCHER)
+
+using namespace PurCFetcher;
+
+class ProcessLauncherClient :  public ProcessLauncher::Client {
+    void didFinishLaunching(ProcessLauncher*,
+            IPC::Connection::Identifier identifier)
+    {
+        this->identifier = identifier;
+    }
+
+public:
+    IPC::Connection::Identifier identifier;
+};
+
+
+struct pcfetcher_remote {
+    Ref<ProcessLauncher> process_launcher;
+    ProcessLauncherClient* process_launcher_client;
+};
 
 int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota)
 {
-    UNUSED_PARAM(fetcher);
+    struct pcfetcher_remote* remote = (struct pcfetcher_remote*)malloc(
+            sizeof(struct pcfetcher_remote));
+    fetcher->attach = remote;
+
+    remote->process_launcher_client = new ProcessLauncherClient();
+    ProcessLauncher::LaunchOptions launchOptions;
+    launchOptions.processType = ProcessLauncher::ProcessType::Network;
+    RefPtr<ProcessLauncher> processLauncher = ProcessLauncher::create(
+            remote->process_launcher_client, WTFMove(launchOptions));
+
     UNUSED_PARAM(max_conns);
     UNUSED_PARAM(cache_quota);
     return 0;
@@ -42,7 +72,8 @@ int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
 
 int pcfetcher_remote_term(struct pcfetcher* fetcher)
 {
-    UNUSED_PARAM(fetcher);
+    struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
+    remote->process_launcher->terminateProcess();
     return 0;
 }
 

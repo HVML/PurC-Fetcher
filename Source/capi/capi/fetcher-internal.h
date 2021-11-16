@@ -64,6 +64,7 @@ struct pcfetcher {
     size_t max_conns;
     size_t cache_quota;
     pcfetcher_connid connect_id;
+    void* attach;
 
     pcfetcher_init_fn init;
     pcfetcher_term_fn term;

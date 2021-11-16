@@ -43,7 +43,6 @@ ProcessLauncher::ProcessLauncher(Client* client, LaunchOptions&& launchOptions)
 
 void ProcessLauncher::didFinishLaunchingProcess(ProcessID processIdentifier, IPC::Connection::Identifier identifier)
 {
-    fprintf(stderr, "%s:%d:%s\n", __FILE__, __LINE__, __func__);
     tracePoint(ProcessLaunchEnd);
     m_processIdentifier = processIdentifier;
     m_isLaunching = false;
@@ -58,7 +57,6 @@ void ProcessLauncher::didFinishLaunchingProcess(ProcessID processIdentifier, IPC
         return;
     }
 
-    fprintf(stderr, "%s:%d:%s\n", __FILE__, __LINE__, __func__);
     m_client->didFinishLaunching(this, identifier);
 }
 

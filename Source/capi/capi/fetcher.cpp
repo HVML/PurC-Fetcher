@@ -59,27 +59,27 @@ int pcfetcher_term(void)
 }
 
 #if 0
-pcfetcher_connid pcfetcher_get_connid(void);
+pcfetcher_connid pcfetcher_get_connidUNUSED_PARAM();
 #endif
 
 void pcfetcher_set_cookie(const char* url, const char* cookie, double expires,
         bool secure)
 {
-    (void)url;
-    (void)cookie;
-    (void)expires;
-    (void)secure;
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(cookie);
+    UNUSED_PARAM(expires);
+    UNUSED_PARAM(secure);
 }
 
 const char* pcfetcher_get_cookie(const char* url)
 {
-    (void)url;
+    UNUSED_PARAM(url);
     return NULL;
 }
 
 void pcfetcher_remove_cookie(const char* url)
 {
-    (void)url;
+    UNUSED_PARAM(url);
 }
 
 purc_variant_t pcfetcher_request_async(
@@ -90,12 +90,12 @@ purc_variant_t pcfetcher_request_async(
         response_handler handler,
         void* ctxt)
 {
-    (void)url;
-    (void)method;
-    (void)params;
-    (void)timeout;
-    (void)handler;
-    (void)ctxt;
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(handler);
+    UNUSED_PARAM(ctxt);
     return NULL;
 }
 
@@ -106,11 +106,11 @@ purc_rwstream_t pcfetcher_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header)
 {
-    (void)url;
-    (void)method;
-    (void)params;
-    (void)timeout;
-    (void)resp_header;
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(resp_header);
     return NULL;
 }
 

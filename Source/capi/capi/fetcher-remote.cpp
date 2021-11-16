@@ -29,6 +29,8 @@
 
 #include "fetcher-remote.h"
 
+#if ENABLE(LINK_PURC_FETCHER)
+
 #include <wtf/RunLoop.h>
 
 int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
@@ -117,3 +119,4 @@ int pcfetcher_remote_check_response(struct pcfetcher* fetcher)
 }
 
 
+#endif // ENABLE(LINK_PURC_FETCHER)

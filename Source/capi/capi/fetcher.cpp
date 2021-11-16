@@ -23,57 +23,11 @@
  */
 
 #include "config.h"
+
 #include "fetcher.h"
+#include "fetcher-internal.h"
 
 #include <wtf/RunLoop.h>
-
-typedef int pcfetcher_connid;
-
-struct pcfetcher;
-
-typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
-        size_t cache_quota);
-typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
-typedef void (*pcfetcher_set_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url, const char* cookie, double expires, bool secure);
-typedef const char* (*pcfetcher_get_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url);
-typedef void (*pcfetcher_remove_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url);
-
-typedef purc_variant_t (*pcfetcher_request_async_fn)(
-        struct pcfetcher* fetcher,
-        const char* url,
-        enum pcfetcher_request_method method,
-        purc_variant_t params,
-        uint32_t timeout,
-        response_handler handler,
-        void* ctxt);
-
-typedef purc_rwstream_t (*pcfetcher_request_sync_fn)(
-        struct pcfetcher* fetcher,
-        const char* url,
-        enum pcfetcher_request_method method,
-        purc_variant_t params,
-        uint32_t timeout,
-        struct pcfetcher_resp_header *resp_header);
-
-typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher);
-
-struct pcfetcher {
-    size_t max_conns;
-    size_t cache_quota;
-    pcfetcher_connid connect_id;
-
-    pcfetcher_init_fn init;
-    pcfetcher_term_fn term;
-    pcfetcher_set_cookie_fn set_cookie;
-    pcfetcher_get_cookie_fn get_cookie;
-    pcfetcher_remove_cookie_fn remove_cookie;
-    pcfetcher_request_async_fn request_async;
-    pcfetcher_request_sync_fn request_sync;
-    pcfetcher_check_response_fn check_response;
-};
 
 static struct pcfetcher* s_pcfetcher;
 

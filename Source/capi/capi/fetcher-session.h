@@ -22,8 +22,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef PURC_FETCHER_PROCESS_H
-#define PURC_FETCHER_PROCESS_H
+#ifndef PURC_FETCHER_SESSION_H
+#define PURC_FETCHER_SESSION_H
 
 #if ENABLE(LINK_PURC_FETCHER)
 
@@ -97,4 +97,4 @@ private:
 
 #endif // ENABLE(LINK_PURC_FETCHER)
 
-#endif /* not defined PURC_FETCHER_PROCESS_H */
+#endif /* not defined PURC_FETCHER_SESSION_H */

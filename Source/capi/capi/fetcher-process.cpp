@@ -214,6 +214,9 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
             IPC::addAsyncReplyHandler(*connection(), pendingMessage.asyncReplyInfo->second, WTFMove(pendingMessage.asyncReplyInfo->first));
         m_connection->sendMessage(WTFMove(encoder), sendOptions);
     }
+    RunLoop::current().dispatch([this]() {
+            createSession();
+            });
 }
 
 void PcFetcherProcess::shutDownProcess()
@@ -244,6 +247,20 @@ void PcFetcherProcess::shutDownProcess()
 void PcFetcherProcess::setProcessSuppressionEnabled(bool processSuppressionEnabled)
 {
     UNUSED_PARAM(processSuppressionEnabled);
+}
+
+PcFetcherSession* PcFetcherProcess::createSession(void)
+{
+    fprintf(stderr, "..........................................create session begin\n");
+    PurCFetcher::ProcessIdentifier pid = ProcessIdentifier::generate();
+    PAL::SessionID sid(1);
+    sendWithAsyncReply(Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid }, [this](auto&& connectionIdentifier, auto) mutable {
+        int fd = connectionIdentifier->fileDescriptor();
+        fprintf(stderr, "..........................................fd=%d\n", fd);
+    }, 0, IPC::SendOption::DispatchMessageEvenWhenWaitingForSyncReply);
+    fprintf(stderr, "..........................................create session end\n");
+
+    return nullptr;
 }
 
 void PcFetcherProcess::didClose(IPC::Connection&)

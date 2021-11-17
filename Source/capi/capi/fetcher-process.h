@@ -28,6 +28,7 @@
 #if ENABLE(LINK_PURC_FETCHER)
 
 #include "fetcher-remote.h"
+#include "fetcher-session.h"
 
 #include "Connection.h"
 #include "MessageReceiverMap.h"
@@ -120,6 +121,7 @@ public:
 
     void setProcessSuppressionEnabled(bool);
 
+    PcFetcherSession* createSession(void);
 protected:
     // ProcessLauncher::Client
     void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier) override;

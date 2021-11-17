@@ -33,13 +33,19 @@ struct pcfetcher;
 
 typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota);
+
 typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
-typedef void (*pcfetcher_set_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url, const char* cookie, double expires, bool secure);
-typedef const char* (*pcfetcher_get_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url);
-typedef void (*pcfetcher_remove_cookie_fn)(struct pcfetcher* fetcher,
-        const char* url);
+
+typedef void (*pcfetcher_cookie_set_fn)(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        const char* content, time_t expire_time, bool secure);
+
+typedef const char* (*pcfetcher_cookie_get_fn)(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        time_t *expire, bool *secure);
+
+typedef const char* (*pcfetcher_cookie_remove_fn)(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name);
 
 typedef purc_variant_t (*pcfetcher_request_async_fn)(
         struct pcfetcher* fetcher,
@@ -58,7 +64,8 @@ typedef purc_rwstream_t (*pcfetcher_request_sync_fn)(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
 
-typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher);
+typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher,
+        uint32_t timeout_ms);
 
 struct pcfetcher {
     size_t max_conns;
@@ -68,9 +75,9 @@ struct pcfetcher {
 
     pcfetcher_init_fn init;
     pcfetcher_term_fn term;
-    pcfetcher_set_cookie_fn set_cookie;
-    pcfetcher_get_cookie_fn get_cookie;
-    pcfetcher_remove_cookie_fn remove_cookie;
+    pcfetcher_cookie_set_fn cookie_set;
+    pcfetcher_cookie_get_fn cookie_get;
+    pcfetcher_cookie_remove_fn cookie_remove;
     pcfetcher_request_async_fn request_async;
     pcfetcher_request_sync_fn request_sync;
     pcfetcher_check_response_fn check_response;

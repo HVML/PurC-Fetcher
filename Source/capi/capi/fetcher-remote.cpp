@@ -77,29 +77,40 @@ int pcfetcher_remote_term(struct pcfetcher* fetcher)
     return 0;
 }
 
-void pcfetcher_remote_set_cookie(struct pcfetcher* fetcher,
-        const char* url, const char* cookie, double expires, bool secure)
+void pcfetcher_remote_cookie_set(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        const char* content, time_t expire_time, bool secure)
 {
     UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(cookie);
-    UNUSED_PARAM(expires);
+    UNUSED_PARAM(domain);
+    UNUSED_PARAM(path);
+    UNUSED_PARAM(name);
+    UNUSED_PARAM(content);
+    UNUSED_PARAM(expire_time);
     UNUSED_PARAM(secure);
 }
 
-const char* pcfetcher_remote_get_cookie(struct pcfetcher* fetcher,
-        const char* url)
+const char* pcfetcher_remote_cookie_get(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        time_t *expire, bool *secure)
 {
     UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(url);
+    UNUSED_PARAM(domain);
+    UNUSED_PARAM(path);
+    UNUSED_PARAM(name);
+    UNUSED_PARAM(expire);
+    UNUSED_PARAM(secure);
     return NULL;
 }
 
-void pcfetcher_remote_remove_cookie(struct pcfetcher* fetcher,
-        const char* url)
+const char* pcfetcher_remote_cookie_remove(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name)
 {
     UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(url);
+    UNUSED_PARAM(domain);
+    UNUSED_PARAM(path);
+    UNUSED_PARAM(name);
+    return NULL;
 }
 
 
@@ -141,9 +152,11 @@ purc_rwstream_t pcfetcher_remote_request_sync(
 }
 
 
-int pcfetcher_remote_check_response(struct pcfetcher* fetcher)
+int pcfetcher_remote_check_response(struct pcfetcher* fetcher,
+        uint32_t timeout_ms)
 {
     UNUSED_PARAM(fetcher);
+    UNUSED_PARAM(timeout_ms);
     return 0;
 }
 

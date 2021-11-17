@@ -61,12 +61,18 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota);
 
 int pcfetcher_term(void);
 
-//pcfetcher_connid pcfetcher_get_connid(void);
+const char* pcfetcher_set_base_url(const char* base_url);
 
-void pcfetcher_set_cookie(const char* url, const char* cookie, double expires,
-        bool secure);
-const char* pcfetcher_get_cookie(const char* url);
-void pcfetcher_remove_cookie(const char* url);
+void pcfetcher_cookie_set(const char* domain,
+        const char* path, const char* name, const char* content,
+        time_t expire_time, bool secure);
+
+const char* pcfetcher_cookie_get(const char* domain,
+        const char* path, const char* name, time_t *expire, bool *secure);
+
+const char* pcfetcher_cookie_remove(const char* domain,
+        const char* path, const char* name);
+
 
 purc_variant_t pcfetcher_request_async(
         const char* url,
@@ -83,7 +89,7 @@ purc_rwstream_t pcfetcher_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
 
-int pcfetcher_check_response(void);
+int pcfetcher_check_response(uint32_t timeout_ms);
 
 #ifdef __cplusplus
 }

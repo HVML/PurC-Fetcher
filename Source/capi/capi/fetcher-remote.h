@@ -38,13 +38,20 @@ extern "C" {
 
 int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
         size_t cache_quota);
+
 int pcfetcher_remote_term(struct pcfetcher* fetcher);
-void pcfetcher_remote_set_cookie(struct pcfetcher* fetcher,
-        const char* url, const char* cookie, double expires, bool secure);
-const char* pcfetcher_remote_get_cookie(struct pcfetcher* fetcher,
-        const char* url);
-void pcfetcher_remote_remove_cookie(struct pcfetcher* fetcher,
-        const char* url);
+
+void pcfetcher_remote_cookie_set(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        const char* content, time_t expire_time, bool secure);
+
+const char* pcfetcher_remote_cookie_get(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name,
+        time_t *expire, bool *secure);
+
+const char* pcfetcher_remote_cookie_remove(struct pcfetcher* fetcher,
+        const char* domain, const char* path, const char* name);
+
 
 purc_variant_t pcfetcher_remote_request_async(
         struct pcfetcher* fetcher,
@@ -63,7 +70,8 @@ purc_rwstream_t pcfetcher_remote_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
 
-int pcfetcher_remote_check_response(struct pcfetcher* fetcher);
+int pcfetcher_remote_check_response(struct pcfetcher* fetcher,
+        uint32_t timeout_ms);
 
 #ifdef __cplusplus
 }

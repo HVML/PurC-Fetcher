@@ -139,6 +139,8 @@ protected:
 
     virtual bool shouldSendPendingMessage(const PendingMessage&) { return true; }
 
+    void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
+    void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
     const char* connectName(void) { return "PcFetcherProcess"; }

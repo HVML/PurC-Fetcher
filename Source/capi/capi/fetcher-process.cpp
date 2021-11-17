@@ -183,6 +183,16 @@ bool PcFetcherProcess::dispatchSyncMessage(IPC::Connection& connection, IPC::Dec
     return m_messageReceiverMap.dispatchSyncMessage(connection, decoder, replyEncoder);
 }
 
+void PcFetcherProcess::didReceiveMessage(IPC::Connection& connection, IPC::Decoder& decoder)
+{
+    dispatchMessage(connection, decoder);
+}
+
+void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
+{
+    didReceiveSyncMessage(connection, decoder, replyEncoder);
+}
+
 void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier connectionIdentifier)
 {
     ASSERT(!m_connection);

@@ -110,6 +110,7 @@ public:
     public:
         virtual void didClose(Connection&) = 0;
         virtual void didReceiveInvalidMessage(Connection&, MessageName) = 0;
+        virtual const char* connectName(void) { return "defaultConnectName"; };
 
     protected:
         virtual ~Client() { }

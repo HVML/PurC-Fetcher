@@ -52,6 +52,8 @@ public:
     void connect();
     void terminate();
 
+    void initFetcherProcess();
+
     template<typename T> bool send(T&& message, uint64_t destinationID, OptionSet<IPC::SendOption> sendOptions = { });
     template<typename T> bool sendSync(T&& message, typename T::Reply&&, uint64_t destinationID, Seconds timeout = 1_s, OptionSet<IPC::SendSyncOption> sendSyncOptions = { });
 
@@ -139,6 +141,7 @@ protected:
 
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
+    const char* connectName(void) { return "PcFetcherProcess"; }
 
 private:
     virtual void connectionWillOpen(IPC::Connection&);

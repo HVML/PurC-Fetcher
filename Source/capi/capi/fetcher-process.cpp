@@ -25,6 +25,9 @@
 #include "config.h"
 #include "fetcher-process.h"
 
+#include "NetworkProcessCreationParameters.h"
+#include "NetworkProcessMessages.h"
+
 #include <wtf/RunLoop.h>
 
 using namespace PurCFetcher;
@@ -78,6 +81,12 @@ void PcFetcherProcess::terminate()
 {
     if (m_processLauncher)
         m_processLauncher->terminateProcess();
+}
+
+void PcFetcherProcess::initFetcherProcess()
+{
+     NetworkProcessCreationParameters parameters;
+     send(Messages::NetworkProcess::InitializeNetworkProcess(parameters), 0);
 }
 
 PcFetcherProcess::State PcFetcherProcess::state() const

@@ -44,12 +44,13 @@ class ProcessLauncherClient :  public ProcessLauncher::Client {
 
 public:
     IPC::Connection::Identifier identifier;
+    struct pcfetcher* fetcher;
 };
 
 
 struct pcfetcher_remote {
     struct pcfetcher base;
-    Ref<ProcessLauncher> process_launcher;
+    RefPtr<ProcessLauncher> process_launcher;
     ProcessLauncherClient* process_launcher_client;
 };
 
@@ -72,9 +73,11 @@ struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
     fetcher->check_response = pcfetcher_remote_check_response;
 
     remote->process_launcher_client = new ProcessLauncherClient();
+    remote->process_launcher_client->fetcher = fetcher;
+
     ProcessLauncher::LaunchOptions launchOptions;
     launchOptions.processType = ProcessLauncher::ProcessType::Network;
-    RefPtr<ProcessLauncher> processLauncher = ProcessLauncher::create(
+    remote->process_launcher = ProcessLauncher::create(
             remote->process_launcher_client, WTFMove(launchOptions));
 
     return (struct pcfetcher*)remote;
@@ -84,6 +87,12 @@ int pcfetcher_remote_term(struct pcfetcher* fetcher)
 {
     struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
     remote->process_launcher->terminateProcess();
+    remote->process_launcher->invalidate();
+    remote->process_launcher = nullptr;
+
+    delete remote->process_launcher_client;
+    free(remote);
+
     return 0;
 }
 

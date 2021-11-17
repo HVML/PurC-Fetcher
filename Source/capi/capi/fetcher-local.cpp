@@ -53,7 +53,7 @@ struct pcfetcher* pcfetcher_local_init(size_t max_conns, size_t cache_quota)
 
 int pcfetcher_local_term(struct pcfetcher* fetcher)
 {
-    UNUSED_PARAM(fetcher);
+    free(fetcher);
     return 0;
 }
 

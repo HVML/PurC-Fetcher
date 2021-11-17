@@ -56,5 +56,7 @@ int main(int argc, char** argv)
 
     RunLoop::run();
 
+    pcfetcher_term();
+
     return 0;
 }

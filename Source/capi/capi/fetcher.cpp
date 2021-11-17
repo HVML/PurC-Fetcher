@@ -60,8 +60,6 @@ int pcfetcher_term(void)
     }
 
     int ret = s_fetcher->term(s_fetcher);
-
-    free(s_fetcher);
     s_fetcher = NULL;
     return ret;
 }

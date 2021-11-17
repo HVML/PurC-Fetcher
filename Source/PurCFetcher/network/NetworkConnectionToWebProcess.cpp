@@ -452,7 +452,8 @@ void NetworkConnectionToWebProcess::loadPing(NetworkResourceLoadParameters&& loa
 
 void NetworkConnectionToWebProcess::setOnLineState(bool isOnLine)
 {
-    m_connection->send(Messages::NetworkProcessConnection::SetOnLineState(isOnLine), 0);
+    UNUSED_PARAM(isOnLine);
+    //m_connection->send(Messages::NetworkProcessConnection::SetOnLineState(isOnLine), 0);
 }
 
 void NetworkConnectionToWebProcess::cookieAcceptPolicyChanged(HTTPCookieAcceptPolicy newPolicy)

@@ -36,8 +36,7 @@ extern "C" {
 #endif  /* __cplusplus */
 
 
-int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
-        size_t cache_quota);
+struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota);
 
 int pcfetcher_remote_term(struct pcfetcher* fetcher);
 

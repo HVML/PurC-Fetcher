@@ -36,19 +36,18 @@ extern "C" {
 #endif  /* __cplusplus */
 
 
-int pcfetcher_local_init(struct pcfetcher* fetcher, size_t max_conns,
-        size_t cache_quota);
+struct pcfetcher* pcfetcher_local_init(size_t max_conns, size_t cache_quota);
 
 int pcfetcher_local_term(struct pcfetcher* fetcher);
 
 const char* pcfetcher_local_set_base_url(struct pcfetcher* fetcher,
         const char* base_url);
 
-void pcfetcher_cookie_loccal_set(struct pcfetcher* fetcher,
+void pcfetcher_cookie_local_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure);
 
-const char* pcfetcher_cookie_loccal_get(struct pcfetcher* fetcher,
+const char* pcfetcher_cookie_local_get(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         time_t *expire, bool *secure);
 

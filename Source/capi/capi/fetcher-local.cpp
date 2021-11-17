@@ -31,13 +31,24 @@
 
 #if !ENABLE(LINK_PURC_FETCHER)
 
-int pcfetcher_local_init(struct pcfetcher* fetcher, size_t max_conns,
-        size_t cache_quota)
+struct pcfetcher* pcfetcher_local_init(size_t max_conns, size_t cache_quota)
 {
-    UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(max_conns);
-    UNUSED_PARAM(cache_quota);
-    return 0;
+    struct pcfetcher* fetcher = (struct pcfetcher*)malloc(
+            sizeof(struct pcfetcher));
+
+    fetcher->max_conns = max_conns;
+    fetcher->cache_quota;
+    fetcher->init = pcfetcher_local_init;
+    fetcher->term = pcfetcher_local_term;
+    fetcher->set_base_url = pcfetcher_local_set_base_url;
+    fetcher->cookie_set = pcfetcher_cookie_local_set;
+    fetcher->cookie_get = pcfetcher_cookie_local_get;
+    fetcher->cookie_remove = pcfetcher_cookie_loccal_remove;
+    fetcher->request_async = pcfetcher_local_request_async;
+    fetcher->request_sync = pcfetcher_local_request_sync;
+    fetcher->check_response = pcfetcher_local_check_response;
+
+    return fetcher;
 }
 
 int pcfetcher_local_term(struct pcfetcher* fetcher)
@@ -54,7 +65,7 @@ const char* pcfetcher_local_set_base_url(struct pcfetcher* fetcher,
     return NULL;
 }
 
-void pcfetcher_cookie_loccal_set(struct pcfetcher* fetcher,
+void pcfetcher_cookie_local_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure)
 {
@@ -67,7 +78,7 @@ void pcfetcher_cookie_loccal_set(struct pcfetcher* fetcher,
     UNUSED_PARAM(secure);
 }
 
-const char* pcfetcher_cookie_loccal_get(struct pcfetcher* fetcher,
+const char* pcfetcher_cookie_local_get(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         time_t *expire, bool *secure)
 {

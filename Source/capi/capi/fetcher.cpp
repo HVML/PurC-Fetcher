@@ -43,33 +43,13 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
     if (s_fetcher) {
         return 0;
     }
-    s_fetcher = (struct pcfetcher*)malloc(sizeof(struct pcfetcher));
-    s_fetcher->max_conns = max_conns;
-    s_fetcher->cache_quota = cache_quota;
 
 #if ENABLE(LINK_PURC_FETCHER)
-    s_fetcher->init = pcfetcher_remote_init;
-    s_fetcher->term = pcfetcher_remote_term;
-    s_fetcher->set_base_url = pcfetcher_remote_set_base_url;
-    s_fetcher->cookie_set = pcfetcher_cookie_remote_set;
-    s_fetcher->cookie_get = pcfetcher_cookie_remote_get;
-    s_fetcher->cookie_remove = pcfetcher_cookie_remote_remove;
-    s_fetcher->request_async = pcfetcher_remote_request_async;
-    s_fetcher->request_sync = pcfetcher_remote_request_sync;
-    s_fetcher->check_response = pcfetcher_remote_check_response;
+    s_fetcher = pcfetcher_remote_init(max_conns, cache_quota);
 #else
-    s_fetcher->init = pcfetcher_local_init;
-    s_fetcher->term = pcfetcher_local_term;
-    s_fetcher->set_base_url = pcfetcher_local_set_base_url;
-    s_fetcher->cookie_set = pcfetcher_cookie_loccal_set;
-    s_fetcher->cookie_get = pcfetcher_cookie_loccal_get;
-    s_fetcher->cookie_remove = pcfetcher_cookie_loccal_remove;
-    s_fetcher->request_async = pcfetcher_local_request_async;
-    s_fetcher->request_sync = pcfetcher_local_request_sync;
-    s_fetcher->check_response = pcfetcher_local_check_response;
+    s_fetcher = pcfetcher_local_init(max_conns, cache_quota);
 #endif
 
-    s_fetcher->init(s_fetcher, max_conns, cache_quota);
     return 0;
 }
 

@@ -27,11 +27,9 @@
 
 #include "fetcher.h"
 
-typedef int pcfetcher_connid;
-
 struct pcfetcher;
 
-typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
+typedef struct pcfetcher* (*pcfetcher_init_fn)(size_t max_conns,
         size_t cache_quota);
 
 typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
@@ -73,8 +71,6 @@ typedef int (*pcfetcher_check_response_fn)(struct pcfetcher* fetcher,
 struct pcfetcher {
     size_t max_conns;
     size_t cache_quota;
-    pcfetcher_connid connect_id;
-    void* attach;
 
     pcfetcher_init_fn init;
     pcfetcher_term_fn term;

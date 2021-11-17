@@ -48,16 +48,28 @@ public:
 
 
 struct pcfetcher_remote {
+    struct pcfetcher base;
     Ref<ProcessLauncher> process_launcher;
     ProcessLauncherClient* process_launcher_client;
 };
 
-int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
-        size_t cache_quota)
+struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 {
     struct pcfetcher_remote* remote = (struct pcfetcher_remote*)malloc(
             sizeof(struct pcfetcher_remote));
-    fetcher->attach = remote;
+
+    struct pcfetcher* fetcher = (struct pcfetcher*) remote;
+    fetcher->max_conns = max_conns;
+    fetcher->cache_quota = cache_quota;
+    fetcher->init = pcfetcher_remote_init;
+    fetcher->term = pcfetcher_remote_term;
+    fetcher->set_base_url = pcfetcher_remote_set_base_url;
+    fetcher->cookie_set = pcfetcher_cookie_remote_set;
+    fetcher->cookie_get = pcfetcher_cookie_remote_get;
+    fetcher->cookie_remove = pcfetcher_cookie_remote_remove;
+    fetcher->request_async = pcfetcher_remote_request_async;
+    fetcher->request_sync = pcfetcher_remote_request_sync;
+    fetcher->check_response = pcfetcher_remote_check_response;
 
     remote->process_launcher_client = new ProcessLauncherClient();
     ProcessLauncher::LaunchOptions launchOptions;
@@ -65,9 +77,7 @@ int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
     RefPtr<ProcessLauncher> processLauncher = ProcessLauncher::create(
             remote->process_launcher_client, WTFMove(launchOptions));
 
-    UNUSED_PARAM(max_conns);
-    UNUSED_PARAM(cache_quota);
-    return 0;
+    return (struct pcfetcher*)remote;
 }
 
 int pcfetcher_remote_term(struct pcfetcher* fetcher)

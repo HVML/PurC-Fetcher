@@ -41,6 +41,9 @@ int pcfetcher_local_init(struct pcfetcher* fetcher, size_t max_conns,
 
 int pcfetcher_local_term(struct pcfetcher* fetcher);
 
+const char* pcfetcher_local_set_base_url(struct pcfetcher* fetcher,
+        const char* base_url);
+
 void pcfetcher_cookie_loccal_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure);

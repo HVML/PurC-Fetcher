@@ -36,6 +36,9 @@ typedef int (*pcfetcher_init_fn)(struct pcfetcher* fetcher, size_t max_conns,
 
 typedef int (*pcfetcher_term_fn)(struct pcfetcher* fetcher);
 
+typedef const char* (*pcfetcher_set_base_url_fn)(struct pcfetcher* fetcher,
+        const char* base_url);
+
 typedef void (*pcfetcher_cookie_set_fn)(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure);
@@ -75,6 +78,7 @@ struct pcfetcher {
 
     pcfetcher_init_fn init;
     pcfetcher_term_fn term;
+    pcfetcher_set_base_url_fn set_base_url;
     pcfetcher_cookie_set_fn cookie_set;
     pcfetcher_cookie_get_fn cookie_get;
     pcfetcher_cookie_remove_fn cookie_remove;

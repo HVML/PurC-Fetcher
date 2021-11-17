@@ -46,6 +46,13 @@ int pcfetcher_local_term(struct pcfetcher* fetcher)
     return 0;
 }
 
+const char* pcfetcher_local_set_base_url(struct pcfetcher* fetcher,
+        const char* base_url)
+{
+    UNUSED_PARAM(fetcher);
+    UNUSED_PARAM(base_url);
+    return NULL;
+}
 
 void pcfetcher_cookie_loccal_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,

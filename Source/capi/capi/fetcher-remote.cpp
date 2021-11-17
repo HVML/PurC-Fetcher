@@ -77,6 +77,14 @@ int pcfetcher_remote_term(struct pcfetcher* fetcher)
     return 0;
 }
 
+const char* pcfetcher_remote_set_base_url(struct pcfetcher* fetcher,
+        const char* base_url)
+{
+    UNUSED_PARAM(fetcher);
+    UNUSED_PARAM(base_url);
+    return NULL;
+}
+
 void pcfetcher_cookie_remote_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure)

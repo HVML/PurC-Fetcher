@@ -41,6 +41,9 @@ int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
 
 int pcfetcher_remote_term(struct pcfetcher* fetcher);
 
+const char* pcfetcher_remote_set_base_url(struct pcfetcher* fetcher,
+        const char* base_url);
+
 void pcfetcher_cookie_remote_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure);

@@ -50,6 +50,7 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
 #if ENABLE(LINK_PURC_FETCHER)
     s_pcfetcher->init = pcfetcher_remote_init;
     s_pcfetcher->term = pcfetcher_remote_term;
+    s_pcfetcher->set_base_url = pcfetcher_remote_set_base_url;
     s_pcfetcher->cookie_set = pcfetcher_cookie_remote_set;
     s_pcfetcher->cookie_get = pcfetcher_cookie_remote_get;
     s_pcfetcher->cookie_remove = pcfetcher_cookie_remote_remove;
@@ -59,6 +60,7 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
 #else
     s_pcfetcher->init = pcfetcher_local_init;
     s_pcfetcher->term = pcfetcher_local_term;
+    s_pcfetcher->set_base_url = pcfetcher_local_set_base_url;
     s_pcfetcher->cookie_set = pcfetcher_cookie_loccal_set;
     s_pcfetcher->cookie_get = pcfetcher_cookie_loccal_get;
     s_pcfetcher->cookie_remove = pcfetcher_cookie_loccal_remove;
@@ -82,6 +84,11 @@ int pcfetcher_term(void)
     free(s_pcfetcher);
     s_pcfetcher = NULL;
     return ret;
+}
+
+const char* pcfetcher_set_base_url(const char* base_url)
+{
+    return s_pcfetcher ? s_pcfetcher->set_base_url(s_pcfetcher, base_url) : NULL;
 }
 
 void pcfetcher_cookie_set(const char* domain,

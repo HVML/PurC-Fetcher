@@ -27,6 +27,7 @@ set(fetcher_capi_SOURCES
     capi/fetcher.cpp
     capi/fetcher-local.cpp
     capi/fetcher-remote.cpp
+    capi/fetcher-process.cpp
     capi/fetcher-msg.c
     capi/fetcher-conn.c
 )

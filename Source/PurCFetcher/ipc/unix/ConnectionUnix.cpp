@@ -569,6 +569,7 @@ bool Connection::sendOutputMessage(UnixMessage& outputMessage)
 
 Connection::SocketPair Connection::createPlatformConnection(unsigned options)
 {
+    fprintf(stderr, "%s:%d:%s\n", __FILE__, __LINE__, __func__);
     int sockets[2];
     RELEASE_ASSERT(socketpair(AF_UNIX, SOCKET_TYPE, 0, sockets) != -1);
 

@@ -28,31 +28,10 @@
 #include "config.h"
 
 #include "fetcher-remote.h"
-
-#include "ProcessLauncher.h"
+#include "fetcher-process.h"
 
 #if ENABLE(LINK_PURC_FETCHER)
 
-using namespace PurCFetcher;
-
-class ProcessLauncherClient :  public ProcessLauncher::Client {
-    void didFinishLaunching(ProcessLauncher*,
-            IPC::Connection::Identifier identifier)
-    {
-        this->identifier = identifier;
-    }
-
-public:
-    IPC::Connection::Identifier identifier;
-    struct pcfetcher* fetcher;
-};
-
-
-struct pcfetcher_remote {
-    struct pcfetcher base;
-    RefPtr<ProcessLauncher> process_launcher;
-    ProcessLauncherClient* process_launcher_client;
-};
 
 struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 {
@@ -72,13 +51,8 @@ struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
     fetcher->request_sync = pcfetcher_remote_request_sync;
     fetcher->check_response = pcfetcher_remote_check_response;
 
-    remote->process_launcher_client = new ProcessLauncherClient();
-    remote->process_launcher_client->fetcher = fetcher;
-
-    ProcessLauncher::LaunchOptions launchOptions;
-    launchOptions.processType = ProcessLauncher::ProcessType::Network;
-    remote->process_launcher = ProcessLauncher::create(
-            remote->process_launcher_client, WTFMove(launchOptions));
+    remote->process = new PcFetcherProcess(fetcher);
+    remote->process->connect();
 
     return (struct pcfetcher*)remote;
 }
@@ -86,11 +60,9 @@ struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 int pcfetcher_remote_term(struct pcfetcher* fetcher)
 {
     struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
-    remote->process_launcher->terminateProcess();
-    remote->process_launcher->invalidate();
-    remote->process_launcher = nullptr;
+    remote->process->terminate();
 
-    delete remote->process_launcher_client;
+    delete remote->process;
     free(remote);
 
     return 0;

@@ -29,8 +29,10 @@
 
 using namespace PurCFetcher;
 
-PcFetcherSession::PcFetcherSession(IPC::Connection::Identifier identifier)
-    : m_connection(IPC::Connection::createClientConnection(identifier, *this))
+PcFetcherSession::PcFetcherSession(uint64_t sessionId,
+        IPC::Connection::Identifier identifier)
+    : m_sessionId(sessionId)
+    , m_connection(IPC::Connection::createClientConnection(identifier, *this))
 {
 }
 
@@ -38,42 +40,55 @@ PcFetcherSession::~PcFetcherSession()
 {
 }
 
-void PcFetcherSession::addMessageReceiver(IPC::ReceiverName messageReceiverName, IPC::MessageReceiver& messageReceiver)
+void PcFetcherSession::addMessageReceiver(
+        IPC::ReceiverName messageReceiverName,
+        IPC::MessageReceiver& messageReceiver)
 {
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName, messageReceiver);
+    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
+            messageReceiver);
 }
 
-void PcFetcherSession::addMessageReceiver(IPC::ReceiverName messageReceiverName, uint64_t destinationID, IPC::MessageReceiver& messageReceiver)
+void PcFetcherSession::addMessageReceiver(IPC::ReceiverName messageReceiverName,
+        uint64_t destinationID, IPC::MessageReceiver& messageReceiver)
 {
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName, destinationID, messageReceiver);
+    m_messageReceiverMap.addMessageReceiver(messageReceiverName, destinationID,
+            messageReceiver);
 }
 
-void PcFetcherSession::removeMessageReceiver(IPC::ReceiverName messageReceiverName, uint64_t destinationID)
+void PcFetcherSession::removeMessageReceiver(
+        IPC::ReceiverName messageReceiverName, uint64_t destinationID)
 {
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName, destinationID);
+    m_messageReceiverMap.removeMessageReceiver(messageReceiverName,
+            destinationID);
 }
 
-void PcFetcherSession::removeMessageReceiver(IPC::ReceiverName messageReceiverName)
+void PcFetcherSession::removeMessageReceiver(
+        IPC::ReceiverName messageReceiverName)
 {
     m_messageReceiverMap.removeMessageReceiver(messageReceiverName);
 }
 
-bool PcFetcherSession::dispatchMessage(IPC::Connection& connection, IPC::Decoder& decoder)
+bool PcFetcherSession::dispatchMessage(
+        IPC::Connection& connection, IPC::Decoder& decoder)
 {
     return m_messageReceiverMap.dispatchMessage(connection, decoder);
 }
 
-bool PcFetcherSession::dispatchSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
+bool PcFetcherSession::dispatchSyncMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
-    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder, replyEncoder);
+    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder,
+            replyEncoder);
 }
 
-void PcFetcherSession::didReceiveMessage(IPC::Connection& connection, IPC::Decoder& decoder)
+void PcFetcherSession::didReceiveMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder)
 {
     dispatchMessage(connection, decoder);
 }
 
-void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
+void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
     didReceiveSyncMessage(connection, decoder, replyEncoder);
 }
@@ -82,9 +97,9 @@ void PcFetcherSession::didClose(IPC::Connection&)
 {
 }
 
-void PcFetcherSession::didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName)
+void PcFetcherSession::didReceiveInvalidMessage(IPC::Connection&,
+        IPC::MessageName)
 {
 }
-
 
 

@@ -44,7 +44,8 @@ class PcFetcherSession : public IPC::Connection::Client {
     WTF_MAKE_NONCOPYABLE(PcFetcherSession);
 
 public:
-    PcFetcherSession(IPC::Connection::Identifier connectionIdentifier);
+    PcFetcherSession(uint64_t sessionId,
+            IPC::Connection::Identifier connectionIdentifier);
 
     ~PcFetcherSession();
 
@@ -55,33 +56,40 @@ public:
     }
 
     void addMessageReceiver(IPC::ReceiverName, IPC::MessageReceiver&);
-    void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID, IPC::MessageReceiver&);
+    void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID,
+            IPC::MessageReceiver&);
     void removeMessageReceiver(IPC::ReceiverName, uint64_t destinationID);
     void removeMessageReceiver(IPC::ReceiverName);
 
     template <typename T>
-    void addMessageReceiver(IPC::ReceiverName messageReceiverName, ObjectIdentifier<T> destinationID, IPC::MessageReceiver& receiver)
+    void addMessageReceiver(IPC::ReceiverName messageReceiverName,
+            ObjectIdentifier<T> destinationID, IPC::MessageReceiver& receiver)
     {
-        addMessageReceiver(messageReceiverName, destinationID.toUInt64(), receiver);
+        addMessageReceiver(messageReceiverName, destinationID.toUInt64(),
+                receiver);
     }
 
     template <typename T>
-    void removeMessageReceiver(IPC::ReceiverName messageReceiverName, ObjectIdentifier<T> destinationID)
+    void removeMessageReceiver(IPC::ReceiverName messageReceiverName,
+            ObjectIdentifier<T> destinationID)
     {
         removeMessageReceiver(messageReceiverName, destinationID.toUInt64());
     }
 
 protected:
     bool dispatchMessage(IPC::Connection&, IPC::Decoder&);
-    bool dispatchSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
+    bool dispatchSyncMessage(IPC::Connection&, IPC::Decoder&,
+            std::unique_ptr<IPC::Encoder>&);
 
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
-    void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
+    void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&,
+            std::unique_ptr<IPC::Encoder>&);
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
     const char* connectName(void) { return "PcFetcherSession"; }
 
 private:
+    uint64_t m_sessionId;
     RefPtr<IPC::Connection> m_connection;
     IPC::MessageReceiverMap m_messageReceiverMap;
 };

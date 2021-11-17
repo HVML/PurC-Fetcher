@@ -50,18 +50,18 @@ int pcfetcher_init(size_t max_conns, size_t cache_quota)
 #if ENABLE(LINK_PURC_FETCHER)
     s_pcfetcher->init = pcfetcher_remote_init;
     s_pcfetcher->term = pcfetcher_remote_term;
-    s_pcfetcher->cookie_set = pcfetcher_remote_cookie_set;
-    s_pcfetcher->cookie_get = pcfetcher_remote_cookie_get;
-    s_pcfetcher->cookie_remove = pcfetcher_remote_cookie_remove;
+    s_pcfetcher->cookie_set = pcfetcher_cookie_remote_set;
+    s_pcfetcher->cookie_get = pcfetcher_cookie_remote_get;
+    s_pcfetcher->cookie_remove = pcfetcher_cookie_remote_remove;
     s_pcfetcher->request_async = pcfetcher_remote_request_async;
     s_pcfetcher->request_sync = pcfetcher_remote_request_sync;
     s_pcfetcher->check_response = pcfetcher_remote_check_response;
 #else
     s_pcfetcher->init = pcfetcher_local_init;
     s_pcfetcher->term = pcfetcher_local_term;
-    s_pcfetcher->cookie_set = pcfetcher_local_cookie_set;
-    s_pcfetcher->cookie_get = pcfetcher_local_cookie_get;
-    s_pcfetcher->cookie_remove = pcfetcher_local_cookie_remove;
+    s_pcfetcher->cookie_set = pcfetcher_cookie_loccal_set;
+    s_pcfetcher->cookie_get = pcfetcher_cookie_loccal_get;
+    s_pcfetcher->cookie_remove = pcfetcher_cookie_loccal_remove;
     s_pcfetcher->request_async = pcfetcher_local_request_async;
     s_pcfetcher->request_sync = pcfetcher_local_request_sync;
     s_pcfetcher->check_response = pcfetcher_local_check_response;

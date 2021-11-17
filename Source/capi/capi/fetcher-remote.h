@@ -41,15 +41,15 @@ int pcfetcher_remote_init(struct pcfetcher* fetcher, size_t max_conns,
 
 int pcfetcher_remote_term(struct pcfetcher* fetcher);
 
-void pcfetcher_remote_cookie_set(struct pcfetcher* fetcher,
+void pcfetcher_cookie_remote_set(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         const char* content, time_t expire_time, bool secure);
 
-const char* pcfetcher_remote_cookie_get(struct pcfetcher* fetcher,
+const char* pcfetcher_cookie_remote_get(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name,
         time_t *expire, bool *secure);
 
-const char* pcfetcher_remote_cookie_remove(struct pcfetcher* fetcher,
+const char* pcfetcher_cookie_remote_remove(struct pcfetcher* fetcher,
         const char* domain, const char* path, const char* name);
 
 

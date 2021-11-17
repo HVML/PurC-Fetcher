@@ -25,14 +25,12 @@
 #include "config.h"
 #include "fetcher-session.h"
 
-#include "NetworkProcessCreationParameters.h"
-#include "NetworkProcessMessages.h"
-
 #include <wtf/RunLoop.h>
 
 using namespace PurCFetcher;
 
-PcFetcherSession::PcFetcherSession(IPC::Connection::Identifier)
+PcFetcherSession::PcFetcherSession(IPC::Connection::Identifier identifier)
+    : m_connection(IPC::Connection::createClientConnection(identifier, *this))
 {
 }
 

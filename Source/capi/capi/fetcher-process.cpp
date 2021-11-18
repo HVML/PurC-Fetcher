@@ -264,6 +264,44 @@ PcFetcherSession* PcFetcherProcess::createSession(void)
             attachment->releaseFileDescriptor());
 }
 
+purc_variant_t PcFetcherProcess::requestAsync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        response_handler handler,
+        void* ctxt)
+{
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(handler);
+    UNUSED_PARAM(ctxt);
+    return PURC_VARIANT_INVALID;
+}
+
+purc_rwstream_t PcFetcherProcess::requestSync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        struct pcfetcher_resp_header *resp_header)
+{
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(resp_header);
+    return NULL;
+}
+
+int PcFetcherProcess::checkResponse(uint32_t timeout_ms)
+{
+    UNUSED_PARAM(timeout_ms);
+    return 0;
+}
+
 void PcFetcherProcess::didClose(IPC::Connection&)
 {
 }

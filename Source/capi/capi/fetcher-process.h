@@ -122,6 +122,24 @@ public:
     void setProcessSuppressionEnabled(bool);
 
     PcFetcherSession* createSession(void);
+
+    purc_variant_t requestAsync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        response_handler handler,
+        void* ctxt);
+
+    purc_rwstream_t requestSync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        struct pcfetcher_resp_header *resp_header);
+
+    int checkResponse(uint32_t timeout_ms);
+
 protected:
     // ProcessLauncher::Client
     void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier) override;

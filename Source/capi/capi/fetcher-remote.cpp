@@ -123,14 +123,9 @@ purc_variant_t pcfetcher_remote_request_async(
         response_handler handler,
         void* ctxt)
 {
-    UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(handler);
-    UNUSED_PARAM(ctxt);
-    return PURC_VARIANT_INVALID;
+    struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
+    return remote->process->requestAsync(
+            url, method, params, timeout, handler, ctxt);
 }
 
 
@@ -142,22 +137,17 @@ purc_rwstream_t pcfetcher_remote_request_sync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header)
 {
-    UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(resp_header);
-    return NULL;
+    struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
+    return remote->process->requestSync(
+            url, method, params, timeout, resp_header);
 }
 
 
 int pcfetcher_remote_check_response(struct pcfetcher* fetcher,
         uint32_t timeout_ms)
 {
-    UNUSED_PARAM(fetcher);
-    UNUSED_PARAM(timeout_ms);
-    return 0;
+    struct pcfetcher_remote* remote = (struct pcfetcher_remote*)fetcher;
+    return remote->process->checkResponse(timeout_ms);
 }
 
 

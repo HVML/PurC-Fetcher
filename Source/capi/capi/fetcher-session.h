@@ -29,6 +29,8 @@
 
 #include "fetcher-remote.h"
 
+#include "WebCoreArgumentCoders.h"
+#include "SharedBufferDataReference.h"
 #include "Connection.h"
 #include "MessageReceiverMap.h"
 #include "ProcessLauncher.h"
@@ -98,15 +100,18 @@ protected:
     bool dispatchSyncMessage(IPC::Connection&, IPC::Decoder&,
             std::unique_ptr<IPC::Encoder>&);
 
+    void didClose(IPC::Connection&);
+    void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
+    const char* connectionName(void) { return "PcFetcherSession"; }
+
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&,
             std::unique_ptr<IPC::Encoder>&);
 
     void didReceiveResponse(const PurCFetcher::ResourceResponse&, bool);
-
-    void didClose(IPC::Connection&);
-    void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
-    const char* connectionName(void) { return "PcFetcherSession"; }
+    void didReceiveSharedBuffer(IPC::SharedBufferDataReference&&,
+            int64_t encodedDataLength);
+    void didFinishResourceLoad(const PurCFetcher::NetworkLoadMetrics&);
 
 private:
     uint64_t m_sessionId;

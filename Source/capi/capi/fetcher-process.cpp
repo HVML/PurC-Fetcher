@@ -217,7 +217,7 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
 
     RunLoop::current().dispatch([this]() {
             requestAsync(
-                "https://www.fmsoft.cn",
+                "https://www.baidu.com",
                 PCFETCHER_REQUEST_METHOD_GET,
                 NULL,
                 1,

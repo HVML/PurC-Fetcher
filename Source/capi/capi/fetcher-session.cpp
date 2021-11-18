@@ -70,14 +70,10 @@ purc_variant_t PcFetcherSession::requestAsync(
     loadParameters.webFrameID = FrameIdentifier::generate();
     loadParameters.parentPID = getpid();
 
-    fprintf(stderr, "................................before send request\n");
     m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
-    fprintf(stderr, "................................after send request\n");
-    fprintf(stderr, "................................before wait\n");
 
-    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::InterruptWaitingIfSyncMessageArrives);
-    fprintf(stderr, "................................after wait\n");
+//    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::InterruptWaitingIfSyncMessageArrives);
 
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);

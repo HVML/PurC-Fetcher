@@ -46,6 +46,40 @@ void PcFetcherSession::close()
     m_connection->invalidate();
 }
 
+purc_variant_t PcFetcherSession::requestAsync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        response_handler handler,
+        void* ctxt)
+{
+    fprintf(stderr, "url=%s\n", url);
+
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(handler);
+    UNUSED_PARAM(ctxt);
+    return PURC_VARIANT_INVALID;
+}
+
+purc_rwstream_t PcFetcherSession::requestSync(
+        const char* url,
+        enum pcfetcher_request_method method,
+        purc_variant_t params,
+        uint32_t timeout,
+        struct pcfetcher_resp_header *resp_header)
+{
+    UNUSED_PARAM(url);
+    UNUSED_PARAM(method);
+    UNUSED_PARAM(params);
+    UNUSED_PARAM(timeout);
+    UNUSED_PARAM(resp_header);
+    return NULL;
+}
+
 void PcFetcherSession::addMessageReceiver(
         IPC::ReceiverName messageReceiverName,
         IPC::MessageReceiver& messageReceiver)

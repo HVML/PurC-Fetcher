@@ -217,6 +217,13 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
 
     RunLoop::current().dispatch([this]() {
             createSession();
+            requestAsync(
+                "https://www.baidu.com",
+                PCFETCHER_REQUEST_METHOD_GET,
+                NULL,
+                1,
+                NULL,
+                NULL);
             });
 }
 
@@ -272,13 +279,8 @@ purc_variant_t PcFetcherProcess::requestAsync(
         response_handler handler,
         void* ctxt)
 {
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(handler);
-    UNUSED_PARAM(ctxt);
-    return PURC_VARIANT_INVALID;
+    PcFetcherSession* session = createSession();
+    return session->requestAsync(url, method, params, timeout, handler, ctxt);
 }
 
 purc_rwstream_t PcFetcherProcess::requestSync(
@@ -288,12 +290,8 @@ purc_rwstream_t PcFetcherProcess::requestSync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header)
 {
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(resp_header);
-    return NULL;
+    PcFetcherSession* session = createSession();
+    return session->requestSync(url, method, params, timeout, resp_header);
 }
 
 int PcFetcherProcess::checkResponse(uint32_t timeout_ms)

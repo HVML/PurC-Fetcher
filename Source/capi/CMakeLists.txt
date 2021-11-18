@@ -13,6 +13,8 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/network"
     "${PURCFETCHER_DIR}/network/soup"
     "${PURCFETCHER_DIR}/network/WebStorage"
+    "${PURCFETCHER_DIR}/network/Downloads"
+    "${PURCFETCHER_DIR}/network/soup"
     "${FORWARDING_HEADERS_DIR}"
     "${FORWARDING_HEADERS_DIR}/capi"
     "${PurCFetcher_DERIVED_SOURCES_DIR}"
@@ -21,6 +23,7 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${GIO_UNIX_INCLUDE_DIRS}"
     "${GLIB_INCLUDE_DIRS}"
     "${PURC_INCLUDE_DIRS}"
+    "${LIBSOUP_INCLUDE_DIRS}"
 )
 
 set(fetcher_capi_SOURCES

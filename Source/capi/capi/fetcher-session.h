@@ -101,6 +101,9 @@ protected:
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&);
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&,
             std::unique_ptr<IPC::Encoder>&);
+
+    void didReceiveResponse(const PurCFetcher::ResourceResponse&, bool);
+
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
     const char* connectionName(void) { return "PcFetcherSession"; }

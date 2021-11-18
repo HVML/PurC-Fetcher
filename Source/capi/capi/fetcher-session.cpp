@@ -24,6 +24,9 @@
 
 #include "config.h"
 #include "fetcher-session.h"
+#include "NetworkResourceLoadParameters.h"
+#include "NetworkConnectionToWebProcessMessages.h"
+#include "WebResourceLoaderMessages.h"
 
 #include <wtf/RunLoop.h>
 
@@ -55,6 +58,22 @@ purc_variant_t PcFetcherSession::requestAsync(
         void* ctxt)
 {
     fprintf(stderr, "url=%s\n", url);
+
+    std::unique_ptr<WTF::URL> wurl = makeUnique<URL>(URL(), url);;
+    ResourceRequest request;
+    request.setURL(*wurl);
+    request.setHTTPMethod("GET");
+
+    NetworkResourceLoadParameters loadParameters;
+    loadParameters.identifier = (uint64_t)ProcessIdentifier::generate().toUInt64();
+    loadParameters.request = request;
+    loadParameters.webPageProxyID = WebPageProxyIdentifier::generate();
+    loadParameters.webPageID = PageIdentifier::generate();
+    loadParameters.webFrameID = FrameIdentifier::generate();
+    loadParameters.parentPID = getpid();
+
+    m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
+                loadParameters), 0);
 
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);
@@ -125,12 +144,24 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection& connection,
         IPC::Decoder& decoder)
 {
     dispatchMessage(connection, decoder);
+    if (decoder.messageName() == Messages::WebResourceLoader::DidReceiveResponse::name()) {
+        IPC::handleMessage<Messages::WebResourceLoader::DidReceiveResponse>(decoder, this, &PcFetcherSession::didReceiveResponse);
+        return;
+    }
+    fprintf(stderr, "%s:%d:%s   decoder=%s\n", __FILE__, __LINE__, __func__,description(decoder.messageName()) );
 }
 
 void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
         IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
     didReceiveSyncMessage(connection, decoder, replyEncoder);
+    fprintf(stderr, "%s:%d:%s   decoder=%s\n", __FILE__, __LINE__, __func__,description(decoder.messageName()) );
+}
+
+void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& response, bool needsContinueDidReceiveResponseMessage)
+{
+    UNUSED_PARAM(response);
+    fprintf(stderr, "%s:%d:%s   needsContinueDidReceiveResponseMessage=%d\n", __FILE__, __LINE__, __func__, needsContinueDidReceiveResponseMessage);
 }
 
 void PcFetcherSession::didClose(IPC::Connection&)

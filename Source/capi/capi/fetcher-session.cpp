@@ -39,6 +39,10 @@ PcFetcherSession::PcFetcherSession(uint64_t sessionId,
 
 PcFetcherSession::~PcFetcherSession()
 {
+}
+
+void PcFetcherSession::close()
+{
     m_connection->invalidate();
 }
 

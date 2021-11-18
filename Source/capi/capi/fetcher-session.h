@@ -55,6 +55,8 @@ public:
         return m_connection.get();
     }
 
+    void close();
+
     void addMessageReceiver(IPC::ReceiverName, IPC::MessageReceiver&);
     void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID,
             IPC::MessageReceiver&);

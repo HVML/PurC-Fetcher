@@ -70,8 +70,14 @@ purc_variant_t PcFetcherSession::requestAsync(
     loadParameters.webFrameID = FrameIdentifier::generate();
     loadParameters.parentPID = getpid();
 
+    fprintf(stderr, "................................before send request\n");
     m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
+    fprintf(stderr, "................................after send request\n");
+    fprintf(stderr, "................................before wait\n");
+
+    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::InterruptWaitingIfSyncMessageArrives);
+    fprintf(stderr, "................................after wait\n");
 
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);
@@ -175,13 +181,17 @@ void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& r
 {
     UNUSED_PARAM(response);
     UNUSED_PARAM(needsContinueDidReceiveResponseMessage);
+    fprintf(stderr, "%s:%d:%s   url=%s\n", __FILE__, __LINE__, __func__, response.url().string().characters8());
+    fprintf(stderr, "%s:%d:%s   code=%d\n", __FILE__, __LINE__, __func__, response.httpStatusCode());
+    fprintf(stderr, "%s:%d:%s   mime=%s\n", __FILE__, __LINE__, __func__, response.mimeType().characters8());
+    fprintf(stderr, "%s:%d:%s   content=%Ld\n", __FILE__, __LINE__, __func__, response.expectedContentLength());
 }
 
 void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& data, int64_t encodedDataLength)
 {
     UNUSED_PARAM(data);
     UNUSED_PARAM(encodedDataLength);
-//    fprintf(stderr, "%s:%d:%s   encodedDataLength=%ld\n", __FILE__, __LINE__, __func__, encodedDataLength);
+    fprintf(stderr, "%s:%d:%s   encodedDataLength=%ld\n", __FILE__, __LINE__, __func__, encodedDataLength);
 //    fprintf(stderr, "%s:%d:%s   data.size=%ld\n", __FILE__, __LINE__, __func__, data.size());
 //    fprintf(stderr, "%s:%d:%s   data=%s\n", __FILE__, __LINE__, __func__, data.data());
 }
@@ -189,7 +199,7 @@ void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& d
 void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
-//    fprintf(stderr, "%s:%d:%s  complete=%d\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete());
+    fprintf(stderr, "%s:%d:%s  complete=%d\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete());
 }
 
 

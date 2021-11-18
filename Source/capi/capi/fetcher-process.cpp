@@ -217,7 +217,7 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
 
     RunLoop::current().dispatch([this]() {
             requestAsync(
-                "https://www.baidu.com",
+                "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
                 PCFETCHER_REQUEST_METHOD_GET,
                 NULL,
                 1,

@@ -22,39 +22,16 @@
 
 using namespace PurCFetcher;
 
-class ProcessLauncherClient :  public ProcessLauncher::Client, public IPC::Connection::Client {
-    void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier identifier)
-    {
-        this->identifier = identifier;
-
-        this->conn = IPC::Connection::createServerConnection(identifier, *this);
-        NetworkProcessCreationParameters parameters;
-        this->conn->open();
-        this->conn->send(Messages::NetworkProcess::InitializeNetworkProcess(parameters), 0);
-    }
-    void didClose(IPC::Connection&) {}
-    void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName) {}
-public:
-    IPC::Connection::Identifier identifier;
-    RefPtr<IPC::Connection> conn;
-};
-
 int main(int argc, char** argv)
 {
-    fprintf(stderr, "argc=%d|argv[0]=%s\n", argc, argv[0]);
+    (void)argc;
+    (void)argv;
 
     RunLoop::initializeMain();
     AtomString::init();
     WTF::RefCountedBase::enableThreadingChecksGlobally();
 
-#if 0
-    ProcessLauncherClient processClient;
-    ProcessLauncher::LaunchOptions launchOptions;
-    launchOptions.processType = ProcessLauncher::ProcessType::Network;
-    RefPtr<ProcessLauncher> processLauncher = ProcessLauncher::create(&processClient, WTFMove(launchOptions));
-#else
     pcfetcher_init(10, 1024);
-#endif
 
     RunLoop::run();
 

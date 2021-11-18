@@ -57,8 +57,6 @@ purc_variant_t PcFetcherSession::requestAsync(
         response_handler handler,
         void* ctxt)
 {
-    fprintf(stderr, "url=%s\n", url);
-
     std::unique_ptr<WTF::URL> wurl = makeUnique<URL>(URL(), url);;
     ResourceRequest request;
     request.setURL(*wurl);
@@ -165,32 +163,33 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection& connection,
         IPC::handleMessage<Messages::WebResourceLoader::DidFinishResourceLoad>(decoder, this, &PcFetcherSession::didFinishResourceLoad);
         return;
     }
-    fprintf(stderr, "%s:%d:%s   decoder=%s\n", __FILE__, __LINE__, __func__,description(decoder.messageName()) );
 }
 
 void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
         IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
     didReceiveSyncMessage(connection, decoder, replyEncoder);
-    fprintf(stderr, "%s:%d:%s   decoder=%s\n", __FILE__, __LINE__, __func__,description(decoder.messageName()) );
 }
 
 void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& response, bool needsContinueDidReceiveResponseMessage)
 {
     UNUSED_PARAM(response);
-    fprintf(stderr, "%s:%d:%s   needsContinueDidReceiveResponseMessage=%d\n", __FILE__, __LINE__, __func__, needsContinueDidReceiveResponseMessage);
+    UNUSED_PARAM(needsContinueDidReceiveResponseMessage);
 }
 
 void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& data, int64_t encodedDataLength)
 {
     UNUSED_PARAM(data);
-    fprintf(stderr, "%s:%d:%s   encodedDataLength=%ld\n", __FILE__, __LINE__, __func__, encodedDataLength);
+    UNUSED_PARAM(encodedDataLength);
+//    fprintf(stderr, "%s:%d:%s   encodedDataLength=%ld\n", __FILE__, __LINE__, __func__, encodedDataLength);
+//    fprintf(stderr, "%s:%d:%s   data.size=%ld\n", __FILE__, __LINE__, __func__, data.size());
+//    fprintf(stderr, "%s:%d:%s   data=%s\n", __FILE__, __LINE__, __func__, data.data());
 }
 
 void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
-    fprintf(stderr, "%s:%d:%s  complete=%d\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete());
+//    fprintf(stderr, "%s:%d:%s  complete=%d\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete());
 }
 
 

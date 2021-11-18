@@ -252,22 +252,14 @@ void PcFetcherProcess::setProcessSuppressionEnabled(bool processSuppressionEnabl
 
 PcFetcherSession* PcFetcherProcess::createSession(void)
 {
-    fprintf(stderr, "..........................................create session begin\n");
     PurCFetcher::ProcessIdentifier pid = ProcessIdentifier::generate();
     PAL::SessionID sid(1);
-#if 1
-    sendWithAsyncReply(Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid }, [this](auto&& connectionIdentifier, auto) mutable {
-        int fd = connectionIdentifier->fileDescriptor();
-        fprintf(stderr, "..........................................fd=%d\n", fd);
-    }, 0, IPC::SendOption::DispatchMessageEvenWhenWaitingForSyncReply);
-#else
     Optional<IPC::Attachment> attachment;
     PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy;
-    sendSync(Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid }, Messages::NetworkProcess::CreateNetworkConnectionToWebProcess::Reply(attachment, cookieAcceptPolicy), 0);
-        fprintf(stderr, "..........................................fd=%d\n", attachment->fileDescriptor());
-#endif
-    fprintf(stderr, "..........................................create session end\n");
-
+    sendSync(
+            Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid },
+            Messages::NetworkProcess::CreateNetworkConnectionToWebProcess::Reply(attachment, cookieAcceptPolicy), 0);
+    fprintf(stderr, "..........................................create session fd=%d\n", attachment->fileDescriptor());
     return nullptr;
 }
 

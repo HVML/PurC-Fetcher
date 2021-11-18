@@ -71,6 +71,7 @@ private:
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&) override;
     void didClose(IPC::Connection&) override;
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName) override;
+    const char* connectionName(void) { return "NetworkProcessConnection"; };
 
     void didFinishPingLoad(uint64_t, PurCFetcher::ResourceError&&, PurCFetcher::ResourceResponse&&);
     void didFinishPreconnection(uint64_t, PurCFetcher::ResourceError&&);

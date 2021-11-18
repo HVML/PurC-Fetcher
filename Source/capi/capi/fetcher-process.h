@@ -145,7 +145,7 @@ protected:
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
-    const char* connectName(void) { return "PcFetcherProcess"; }
+    const char* connectionName(void) { return "PcFetcherProcess"; }
 
 private:
     virtual void connectionWillOpen(IPC::Connection&);

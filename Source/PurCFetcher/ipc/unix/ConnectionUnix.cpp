@@ -32,6 +32,7 @@
 #include "SharedMemory.h"
 #include "UnixMessage.h"
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -225,6 +226,7 @@ bool Connection::processMessage()
 
     auto decoder = makeUnique<Decoder>(messageBody, messageInfo.bodySize(), nullptr, WTFMove(attachments));
 
+    fprintf(stderr, "%d|%s|receive|%s\n", getpid(), this->client().connectionName(), description(decoder->messageName()));
     processIncomingMessage(WTFMove(decoder));
 
     if (m_readBuffer.size() > messageLength) {
@@ -409,6 +411,7 @@ bool Connection::platformCanSendOutgoingMessages() const
 
 bool Connection::sendOutgoingMessage(std::unique_ptr<Encoder> encoder)
 {
+    fprintf(stderr, "%d|%s|send|%s\n", getpid(), client().connectionName(), description(encoder->messageName()));
     COMPILE_ASSERT(sizeof(MessageInfo) + attachmentMaxAmount * sizeof(size_t) <= messageMaxSize, AttachmentsFitToMessageInline);
 
     UnixMessage outputMessage(*encoder);
@@ -569,7 +572,6 @@ bool Connection::sendOutputMessage(UnixMessage& outputMessage)
 
 Connection::SocketPair Connection::createPlatformConnection(unsigned options)
 {
-    fprintf(stderr, "%s:%d:%s\n", __FILE__, __LINE__, __func__);
     int sockets[2];
     RELEASE_ASSERT(socketpair(AF_UNIX, SOCKET_TYPE, 0, sockets) != -1);
 

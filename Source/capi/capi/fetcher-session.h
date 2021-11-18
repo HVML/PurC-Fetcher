@@ -86,7 +86,7 @@ protected:
             std::unique_ptr<IPC::Encoder>&);
     void didClose(IPC::Connection&);
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName);
-    const char* connectName(void) { return "PcFetcherSession"; }
+    const char* connectionName(void) { return "PcFetcherSession"; }
 
 private:
     uint64_t m_sessionId;

@@ -225,7 +225,7 @@ static void printCallSite(const char* file, int line, const char* function)
     // using Visual Studio can double-click the file/line number in the Output Window to have the
     // editor navigate to that line of code. It seems fine for other developers, too.
 #if PLATFORM(LINUX)
-    printf_stderr_common("============================================================ Linux UNIMPLEMENTED FUNCTION: %s(%d) : %s\n", file, line, function);
+    printf_stderr_common("%s(%d) : %s\n", file, line, function);
 #else
     printf_stderr_common("%s(%d) : %s\n", file, line, function);
 #endif

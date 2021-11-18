@@ -25,7 +25,7 @@ messages -> NetworkProcess LegacyReceiver {
     InitializeNetworkProcess(struct PurCFetcher::NetworkProcessCreationParameters processCreationParameters)
 
     # Creates a connection for communication with a WebProcess
-    CreateNetworkConnectionToWebProcess(PurCFetcher::ProcessIdentifier processIdentifier, PAL::SessionID sessionID) -> (Optional<IPC::Attachment> connectionIdentifier, enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy) Async
+    CreateNetworkConnectionToWebProcess(PurCFetcher::ProcessIdentifier processIdentifier, PAL::SessionID sessionID) -> (Optional<IPC::Attachment> connectionIdentifier, enum:uint8_t PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy) -> () Synchronous
 
 #if USE(SOUP)
     SetIgnoreTLSErrors(bool ignoreTLSErrors)

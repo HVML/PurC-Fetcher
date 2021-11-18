@@ -73,7 +73,10 @@ purc_variant_t PcFetcherSession::requestAsync(
     m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
 
-//    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::InterruptWaitingIfSyncMessageArrives);
+//    fprintf(stderr, "...............................before wait\n");
+    //m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
+//    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidReceiveResponse>(0, 5_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
+//    fprintf(stderr, "...............................after wait\n");
 
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);
@@ -149,10 +152,10 @@ void PcFetcherSession::didReceiveInvalidMessage(IPC::Connection&,
 {
 }
 
-void PcFetcherSession::didReceiveMessage(IPC::Connection& connection,
+void PcFetcherSession::didReceiveMessage(IPC::Connection&,
         IPC::Decoder& decoder)
 {
-    dispatchMessage(connection, decoder);
+    fprintf(stderr, "%s:%d:%s   ############################## %s |destinationID=%ld\n", __FILE__, __LINE__, __func__, description(decoder.messageName()), decoder.destinationID());
     if (decoder.messageName() == Messages::WebResourceLoader::DidReceiveResponse::name()) {
         IPC::handleMessage<Messages::WebResourceLoader::DidReceiveResponse>(decoder, this, &PcFetcherSession::didReceiveResponse);
         return;

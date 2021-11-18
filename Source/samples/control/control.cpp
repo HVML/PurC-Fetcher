@@ -44,6 +44,8 @@ int main(int argc, char** argv)
     fprintf(stderr, "argc=%d|argv[0]=%s\n", argc, argv[0]);
 
     RunLoop::initializeMain();
+    AtomString::init();
+    WTF::RefCountedBase::enableThreadingChecksGlobally();
 
 #if 0
     ProcessLauncherClient processClient;

@@ -34,10 +34,12 @@ PcFetcherSession::PcFetcherSession(uint64_t sessionId,
     : m_sessionId(sessionId)
     , m_connection(IPC::Connection::createClientConnection(identifier, *this))
 {
+    m_connection->open();
 }
 
 PcFetcherSession::~PcFetcherSession()
 {
+    m_connection->invalidate();
 }
 
 void PcFetcherSession::addMessageReceiver(

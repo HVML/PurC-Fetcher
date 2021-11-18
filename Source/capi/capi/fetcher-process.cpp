@@ -257,10 +257,11 @@ PcFetcherSession* PcFetcherProcess::createSession(void)
     Optional<IPC::Attachment> attachment;
     PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy;
     sendSync(
-            Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid },
-            Messages::NetworkProcess::CreateNetworkConnectionToWebProcess::Reply(attachment, cookieAcceptPolicy), 0);
-    fprintf(stderr, "..........................................create session fd=%d\n", attachment->fileDescriptor());
-    return nullptr;
+        Messages::NetworkProcess::CreateNetworkConnectionToWebProcess { pid, sid },
+        Messages::NetworkProcess::CreateNetworkConnectionToWebProcess::Reply(
+            attachment, cookieAcceptPolicy), 0);
+    return new PcFetcherSession(sid.toUInt64(),
+            attachment->releaseFileDescriptor());
 }
 
 void PcFetcherProcess::didClose(IPC::Connection&)

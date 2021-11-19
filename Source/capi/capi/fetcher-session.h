@@ -78,27 +78,6 @@ public:
     void wait(uint32_t timeout);
     void wakeUp(void);
 
-    void addMessageReceiver(IPC::ReceiverName, IPC::MessageReceiver&);
-    void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID,
-            IPC::MessageReceiver&);
-    void removeMessageReceiver(IPC::ReceiverName, uint64_t destinationID);
-    void removeMessageReceiver(IPC::ReceiverName);
-
-    template <typename T>
-    void addMessageReceiver(IPC::ReceiverName messageReceiverName,
-            ObjectIdentifier<T> destinationID, IPC::MessageReceiver& receiver)
-    {
-        addMessageReceiver(messageReceiverName, destinationID.toUInt64(),
-                receiver);
-    }
-
-    template <typename T>
-    void removeMessageReceiver(IPC::ReceiverName messageReceiverName,
-            ObjectIdentifier<T> destinationID)
-    {
-        removeMessageReceiver(messageReceiverName, destinationID.toUInt64());
-    }
-
 protected:
     bool dispatchMessage(IPC::Connection&, IPC::Decoder&);
     bool dispatchSyncMessage(IPC::Connection&, IPC::Decoder&,

@@ -114,47 +114,6 @@ void PcFetcherSession::wakeUp(void)
     m_waitForSyncReplySemaphore.signal();
 }
 
-void PcFetcherSession::addMessageReceiver(
-        IPC::ReceiverName messageReceiverName,
-        IPC::MessageReceiver& messageReceiver)
-{
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
-            messageReceiver);
-}
-
-void PcFetcherSession::addMessageReceiver(IPC::ReceiverName messageReceiverName,
-        uint64_t destinationID, IPC::MessageReceiver& messageReceiver)
-{
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName, destinationID,
-            messageReceiver);
-}
-
-void PcFetcherSession::removeMessageReceiver(
-        IPC::ReceiverName messageReceiverName, uint64_t destinationID)
-{
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName,
-            destinationID);
-}
-
-void PcFetcherSession::removeMessageReceiver(
-        IPC::ReceiverName messageReceiverName)
-{
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName);
-}
-
-bool PcFetcherSession::dispatchMessage(
-        IPC::Connection& connection, IPC::Decoder& decoder)
-{
-    return m_messageReceiverMap.dispatchMessage(connection, decoder);
-}
-
-bool PcFetcherSession::dispatchSyncMessage(IPC::Connection& connection,
-        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
-{
-    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder,
-            replyEncoder);
-}
-
 void PcFetcherSession::didClose(IPC::Connection&)
 {
 }
@@ -189,7 +148,9 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection&,
 void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
         IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
-    didReceiveSyncMessage(connection, decoder, replyEncoder);
+    UNUSED_PARAM(connection);
+    UNUSED_PARAM(decoder);
+    UNUSED_PARAM(replyEncoder);
 }
 
 void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& response, bool needsContinueDidReceiveResponseMessage)

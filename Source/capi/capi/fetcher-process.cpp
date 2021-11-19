@@ -191,7 +191,7 @@ void PcFetcherProcess::didReceiveMessage(IPC::Connection& connection, IPC::Decod
 
 void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
-    didReceiveSyncMessage(connection, decoder, replyEncoder);
+    dispatchSyncMessage(connection, decoder, replyEncoder);
 }
 
 void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier connectionIdentifier)

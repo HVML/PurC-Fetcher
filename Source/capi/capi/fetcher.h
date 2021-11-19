@@ -31,8 +31,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
-//typedef int pcfetcher_connid;
+#include <time.h>
 
 enum pcfetcher_request_method {
     PCFETCHER_REQUEST_METHOD_GET = 0,

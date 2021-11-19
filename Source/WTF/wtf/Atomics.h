@@ -27,6 +27,7 @@
 
 #include <atomic>
 #include <wtf/StdLibExtras.h>
+#include <wtf/FastMalloc.h>
 
 #if OS(WINDOWS)
 #if !COMPILER(GCC_COMPATIBLE)

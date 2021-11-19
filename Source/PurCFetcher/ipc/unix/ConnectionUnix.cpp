@@ -226,7 +226,7 @@ bool Connection::processMessage()
 
     auto decoder = makeUnique<Decoder>(messageBody, messageInfo.bodySize(), nullptr, WTFMove(attachments));
 
-    fprintf(stderr, "%d|%s|fd=%d|receive|%s\n", getpid(), this->client().connectionName(), m_socketDescriptor, description(decoder->messageName()));
+    fprintf(stderr, "%d|%s|fd=%d|receive|%s|thread=0x%lX\n", getpid(), this->client().connectionName(), m_socketDescriptor, description(decoder->messageName()), pthread_self());
     processIncomingMessage(WTFMove(decoder));
 
     if (m_readBuffer.size() > messageLength) {

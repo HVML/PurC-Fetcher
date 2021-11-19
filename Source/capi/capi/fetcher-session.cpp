@@ -198,7 +198,7 @@ void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& d
 void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
-    fprintf(stderr, "%s:%d:%s  complete=%d\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete());
+    fprintf(stderr, "%s:%d:%s  complete=%d|thread_id=0x%lX\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete(),pthread_self());
 }
 
 

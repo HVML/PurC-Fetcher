@@ -39,6 +39,7 @@
 #include <wtf/ProcessID.h>
 #include <wtf/SystemTracing.h>
 #include <wtf/ThreadSafeRefCounted.h>
+#include <wtf/threads/BinarySemaphore.h>
 
 using namespace PurCFetcher;
 
@@ -73,6 +74,9 @@ public:
         purc_variant_t params,
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header);
+
+    void wait(uint32_t timeout);
+    void wakeUp(void);
 
     void addMessageReceiver(IPC::ReceiverName, IPC::MessageReceiver&);
     void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID,
@@ -118,6 +122,7 @@ private:
     uint64_t m_sessionId;
     RefPtr<IPC::Connection> m_connection;
     IPC::MessageReceiverMap m_messageReceiverMap;
+    BinarySemaphore m_waitForSyncReplySemaphore;
 };
 
 

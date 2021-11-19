@@ -76,9 +76,9 @@ purc_variant_t PcFetcherSession::requestAsync(
     m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
 
-//    fprintf(stderr, "...............................before wait\n");
-    //m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(networkId, 10_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
-//    fprintf(stderr, "...............................after wait\n");
+    fprintf(stderr, "...............................before wait\n");
+    wait(30);
+    fprintf(stderr, "...............................after wait\n");
 
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);
@@ -102,6 +102,16 @@ purc_rwstream_t PcFetcherSession::requestSync(
     UNUSED_PARAM(timeout);
     UNUSED_PARAM(resp_header);
     return NULL;
+}
+
+void PcFetcherSession::wait(uint32_t timeout)
+{
+    m_waitForSyncReplySemaphore.waitFor(Seconds(timeout));
+}
+
+void PcFetcherSession::wakeUp(void)
+{
+    m_waitForSyncReplySemaphore.signal();
 }
 
 void PcFetcherSession::addMessageReceiver(
@@ -205,10 +215,12 @@ void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLo
 {
     UNUSED_PARAM(networkLoadMetrics);
     fprintf(stderr, "%s:%d:%s  complete=%d|thread_id=0x%lX\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete(),pthread_self());
+    wakeUp();
 }
 
 void PcFetcherSession::didFailResourceLoad(const ResourceError& error)
 {
     fprintf(stderr, "%s:%d:%s  error type=%d\n", __FILE__, __LINE__, __func__, (int)error.type());
+    wakeUp();
 }
 

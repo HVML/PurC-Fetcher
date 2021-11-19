@@ -96,6 +96,7 @@ purc_variant_t PcFetcherSession::requestAsync(
     request.setURL(*wurl);
     request.setHTTPMethod(transMethod(method));
     request.setTimeoutInterval(timeout);
+    fprintf(stderr,"################################## timeout=%d\n", timeout);
 
     m_req_id = ProcessIdentifier::generate().toUInt64();
     NetworkResourceLoadParameters loadParameters;
@@ -125,21 +126,46 @@ purc_rwstream_t PcFetcherSession::requestSync(
 
     m_is_async = false;
 
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(resp_header);
-    return NULL;
+    std::unique_ptr<WTF::URL> wurl = makeUnique<URL>(URL(), url);;
+    ResourceRequest request;
+    request.setURL(*wurl);
+    request.setHTTPMethod(transMethod(method));
+    request.setTimeoutInterval(timeout);
+
+    m_req_id = ProcessIdentifier::generate().toUInt64();
+    NetworkResourceLoadParameters loadParameters;
+    loadParameters.identifier = m_req_id;
+    loadParameters.request = request;
+    loadParameters.webPageProxyID = WebPageProxyIdentifier::generate();
+    loadParameters.webPageID = PageIdentifier::generate();
+    loadParameters.webFrameID = FrameIdentifier::generate();
+    loadParameters.parentPID = getpid();
+
+    m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
+                loadParameters), 0);
+
+    wait(timeout);
+
+    if (resp_header) {
+        resp_header->ret_code = m_resp_header.ret_code;
+        if (m_resp_header.mime_type) {
+            resp_header->mime_type = strdup(m_resp_header.mime_type);
+        }
+        resp_header->sz_resp = m_resp_header.sz_resp;
+    }
+
+    return m_resp_rwstream;
 }
 
 void PcFetcherSession::wait(uint32_t timeout)
 {
+    fprintf(stderr, ".......................wait %d\n", timeout);
     m_waitForSyncReplySemaphore.waitFor(Seconds(timeout));
 }
 
 void PcFetcherSession::wakeUp(void)
 {
+    fprintf(stderr, ".......................wake up\n");
     m_waitForSyncReplySemaphore.signal();
 }
 
@@ -206,12 +232,19 @@ void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& d
 void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
-    if (m_resp_rwstream) {
-        purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
-    }
 
     if (m_is_async) {
         if (m_req_handler) {
+            if (!m_resp_header.sz_resp && m_resp_rwstream) {
+                size_t sz_content = 0;
+                size_t sz_buffer = 0;
+                purc_rwstream_get_mem_buffer_ex(m_resp_rwstream, &sz_content,
+                        &sz_buffer, false);
+                m_resp_header.sz_resp = sz_content;
+            }
+            if (m_resp_rwstream) {
+                purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
+            }
             m_req_handler(m_req_vid, m_req_ctxt,
                     &m_resp_header, m_resp_rwstream);
         }
@@ -227,12 +260,18 @@ void PcFetcherSession::didFailResourceLoad(const ResourceError& error)
     // TODO : trans error code
     m_resp_header.ret_code = 408;
 
-    if (m_resp_rwstream) {
-        purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
-    }
-
     if (m_is_async) {
         if (m_req_handler) {
+            if (!m_resp_header.sz_resp && m_resp_rwstream) {
+                size_t sz_content = 0;
+                size_t sz_buffer = 0;
+                purc_rwstream_get_mem_buffer_ex(m_resp_rwstream, &sz_content,
+                        &sz_buffer, false);
+                m_resp_header.sz_resp = sz_content;
+            }
+            if (m_resp_rwstream) {
+                purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
+            }
             m_req_handler(m_req_vid, m_req_ctxt,
                     &m_resp_header, m_resp_rwstream);
         }

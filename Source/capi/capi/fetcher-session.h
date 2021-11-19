@@ -112,6 +112,7 @@ protected:
     void didReceiveSharedBuffer(IPC::SharedBufferDataReference&&,
             int64_t encodedDataLength);
     void didFinishResourceLoad(const PurCFetcher::NetworkLoadMetrics&);
+    void didFailResourceLoad(const ResourceError& error);
 
 private:
     uint64_t m_sessionId;

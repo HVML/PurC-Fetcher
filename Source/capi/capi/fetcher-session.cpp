@@ -27,6 +27,7 @@
 #include "NetworkResourceLoadParameters.h"
 #include "NetworkConnectionToWebProcessMessages.h"
 #include "WebResourceLoaderMessages.h"
+#include "ResourceError.h"
 
 #include <wtf/RunLoop.h>
 
@@ -61,9 +62,11 @@ purc_variant_t PcFetcherSession::requestAsync(
     ResourceRequest request;
     request.setURL(*wurl);
     request.setHTTPMethod("GET");
+    request.setTimeoutInterval(timeout);
 
+    uint64_t networkId = ProcessIdentifier::generate().toUInt64();
     NetworkResourceLoadParameters loadParameters;
-    loadParameters.identifier = (uint64_t)ProcessIdentifier::generate().toUInt64();
+    loadParameters.identifier = networkId;
     loadParameters.request = request;
     loadParameters.webPageProxyID = WebPageProxyIdentifier::generate();
     loadParameters.webPageID = PageIdentifier::generate();
@@ -74,8 +77,7 @@ purc_variant_t PcFetcherSession::requestAsync(
                 loadParameters), 0);
 
 //    fprintf(stderr, "...............................before wait\n");
-    //m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(0, 5_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
-//    m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidReceiveResponse>(0, 5_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
+    //m_connection->waitForAndDispatchImmediately<Messages::WebResourceLoader::DidFinishResourceLoad>(networkId, 10_s, IPC::WaitForOption::DispatchIncomingSyncMessagesWhileWaiting);
 //    fprintf(stderr, "...............................after wait\n");
 
     UNUSED_PARAM(url);
@@ -168,6 +170,10 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection&,
         IPC::handleMessage<Messages::WebResourceLoader::DidFinishResourceLoad>(decoder, this, &PcFetcherSession::didFinishResourceLoad);
         return;
     }
+    if (decoder.messageName() == Messages::WebResourceLoader::DidFailResourceLoad::name()) {
+        IPC::handleMessage<Messages::WebResourceLoader::DidFailResourceLoad>(decoder, this, &PcFetcherSession::didFailResourceLoad);
+        return;
+    }
 }
 
 void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
@@ -201,5 +207,8 @@ void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLo
     fprintf(stderr, "%s:%d:%s  complete=%d|thread_id=0x%lX\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete(),pthread_self());
 }
 
-
+void PcFetcherSession::didFailResourceLoad(const ResourceError& error)
+{
+    fprintf(stderr, "%s:%d:%s  error type=%d\n", __FILE__, __LINE__, __func__, (int)error.type());
+}
 

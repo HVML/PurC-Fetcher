@@ -3,11 +3,11 @@ include(MyMacros.cmake)
 
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
+    "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc"
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
     "${PURCFETCHER_DIR}"
     "${PURCFETCHER_DIR}/include"
-    "${PURCFETCHER_DIR}/ipc"
     "${PURCFETCHER_DIR}/auxiliary"
     "${PURCFETCHER_DIR}/auxiliary/soup"
     "${PURCFETCHER_DIR}/network"

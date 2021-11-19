@@ -609,7 +609,7 @@ std::unique_ptr<Decoder> Connection::sendSyncMessage(uint64_t syncRequestID, std
     return reply;
 }
 
-std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, MessageName messageName, Seconds timeout, OptionSet<SendSyncOption> sendSyncOptions)
+std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, MessageName, Seconds timeout, OptionSet<SendSyncOption> sendSyncOptions)
 {
     timeout = timeoutRespectingIgnoreTimeoutsForTesting(timeout);
     MonotonicTime absoluteTime = MonotonicTime::now() + timeout;
@@ -652,12 +652,6 @@ std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, Me
         // Notably, it can continue to process accessibility requests, which are on the main thread.
         timedOut = !SyncMessageState::singleton().wait(absoluteTime);
     }
-
-#if OS(DARWIN)
-    RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Timed-out while waiting for reply for %{public}s from process %d, id = %" PRIu64, description(messageName), remoteProcessID(), syncRequestID);
-#else
-    RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Timed-out while waiting for reply for %s, id = %" PRIu64, description(messageName), syncRequestID);
-#endif
 
     didReceiveSyncReply(sendSyncOptions);
 

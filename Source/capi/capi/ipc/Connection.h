@@ -45,12 +45,6 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/CString.h>
 
-#if OS(DARWIN) && !USE(UNIX_DOMAIN_SOCKETS)
-#include <mach/mach_port.h>
-#include <wtf/OSObjectPtr.h>
-#include <wtf/spi/darwin/XPCSPI.h>
-#endif
-
 #if USE(GLIB)
 #include <wtf/glib/GSocketMonitor.h>
 #endif
@@ -139,34 +133,6 @@ public:
     };
 
     static Connection::SocketPair createPlatformConnection(unsigned options = SetCloexecOnClient | SetCloexecOnServer);
-#elif OS(DARWIN)
-    struct Identifier {
-        Identifier()
-        {
-        }
-
-        Identifier(mach_port_t port)
-            : port(port)
-        {
-        }
-
-        Identifier(mach_port_t port, OSObjectPtr<xpc_connection_t> xpcConnection)
-            : port(port)
-            , xpcConnection(WTFMove(xpcConnection))
-        {
-        }
-
-        mach_port_t port { MACH_PORT_NULL };
-        OSObjectPtr<xpc_connection_t> xpcConnection;
-    };
-    static bool identifierIsValid(Identifier identifier) { return MACH_PORT_VALID(identifier.port); }
-    xpc_connection_t xpcConnection() const { return m_xpcConnection.get(); }
-    Optional<audit_token_t> getAuditToken();
-    pid_t remoteProcessID() const;
-#elif OS(WINDOWS)
-    typedef HANDLE Identifier;
-    static bool createServerAndClientIdentifiers(Identifier& serverIdentifier, Identifier& clientIdentifier);
-    static bool identifierIsValid(Identifier identifier) { return !!identifier; }
 #endif
 
     static Ref<Connection> createServerConnection(Identifier, Client&);
@@ -403,51 +369,6 @@ private:
     GSocketMonitor m_readSocketMonitor;
     GSocketMonitor m_writeSocketMonitor;
 #endif
-#elif OS(DARWIN)
-    // Called on the connection queue.
-    void receiveSourceEventHandler();
-    void initializeSendSource();
-    void resumeSendSource();
-    void cancelReceiveSource();
-
-    mach_port_t m_sendPort { MACH_PORT_NULL };
-    dispatch_source_t m_sendSource { nullptr };
-
-    mach_port_t m_receivePort { MACH_PORT_NULL };
-    dispatch_source_t m_receiveSource { nullptr };
-
-    std::unique_ptr<MachMessage> m_pendingOutgoingMachMessage;
-    bool m_isInitializingSendSource { false };
-
-    OSObjectPtr<xpc_connection_t> m_xpcConnection;
-    bool m_wasKilled { false };
-#elif OS(WINDOWS)
-    // Called on the connection queue.
-    void readEventHandler();
-    void writeEventHandler();
-    void invokeReadEventHandler();
-    void invokeWriteEventHandler();
-
-    class EventListener {
-    public:
-        void open(Function<void()>&&);
-        void close();
-
-        OVERLAPPED& state() { return m_state; }
-
-    private:
-        static void callback(void*, BOOLEAN);
-
-        OVERLAPPED m_state;
-        HANDLE m_waitHandle { INVALID_HANDLE_VALUE };
-        Function<void()> m_handler;
-    };
-
-    Vector<uint8_t> m_readBuffer;
-    EventListener m_readListener;
-    std::unique_ptr<Encoder> m_pendingWriteEncoder;
-    EventListener m_writeListener;
-    HANDLE m_connectionPipe { INVALID_HANDLE_VALUE };
 #endif
 };
 

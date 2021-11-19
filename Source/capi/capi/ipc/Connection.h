@@ -251,11 +251,6 @@ public:
 
     Identifier identifier() const;
 
-#if PLATFORM(COCOA)
-    bool kill();
-    void terminateSoon(Seconds);
-#endif
-
     bool isValid() const { return m_isValid; }
 
 #if HAVE(QOS_CLASSES)
@@ -314,10 +309,6 @@ private:
     void didReceiveSyncReply(OptionSet<SendSyncOption>);
 
     Seconds timeoutRespectingIgnoreTimeoutsForTesting(Seconds) const;
-
-#if PLATFORM(COCOA)
-    bool sendMessage(std::unique_ptr<MachMessage>);
-#endif
 
     class MessagesThrottler {
         WTF_MAKE_FAST_ALLOCATED;
@@ -411,9 +402,6 @@ private:
     GRefPtr<GSocket> m_socket;
     GSocketMonitor m_readSocketMonitor;
     GSocketMonitor m_writeSocketMonitor;
-#endif
-#if PLATFORM(PLAYSTATION)
-    RefPtr<WTF::Thread> m_socketMonitor;
 #endif
 #elif OS(DARWIN)
     // Called on the connection queue.

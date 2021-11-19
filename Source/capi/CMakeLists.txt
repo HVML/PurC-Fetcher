@@ -4,6 +4,7 @@ include(MyMacros.cmake)
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc"
+    "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc/unix"
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
     "${PURCFETCHER_DIR}"
@@ -27,6 +28,18 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
 )
 
 set(fetcher_capi_SOURCES
+    capi/ipc/ArgumentCoders.cpp
+    capi/ipc/Attachment.cpp
+    capi/ipc/Connection.cpp
+    capi/ipc/DataReference.cpp
+    capi/ipc/Decoder.cpp
+    capi/ipc/Encoder.cpp
+    capi/ipc/MessageReceiverMap.cpp
+    capi/ipc/MessageSender.cpp
+    capi/ipc/StringReference.cpp
+    capi/ipc/unix/AttachmentUnix.cpp
+    capi/ipc/unix/ConnectionUnix.cpp
+
     capi/fetcher.cpp
     capi/fetcher-local.cpp
     capi/fetcher-remote.cpp

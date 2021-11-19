@@ -121,13 +121,6 @@ void Connection::platformInvalidate()
     m_writeSocketMonitor.stop();
 #endif
 
-#if PLATFORM(PLAYSTATION)
-    if (m_socketMonitor) {
-        m_socketMonitor->detach();
-        m_socketMonitor = nullptr;
-    }
-#endif
-
     m_socketDescriptor = -1;
     m_isConnected = false;
 }
@@ -226,7 +219,7 @@ bool Connection::processMessage()
 
     auto decoder = makeUnique<Decoder>(messageBody, messageInfo.bodySize(), nullptr, WTFMove(attachments));
 
-    fprintf(stderr, "%d|%s|fd=%d|receive|%s|thread=0x%lX\n", getpid(), this->client().connectionName(), m_socketDescriptor, description(decoder->messageName()), pthread_self());
+    fprintf(stderr, "purc|%d|0x%lX|%s|fd=%d|receive|%s\n", getpid(), pthread_self(), this->client().connectionName(), m_socketDescriptor, description(decoder->messageName()));
     processIncomingMessage(WTFMove(decoder));
 
     if (m_readBuffer.size() > messageLength) {
@@ -375,27 +368,6 @@ bool Connection::open()
     });
 #endif
 
-#if PLATFORM(PLAYSTATION)
-    m_socketMonitor = Thread::create("SocketMonitor", [protectedThis] {
-        {
-            int fd;
-            while ((fd = protectedThis->m_socketDescriptor) != -1) {
-                int maxFd = fd;
-                fd_set fdSet;
-                FD_ZERO(&fdSet);
-                FD_SET(fd, &fdSet);
-
-                if (-1 != select(maxFd + 1, &fdSet, 0, 0, 0)) {
-                    if (FD_ISSET(fd, &fdSet))
-                        protectedThis->readyReadHandler();
-                }
-            }
-
-        }
-    });
-    return true;
-#endif
-
     // Schedule a call to readyReadHandler. Data may have arrived before installation of the signal handler.
     m_connectionQueue->dispatch([protectedThis] {
         protectedThis->readyReadHandler();
@@ -411,7 +383,7 @@ bool Connection::platformCanSendOutgoingMessages() const
 
 bool Connection::sendOutgoingMessage(std::unique_ptr<Encoder> encoder)
 {
-    fprintf(stderr, "%d|%s|fd=%d|send|%s\n", getpid(), client().connectionName(), m_socketDescriptor, description(encoder->messageName()));
+    fprintf(stderr, "purc|%d|0x%lX|%s|fd=%d|send|%s\n", getpid(), pthread_self(), client().connectionName(), m_socketDescriptor, description(encoder->messageName()));
     COMPILE_ASSERT(sizeof(MessageInfo) + attachmentMaxAmount * sizeof(size_t) <= messageMaxSize, AttachmentsFitToMessageInline);
 
     UnixMessage outputMessage(*encoder);

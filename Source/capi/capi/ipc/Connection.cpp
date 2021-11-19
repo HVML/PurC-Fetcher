@@ -25,9 +25,8 @@
 
 #include "config.h"
 #include "Connection.h"
-
-//#include "Logging.h"
 #include "MessageFlags.h"
+
 #include <memory>
 #include <wtf/HashSet.h>
 #include <wtf/Lock.h>
@@ -36,20 +35,11 @@
 #include <wtf/text/WTFString.h>
 #include <wtf/threads/BinarySemaphore.h>
 
-#if PLATFORM(COCOA)
-#include "MachMessage.h"
-#endif
-
 #if USE(UNIX_DOMAIN_SOCKETS)
 #include "UnixMessage.h"
 #endif
 
 namespace IPC {
-
-#if PLATFORM(COCOA)
-// The IPC connection gets killed if the incoming message queue reaches 50000 messages before the main thread has a chance to dispatch them.
-const size_t maxPendingIncomingMessagesKillingThreshold { 50000 };
-#endif
 
 std::atomic<unsigned> UnboundedSynchronousIPCScope::unboundedSynchronousIPCCount = 0;
 
@@ -952,19 +942,6 @@ void Connection::enqueueIncomingMessage(std::unique_ptr<Decoder> incomingMessage
     {
         auto locker = holdLock(m_incomingMessagesMutex);
 
-#if PLATFORM(COCOA)
-        if (m_wasKilled)
-            return;
-
-        if (m_incomingMessages.size() >= maxPendingIncomingMessagesKillingThreshold) {
-            if (kill()) {
-                RELEASE_LOG_ERROR(IPC, "%p - Connection::enqueueIncomingMessage: Over %zu incoming messages have been queued without the main thread processing them, killing the connection as the remote process seems to be misbehaving", this, maxPendingIncomingMessagesKillingThreshold);
-                m_incomingMessages.clear();
-            }
-            return;
-        }
-#endif
-
         m_incomingMessages.append(WTFMove(incomingMessage));
 
         if (m_incomingMessagesThrottler && m_incomingMessages.size() != 1)
@@ -1160,9 +1137,6 @@ void Connection::dispatchIncomingMessages()
         messagesToProcess = m_incomingMessagesThrottler->numberOfMessagesToProcess(m_incomingMessages.size());
         if (messagesToProcess < m_incomingMessages.size()) {
             RELEASE_LOG_ERROR(IPC, "%p - Connection::dispatchIncomingMessages: IPC throttling was triggered (has %zu pending incoming messages, will only process %zu before yielding)", this, m_incomingMessages.size(), messagesToProcess);
-#if PLATFORM(COCOA)
-            RELEASE_LOG_ERROR(IPC, "%p - Connection::dispatchIncomingMessages: first IPC message in queue is %{public}s", this, description(message->messageName()));
-#endif
         }
 
         // Re-schedule ourselves *before* we dispatch the messages because we want to process follow-up messages if the client

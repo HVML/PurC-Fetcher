@@ -31,13 +31,21 @@
 
 #include <wtf/RunLoop.h>
 
+#define DEF_RWS_SIZE 1024
+
 using namespace PurCFetcher;
 
 PcFetcherSession::PcFetcherSession(uint64_t sessionId,
         IPC::Connection::Identifier identifier)
     : m_sessionId(sessionId)
+    , m_req_id(0)
+    , m_is_async(false)
     , m_connection(IPC::Connection::createClientConnection(identifier, *this))
+    , m_req_handler(NULL)
+    , m_req_ctxt(NULL)
+    , m_resp_rwstream(NULL)
 {
+    memset(&m_resp_header, 0, sizeof(m_resp_header));
     m_connection->open();
 }
 
@@ -50,6 +58,24 @@ void PcFetcherSession::close()
     m_connection->invalidate();
 }
 
+static const char* transMethod(enum pcfetcher_request_method method)
+{
+    switch (method)
+    {
+        case PCFETCHER_REQUEST_METHOD_GET:
+            return "GET";
+
+        case PCFETCHER_REQUEST_METHOD_POST:
+            return "POST";
+
+        case PCFETCHER_REQUEST_METHOD_DELETE:
+            return "DELETE";
+
+        default:
+            return "GET";
+    }
+}
+
 purc_variant_t PcFetcherSession::requestAsync(
         const char* url,
         enum pcfetcher_request_method method,
@@ -58,15 +84,22 @@ purc_variant_t PcFetcherSession::requestAsync(
         response_handler handler,
         void* ctxt)
 {
+    // TODO send params with http request
+    UNUSED_PARAM(params);
+
+    m_req_handler = handler;
+    m_req_ctxt = ctxt;
+    m_is_async = true;
+
     std::unique_ptr<WTF::URL> wurl = makeUnique<URL>(URL(), url);;
     ResourceRequest request;
     request.setURL(*wurl);
-    request.setHTTPMethod("GET");
+    request.setHTTPMethod(transMethod(method));
     request.setTimeoutInterval(timeout);
 
-    uint64_t networkId = ProcessIdentifier::generate().toUInt64();
+    m_req_id = ProcessIdentifier::generate().toUInt64();
     NetworkResourceLoadParameters loadParameters;
-    loadParameters.identifier = networkId;
+    loadParameters.identifier = m_req_id;
     loadParameters.request = request;
     loadParameters.webPageProxyID = WebPageProxyIdentifier::generate();
     loadParameters.webPageID = PageIdentifier::generate();
@@ -76,17 +109,8 @@ purc_variant_t PcFetcherSession::requestAsync(
     m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
 
-    fprintf(stderr, "...............................before wait\n");
-    wait(30);
-    fprintf(stderr, "...............................after wait\n");
-
-    UNUSED_PARAM(url);
-    UNUSED_PARAM(method);
-    UNUSED_PARAM(params);
-    UNUSED_PARAM(timeout);
-    UNUSED_PARAM(handler);
-    UNUSED_PARAM(ctxt);
-    return PURC_VARIANT_INVALID;
+    m_req_vid = purc_variant_make_ulongint(m_req_id);
+    return m_req_vid;
 }
 
 purc_rwstream_t PcFetcherSession::requestSync(
@@ -96,6 +120,11 @@ purc_rwstream_t PcFetcherSession::requestSync(
         uint32_t timeout,
         struct pcfetcher_resp_header *resp_header)
 {
+    // TODO send params with http request
+    UNUSED_PARAM(params);
+
+    m_is_async = false;
+
     UNUSED_PARAM(url);
     UNUSED_PARAM(method);
     UNUSED_PARAM(params);
@@ -126,7 +155,6 @@ void PcFetcherSession::didReceiveInvalidMessage(IPC::Connection&,
 void PcFetcherSession::didReceiveMessage(IPC::Connection&,
         IPC::Decoder& decoder)
 {
-    fprintf(stderr, "%s:%d:%s   ############################## %s |destinationID=%ld\n", __FILE__, __LINE__, __func__, description(decoder.messageName()), decoder.destinationID());
     if (decoder.messageName() == Messages::WebResourceLoader::DidReceiveResponse::name()) {
         IPC::handleMessage<Messages::WebResourceLoader::DidReceiveResponse>(decoder, this, &PcFetcherSession::didReceiveResponse);
         return;
@@ -155,33 +183,62 @@ void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
 
 void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& response, bool needsContinueDidReceiveResponseMessage)
 {
-    UNUSED_PARAM(response);
     UNUSED_PARAM(needsContinueDidReceiveResponseMessage);
-    fprintf(stderr, "%s:%d:%s   url=%s\n", __FILE__, __LINE__, __func__, response.url().string().characters8());
-    fprintf(stderr, "%s:%d:%s   code=%d\n", __FILE__, __LINE__, __func__, response.httpStatusCode());
-    fprintf(stderr, "%s:%d:%s   mime=%s\n", __FILE__, __LINE__, __func__, response.mimeType().characters8());
-    fprintf(stderr, "%s:%d:%s   content=%Ld\n", __FILE__, __LINE__, __func__, response.expectedContentLength());
+    m_resp_header.ret_code = response.httpStatusCode();
+    if (m_resp_header.mime_type) {
+        free(m_resp_header.mime_type);
+    }
+    m_resp_header.mime_type = strdup((const char*)response.mimeType().characters8());
+    m_resp_header.sz_resp = response.expectedContentLength();
+    if (m_resp_rwstream) {
+        purc_rwstream_destroy(m_resp_rwstream);
+    }
+    size_t init = m_resp_header.sz_resp ? m_resp_header.sz_resp : DEF_RWS_SIZE;
+    m_resp_rwstream = purc_rwstream_new_buffer(init, INT_MAX);
 }
 
 void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& data, int64_t encodedDataLength)
 {
-    UNUSED_PARAM(data);
     UNUSED_PARAM(encodedDataLength);
-    fprintf(stderr, "%s:%d:%s   encodedDataLength=%ld\n", __FILE__, __LINE__, __func__, encodedDataLength);
-//    fprintf(stderr, "%s:%d:%s   data.size=%ld\n", __FILE__, __LINE__, __func__, data.size());
-//    fprintf(stderr, "%s:%d:%s   data=%s\n", __FILE__, __LINE__, __func__, data.data());
+    purc_rwstream_write(m_resp_rwstream, data.data(), data.size());
 }
 
 void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
-    fprintf(stderr, "%s:%d:%s  complete=%d|thread_id=0x%lX\n", __FILE__, __LINE__, __func__, networkLoadMetrics.isComplete(),pthread_self());
-    wakeUp();
+    if (m_resp_rwstream) {
+        purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
+    }
+
+    if (m_is_async) {
+        if (m_req_handler) {
+            m_req_handler(m_req_vid, m_req_ctxt,
+                    &m_resp_header, m_resp_rwstream);
+        }
+    }
+    else {
+        wakeUp();
+    }
 }
 
 void PcFetcherSession::didFailResourceLoad(const ResourceError& error)
 {
-    fprintf(stderr, "%s:%d:%s  error type=%d\n", __FILE__, __LINE__, __func__, (int)error.type());
-    wakeUp();
+    UNUSED_PARAM(error);
+    // TODO : trans error code
+    m_resp_header.ret_code = 408;
+
+    if (m_resp_rwstream) {
+        purc_rwstream_seek(m_resp_rwstream, 0, SEEK_SET);
+    }
+
+    if (m_is_async) {
+        if (m_req_handler) {
+            m_req_handler(m_req_vid, m_req_ctxt,
+                    &m_resp_header, m_resp_rwstream);
+        }
+    }
+    else {
+        wakeUp();
+    }
 }
 

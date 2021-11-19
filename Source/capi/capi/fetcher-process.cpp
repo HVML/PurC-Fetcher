@@ -194,6 +194,32 @@ void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection, IPC::D
     dispatchSyncMessage(connection, decoder, replyEncoder);
 }
 
+void async_response_handler(
+        purc_variant_t request_id, void* ctxt,
+        const struct pcfetcher_resp_header *resp_header,
+        purc_rwstream_t resp)
+{
+    UNUSED_PARAM(request_id);
+    UNUSED_PARAM(ctxt);
+    UNUSED_PARAM(resp);
+    fprintf(stderr, "....................................async_response_handler begin\n");
+    fprintf(stderr, ".................head begin\n");
+    fprintf(stderr, "ret_code=%d\n", resp_header->ret_code);
+    fprintf(stderr, "mime_type=%s\n", resp_header->mime_type);
+    fprintf(stderr, "sz_resp=%ld\n", resp_header->sz_resp);
+    fprintf(stderr, ".................head end\n");
+    fprintf(stderr, ".................body begin\n");
+    size_t sz_content = 0;
+    size_t sz_buffer = 0;
+    char* buf = (char*) purc_rwstream_get_mem_buffer_ex(resp, &sz_content,
+            &sz_buffer, false);
+    fprintf(stderr, "buffer size=%ld\n", sz_buffer);
+    fprintf(stderr, "body size=%ld\n", sz_content);
+    fprintf(stderr, "%s\n", buf);
+    fprintf(stderr, ".................body end\n");
+    fprintf(stderr, "....................................async_response_handler end\n");
+}
+
 void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier connectionIdentifier)
 {
     ASSERT(!m_connection);
@@ -218,12 +244,12 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
 
     RunLoop::current().dispatch([this]() {
             requestAsync(
-//                "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
-                "https://www.qq.com",
+                "https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png",
+//                "https://www.qq.com",
                 PCFETCHER_REQUEST_METHOD_GET,
                 NULL,
                 0,
-                NULL,
+                async_response_handler,
                 NULL);
             });
 }

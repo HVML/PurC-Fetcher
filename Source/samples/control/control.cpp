@@ -11,6 +11,9 @@ int main(int argc, char** argv)
     (void)argc;
     (void)argv;
 
+    purc_instance_extra_info info = {0, 0};
+    purc_init ("cn.fmsoft.hybridos.sample", "pcfetcher", &info);
+
     RunLoop::initializeMain();
     AtomString::init();
     WTF::RefCountedBase::enableThreadingChecksGlobally();
@@ -20,6 +23,7 @@ int main(int argc, char** argv)
     RunLoop::run();
 
     pcfetcher_term();
+    purc_cleanup();
 
     return 0;
 }

@@ -99,9 +99,19 @@ protected:
 
 private:
     uint64_t m_sessionId;
+    uint64_t m_req_id;
+    bool m_is_async;
+
     RefPtr<IPC::Connection> m_connection;
     IPC::MessageReceiverMap m_messageReceiverMap;
     BinarySemaphore m_waitForSyncReplySemaphore;
+    struct pcfetcher_resp_header m_resp_header;
+
+    response_handler m_req_handler;
+    void* m_req_ctxt;
+
+    purc_rwstream_t m_resp_rwstream;
+    purc_variant_t m_req_vid;
 };
 
 

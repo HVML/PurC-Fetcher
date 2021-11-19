@@ -53,7 +53,6 @@ struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 
     remote->process = new PcFetcherProcess(fetcher);
     remote->process->connect();
-    remote->process->initFetcherProcess();
 
     return (struct pcfetcher*)remote;
 }

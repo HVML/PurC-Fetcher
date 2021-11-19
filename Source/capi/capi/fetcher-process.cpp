@@ -75,6 +75,7 @@ void PcFetcherProcess::connect()
     ProcessLauncher::LaunchOptions launchOptions;
     getLaunchOptions(launchOptions);
     m_processLauncher = ProcessLauncher::create(this, WTFMove(launchOptions));
+    initFetcherProcess();
 }
 
 void PcFetcherProcess::terminate()
@@ -85,8 +86,8 @@ void PcFetcherProcess::terminate()
 
 void PcFetcherProcess::initFetcherProcess()
 {
-     NetworkProcessCreationParameters parameters;
-     send(Messages::NetworkProcess::InitializeNetworkProcess(parameters), 0);
+    NetworkProcessCreationParameters parameters;
+    send(Messages::NetworkProcess::InitializeNetworkProcess(parameters), 0);
 }
 
 PcFetcherProcess::State PcFetcherProcess::state() const

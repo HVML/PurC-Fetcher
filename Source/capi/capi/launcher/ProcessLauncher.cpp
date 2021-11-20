@@ -26,7 +26,6 @@
 
 #include "config.h"
 #include "ProcessLauncher.h"
-#include "ProcessExecutablePath.h"
 
 #include <glib.h>
 
@@ -44,6 +43,38 @@ static void childSetupFunction(gpointer userData)
 {
     int socket = GPOINTER_TO_INT(userData);
     close(socket);
+}
+
+static String getExecutablePath()
+{
+    CString executablePath = getCurrentExecutablePath();
+    if (!executablePath.isNull())
+        return FileSystem::directoryName(FileSystem::stringFromFileSystemRepresentation(executablePath.data()));
+    return { };
+}
+
+static String findWebKitProcess(const char* processName)
+{
+    static const char* execDirectory = g_getenv("FETCHER_EXEC_PATH");
+    if (execDirectory) {
+        String processPath = FileSystem::pathByAppendingComponent(FileSystem::stringFromFileSystemRepresentation(execDirectory), processName);
+        if (FileSystem::fileExists(processPath))
+            return processPath;
+    }
+
+    static String executablePath = getExecutablePath();
+    if (!executablePath.isNull()) {
+        String processPath = FileSystem::pathByAppendingComponent(executablePath, processName);
+        if (FileSystem::fileExists(processPath))
+            return processPath;
+    }
+
+    return FileSystem::pathByAppendingComponent(FileSystem::stringFromFileSystemRepresentation(PURCFETCHERLIBEXECDIR), processName);
+}
+
+String executablePathOfFetcherProcess()
+{
+    return findWebKitProcess("fetcher");
 }
 
 ProcessLauncher::ProcessLauncher(Client* client, LaunchOptions&& launchOptions)
@@ -79,11 +110,8 @@ void ProcessLauncher::launchProcess()
     CString realExecutablePath;
 
     switch (m_launchOptions.processType) {
-    case ProcessLauncher::ProcessType::Web:
-        executablePath = executablePathOfWebProcess();
-        break;
     case ProcessLauncher::ProcessType::Fetcher:
-        executablePath = executablePathOfNetworkProcess();
+        executablePath = executablePathOfFetcherProcess();
         break;
     default:
         ASSERT_NOT_REACHED();

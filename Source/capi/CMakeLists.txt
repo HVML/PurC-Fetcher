@@ -42,7 +42,6 @@ set(fetcher_capi_SOURCES
     capi/ipc/unix/ConnectionUnix.cpp
 
     capi/launcher/ProcessLauncher.cpp
-    capi/launcher/ProcessExecutablePathGLib.cpp
 
     capi/fetcher.cpp
     capi/fetcher-local.cpp

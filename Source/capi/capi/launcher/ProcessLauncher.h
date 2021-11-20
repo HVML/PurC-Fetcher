@@ -50,7 +50,6 @@ public:
     };
 
     enum class ProcessType {
-        Web,
         Fetcher,
     };
 

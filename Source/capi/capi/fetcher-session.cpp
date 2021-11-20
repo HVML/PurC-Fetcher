@@ -26,6 +26,7 @@
 #include "fetcher-session.h"
 #include "NetworkResourceLoadParameters.h"
 #include "NetworkConnectionToWebProcessMessages.h"
+#include "NetworkResourceLoaderMessages.h"
 #include "WebResourceLoaderMessages.h"
 #include "ResourceError.h"
 
@@ -194,6 +195,10 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection&,
         IPC::handleMessage<Messages::WebResourceLoader::DidFailResourceLoad>(decoder, this, &PcFetcherSession::didFailResourceLoad);
         return;
     }
+    if (decoder.messageName() == Messages::WebResourceLoader::WillSendRequest::name()) {
+        IPC::handleMessage<Messages::WebResourceLoader::WillSendRequest>(decoder, this, &PcFetcherSession::willSendRequest);
+        return;
+    }
 }
 
 void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
@@ -278,3 +283,14 @@ void PcFetcherSession::didFailResourceLoad(const ResourceError& error)
     }
 }
 
+void PcFetcherSession::willSendRequest(ResourceRequest&& proposedRequest,
+        IPC::FormDataReference&& proposedRequestBody,
+        ResourceResponse&& redirectResponse)
+{
+    UNUSED_PARAM(proposedRequestBody);
+    UNUSED_PARAM(redirectResponse);
+    proposedRequest.setHTTPBody(proposedRequestBody.takeData());
+    m_connection->send(
+            Messages::NetworkResourceLoader::ContinueWillSendRequest(
+                proposedRequest, true), m_req_id);
+}

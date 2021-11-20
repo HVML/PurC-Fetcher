@@ -35,6 +35,7 @@
 #include "MessageReceiverMap.h"
 #include "ProcessLauncher.h"
 #include "ProcessIdentifier.h"
+#include "FormDataReference.h"
 
 #include <wtf/ProcessID.h>
 #include <wtf/SystemTracing.h>
@@ -96,6 +97,8 @@ protected:
             int64_t encodedDataLength);
     void didFinishResourceLoad(const PurCFetcher::NetworkLoadMetrics&);
     void didFailResourceLoad(const ResourceError& error);
+    void willSendRequest(ResourceRequest&&,
+            IPC::FormDataReference&& requestBody, ResourceResponse&&);
 
 private:
     uint64_t m_sessionId;

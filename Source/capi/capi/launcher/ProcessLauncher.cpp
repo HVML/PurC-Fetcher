@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010, 2012 Apple Inc. All rights reserved.
- * Copyright (C) 2020 Beijing FMSoft Technologies Co., Ltd.
+ * Copyright (C) 2020~2021 Beijing FMSoft Technologies Co., Ltd.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,12 +26,25 @@
 
 #include "config.h"
 #include "ProcessLauncher.h"
+#include "ProcessExecutablePath.h"
 
+#include <glib.h>
+
+#include <wtf/FileSystem.h>
 #include <wtf/StdLibExtras.h>
+#include <wtf/UniStdExtras.h>
 #include <wtf/SystemTracing.h>
 #include <wtf/WorkQueue.h>
+#include <wtf/glib/GLibUtilities.h>
+#include <wtf/glib/GUniquePtr.h>
 
 namespace PurCFetcher {
+
+static void childSetupFunction(gpointer userData)
+{
+    int socket = GPOINTER_TO_INT(userData);
+    close(socket);
+}
 
 ProcessLauncher::ProcessLauncher(Client* client, LaunchOptions&& launchOptions)
     : m_client(client)
@@ -47,17 +60,9 @@ void ProcessLauncher::didFinishLaunchingProcess(ProcessID processIdentifier, IPC
     m_processIdentifier = processIdentifier;
     m_isLaunching = false;
 
-    if (!m_client) {
-        // FIXME: Make Identifier a move-only object and release port rights/connections in the destructor.
-#if OS(DARWIN) && !PLATFORM(GTK) && !PLATFORM(HBD)
-        // FIXME: Should really be something like USE(MACH)
-        if (identifier.port)
-            mach_port_mod_refs(mach_task_self(), identifier.port, MACH_PORT_RIGHT_RECEIVE, -1);
-#endif
-        return;
+    if (m_client) {
+        m_client->didFinishLaunching(this, identifier);
     }
-
-    m_client->didFinishLaunching(this, identifier);
 }
 
 void ProcessLauncher::invalidate()
@@ -65,5 +70,79 @@ void ProcessLauncher::invalidate()
     m_client = 0;
     platformInvalidate();
 }
+
+void ProcessLauncher::launchProcess()
+{
+    IPC::Connection::SocketPair socketPair = IPC::Connection::createPlatformConnection(IPC::Connection::ConnectionOptions::SetCloexecOnServer);
+
+    String executablePath;
+    CString realExecutablePath;
+
+    switch (m_launchOptions.processType) {
+    case ProcessLauncher::ProcessType::Web:
+        executablePath = executablePathOfWebProcess();
+        break;
+    case ProcessLauncher::ProcessType::Fetcher:
+        executablePath = executablePathOfNetworkProcess();
+        break;
+    default:
+        ASSERT_NOT_REACHED();
+        return;
+    }
+
+    realExecutablePath = FileSystem::fileSystemRepresentation(executablePath);
+    GUniquePtr<gchar> processIdentifier(g_strdup_printf("%" PRIu64, m_launchOptions.processIdentifier.toUInt64()));
+    GUniquePtr<gchar> webkitSocket(g_strdup_printf("%d", socketPair.client));
+    unsigned nargs = 5; // size of the argv array for g_spawn_async()
+
+    char** argv = g_newa(char*, nargs);
+    unsigned i = 0;
+    argv[i++] = const_cast<char*>(realExecutablePath.data());
+    argv[i++] = processIdentifier.get();
+    argv[i++] = webkitSocket.get();
+    argv[i++] = nullptr;
+    argv[i++] = nullptr;
+
+    GRefPtr<GSubprocessLauncher> launcher = adoptGRef(g_subprocess_launcher_new(G_SUBPROCESS_FLAGS_INHERIT_FDS));
+    g_subprocess_launcher_set_child_setup(launcher.get(), childSetupFunction, GINT_TO_POINTER(socketPair.server), nullptr);
+    g_subprocess_launcher_take_fd(launcher.get(), socketPair.client, socketPair.client);
+
+    GUniqueOutPtr<GError> error;
+    GRefPtr<GSubprocess> process;
+
+    process = adoptGRef(g_subprocess_launcher_spawnv(launcher.get(), argv, &error.outPtr()));
+
+    if (!process.get())
+        g_error("Unable to fork a new child process: %s", error->message);
+
+    const char* processIdStr = g_subprocess_get_identifier(process.get());
+    m_processIdentifier = g_ascii_strtoll(processIdStr, nullptr, 0);
+    RELEASE_ASSERT(m_processIdentifier);
+
+    // Don't expose the parent socket to potential future children.
+    if (!setCloseOnExec(socketPair.client))
+        RELEASE_ASSERT_NOT_REACHED();
+
+    didFinishLaunchingProcess(m_processIdentifier, socketPair.server);
+}
+
+void ProcessLauncher::terminateProcess()
+{
+    if (m_isLaunching) {
+        invalidate();
+        return;
+    }
+
+    if (!m_processIdentifier)
+        return;
+
+    kill(m_processIdentifier, SIGKILL);
+    m_processIdentifier = 0;
+}
+
+void ProcessLauncher::platformInvalidate()
+{
+}
+
 
 } // namespace PurCFetcher

@@ -65,7 +65,7 @@ void PcFetcherProcess::getLaunchOptions(ProcessLauncher::LaunchOptions& launchOp
     if (m_alwaysRunsAtBackgroundPriority)
         launchOptions.extraInitializationData.add("always-runs-at-background-priority"_s, "true");
 
-    launchOptions.processType = ProcessLauncher::ProcessType::Network;
+    launchOptions.processType = ProcessLauncher::ProcessType::Fetcher;
 
 }
 

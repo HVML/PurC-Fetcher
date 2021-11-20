@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2010-2019 Apple Inc. All rights reserved.
- * Copyright (C) 2020 Beijing FMSoft Technologies Co., Ltd.
+ * Copyright (C) 2020-2021 Beijing FMSoft Technologies Co., Ltd.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -36,39 +36,22 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-#if PLATFORM(WIN)
-#include <wtf/win/Win32Handle.h>
-#endif
-
 namespace PurCFetcher {
-
-#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(HBD)
-enum class SandboxPermission {
-    ReadOnly,
-    ReadWrite,
-};
-#endif
 
 class ProcessLauncher : public ThreadSafeRefCounted<ProcessLauncher>, public CanMakeWeakPtr<ProcessLauncher> {
 public:
     class Client {
     public:
         virtual ~Client() { }
-        
+
         virtual void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier) = 0;
         virtual bool shouldConfigureJSCForTesting() const { return false; }
         virtual bool isJITEnabled() const { return true; }
     };
-    
+
     enum class ProcessType {
         Web,
-#if ENABLE(NETSCAPE_PLUGIN_API)
-        Plugin,
-#endif
-        Network,
-#if ENABLE(GPU_PROCESS)
-        GPU
-#endif
+        Fetcher,
     };
 
     struct LaunchOptions {
@@ -78,18 +61,6 @@ public:
         bool nonValidInjectedCodeAllowed { false };
         bool shouldMakeProcessLaunchFailForTesting { false };
         CString customWebContentServiceBundleIdentifier;
-
-#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(HBD)
-        HashMap<CString, SandboxPermission> extraWebProcessSandboxPaths;
-#if ENABLE(DEVELOPER_MODE)
-        String processCmdPrefix;
-#endif
-#endif
-
-#if PLATFORM(PLAYSTATION)
-        String processPath;
-        int32_t userId { -1 };
-#endif
     };
 
     static Ref<ProcessLauncher> create(Client* client, LaunchOptions&& launchOptions)
@@ -112,14 +83,6 @@ private:
     void platformInvalidate();
 
     Client* m_client;
-
-#if PLATFORM(COCOA)
-    OSObjectPtr<xpc_connection_t> m_xpcConnection;
-#endif
-
-#if PLATFORM(WIN)
-    WTF::Win32Handle m_hProcess;
-#endif
 
     const LaunchOptions m_launchOptions;
     bool m_isLaunching { true };

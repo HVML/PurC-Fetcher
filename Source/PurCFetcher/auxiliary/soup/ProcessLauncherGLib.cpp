@@ -180,10 +180,13 @@ void ProcessLauncher::launchProcess()
     if (!setCloseOnExec(socketPair.client))
         RELEASE_ASSERT_NOT_REACHED();
 
+#if 0
     // We've finished launching the process, message back to the main run loop.
     RunLoop::main().dispatch([protectedThis = makeRef(*this), this, serverSocket = socketPair.server] {
         didFinishLaunchingProcess(m_processIdentifier, serverSocket);
     });
+#endif
+    didFinishLaunchingProcess(m_processIdentifier, socketPair.server);
 }
 
 void ProcessLauncher::terminateProcess()

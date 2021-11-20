@@ -254,34 +254,6 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
                 NULL);
             });
 #endif
-#if 0
-    RunLoop::current().dispatch([this]() {
-            struct pcfetcher_resp_header resp_header;
-            purc_rwstream_t resp = requestSync(
-                    "https://www.baidu.com",
-                    PCFETCHER_REQUEST_METHOD_GET,
-                    NULL,
-                    10,
-                    &resp_header);
-            fprintf(stderr, "....................................sync_response_handler begin\n");
-            fprintf(stderr, ".................head begin\n");
-            fprintf(stderr, "ret_code=%d\n", resp_header.ret_code);
-            fprintf(stderr, "mime_type=%s\n", resp_header.mime_type);
-            fprintf(stderr, "sz_resp=%ld\n", resp_header.sz_resp);
-            fprintf(stderr, ".................head end\n");
-            fprintf(stderr, ".................body begin\n");
-            size_t sz_content = 0;
-            size_t sz_buffer = 0;
-            char* buf = (char*)purc_rwstream_get_mem_buffer_ex(resp, &sz_content,
-                    &sz_buffer, false);
-            fprintf(stderr, "buffer size=%ld\n", sz_buffer);
-            fprintf(stderr, "body size=%ld|buflen=%ld\n", sz_content, buf ? strlen(buf) : 0);
-            fprintf(stderr, "%s\n", buf ? buf : NULL);
-            fprintf(stderr, ".................body end\n");
-            fprintf(stderr, "....................................sync_response_handler end\n");
-
-    });
-#endif
 }
 
 void PcFetcherProcess::shutDownProcess()

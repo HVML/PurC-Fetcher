@@ -96,7 +96,6 @@ purc_variant_t PcFetcherSession::requestAsync(
     request.setURL(*wurl);
     request.setHTTPMethod(transMethod(method));
     request.setTimeoutInterval(timeout);
-    fprintf(stderr,"################################## timeout=%d\n", timeout);
 
     m_req_id = ProcessIdentifier::generate().toUInt64();
     NetworkResourceLoadParameters loadParameters;
@@ -159,13 +158,11 @@ purc_rwstream_t PcFetcherSession::requestSync(
 
 void PcFetcherSession::wait(uint32_t timeout)
 {
-    fprintf(stderr, ".......................wait %d\n", timeout);
     m_waitForSyncReplySemaphore.waitFor(Seconds(timeout));
 }
 
 void PcFetcherSession::wakeUp(void)
 {
-    fprintf(stderr, ".......................wake up\n");
     m_waitForSyncReplySemaphore.signal();
 }
 

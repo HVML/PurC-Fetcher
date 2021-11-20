@@ -107,7 +107,8 @@ purc_variant_t PcFetcherSession::requestAsync(
     loadParameters.webFrameID = FrameIdentifier::generate();
     loadParameters.parentPID = getpid();
 
-    m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
+    m_connection->send(
+            Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
 
     m_req_vid = purc_variant_make_ulongint(m_req_id);
@@ -141,7 +142,8 @@ purc_rwstream_t PcFetcherSession::requestSync(
     loadParameters.webFrameID = FrameIdentifier::generate();
     loadParameters.parentPID = getpid();
 
-    m_connection->send(Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
+    m_connection->send(
+            Messages::NetworkConnectionToWebProcess::ScheduleResourceLoad(
                 loadParameters), 0);
 
     wait(timeout);
@@ -180,23 +182,28 @@ void PcFetcherSession::didReceiveMessage(IPC::Connection&,
         IPC::Decoder& decoder)
 {
     if (decoder.messageName() == Messages::WebResourceLoader::DidReceiveResponse::name()) {
-        IPC::handleMessage<Messages::WebResourceLoader::DidReceiveResponse>(decoder, this, &PcFetcherSession::didReceiveResponse);
+        IPC::handleMessage<Messages::WebResourceLoader::DidReceiveResponse>(
+                decoder, this, &PcFetcherSession::didReceiveResponse);
         return;
     }
     if (decoder.messageName() == Messages::WebResourceLoader::DidReceiveSharedBuffer::name()) {
-        IPC::handleMessage<Messages::WebResourceLoader::DidReceiveSharedBuffer>(decoder, this, &PcFetcherSession::didReceiveSharedBuffer);
+        IPC::handleMessage<Messages::WebResourceLoader::DidReceiveSharedBuffer>(
+                decoder, this, &PcFetcherSession::didReceiveSharedBuffer);
         return;
     }
     if (decoder.messageName() == Messages::WebResourceLoader::DidFinishResourceLoad::name()) {
-        IPC::handleMessage<Messages::WebResourceLoader::DidFinishResourceLoad>(decoder, this, &PcFetcherSession::didFinishResourceLoad);
+        IPC::handleMessage<Messages::WebResourceLoader::DidFinishResourceLoad>(
+                decoder, this, &PcFetcherSession::didFinishResourceLoad);
         return;
     }
     if (decoder.messageName() == Messages::WebResourceLoader::DidFailResourceLoad::name()) {
-        IPC::handleMessage<Messages::WebResourceLoader::DidFailResourceLoad>(decoder, this, &PcFetcherSession::didFailResourceLoad);
+        IPC::handleMessage<Messages::WebResourceLoader::DidFailResourceLoad>(
+                decoder, this, &PcFetcherSession::didFailResourceLoad);
         return;
     }
     if (decoder.messageName() == Messages::WebResourceLoader::WillSendRequest::name()) {
-        IPC::handleMessage<Messages::WebResourceLoader::WillSendRequest>(decoder, this, &PcFetcherSession::willSendRequest);
+        IPC::handleMessage<Messages::WebResourceLoader::WillSendRequest>(
+                decoder, this, &PcFetcherSession::willSendRequest);
         return;
     }
 }
@@ -209,7 +216,9 @@ void PcFetcherSession::didReceiveSyncMessage(IPC::Connection& connection,
     UNUSED_PARAM(replyEncoder);
 }
 
-void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& response, bool needsContinueDidReceiveResponseMessage)
+void PcFetcherSession::didReceiveResponse(
+        const PurCFetcher::ResourceResponse& response,
+        bool needsContinueDidReceiveResponseMessage)
 {
     UNUSED_PARAM(needsContinueDidReceiveResponseMessage);
     m_resp_header.ret_code = response.httpStatusCode();
@@ -225,13 +234,15 @@ void PcFetcherSession::didReceiveResponse(const PurCFetcher::ResourceResponse& r
     m_resp_rwstream = purc_rwstream_new_buffer(init, INT_MAX);
 }
 
-void PcFetcherSession::didReceiveSharedBuffer(IPC::SharedBufferDataReference&& data, int64_t encodedDataLength)
+void PcFetcherSession::didReceiveSharedBuffer(
+        IPC::SharedBufferDataReference&& data, int64_t encodedDataLength)
 {
     UNUSED_PARAM(encodedDataLength);
     purc_rwstream_write(m_resp_rwstream, data.data(), data.size());
 }
 
-void PcFetcherSession::didFinishResourceLoad(const NetworkLoadMetrics& networkLoadMetrics)
+void PcFetcherSession::didFinishResourceLoad(
+        const NetworkLoadMetrics& networkLoadMetrics)
 {
     UNUSED_PARAM(networkLoadMetrics);
 

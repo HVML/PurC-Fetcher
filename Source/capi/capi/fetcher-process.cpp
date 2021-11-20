@@ -55,7 +55,8 @@ PcFetcherProcess::~PcFetcherProcess()
     }
 }
 
-void PcFetcherProcess::getLaunchOptions(ProcessLauncher::LaunchOptions& launchOptions)
+void PcFetcherProcess::getLaunchOptions(
+        ProcessLauncher::LaunchOptions& launchOptions)
 {
     launchOptions.processIdentifier = m_processIdentifier;
 
@@ -66,7 +67,6 @@ void PcFetcherProcess::getLaunchOptions(ProcessLauncher::LaunchOptions& launchOp
         launchOptions.extraInitializationData.add("always-runs-at-background-priority"_s, "true");
 
     launchOptions.processType = ProcessLauncher::ProcessType::Fetcher;
-
 }
 
 void PcFetcherProcess::connect()
@@ -119,9 +119,13 @@ bool PcFetcherProcess::wasTerminated() const
     return false;
 }
 
-bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder, OptionSet<IPC::SendOption> sendOptions, Optional<std::pair<CompletionHandler<void(IPC::Decoder*)>, uint64_t>>&& asyncReplyInfo, ShouldStartProcessThrottlerActivity shouldStartProcessThrottlerActivity)
+bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder,
+        OptionSet<IPC::SendOption> sendOptions,
+        Optional<std::pair<CompletionHandler<void(IPC::Decoder*)>, uint64_t>>&& asyncReplyInfo,
+        ShouldStartProcessThrottlerActivity shouldStartProcessThrottlerActivity)
 {
-    if (asyncReplyInfo && canSendMessage() && shouldStartProcessThrottlerActivity == ShouldStartProcessThrottlerActivity::Yes) {
+    if (asyncReplyInfo && canSendMessage() &&
+            shouldStartProcessThrottlerActivity == ShouldStartProcessThrottlerActivity::Yes) {
         auto completionHandler = std::exchange(asyncReplyInfo->first, nullptr);
         asyncReplyInfo->first = [completionHandler = WTFMove(completionHandler)](IPC::Decoder* decoder) mutable {
             completionHandler(decoder);
@@ -131,12 +135,15 @@ bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder, Option
     switch (state()) {
     case State::Launching:
         // If we're waiting for the child process to launch, we need to stash away the messages so we can send them once we have a connection.
-        m_pendingMessages.append({ WTFMove(encoder), sendOptions, WTFMove(asyncReplyInfo) });
+        m_pendingMessages.append(
+                { WTFMove(encoder), sendOptions, WTFMove(asyncReplyInfo) }
+                );
         return true;
 
     case State::Running:
         if (asyncReplyInfo)
-            IPC::addAsyncReplyHandler(*connection(), asyncReplyInfo->second, std::exchange(asyncReplyInfo->first, nullptr));
+            IPC::addAsyncReplyHandler(*connection(), asyncReplyInfo->second,
+                    std::exchange(asyncReplyInfo->first, nullptr));
         if (connection()->sendMessage(WTFMove(encoder), sendOptions))
             return true;
         break;
@@ -146,7 +153,8 @@ bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder, Option
     }
 
     if (asyncReplyInfo && asyncReplyInfo->first) {
-        RunLoop::current().dispatch([completionHandler = WTFMove(asyncReplyInfo->first)]() mutable {
+        RunLoop::current().dispatch(
+                [completionHandler = WTFMove(asyncReplyInfo->first)]() mutable {
             completionHandler(nullptr);
         });
     }
@@ -154,54 +162,70 @@ bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder, Option
     return false;
 }
 
-void PcFetcherProcess::addMessageReceiver(IPC::ReceiverName messageReceiverName, IPC::MessageReceiver& messageReceiver)
+void PcFetcherProcess::addMessageReceiver(
+        IPC::ReceiverName messageReceiverName,
+        IPC::MessageReceiver& messageReceiver)
 {
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName, messageReceiver);
+    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
+            messageReceiver);
 }
 
-void PcFetcherProcess::addMessageReceiver(IPC::ReceiverName messageReceiverName, uint64_t destinationID, IPC::MessageReceiver& messageReceiver)
+void PcFetcherProcess::addMessageReceiver(
+        IPC::ReceiverName messageReceiverName, uint64_t destinationID,
+        IPC::MessageReceiver& messageReceiver)
 {
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName, destinationID, messageReceiver);
+    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
+            destinationID, messageReceiver);
 }
 
-void PcFetcherProcess::removeMessageReceiver(IPC::ReceiverName messageReceiverName, uint64_t destinationID)
+void PcFetcherProcess::removeMessageReceiver(
+        IPC::ReceiverName messageReceiverName, uint64_t destinationID)
 {
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName, destinationID);
+    m_messageReceiverMap.removeMessageReceiver(messageReceiverName,
+            destinationID);
 }
 
-void PcFetcherProcess::removeMessageReceiver(IPC::ReceiverName messageReceiverName)
+void PcFetcherProcess::removeMessageReceiver(
+        IPC::ReceiverName messageReceiverName)
 {
     m_messageReceiverMap.removeMessageReceiver(messageReceiverName);
 }
 
-bool PcFetcherProcess::dispatchMessage(IPC::Connection& connection, IPC::Decoder& decoder)
+bool PcFetcherProcess::dispatchMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder)
 {
     return m_messageReceiverMap.dispatchMessage(connection, decoder);
 }
 
-bool PcFetcherProcess::dispatchSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
+bool PcFetcherProcess::dispatchSyncMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
-    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder, replyEncoder);
+    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder,
+            replyEncoder);
 }
 
-void PcFetcherProcess::didReceiveMessage(IPC::Connection& connection, IPC::Decoder& decoder)
+void PcFetcherProcess::didReceiveMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder)
 {
     dispatchMessage(connection, decoder);
 }
 
-void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection, IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
+void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection,
+        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
     dispatchSyncMessage(connection, decoder, replyEncoder);
 }
 
-void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier connectionIdentifier)
+void PcFetcherProcess::didFinishLaunching(ProcessLauncher*,
+        IPC::Connection::Identifier connectionIdentifier)
 {
     ASSERT(!m_connection);
 
     if (!IPC::Connection::identifierIsValid(connectionIdentifier))
         return;
 
-    m_connection = IPC::Connection::createServerConnection(connectionIdentifier, *this);
+    m_connection = IPC::Connection::createServerConnection(
+            connectionIdentifier, *this);
 
     connectionWillOpen(*m_connection);
     m_connection->open();
@@ -212,7 +236,9 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*, IPC::Connection::Ide
         auto encoder = WTFMove(pendingMessage.encoder);
         auto sendOptions = pendingMessage.sendOptions;
         if (pendingMessage.asyncReplyInfo)
-            IPC::addAsyncReplyHandler(*connection(), pendingMessage.asyncReplyInfo->second, WTFMove(pendingMessage.asyncReplyInfo->first));
+            IPC::addAsyncReplyHandler(*connection(),
+                    pendingMessage.asyncReplyInfo->second,
+                    WTFMove(pendingMessage.asyncReplyInfo->first));
         m_connection->sendMessage(WTFMove(encoder), sendOptions);
     }
 }
@@ -294,7 +320,8 @@ void PcFetcherProcess::didClose(IPC::Connection&)
 {
 }
 
-void PcFetcherProcess::didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName)
+void PcFetcherProcess::didReceiveInvalidMessage(IPC::Connection&,
+        IPC::MessageName)
 {
 }
 

@@ -5,6 +5,7 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc"
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc/unix"
+    "${CMAKE_CURRENT_SOURCE_DIR}/capi/launcher"
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
     "${PURCFETCHER_DIR}"
@@ -39,6 +40,10 @@ set(fetcher_capi_SOURCES
     capi/ipc/StringReference.cpp
     capi/ipc/unix/AttachmentUnix.cpp
     capi/ipc/unix/ConnectionUnix.cpp
+
+    capi/launcher/ProcessLauncher.cpp
+    capi/launcher/ProcessLauncherGLib.cpp
+    capi/launcher/ProcessExecutablePathGLib.cpp
 
     capi/fetcher.cpp
     capi/fetcher-local.cpp

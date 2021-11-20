@@ -1,10 +1,10 @@
 include(GlobalCommon)
 include(target/PurCFetcher)
 
-# control
-PURCFETCHER_EXECUTABLE_DECLARE(control)
+# sync_req
+PURCFETCHER_EXECUTABLE_DECLARE(sync_req)
 
-list(APPEND control_PRIVATE_INCLUDE_DIRECTORIES
+list(APPEND sync_req_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
     "${PURCFETCHER_DIR}"
     "${PURCFETCHER_DIR}/include"
@@ -21,19 +21,19 @@ list(APPEND control_PRIVATE_INCLUDE_DIRECTORIES
     "${PURC_INCLUDE_DIRS}"
 )
 
-PURCFETCHER_EXECUTABLE(control)
+PURCFETCHER_EXECUTABLE(sync_req)
 
-set(control_SOURCES
-    control.cpp
+set(sync_req_SOURCES
+    sync_req.cpp
 )
 
-set(control_LIBRARIES
+set(sync_req_LIBRARIES
     PurCFetcher::PurCFetcher
     PurCFetcher::fetcher_capi
     ${PURC_LIBRARIES}
     -lpthread
 )
 
-#PURCFETCHER_COMPUTE_SOURCES(control)
-PURCFETCHER_FRAMEWORK(control)
+#PURCFETCHER_COMPUTE_SOURCES(sync_req)
+PURCFETCHER_FRAMEWORK(sync_req)
 

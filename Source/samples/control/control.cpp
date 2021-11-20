@@ -12,6 +12,7 @@ int main(int argc, char** argv)
     (void)argc;
     (void)argv;
 
+    const char* def_url = "https://hybridos.fmsoft.cn";
     purc_instance_extra_info info = {0, 0};
     purc_init ("cn.fmsoft.hybridos.sample", "pcfetcher", &info);
 
@@ -19,16 +20,19 @@ int main(int argc, char** argv)
     AtomString::init();
     WTF::RefCountedBase::enableThreadingChecksGlobally();
 
+    const char* url = argv[1] ? argv[1] : def_url;
+
     pcfetcher_init(10, 1024);
     struct pcfetcher_resp_header resp_header;
     purc_rwstream_t resp = pcfetcher_request_sync(
-        "https://www.baidu.com",
+        url,
         PCFETCHER_REQUEST_METHOD_GET,
         NULL,
         10,
         &resp_header);
 
     fprintf(stderr, "....................................\n");
+    fprintf(stderr, "%s\n", url);
     fprintf(stderr, ".................head begin\n");
     fprintf(stderr, "ret_code=%d\n", resp_header.ret_code);
     fprintf(stderr, "mime_type=%s\n", resp_header.mime_type);

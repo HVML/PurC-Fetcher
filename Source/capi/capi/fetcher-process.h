@@ -130,9 +130,7 @@ protected:
     bool dispatchMessage(IPC::Connection&, IPC::Decoder&);
     bool dispatchSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&);
 
-    void logInvalidMessage(IPC::Connection&, IPC::MessageName);
-
-    virtual void getLaunchOptions(ProcessLauncher::LaunchOptions&);
+    void getLaunchOptions(ProcessLauncher::LaunchOptions&);
 
     struct PendingMessage {
         std::unique_ptr<IPC::Encoder> encoder;
@@ -149,8 +147,6 @@ protected:
     const char* connectionName(void) { return "PcFetcherProcess"; }
 
 private:
-    virtual void connectionWillOpen(IPC::Connection&);
-
     struct pcfetcher* m_fetcher;
 
     Vector<PendingMessage> m_pendingMessages;

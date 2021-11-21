@@ -188,7 +188,6 @@ void PcFetcherProcess::didFinishLaunching(ProcessLauncher*,
     m_connection = IPC::Connection::createServerConnection(
             connectionIdentifier, *this);
 
-    connectionWillOpen(*m_connection);
     m_connection->open();
 
     for (auto&& pendingMessage : std::exchange(m_pendingMessages, { })) {
@@ -286,11 +285,4 @@ void PcFetcherProcess::didReceiveInvalidMessage(IPC::Connection&,
 {
 }
 
-void PcFetcherProcess::connectionWillOpen(IPC::Connection&)
-{
-}
-
-void PcFetcherProcess::logInvalidMessage(IPC::Connection&, IPC::MessageName)
-{
-}
 

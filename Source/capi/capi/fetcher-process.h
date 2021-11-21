@@ -84,23 +84,6 @@ public:
         return m_connection == &connection;
     }
 
-    void addMessageReceiver(IPC::ReceiverName, IPC::MessageReceiver&);
-    void addMessageReceiver(IPC::ReceiverName, uint64_t destinationID, IPC::MessageReceiver&);
-    void removeMessageReceiver(IPC::ReceiverName, uint64_t destinationID);
-    void removeMessageReceiver(IPC::ReceiverName);
-
-    template <typename T>
-    void addMessageReceiver(IPC::ReceiverName messageReceiverName, ObjectIdentifier<T> destinationID, IPC::MessageReceiver& receiver)
-    {
-        addMessageReceiver(messageReceiverName, destinationID.toUInt64(), receiver);
-    }
-
-    template <typename T>
-    void removeMessageReceiver(IPC::ReceiverName messageReceiverName, ObjectIdentifier<T> destinationID)
-    {
-        removeMessageReceiver(messageReceiverName, destinationID.toUInt64());
-    }
-
     enum class State {
         Launching,
         Running,
@@ -173,7 +156,6 @@ private:
     Vector<PendingMessage> m_pendingMessages;
     RefPtr<ProcessLauncher> m_processLauncher;
     RefPtr<IPC::Connection> m_connection;
-    IPC::MessageReceiverMap m_messageReceiverMap;
     bool m_alwaysRunsAtBackgroundPriority { false };
     PurCFetcher::ProcessIdentifier m_processIdentifier { PurCFetcher::ProcessIdentifier::generate() };
 };

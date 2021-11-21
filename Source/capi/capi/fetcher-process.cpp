@@ -162,58 +162,19 @@ bool PcFetcherProcess::sendMessage(std::unique_ptr<IPC::Encoder> encoder,
     return false;
 }
 
-void PcFetcherProcess::addMessageReceiver(
-        IPC::ReceiverName messageReceiverName,
-        IPC::MessageReceiver& messageReceiver)
-{
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
-            messageReceiver);
-}
-
-void PcFetcherProcess::addMessageReceiver(
-        IPC::ReceiverName messageReceiverName, uint64_t destinationID,
-        IPC::MessageReceiver& messageReceiver)
-{
-    m_messageReceiverMap.addMessageReceiver(messageReceiverName,
-            destinationID, messageReceiver);
-}
-
-void PcFetcherProcess::removeMessageReceiver(
-        IPC::ReceiverName messageReceiverName, uint64_t destinationID)
-{
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName,
-            destinationID);
-}
-
-void PcFetcherProcess::removeMessageReceiver(
-        IPC::ReceiverName messageReceiverName)
-{
-    m_messageReceiverMap.removeMessageReceiver(messageReceiverName);
-}
-
-bool PcFetcherProcess::dispatchMessage(IPC::Connection& connection,
-        IPC::Decoder& decoder)
-{
-    return m_messageReceiverMap.dispatchMessage(connection, decoder);
-}
-
-bool PcFetcherProcess::dispatchSyncMessage(IPC::Connection& connection,
-        IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
-{
-    return m_messageReceiverMap.dispatchSyncMessage(connection, decoder,
-            replyEncoder);
-}
-
 void PcFetcherProcess::didReceiveMessage(IPC::Connection& connection,
         IPC::Decoder& decoder)
 {
-    dispatchMessage(connection, decoder);
+    UNUSED_PARAM(connection);
+    UNUSED_PARAM(decoder);
 }
 
 void PcFetcherProcess::didReceiveSyncMessage(IPC::Connection& connection,
         IPC::Decoder& decoder, std::unique_ptr<IPC::Encoder>& replyEncoder)
 {
-    dispatchSyncMessage(connection, decoder, replyEncoder);
+    UNUSED_PARAM(connection);
+    UNUSED_PARAM(decoder);
+    UNUSED_PARAM(replyEncoder);
 }
 
 void PcFetcherProcess::didFinishLaunching(ProcessLauncher*,

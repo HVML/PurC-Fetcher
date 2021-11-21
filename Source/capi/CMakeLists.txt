@@ -38,8 +38,12 @@ set(fetcher_capi_SOURCES
     capi/ipc/MessageReceiverMap.cpp
     capi/ipc/MessageSender.cpp
     capi/ipc/StringReference.cpp
+    capi/ipc/SharedBuffer.cpp
+    capi/ipc/SharedMemory.cpp
     capi/ipc/unix/AttachmentUnix.cpp
     capi/ipc/unix/ConnectionUnix.cpp
+    capi/ipc/unix/SharedMemoryUnix.cpp
+    capi/ipc/soup/SharedBufferSoup.cpp
 
     capi/launcher/ProcessLauncher.cpp
 

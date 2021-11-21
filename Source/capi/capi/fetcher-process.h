@@ -31,7 +31,6 @@
 #include "fetcher-session.h"
 
 #include "Connection.h"
-#include "MessageReceiverMap.h"
 #include "ProcessLauncher.h"
 #include "ProcessIdentifier.h"
 

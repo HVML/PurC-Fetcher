@@ -23,7 +23,10 @@
  */
 
 #include "config.h"
+
 #include "fetcher-session.h"
+#include "fetcher-message.h"
+
 #include "NetworkResourceLoadParameters.h"
 #include "NetworkConnectionToWebProcessMessages.h"
 #include "NetworkResourceLoaderMessages.h"

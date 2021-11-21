@@ -30,9 +30,6 @@
 #include "SecurityOrigin.h"
 
 #include "PublicSuffix.h"
-#include "RuntimeApplicationChecks.h"
-#include "SecurityPolicy.h"
-#include "TextEncoding.h"
 #include <wtf/FileSystem.h>
 #include <wtf/MainThread.h>
 #include <wtf/NeverDestroyed.h>
@@ -266,54 +263,6 @@ bool SecurityOrigin::canReceiveDragData(const SecurityOrigin& dragInitiator) con
         return true;
 
     return canAccess(dragInitiator);
-}
-
-// This is a hack to allow keep navigation to http/https feeds working. To remove this
-// we need to introduce new API akin to registerURLSchemeAsLocal, that registers a
-// protocols navigation policy.
-// feed(|s|search): is considered a 'nesting' scheme by embedders that support it, so it can be
-// local or remote depending on what is nested. Currently we just check if we are nesting
-// http or https, otherwise we ignore the nesting for the purpose of a security check. We need
-// a facility for registering nesting schemes, and some generalized logic for them.
-// This function should be removed as an outcome of https://bugs.webkit.org/show_bug.cgi?id=69196
-static bool isFeedWithNestedProtocolInHTTPFamily(const URL& url)
-{
-    const String& string = url.string();
-    if (!startsWithLettersIgnoringASCIICase(string, "feed"))
-        return false;
-    return startsWithLettersIgnoringASCIICase(string, "feed://")
-        || startsWithLettersIgnoringASCIICase(string, "feed:http:")
-        || startsWithLettersIgnoringASCIICase(string, "feed:https:")
-        || startsWithLettersIgnoringASCIICase(string, "feeds:http:")
-        || startsWithLettersIgnoringASCIICase(string, "feeds:https:")
-        || startsWithLettersIgnoringASCIICase(string, "feedsearch:http:")
-        || startsWithLettersIgnoringASCIICase(string, "feedsearch:https:");
-}
-
-bool SecurityOrigin::canDisplay(const URL& url) const
-{
-    ASSERT(!isInNetworkProcess());
-    if (m_universalAccess)
-        return true;
-
-    if (url.pathEnd() > maximumURLSize)
-        return false;
-    
-#if !PLATFORM(IOS_FAMILY) && !ENABLE(BUBBLEWRAP_SANDBOX)
-    if (m_data.protocol == "file" && url.isLocalFile() && !FileSystem::filesHaveSameVolume(m_filePath, url.fileSystemPath()))
-        return false;
-#endif
-
-    if (isFeedWithNestedProtocolInHTTPFamily(url))
-        return true;
-
-    String protocol = url.protocol().toString();
-
-    if (url.isLocalFile() && url.fileSystemPath() == m_filePath)
-        return true;
-
-
-    return true;
 }
 
 bool SecurityOrigin::canAccessStorage(const SecurityOrigin* topOrigin, ShouldAllowFromThirdParty shouldAllowFromThirdParty) const

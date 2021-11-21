@@ -6,6 +6,8 @@ set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc"
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/ipc/unix"
     "${CMAKE_CURRENT_SOURCE_DIR}/capi/launcher"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/capi/messages"
+    #"${CMAKE_CURRENT_SOURCE_DIR}/capi/messages/soup"
     "${BMALLOC_DIR}"
     "${PURC_INCLUDE_DIRS}"
     "${PURCFETCHER_DIR}"
@@ -44,8 +46,28 @@ set(fetcher_capi_SOURCES
     capi/ipc/unix/ConnectionUnix.cpp
     capi/ipc/unix/SharedMemoryUnix.cpp
     capi/ipc/soup/SharedBufferSoup.cpp
+    capi/ipc/soup/SharedBufferGlib.cpp
 
     capi/launcher/ProcessLauncher.cpp
+
+    capi/messages/MessageNames.cpp
+    capi/messages/HTTPHeaderMap.cpp
+    capi/messages/HTTPHeaderNames.cpp
+    capi/messages/FormData.cpp
+    capi/messages/NetworkActivityTracker.cpp
+    capi/messages/WebsiteDataStoreParameters.cpp
+    capi/messages/NetworkSessionCreationParameters.cpp
+    capi/messages/NetworkResourceLoadParameters.cpp
+    capi/messages/NetworkProcessCreationParameters.cpp
+    capi/messages/ResourceRequestBase.cpp
+    capi/messages/ResourceResponseBase.cpp
+    capi/messages/ResourceErrorBase.cpp
+    capi/messages/SecurityOrigin.cpp
+    capi/messages/WebCoreArgumentCoders.cpp
+    capi/messages/soup/CertificateInfoSoup.cpp
+    capi/messages/soup/WebCoreArgumentCodersSoup.cpp
+    capi/messages/soup/ResourceErrorSoup.cpp
+    capi/messages/soup/URLSoup.cpp
 
     capi/fetcher.cpp
     capi/fetcher-local.cpp
@@ -69,8 +91,13 @@ set(fetcher_capi_PUBLIC_HEADERS
 
 set(fetcher_capi_LIBRARIES
     ${CMAKE_DL_LIBS}
-    PurCFetcher::PurCFetcher
+    PurCFetcher::WTF
+    ${GLIB_GIO_LIBRARIES}
+    ${GLIB_GOBJECT_LIBRARIES}
+    ${GLIB_LIBRARIES}
+    ${LIBSOUP_LIBRARIES}
     ${PURC_LIBRARIES}
+    rt
 )
 
 set(fetcher_capi_MSG_IN_FILES

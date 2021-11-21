@@ -28,7 +28,6 @@ set(sync_req_SOURCES
 )
 
 set(sync_req_LIBRARIES
-    PurCFetcher::PurCFetcher
     PurCFetcher::fetcher_capi
     ${PURC_LIBRARIES}
     -lpthread
@@ -64,7 +63,6 @@ set(async_req_SOURCES
 )
 
 set(async_req_LIBRARIES
-    PurCFetcher::PurCFetcher
     PurCFetcher::fetcher_capi
     ${PURC_LIBRARIES}
     -lpthread

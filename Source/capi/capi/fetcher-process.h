@@ -27,7 +27,6 @@
 
 #if ENABLE(LINK_PURC_FETCHER)
 
-#include "fetcher-remote.h"
 #include "fetcher-session.h"
 
 #include "Connection.h"

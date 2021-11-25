@@ -27,7 +27,7 @@
 
 #include "config.h"
 
-#include "fetcher-local.h"
+#include "fetcher-internal.h"
 
 #if !ENABLE(LINK_PURC_FETCHER)
 

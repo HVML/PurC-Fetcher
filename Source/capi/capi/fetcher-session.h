@@ -27,7 +27,7 @@
 
 #if ENABLE(LINK_PURC_FETCHER)
 
-#include "fetcher-remote.h"
+#include "fetcher-internal.h"
 
 #include "WebCoreArgumentCoders.h"
 #include "SharedBufferDataReference.h"

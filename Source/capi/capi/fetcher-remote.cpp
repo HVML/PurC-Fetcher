@@ -27,7 +27,7 @@
 
 #include "config.h"
 
-#include "fetcher-remote.h"
+#include "fetcher-internal.h"
 #include "fetcher-process.h"
 
 #if ENABLE(LINK_PURC_FETCHER)

@@ -42,7 +42,6 @@ set(fetcher_capi_SOURCES
     capi/messages/HTTPHeaderMap.cpp
     capi/messages/HTTPHeaderNames.cpp
     capi/messages/FormData.cpp
-    capi/messages/NetworkActivityTracker.cpp
     capi/messages/WebsiteDataStoreParameters.cpp
     capi/messages/NetworkSessionCreationParameters.cpp
     capi/messages/NetworkResourceLoadParameters.cpp

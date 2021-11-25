@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include "NetworkActivityTracker.h"
 #include "PolicyDecision.h"
 #include "WebPageProxyIdentifier.h"
 #include "FrameIdentifier.h"
@@ -62,7 +61,6 @@ public:
     bool isMainResourceNavigationForAnyFrame { false };
     PurCFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { PurCFetcher::ShouldRelaxThirdPartyCookieBlocking::No };
     PreconnectOnly shouldPreconnectOnly { PreconnectOnly::No };
-    Optional<NetworkActivityTracker> networkActivityTracker;
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 

@@ -41,11 +41,6 @@ class Encoder;
 namespace PurCFetcher {
 
 struct WebsiteDataStoreParameters {
-    WebsiteDataStoreParameters() = default;
-    WebsiteDataStoreParameters(WebsiteDataStoreParameters&&) = default;
-    WebsiteDataStoreParameters& operator=(WebsiteDataStoreParameters&&) = default;
-    ~WebsiteDataStoreParameters();
-
     void encode(IPC::Encoder&) const;
     static Optional<WebsiteDataStoreParameters> decode(IPC::Decoder&);
 

@@ -27,13 +27,8 @@
 #include "WebsiteDataStoreParameters.h"
 
 #include "WebCoreArgumentCoders.h"
-//#include "WebsiteDataStore.h"
 
 namespace PurCFetcher {
-
-WebsiteDataStoreParameters::~WebsiteDataStoreParameters()
-{
-}
 
 void WebsiteDataStoreParameters::encode(IPC::Encoder& encoder) const
 {
@@ -95,7 +90,7 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     if (!indexedDatabaseDirectory)
         return WTF::nullopt;
     parameters.indexedDatabaseDirectory = WTFMove(*indexedDatabaseDirectory);
-    
+
     Optional<SandboxExtension::Handle> indexedDatabaseDirectoryExtensionHandle;
     decoder >> indexedDatabaseDirectoryExtensionHandle;
     if (!indexedDatabaseDirectoryExtensionHandle)
@@ -117,13 +112,13 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     if (!serviceWorkerRegistrationDirectory)
         return WTF::nullopt;
     parameters.serviceWorkerRegistrationDirectory = WTFMove(*serviceWorkerRegistrationDirectory);
-    
+
     Optional<SandboxExtension::Handle> serviceWorkerRegistrationDirectoryExtensionHandle;
     decoder >> serviceWorkerRegistrationDirectoryExtensionHandle;
     if (!serviceWorkerRegistrationDirectoryExtensionHandle)
         return WTF::nullopt;
     parameters.serviceWorkerRegistrationDirectoryExtensionHandle = WTFMove(*serviceWorkerRegistrationDirectoryExtensionHandle);
-    
+
     Optional<bool> serviceWorkerProcessTerminationDelayEnabled;
     decoder >> serviceWorkerProcessTerminationDelayEnabled;
     if (!serviceWorkerProcessTerminationDelayEnabled)
@@ -166,7 +161,7 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     if (!perThirdPartyOriginStorageQuota)
         return WTF::nullopt;
     parameters.perThirdPartyOriginStorageQuota = *perThirdPartyOriginStorageQuota;
-    
+
     return parameters;
 }
 

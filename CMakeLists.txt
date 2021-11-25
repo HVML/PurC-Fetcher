@@ -135,8 +135,8 @@ set(CMAKE_POSITION_INDEPENDENT_CODE True)
 #------------------------------------------------------------------------------
 include(GlobalCommon)
 
-SET_PROJECT_VERSION(0 0 1)
-set(PURCFETCHER_API_VERSION 0.0)
+SET_PROJECT_VERSION(1 0 0)
+set(PURCFETCHER_API_VERSION 1.0)
 
 add_subdirectory(Source)
 

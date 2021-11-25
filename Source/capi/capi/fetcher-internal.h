@@ -27,6 +27,10 @@
 
 #include "fetcher.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif  /* __cplusplus */
+
 struct pcfetcher;
 
 typedef struct pcfetcher* (*pcfetcher_init_fn)(size_t max_conns,
@@ -82,6 +86,13 @@ struct pcfetcher {
     pcfetcher_request_sync_fn request_sync;
     pcfetcher_check_response_fn check_response;
 };
+
+struct pcfetcher* pcfetcher_local_init(size_t max_conns, size_t cache_quota);
+struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota);
+
+#ifdef __cplusplus
+}
+#endif  /* __cplusplus */
 
 #endif /* not defined PURC_FETCHER_INTERNAL_H */
 

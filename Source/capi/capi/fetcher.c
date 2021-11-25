@@ -27,15 +27,6 @@
 #include "fetcher.h"
 #include "fetcher-internal.h"
 
-#if ENABLE(LINK_PURC_FETCHER)
-#include "fetcher-remote.h"
-#else
-#include "fetcher-local.h"
-#endif
-
-
-#include <wtf/RunLoop.h>
-
 static struct pcfetcher* s_fetcher;
 
 int pcfetcher_init(size_t max_conns, size_t cache_quota)

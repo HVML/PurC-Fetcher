@@ -57,7 +57,7 @@ set(fetcher_capi_SOURCES
     capi/messages/soup/ResourceErrorSoup.cpp
     capi/messages/soup/URLSoup.cpp
 
-    capi/fetcher.cpp
+    capi/fetcher.c
     capi/fetcher-local.cpp
     capi/fetcher-remote.cpp
     capi/fetcher-process.cpp

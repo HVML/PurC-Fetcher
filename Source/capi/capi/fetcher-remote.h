@@ -30,13 +30,6 @@
 #include "purc/purc.h"
 #include "fetcher-internal.h"
 
-class PcFetcherProcess;
-
-struct pcfetcher_remote {
-    struct pcfetcher base;
-    PcFetcherProcess* process;
-};
-
 #ifdef __cplusplus
 extern "C" {
 #endif  /* __cplusplus */

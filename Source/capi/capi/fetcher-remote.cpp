@@ -32,6 +32,10 @@
 
 #if ENABLE(LINK_PURC_FETCHER)
 
+struct pcfetcher_remote {
+    struct pcfetcher base;
+    PcFetcherProcess* process;
+};
 
 struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 {

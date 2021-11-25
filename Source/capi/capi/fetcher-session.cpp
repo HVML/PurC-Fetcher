@@ -32,6 +32,7 @@
 #include "NetworkResourceLoaderMessages.h"
 #include "WebResourceLoaderMessages.h"
 #include "ResourceError.h"
+#include "ResourceResponse.h"
 
 #include <wtf/RunLoop.h>
 

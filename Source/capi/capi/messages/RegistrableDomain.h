@@ -25,7 +25,6 @@
 
 #pragma once
 
-#include "PublicSuffix.h"
 #include "SecurityOriginData.h"
 #include <wtf/HashTraits.h>
 #include <wtf/URL.h>

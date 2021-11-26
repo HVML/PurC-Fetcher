@@ -47,11 +47,6 @@ enum class ReferrerPolicy : uint8_t {
     StrictOriginWhenCrossOrigin,
     UnsafeUrl
 };
-
-enum class ReferrerPolicySource : uint8_t { MetaTag, HTTPHeader, ReferrerPolicyAttribute };
-Optional<ReferrerPolicy> parseReferrerPolicy(StringView, ReferrerPolicySource);
-String referrerPolicyToString(const ReferrerPolicy&);
-
 }
 
 namespace WTF {

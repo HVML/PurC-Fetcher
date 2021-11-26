@@ -27,7 +27,6 @@
 #include "ResourceRequestBase.h"
 
 #include "HTTPHeaderNames.h"
-#include "PublicSuffix.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
 #include "SecurityOrigin.h"

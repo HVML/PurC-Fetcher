@@ -26,7 +26,7 @@
 #pragma once
 
 #include "Credential.h"
-#include "ProtectionSpaceHash.h"
+//#include "ProtectionSpaceHash.h"
 #include "SecurityOriginData.h"
 #include <wtf/HashMap.h>
 #include <wtf/HashSet.h>

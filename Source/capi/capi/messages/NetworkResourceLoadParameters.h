@@ -26,11 +26,8 @@
 #pragma once
 
 #include "NetworkLoadParameters.h"
-//#include "PolicyDecision.h"
 #include "SandboxExtension.h"
-#include "UserContentControllerIdentifier.h"
 #include "ContentSecurityPolicyResponseHeaders.h"
-#include "CrossOriginAccessControl.h"
 #include "FetchOptions.h"
 #include <wtf/Seconds.h>
 
@@ -65,17 +62,6 @@ public:
     Optional<PurCFetcher::FrameIdentifier> parentFrameID;
     bool crossOriginAccessControlCheckEnabled { true };
 
-#if ENABLE(SERVICE_WORKER)
-    PurCFetcher::ServiceWorkersMode serviceWorkersMode { PurCFetcher::ServiceWorkersMode::None };
-    Optional<PurCFetcher::ServiceWorkerRegistrationIdentifier> serviceWorkerRegistrationIdentifier;
-    OptionSet<PurCFetcher::HTTPHeadersToKeepFromCleaning> httpHeadersToKeep;
-#endif
-
-#if ENABLE(CONTENT_EXTENSIONS)
-    URL mainDocumentURL;
-    Optional<UserContentControllerIdentifier> userContentControllerIdentifier;
-#endif
-    
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 

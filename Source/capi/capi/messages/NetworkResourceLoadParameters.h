@@ -26,7 +26,7 @@
 #pragma once
 
 #include "NetworkLoadParameters.h"
-#include "PolicyDecision.h"
+//#include "PolicyDecision.h"
 #include "SandboxExtension.h"
 #include "UserContentControllerIdentifier.h"
 #include "ContentSecurityPolicyResponseHeaders.h"

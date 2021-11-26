@@ -31,12 +31,6 @@
 
 namespace PurCFetcher {
 
-class CookieJar;
-class HTTPHeaderMap;
-class NetworkStorageSession;
-class ResourceRequest;
-class ResourceResponse;
-
 struct RedirectChainCacheStatus {
     enum class Status : uint8_t {
         NoRedirection,
@@ -50,14 +44,6 @@ struct RedirectChainCacheStatus {
     WallTime endOfValidity;
     Status status;
 };
-
-PURCFETCHER_EXPORT Seconds computeCurrentAge(const ResourceResponse&, WallTime responseTimestamp);
-PURCFETCHER_EXPORT Seconds computeFreshnessLifetimeForHTTPFamily(const ResourceResponse&, WallTime responseTimestamp);
-PURCFETCHER_EXPORT void updateResponseHeadersAfterRevalidation(ResourceResponse&, const ResourceResponse& validatingResponse);
-PURCFETCHER_EXPORT void updateRedirectChainStatus(RedirectChainCacheStatus&, const ResourceResponse&);
-
-enum ReuseExpiredRedirectionOrNot { DoNotReuseExpiredRedirection, ReuseExpiredRedirection };
-PURCFETCHER_EXPORT bool redirectChainAllowsReuse(RedirectChainCacheStatus, ReuseExpiredRedirectionOrNot);
 
 struct CacheControlDirectives {
     constexpr CacheControlDirectives()
@@ -75,14 +61,5 @@ struct CacheControlDirectives {
     bool mustRevalidate : 1;
     bool immutable : 1;
 };
-PURCFETCHER_EXPORT CacheControlDirectives parseCacheControlDirectives(const HTTPHeaderMap&);
-
-PURCFETCHER_EXPORT Vector<std::pair<String, String>> collectVaryingRequestHeaders(NetworkStorageSession*, const ResourceRequest&, const ResourceResponse&);
-PURCFETCHER_EXPORT Vector<std::pair<String, String>> collectVaryingRequestHeaders(const CookieJar*, const ResourceRequest&, const ResourceResponse&);
-PURCFETCHER_EXPORT bool verifyVaryingRequestHeaders(NetworkStorageSession*, const Vector<std::pair<String, String>>& varyingRequestHeaders, const ResourceRequest&);
-PURCFETCHER_EXPORT bool verifyVaryingRequestHeaders(const CookieJar*, const Vector<std::pair<String, String>>& varyingRequestHeaders, const ResourceRequest&);
-
-PURCFETCHER_EXPORT bool isStatusCodeCacheableByDefault(int statusCode);
-PURCFETCHER_EXPORT bool isStatusCodePotentiallyCacheable(int statusCode);
 
 }

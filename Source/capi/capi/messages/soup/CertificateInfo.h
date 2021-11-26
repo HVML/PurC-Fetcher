@@ -26,10 +26,13 @@
 
 #pragma once
 
-#include "CertificateInfoBase.h"
 #include "NotImplemented.h"
 #include <libsoup/soup.h>
+
+#include <wtf/Optional.h>
+#include <wtf/Seconds.h>
 #include <wtf/Vector.h>
+#include <wtf/text/WTFString.h>
 #include <wtf/glib/GRefPtr.h>
 #include <wtf/persistence/PersistentCoders.h>
 #include <wtf/persistence/PersistentDecoder.h>
@@ -40,8 +43,16 @@ namespace PurCFetcher {
 class ResourceError;
 class ResourceResponse;
 
-class CertificateInfo  : public CertificateInfoBase {
+class CertificateInfo {
 public:
+    struct SummaryInfo {
+        String subject;
+        Seconds validFrom;
+        Seconds validUntil;
+        Vector<String> dnsNames;
+        Vector<String> ipAddresses;
+    };
+
     CertificateInfo();
     explicit CertificateInfo(const PurCFetcher::ResourceResponse&);
     explicit CertificateInfo(const PurCFetcher::ResourceError&);

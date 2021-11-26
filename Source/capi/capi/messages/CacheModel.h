@@ -38,9 +38,6 @@ enum class CacheModel : uint8_t {
     PrimaryWebBrowser
 };
 
-void calculateMemoryCacheSizes(CacheModel, unsigned& cacheTotalCapacity, unsigned& cacheMinDeadCapacity, unsigned& cacheMaxDeadCapacity, Seconds& deadDecodedDataDeletionInterval, unsigned& backForwardCacheCapacity);
-void calculateURLCacheSizes(CacheModel, uint64_t diskFreeSize, unsigned& urlCacheMemoryCapacity, uint64_t& urlCacheDiskCapacity);
-
 } // namespace PurCFetcher
 
 namespace WTF {

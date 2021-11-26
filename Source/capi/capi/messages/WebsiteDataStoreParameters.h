@@ -28,7 +28,6 @@
 #include "NetworkSessionCreationParameters.h"
 #include "SandboxExtension.h"
 #include "Cookie.h"
-#include "StorageQuotaManager.h"
 #include "SessionID.h"
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
@@ -69,8 +68,8 @@ struct WebsiteDataStoreParameters {
     String cacheStorageDirectory;
     SandboxExtension::Handle cacheStorageDirectoryExtensionHandle;
 
-    uint64_t perOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultQuota() };
-    uint64_t perThirdPartyOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
+    uint64_t perOriginStorageQuota { 1000 * MB };
+    uint64_t perThirdPartyOriginStorageQuota { 100 * MB };
 };
 
 } // namespace PurCFetcher

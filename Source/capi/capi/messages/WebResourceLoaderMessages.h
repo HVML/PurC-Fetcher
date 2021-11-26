@@ -27,7 +27,6 @@
 #include "ArgumentCoders.h"
 #include "Connection.h"
 #include "MessageNames.h"
-#include <ShareableResource.h>
 #include <wtf/Forward.h>
 #include <wtf/ThreadSafeRefCounted.h>
 
@@ -272,29 +271,6 @@ public:
 private:
     Arguments m_arguments;
 };
-
-#if ENABLE(SHAREABLE_RESOURCE)
-class DidReceiveResource {
-public:
-    using Arguments = std::tuple<const WebKit::ShareableResource::Handle&>;
-
-    static IPC::MessageName name() { return IPC::MessageName::WebResourceLoader_DidReceiveResource; }
-    static const bool isSync = false;
-
-    explicit DidReceiveResource(const WebKit::ShareableResource::Handle& resource)
-        : m_arguments(resource)
-    {
-    }
-
-    const Arguments& arguments() const
-    {
-        return m_arguments;
-    }
-
-private:
-    Arguments m_arguments;
-};
-#endif
 
 } // namespace WebResourceLoader
 } // namespace Messages

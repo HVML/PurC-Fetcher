@@ -29,7 +29,6 @@
 
 //#include "AuthenticationChallenge.h"
 #include "DataReference.h"
-//#include "ProtectionSpace.h"
 //#include "Credential.h"
 #include "SharedBufferDataReference.h"
 #include "SharedBuffer.h"
@@ -111,87 +110,7 @@ static WARN_UNUSED_RETURN bool decodeSharedBuffer(Decoder& decoder, RefPtr<Share
     return true;
 }
 
-#if 0
-void ArgumentCoder<AuthenticationChallenge>::encode(Encoder& encoder, const AuthenticationChallenge& challenge)
-{
-    encoder << challenge.protectionSpace() << challenge.proposedCredential() << challenge.previousFailureCount() << challenge.failureResponse() << challenge.error();
-}
 
-bool ArgumentCoder<AuthenticationChallenge>::decode(Decoder& decoder, AuthenticationChallenge& challenge)
-{
-    ProtectionSpace protectionSpace;
-    if (!decoder.decode(protectionSpace))
-        return false;
-
-    Credential proposedCredential;
-    if (!decoder.decode(proposedCredential))
-        return false;
-
-    unsigned previousFailureCount;
-    if (!decoder.decode(previousFailureCount))
-        return false;
-
-    ResourceResponse failureResponse;
-    if (!decoder.decode(failureResponse))
-        return false;
-
-    ResourceError error;
-    if (!decoder.decode(error))
-        return false;
-
-    challenge = AuthenticationChallenge(protectionSpace, proposedCredential, previousFailureCount, failureResponse, error);
-    return true;
-}
-#endif
-
-#if 0
-void ArgumentCoder<ProtectionSpace>::encode(Encoder& encoder, const ProtectionSpace& space)
-{
-    if (space.encodingRequiresPlatformData()) {
-        encoder << true;
-        encodePlatformData(encoder, space);
-        return;
-    }
-
-    encoder << false;
-    encoder << space.host() << space.port() << space.realm();
-    encoder << space.authenticationScheme();
-    encoder << space.serverType();
-}
-
-bool ArgumentCoder<ProtectionSpace>::decode(Decoder& decoder, ProtectionSpace& space)
-{
-    bool hasPlatformData;
-    if (!decoder.decode(hasPlatformData))
-        return false;
-
-    if (hasPlatformData)
-        return decodePlatformData(decoder, space);
-
-    String host;
-    if (!decoder.decode(host))
-        return false;
-
-    int port;
-    if (!decoder.decode(port))
-        return false;
-
-    String realm;
-    if (!decoder.decode(realm))
-        return false;
-
-    ProtectionSpaceAuthenticationScheme authenticationScheme;
-    if (!decoder.decode(authenticationScheme))
-        return false;
-
-    ProtectionSpaceServerType serverType;
-    if (!decoder.decode(serverType))
-        return false;
-
-    space = ProtectionSpace(host, port, serverType, realm, authenticationScheme);
-    return true;
-}
-#endif
 
 #if 0
 void ArgumentCoder<Credential>::encode(Encoder& encoder, const Credential& credential)

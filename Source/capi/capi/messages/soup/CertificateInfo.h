@@ -26,7 +26,6 @@
 
 #pragma once
 
-#include "NotImplemented.h"
 #include <libsoup/soup.h>
 
 #include <wtf/Optional.h>
@@ -64,9 +63,9 @@ public:
     GTlsCertificateFlags tlsErrors() const { return m_tlsErrors; }
     void setTLSErrors(GTlsCertificateFlags tlsErrors) { m_tlsErrors = tlsErrors; }
 
-    bool containsNonRootSHA1SignedCertificate() const { notImplemented(); return false; }
+    bool containsNonRootSHA1SignedCertificate() const { return false; }
 
-    Optional<SummaryInfo> summaryInfo() const { notImplemented(); return WTF::nullopt; }
+    Optional<SummaryInfo> summaryInfo() const { return WTF::nullopt; }
 
     bool isEmpty() const { return !m_certificate; }
 

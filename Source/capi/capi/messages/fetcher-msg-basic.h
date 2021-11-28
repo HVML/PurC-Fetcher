@@ -84,6 +84,27 @@ enum class NavigatingToAppBoundDomain : bool { Yes, No };
 enum class ThirdPartyCookieBlockingMode : uint8_t { All, AllExceptBetweenAppBoundDomains, AllOnSitesWithoutUserInteraction, OnlyAccordingToPerDomainPolicy };
 enum class FirstPartyWebsiteDataRemovalMode : uint8_t { AllButCookies, None, AllButCookiesLiveOnTestingTimeout, AllButCookiesReproTestingTimeout };
 
+enum class StoredCredentialsPolicy : uint8_t {
+    DoNotUse,
+    Use,
+    EphemeralStateless
+};
+static constexpr unsigned bitWidthOfStoredCredentialsPolicy = 2;
+
+enum class ShouldRelaxThirdPartyCookieBlocking : bool { No, Yes };
+
+enum class ReferrerPolicy : uint8_t {
+    EmptyString,
+    NoReferrer,
+    NoReferrerWhenDowngrade,
+    SameOrigin,
+    Origin,
+    StrictOrigin,
+    OriginWhenCrossOrigin,
+    StrictOriginWhenCrossOrigin,
+    UnsafeUrl
+};
+
 } // namespace PurCFetcher
 
 namespace WTF {
@@ -124,6 +145,21 @@ template<> struct EnumTraits<PurCFetcher::FirstPartyWebsiteDataRemovalMode> {
         PurCFetcher::FirstPartyWebsiteDataRemovalMode::None,
         PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesLiveOnTestingTimeout,
         PurCFetcher::FirstPartyWebsiteDataRemovalMode::AllButCookiesReproTestingTimeout
+    >;
+};
+
+template<> struct EnumTraits<PurCFetcher::ReferrerPolicy> {
+    using values = EnumValues<
+        PurCFetcher::ReferrerPolicy,
+        PurCFetcher::ReferrerPolicy::EmptyString,
+        PurCFetcher::ReferrerPolicy::NoReferrer,
+        PurCFetcher::ReferrerPolicy::NoReferrerWhenDowngrade,
+        PurCFetcher::ReferrerPolicy::SameOrigin,
+        PurCFetcher::ReferrerPolicy::Origin,
+        PurCFetcher::ReferrerPolicy::StrictOrigin,
+        PurCFetcher::ReferrerPolicy::OriginWhenCrossOrigin,
+        PurCFetcher::ReferrerPolicy::StrictOriginWhenCrossOrigin,
+        PurCFetcher::ReferrerPolicy::UnsafeUrl
     >;
 };
 

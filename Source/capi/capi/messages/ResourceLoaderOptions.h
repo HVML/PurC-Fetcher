@@ -30,10 +30,11 @@
 
 #pragma once
 
+#include "fetcher-msg-basic.h"
+
 #include "ContentSecurityPolicyResponseHeaders.h"
 #include "FetchOptions.h"
 #include "HTTPHeaderNames.h"
-#include "StoredCredentialsPolicy.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/HashSet.h>
 #include <wtf/Vector.h>

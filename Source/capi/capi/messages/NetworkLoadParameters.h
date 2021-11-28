@@ -29,7 +29,6 @@
 #include "ResourceLoaderOptions.h"
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"
-#include "ShouldRelaxThirdPartyCookieBlocking.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/ProcessID.h>
 

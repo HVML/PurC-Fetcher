@@ -1,49 +1,197 @@
 /*
- * Copyright (C) 2010-2020 Apple Inc. All rights reserved.
+ * @file fetcher-messages.h
+ * @author XueShuming
+ * @date 2021/11/28
+ * @brief The fetcher messages class.
  *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- * 1.  Redistributions of source code must retain the above copyright
- *     notice, this list of conditions and the following disclaimer.
- * 2.  Redistributions in binary form must reproduce the above copyright
- *     notice, this list of conditions and the following disclaimer in the
- *     documentation and/or other materials provided with the distribution.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
- * THIS SOFTWARE IS PROVIDED BY APPLE INC. AND ITS CONTRIBUTORS ``AS IS'' AND
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
- * DISCLAIMED. IN NO EVENT SHALL APPLE INC. OR ITS CONTRIBUTORS BE LIABLE FOR
- * ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
- * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
- * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
- * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * This file is a part of PurC (short for Purring Cat), an HVML interpreter.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#ifndef PURC_FETCHER_MESSAGES_H
+#define PURC_FETCHER_MESSAGES_H
+
+#include "fetcher-msg-basic.h"
 
 #include "ArgumentCoders.h"
+#include "Attachment.h"
 #include "Connection.h"
 #include "MessageNames.h"
+
+#include <wtf/Optional.h>
 #include <wtf/Forward.h>
 #include <wtf/ThreadSafeRefCounted.h>
 
-namespace IPC {
+namespace PAL {
+
+class SessionID;
 class DataReference;
 class FormDataReference;
 class SharedBufferDataReference;
+
 }
 
 namespace PurCFetcher {
+
+class NetworkResourceLoadParameters;
+enum class HTTPCookieAcceptPolicy : uint8_t;
+struct NetworkProcessCreationParameters;
 class NetworkLoadMetrics;
 class ResourceError;
 class ResourceRequest;
 class ResourceResponse;
+
 }
 
 namespace Messages {
+
+namespace NetworkConnectionToWebProcess {
+
+static inline IPC::ReceiverName messageReceiverName()
+{
+    return IPC::ReceiverName::NetworkConnectionToWebProcess;
+}
+
+class ScheduleResourceLoad {
+public:
+    using Arguments = std::tuple<const PurCFetcher::NetworkResourceLoadParameters&>;
+
+    static IPC::MessageName name() { return IPC::MessageName::NetworkConnectionToWebProcess_ScheduleResourceLoad; }
+    static const bool isSync = false;
+
+    explicit ScheduleResourceLoad(const PurCFetcher::NetworkResourceLoadParameters& resourceLoadParameters)
+        : m_arguments(resourceLoadParameters)
+    {
+    }
+
+    const Arguments& arguments() const
+    {
+        return m_arguments;
+    }
+
+private:
+    Arguments m_arguments;
+};
+
+} // namespace NetworkConnectionToWebProcess
+
+namespace NetworkProcess {
+
+using CreateNetworkConnectionToWebProcessDelayedReply = CompletionHandler<void(const Optional<IPC::Attachment>& connectionIdentifier, PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy)>;
+
+static inline IPC::ReceiverName messageReceiverName()
+{
+    return IPC::ReceiverName::NetworkProcess;
+}
+
+class InitializeNetworkProcess {
+public:
+    using Arguments = std::tuple<const PurCFetcher::NetworkProcessCreationParameters&>;
+
+    static IPC::MessageName name() { return IPC::MessageName::NetworkProcess_InitializeNetworkProcess; }
+    static const bool isSync = false;
+
+    explicit InitializeNetworkProcess(const PurCFetcher::NetworkProcessCreationParameters& processCreationParameters)
+        : m_arguments(processCreationParameters)
+    {
+    }
+
+    const Arguments& arguments() const
+    {
+        return m_arguments;
+    }
+
+private:
+    Arguments m_arguments;
+};
+
+class CreateNetworkConnectionToWebProcess {
+public:
+    using Arguments = std::tuple<const PurCFetcher::ProcessIdentifier&, const PAL::SessionID&>;
+
+    static IPC::MessageName name() { return IPC::MessageName::NetworkProcess_CreateNetworkConnectionToWebProcess; }
+    static const bool isSync = true;
+
+    using DelayedReply = CreateNetworkConnectionToWebProcessDelayedReply;
+    static void send(std::unique_ptr<IPC::Encoder>&&, IPC::Connection&, const Optional<IPC::Attachment>& connectionIdentifier, PurCFetcher::HTTPCookieAcceptPolicy cookieAcceptPolicy);
+    using Reply = std::tuple<Optional<IPC::Attachment>&, PurCFetcher::HTTPCookieAcceptPolicy&>;
+    using ReplyArguments = std::tuple<Optional<IPC::Attachment>, PurCFetcher::HTTPCookieAcceptPolicy>;
+    CreateNetworkConnectionToWebProcess(const PurCFetcher::ProcessIdentifier& processIdentifier, const PAL::SessionID& sessionID)
+        : m_arguments(processIdentifier, sessionID)
+    {
+    }
+
+    const Arguments& arguments() const
+    {
+        return m_arguments;
+    }
+
+private:
+    Arguments m_arguments;
+};
+
+} // namespace NetworkProcess
+
+namespace NetworkResourceLoader {
+
+static inline IPC::ReceiverName messageReceiverName()
+{
+    return IPC::ReceiverName::NetworkResourceLoader;
+}
+
+class ContinueWillSendRequest {
+public:
+    using Arguments = std::tuple<const PurCFetcher::ResourceRequest&, bool>;
+
+    static IPC::MessageName name() { return IPC::MessageName::NetworkResourceLoader_ContinueWillSendRequest; }
+    static const bool isSync = false;
+
+    ContinueWillSendRequest(const PurCFetcher::ResourceRequest& request, bool isAllowedToAskUserForCredentials)
+        : m_arguments(request, isAllowedToAskUserForCredentials)
+    {
+    }
+
+    const Arguments& arguments() const
+    {
+        return m_arguments;
+    }
+
+private:
+    Arguments m_arguments;
+};
+
+class ContinueDidReceiveResponse {
+public:
+    using Arguments = std::tuple<>;
+
+    static IPC::MessageName name() { return IPC::MessageName::NetworkResourceLoader_ContinueDidReceiveResponse; }
+    static const bool isSync = false;
+
+    const Arguments& arguments() const
+    {
+        return m_arguments;
+    }
+
+private:
+    Arguments m_arguments;
+};
+
+} // namespace NetworkResourceLoader
+
 namespace WebResourceLoader {
 
 static inline IPC::ReceiverName messageReceiverName()
@@ -273,4 +421,10 @@ private:
 };
 
 } // namespace WebResourceLoader
+
+
 } // namespace Messages
+
+#endif /* not defined PURC_FETCHER_MESSAGES_H */
+
+

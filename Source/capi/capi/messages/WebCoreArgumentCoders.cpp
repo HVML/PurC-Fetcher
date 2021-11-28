@@ -27,16 +27,12 @@
 #include "config.h"
 #include "WebCoreArgumentCoders.h"
 
-//#include "AuthenticationChallenge.h"
 #include "DataReference.h"
-//#include "Credential.h"
 #include "SharedBufferDataReference.h"
 #include "SharedBuffer.h"
 #include "ResourceError.h"
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"
-//#include "CacheQueryOptions.h"
-//#include "DOMCacheEngine.h"
 
 #include <wtf/URL.h>
 #include <wtf/text/CString.h>
@@ -111,46 +107,6 @@ static WARN_UNUSED_RETURN bool decodeSharedBuffer(Decoder& decoder, RefPtr<Share
 }
 
 
-
-#if 0
-void ArgumentCoder<Credential>::encode(Encoder& encoder, const Credential& credential)
-{
-    if (credential.encodingRequiresPlatformData()) {
-        encoder << true;
-        encodePlatformData(encoder, credential);
-        return;
-    }
-
-    encoder << false;
-    encoder << credential.user() << credential.password();
-    encoder << credential.persistence();
-}
-
-bool ArgumentCoder<Credential>::decode(Decoder& decoder, Credential& credential)
-{
-    bool hasPlatformData;
-    if (!decoder.decode(hasPlatformData))
-        return false;
-
-    if (hasPlatformData)
-        return decodePlatformData(decoder, credential);
-
-    String user;
-    if (!decoder.decode(user))
-        return false;
-
-    String password;
-    if (!decoder.decode(password))
-        return false;
-
-    CredentialPersistence persistence;
-    if (!decoder.decode(persistence))
-        return false;
-
-    credential = Credential(user, password, persistence);
-    return true;
-}
-#endif
 
 void ArgumentCoder<RefPtr<PurCFetcher::SharedBuffer>>::encode(Encoder& encoder, const RefPtr<PurCFetcher::SharedBuffer>& buffer)
 {

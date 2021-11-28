@@ -29,9 +29,7 @@
 #pragma once
 
 #include "FormData.h"
-//#include "FrameLoaderTypes.h"
 #include "HTTPHeaderMap.h"
-//#include "IntRect.h"
 #include "ResourceLoadPriority.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/URL.h>

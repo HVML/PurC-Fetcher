@@ -22,7 +22,6 @@
 #include "config.h"
 #include "FormData.h"
 
-#include "FormDataBuilder.h"
 #include "SharedBuffer.h"
 #include <wtf/FileSystem.h>
 #include <wtf/text/LineEnding.h>

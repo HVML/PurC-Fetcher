@@ -28,7 +28,6 @@
 #include "CacheModel.h"
 #include "SandboxExtension.h"
 #include "WebsiteDataStoreParameters.h"
-#include "Cookie.h"
 #include <wtf/ProcessID.h>
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>

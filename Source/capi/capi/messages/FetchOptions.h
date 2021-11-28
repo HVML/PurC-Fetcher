@@ -28,7 +28,7 @@
 
 #pragma once
 
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 #include <wtf/Markable.h>
 #include <wtf/text/WTFString.h>
 

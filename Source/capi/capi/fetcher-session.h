@@ -28,7 +28,7 @@
 #if ENABLE(LINK_PURC_FETCHER)
 
 #include "fetcher-internal.h"
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 
 #include "WebCoreArgumentCoders.h"
 #include "SharedBufferDataReference.h"

@@ -27,7 +27,7 @@
 #ifndef ResourceRequest_h
 #define ResourceRequest_h
 
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 #include "ResourceRequestBase.h"
 #include "URLSoup.h"
 

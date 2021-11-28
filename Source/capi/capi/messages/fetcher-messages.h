@@ -25,7 +25,7 @@
 #ifndef PURC_FETCHER_MESSAGES_H
 #define PURC_FETCHER_MESSAGES_H
 
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 
 #include "ArgumentCoders.h"
 #include "Attachment.h"

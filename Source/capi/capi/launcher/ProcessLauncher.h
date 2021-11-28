@@ -26,7 +26,7 @@
 
 #pragma once
 
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 
 #include "Connection.h"
 #include <wtf/HashMap.h>

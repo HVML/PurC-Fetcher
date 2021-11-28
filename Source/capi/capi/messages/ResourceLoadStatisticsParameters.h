@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "fetcher-msg-basic.h"
+#include "fetcher-messages-basic.h"
 
 #include "ArgumentCoders.h"
 #include "SandboxExtension.h"

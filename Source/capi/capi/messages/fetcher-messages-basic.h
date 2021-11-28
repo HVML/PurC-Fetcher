@@ -1,5 +1,5 @@
 /*
- * @file fetcher-msg-basic.h
+ * @file fetcher-messages-basic.h
  * @author XueShuming
  * @date 2021/11/28
  * @brief The basic type for fetcher messages.
@@ -22,8 +22,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef PURC_FETCHER_MSG_BASIC_H
-#define PURC_FETCHER_MSG_BASIC_H
+#ifndef PURC_FETCHER_MESSAGES_BASIC_H
+#define PURC_FETCHER_MESSAGES_BASIC_H
 
 #include <stdint.h>
 #include <wtf/EnumTraits.h>
@@ -165,6 +165,6 @@ template<> struct EnumTraits<PurCFetcher::ReferrerPolicy> {
 
 } // namespace WTF
 
-#endif /* not defined PURC_FETCHER_MSG_BASIC_H */
+#endif /* not defined PURC_FETCHER_MESSAGES_BASIC_H */
 
 

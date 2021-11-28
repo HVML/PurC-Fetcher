@@ -25,10 +25,7 @@
 
 #pragma once
 
-#include "NavigatingToAppBoundDomain.h"
-#include "WebPageProxyIdentifier.h"
-#include "FrameIdentifier.h"
-#include "PageIdentifier.h"
+#include "fetcher-msg-basic.h"
 #include "ResourceLoaderOptions.h"
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"

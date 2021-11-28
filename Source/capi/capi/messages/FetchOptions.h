@@ -28,7 +28,7 @@
 
 #pragma once
 
-#include "DocumentIdentifier.h"
+#include "fetcher-msg-basic.h"
 #include "ReferrerPolicy.h"
 #include <wtf/Markable.h>
 #include <wtf/text/WTFString.h>

@@ -26,7 +26,7 @@
 
 #pragma once
 
-#include "CacheValidation.h"
+#include "fetcher-msg-basic.h"
 #include "CertificateInfo.h"
 #include "HTTPHeaderMap.h"
 #include "NetworkLoadMetrics.h"

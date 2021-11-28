@@ -24,11 +24,12 @@
 
 #pragma once
 
+#include "fetcher-msg-basic.h"
+
 #include "ArgumentCoders.h"
 #include "Attachment.h"
 #include "Connection.h"
 #include "MessageNames.h"
-#include <ProcessIdentifier.h>
 #include <wtf/Optional.h>
 
 namespace PAL {

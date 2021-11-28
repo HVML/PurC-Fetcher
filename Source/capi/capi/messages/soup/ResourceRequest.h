@@ -27,7 +27,7 @@
 #ifndef ResourceRequest_h
 #define ResourceRequest_h
 
-#include "PageIdentifier.h"
+#include "fetcher-msg-basic.h"
 #include "ResourceRequestBase.h"
 #include "URLSoup.h"
 

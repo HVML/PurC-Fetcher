@@ -27,7 +27,6 @@
 #include "config.h"
 #include "ResourceResponseBase.h"
 
-#include "CacheValidation.h"
 #include "HTTPHeaderNames.h"
 #include "ParsedContentRange.h"
 #include "ResourceResponse.h"

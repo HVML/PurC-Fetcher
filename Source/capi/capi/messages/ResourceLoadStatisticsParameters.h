@@ -25,9 +25,10 @@
 
 #pragma once
 
+#include "fetcher-msg-basic.h"
+
 #include "ArgumentCoders.h"
 #include "SandboxExtension.h"
-#include "NetworkStorageSession.h"
 #include "RegistrableDomain.h"
 
 #include <wtf/HashSet.h>

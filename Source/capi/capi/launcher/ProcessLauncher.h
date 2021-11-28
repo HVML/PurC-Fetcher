@@ -26,8 +26,9 @@
 
 #pragma once
 
+#include "fetcher-msg-basic.h"
+
 #include "Connection.h"
-#include "ProcessIdentifier.h"
 #include <wtf/HashMap.h>
 #include <wtf/ProcessID.h>
 #include <wtf/RefPtr.h>

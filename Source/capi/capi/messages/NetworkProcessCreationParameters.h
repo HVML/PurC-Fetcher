@@ -25,7 +25,7 @@
 
 #pragma once
 
-#include "CacheModel.h"
+#include "fetcher-msg-basic.h"
 #include "SandboxExtension.h"
 #include "WebsiteDataStoreParameters.h"
 #include <wtf/ProcessID.h>
@@ -33,7 +33,6 @@
 #include <wtf/text/WTFString.h>
 
 #if USE(SOUP)
-#include "HTTPCookieAcceptPolicy.h"
 #include "SoupNetworkProxySettings.h"
 #endif
 

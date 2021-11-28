@@ -28,10 +28,10 @@
 #if ENABLE(LINK_PURC_FETCHER)
 
 #include "fetcher-session.h"
+#include "fetcher-msg-basic.h"
 
 #include "Connection.h"
 #include "ProcessLauncher.h"
-#include "ProcessIdentifier.h"
 
 #include <wtf/ProcessID.h>
 #include <wtf/SystemTracing.h>

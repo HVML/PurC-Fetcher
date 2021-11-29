@@ -47,8 +47,6 @@ public:
         virtual ~Client() { }
 
         virtual void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier) = 0;
-        virtual bool shouldConfigureJSCForTesting() const { return false; }
-        virtual bool isJITEnabled() const { return true; }
     };
 
     enum class ProcessType {

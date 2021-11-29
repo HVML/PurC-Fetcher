@@ -54,7 +54,7 @@ static String getExecutablePath()
     return { };
 }
 
-static String findWebKitProcess(const char* processName)
+static String findPurCProcess(const char* processName)
 {
     static const char* execDirectory = g_getenv("FETCHER_EXEC_PATH");
     if (execDirectory) {
@@ -75,7 +75,7 @@ static String findWebKitProcess(const char* processName)
 
 String executablePathOfFetcherProcess()
 {
-    return findWebKitProcess("fetcher");
+    return findPurCProcess("fetcher");
 }
 
 ProcessLauncher::ProcessLauncher(Client* client, LaunchOptions&& launchOptions)

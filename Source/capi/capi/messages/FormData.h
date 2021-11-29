@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2004, 2006, 2008, 2011 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -76,7 +77,7 @@ struct FormDataElement {
         {
             return { filename.isolatedCopy(), fileStart, fileLength, expectedFileModificationTime };
         }
-        
+
         bool operator==(const EncodedFileData& other) const
         {
             return filename == other.filename
@@ -94,17 +95,17 @@ struct FormDataElement {
             decoder >> filename;
             if (!filename)
                 return WTF::nullopt;
-            
+
             Optional<int64_t> fileStart;
             decoder >> fileStart;
             if (!fileStart)
                 return WTF::nullopt;
-            
+
             Optional<int64_t> fileLength;
             decoder >> fileLength;
             if (!fileLength)
                 return WTF::nullopt;
-            
+
             Optional<Optional<WallTime>> expectedFileModificationTime;
             decoder >> expectedFileModificationTime;
             if (!expectedFileModificationTime)
@@ -119,7 +120,7 @@ struct FormDataElement {
         }
 
     };
-    
+
     struct EncodedBlobData {
         URL url;
 
@@ -141,7 +142,7 @@ struct FormDataElement {
             return {{ WTFMove(*url) }};
         }
     };
-    
+
     bool operator==(const FormDataElement& other) const
     {
         if (&other == this)
@@ -158,7 +159,7 @@ struct FormDataElement {
     {
         return !(*this == other);
     }
-    
+
     Data data;
 };
 
@@ -173,7 +174,7 @@ public:
 private:
     friend class FormData;
     FormDataForUpload(FormData&, Vector<String>&&);
-    
+
     Ref<FormData> m_data;
     Vector<String> m_temporaryZipFiles;
 };

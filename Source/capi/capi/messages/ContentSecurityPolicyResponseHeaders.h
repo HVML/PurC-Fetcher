@@ -43,8 +43,6 @@ public:
     ContentSecurityPolicyResponseHeaders() = default;
     PURCFETCHER_EXPORT explicit ContentSecurityPolicyResponseHeaders(const ResourceResponse&);
 
-    ContentSecurityPolicyResponseHeaders isolatedCopy() const;
-
     template <class Encoder> void encode(Encoder&) const;
     template <class Decoder> static Optional<ContentSecurityPolicyResponseHeaders> decode(Decoder&);
 

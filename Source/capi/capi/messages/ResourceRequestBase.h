@@ -28,9 +28,9 @@
 
 #pragma once
 
+#include "fetcher-messages-basic.h"
 #include "FormData.h"
 #include "HTTPHeaderMap.h"
-#include "ResourceLoadPriority.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/URL.h>
 

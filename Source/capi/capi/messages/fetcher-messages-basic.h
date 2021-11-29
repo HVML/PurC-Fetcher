@@ -105,6 +105,16 @@ enum class ReferrerPolicy : uint8_t {
     UnsafeUrl
 };
 
+enum class ResourceLoadPriority : uint8_t {
+    VeryLow,
+    Low,
+    Medium,
+    High,
+    VeryHigh,
+    Lowest = VeryLow,
+    Highest = VeryHigh,
+};
+
 } // namespace PurCFetcher
 
 namespace WTF {
@@ -160,6 +170,17 @@ template<> struct EnumTraits<PurCFetcher::ReferrerPolicy> {
         PurCFetcher::ReferrerPolicy::OriginWhenCrossOrigin,
         PurCFetcher::ReferrerPolicy::StrictOriginWhenCrossOrigin,
         PurCFetcher::ReferrerPolicy::UnsafeUrl
+    >;
+};
+
+template<> struct EnumTraits<PurCFetcher::ResourceLoadPriority> {
+    using values = EnumValues<
+        PurCFetcher::ResourceLoadPriority,
+        PurCFetcher::ResourceLoadPriority::VeryLow,
+        PurCFetcher::ResourceLoadPriority::Low,
+        PurCFetcher::ResourceLoadPriority::Medium,
+        PurCFetcher::ResourceLoadPriority::High,
+        PurCFetcher::ResourceLoadPriority::VeryHigh
     >;
 };
 

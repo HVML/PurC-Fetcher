@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -47,20 +48,6 @@ struct WebsiteDataStoreParameters {
     SandboxExtension::Handle cookieStoragePathExtensionHandle;
     Vector<PurCFetcher::Cookie> pendingCookies;
     NetworkSessionCreationParameters networkSessionParameters;
-
-#if ENABLE(INDEXED_DATABASE)
-    String indexedDatabaseDirectory;
-    SandboxExtension::Handle indexedDatabaseDirectoryExtensionHandle;
-#if PLATFORM(IOS_FAMILY)
-    SandboxExtension::Handle indexedDatabaseTempBlobDirectoryExtensionHandle;
-#endif
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    String serviceWorkerRegistrationDirectory;
-    SandboxExtension::Handle serviceWorkerRegistrationDirectoryExtensionHandle;
-    bool serviceWorkerProcessTerminationDelayEnabled { true };
-#endif
 
     String localStorageDirectory;
     SandboxExtension::Handle localStorageDirectoryExtensionHandle;

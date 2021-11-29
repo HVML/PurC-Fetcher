@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -37,35 +38,9 @@ class RegistrableDomain {
 public:
     RegistrableDomain() = default;
 
-    explicit RegistrableDomain(const URL& url)
-        : RegistrableDomain(registrableDomainFromHost(url.host().toString()))
-    {
-    }
-
-    explicit RegistrableDomain(const SecurityOriginData& origin)
-        : RegistrableDomain(registrableDomainFromHost(origin.host))
-    {
-    }
-
-    bool isEmpty() const { return m_registrableDomain.isEmpty() || m_registrableDomain == "nullOrigin"_s; }
-    String& string() { return m_registrableDomain; }
-    const String& string() const { return m_registrableDomain; }
-
     bool operator!=(const RegistrableDomain& other) const { return m_registrableDomain != other.m_registrableDomain; }
     bool operator==(const RegistrableDomain& other) const { return m_registrableDomain == other.m_registrableDomain; }
     bool operator==(const char* other) const { return m_registrableDomain == other; }
-
-    bool matches(const URL& url) const
-    {
-        return matches(url.host());
-    }
-
-    bool matches(const SecurityOriginData& origin) const
-    {
-        return matches(origin.host);
-    }
-
-    RegistrableDomain isolatedCopy() const { return RegistrableDomain { m_registrableDomain.isolatedCopy() }; }
 
     RegistrableDomain(WTF::HashTableDeletedValueType)
         : m_registrableDomain(WTF::HashTableDeletedValue) { }
@@ -78,59 +53,10 @@ public:
         static const bool safeToCompareToEmptyOrDeleted = false;
     };
 
-    static RegistrableDomain uncheckedCreateFromRegistrableDomainString(const String& domain)
-    {
-        return RegistrableDomain { domain };
-    }
-    
-    static RegistrableDomain uncheckedCreateFromHost(const String& host)
-    {
-#if ENABLE(PUBLIC_SUFFIX_LIST)
-        auto registrableDomain = topPrivatelyControlledDomain(host);
-        if (registrableDomain.isEmpty())
-            return uncheckedCreateFromRegistrableDomainString(host);
-        return RegistrableDomain { registrableDomain };
-#else
-        return uncheckedCreateFromRegistrableDomainString(host);
-#endif
-    }
-
     template<class Encoder> void encode(Encoder&) const;
     template<class Decoder> static Optional<RegistrableDomain> decode(Decoder&);
 
-protected:
-
 private:
-    explicit RegistrableDomain(const String& domain)
-        : m_registrableDomain { domain.isEmpty() ? "nullOrigin"_s : domain }
-    {
-    }
-
-    bool matches(StringView host) const
-    {
-        if (host.isEmpty() && m_registrableDomain == "nullOrigin"_s)
-            return true;
-        if (!host.endsWith(m_registrableDomain))
-            return false;
-        if (host.length() == m_registrableDomain.length())
-            return true;
-        return host[host.length() - m_registrableDomain.length() - 1] == '.';
-    }
-
-    static inline String registrableDomainFromHost(const String& host)
-    {
-#if ENABLE(PUBLIC_SUFFIX_LIST)
-        auto domain = topPrivatelyControlledDomain(host);
-#else
-        auto domain = host;
-#endif
-        if (host.isEmpty())
-            domain = "nullOrigin"_s;
-        else if (domain.isEmpty())
-            domain = host;
-        return domain;
-    }
-
     String m_registrableDomain;
 };
 
@@ -151,11 +77,6 @@ Optional<RegistrableDomain> RegistrableDomain::decode(Decoder& decoder)
     RegistrableDomain registrableDomain;
     registrableDomain.m_registrableDomain = WTFMove(*domain);
     return registrableDomain;
-}
-
-inline bool areRegistrableDomainsEqual(const URL& a, const URL& b)
-{
-    return RegistrableDomain(a).matches(b);
 }
 
 } // namespace PurCFetcher

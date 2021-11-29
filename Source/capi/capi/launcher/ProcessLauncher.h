@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2010-2019 Apple Inc. All rights reserved.
  * Copyright (C) 2020-2021 Beijing FMSoft Technologies Co., Ltd.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions

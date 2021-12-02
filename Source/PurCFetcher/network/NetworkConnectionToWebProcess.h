@@ -34,7 +34,6 @@
 #include "PolicyDecision.h"
 #include "SandboxExtension.h"
 #include "WebPageProxyIdentifier.h"
-//#include "WebResourceLoadObserver.h"
 #include "WebSocketIdentifier.h"
 #include "FrameIdentifier.h"
 #include "MessagePortChannelProvider.h"
@@ -83,9 +82,6 @@ struct DataKey;
 
 class NetworkConnectionToWebProcess
     : public RefCounted<NetworkConnectionToWebProcess>
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    , public WebPaymentCoordinatorProxy::Client
-#endif
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
     , public PurCFetcher::CookieChangeObserver
 #endif
@@ -156,12 +152,6 @@ public:
 
     void checkProcessLocalPortForActivity(const PurCFetcher::MessagePortIdentifier&, CompletionHandler<void(PurCFetcher::MessagePortChannelProvider::HasActivity)>&&);
 
-#if ENABLE(SERVICE_WORKER)
-    void serverToContextConnectionNoLongerNeeded();
-    WebSWServerConnection& swConnection();
-    std::unique_ptr<ServiceWorkerFetchTask> createFetchTask(NetworkResourceLoader&, const PurCFetcher::ResourceRequest&);
-#endif
-
     NetworkSchemeRegistry& schemeRegistry() { return m_schemeRegistry.get(); }
 
     void cookieAcceptPolicyChanged(PurCFetcher::HTTPCookieAcceptPolicy);
@@ -212,13 +202,6 @@ private:
 
     void createSocketChannel(const PurCFetcher::ResourceRequest&, const String& protocol, WebSocketIdentifier);
     void updateQuotaBasedOnSpaceUsageForTesting(const PurCFetcher::ClientOrigin&);
-
-#if ENABLE(SERVICE_WORKER)
-    void establishSWServerConnection();
-    void establishSWContextConnection(PurCFetcher::RegistrableDomain&&, CompletionHandler<void()>&&);
-    void closeSWContextConnection();
-    void unregisterSWConnection();
-#endif
 
     void createNewMessagePortChannel(const PurCFetcher::MessagePortIdentifier& port1, const PurCFetcher::MessagePortIdentifier& port2);
     void entangleLocalPortInThisProcessToRemote(const PurCFetcher::MessagePortIdentifier& local, const PurCFetcher::MessagePortIdentifier& remote);
@@ -297,21 +280,6 @@ private:
 
     void hasUploadStateChanged(bool);
 
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    WebPaymentCoordinatorProxy& paymentCoordinator();
-
-    // WebPaymentCoordinatorProxy::Client
-    IPC::Connection* paymentCoordinatorConnection(const WebPaymentCoordinatorProxy&) final;
-    UIViewController *paymentCoordinatorPresentingViewController(const WebPaymentCoordinatorProxy&) final;
-    const String& paymentCoordinatorBoundInterfaceIdentifier(const WebPaymentCoordinatorProxy&) final;
-    const String& paymentCoordinatorCTDataConnectionServiceType(const WebPaymentCoordinatorProxy&) final;
-    const String& paymentCoordinatorSourceApplicationBundleIdentifier(const WebPaymentCoordinatorProxy&) final;
-    const String& paymentCoordinatorSourceApplicationSecondaryIdentifier(const WebPaymentCoordinatorProxy&) final;
-    std::unique_ptr<PaymentAuthorizationPresenter> paymentCoordinatorAuthorizationPresenter(WebPaymentCoordinatorProxy&, PKPaymentRequest *) final;
-    void paymentCoordinatorAddMessageReceiver(WebPaymentCoordinatorProxy&, IPC::ReceiverName, IPC::MessageReceiver&) final;
-    void paymentCoordinatorRemoveMessageReceiver(WebPaymentCoordinatorProxy&, IPC::ReceiverName) final;
-#endif
-
     Ref<IPC::Connection> m_connection;
     Ref<NetworkProcess> m_networkProcess;
     PAL::SessionID m_sessionID;
@@ -336,14 +304,6 @@ private:
 
     RefPtr<CacheStorageEngineConnection> m_cacheStorageConnection;
 
-#if ENABLE(SERVICE_WORKER)
-    WeakPtr<WebSWServerConnection> m_swConnection;
-    std::unique_ptr<WebSWServerToContextConnection> m_swContextConnection;
-#endif
-
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    std::unique_ptr<WebPaymentCoordinatorProxy> m_paymentCoordinator;
-#endif
     const PurCFetcher::ProcessIdentifier m_webProcessIdentifier;
 
     HashSet<PurCFetcher::MessagePortIdentifier> m_processEntangledPorts;

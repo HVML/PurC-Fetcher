@@ -34,9 +34,6 @@
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
 #include "ResourceRequest.h"
-#if ENABLE(PUBLIC_SUFFIX_LIST)
-#include "PublicSuffix.h"
-#endif
 #endif
 
 namespace PurCFetcher {
@@ -57,13 +54,11 @@ void NetworkStorageSession::permitProcessToUseCookieAPI(bool value)
         removeProcessPrivilege(ProcessPrivilege::CanAccessRawCookies);
 }
 
-#if !PLATFORM(COCOA)
 Vector<Cookie> NetworkStorageSession::domCookiesForHost(const String&)
 {
     ASSERT_NOT_IMPLEMENTED_YET();
     return { };
 }
-#endif // !PLATFORM(COCOA)
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
 
@@ -88,13 +83,11 @@ bool NetworkStorageSession::shouldBlockThirdPartyCookiesButKeepFirstPartyCookies
     return m_registrableDomainsToBlockButKeepCookiesFor.contains(registrableDomain);
 }
 
-#if !PLATFORM(COCOA)
 void NetworkStorageSession::setAllCookiesToSameSiteStrict(const RegistrableDomain&, CompletionHandler<void()>&& completionHandler)
 {
     // Not implemented.
     completionHandler();
 }
-#endif
 
 bool NetworkStorageSession::hasHadUserInteractionAsFirstParty(const RegistrableDomain& registrableDomain) const
 {

@@ -32,14 +32,10 @@
 #include "Logging.h"
 #include "NetworkCache.h"
 #include "NetworkConnectionToWebProcessMessages.h"
-//#include "NetworkMDNSRegisterMessages.h"
 #include "NetworkProcess.h"
 #include "NetworkProcessConnectionMessages.h"
 #include "NetworkProcessMessages.h"
 #include "NetworkProcessProxyMessages.h"
-//#include "NetworkRTCMonitorMessages.h"
-//#include "NetworkRTCProviderMessages.h"
-//#include "NetworkRTCSocketMessages.h"
 #include "NetworkResourceLoadParameters.h"
 #include "NetworkResourceLoader.h"
 #include "NetworkResourceLoaderMessages.h"
@@ -47,29 +43,16 @@
 #include "NetworkSession.h"
 #include "PingLoad.h"
 #include "PreconnectTask.h"
-//#include "ServiceWorkerFetchTaskMessages.h"
 #include "WebCoreArgumentCoders.h"
 #include "WebErrors.h"
-//#include "WebProcessMessages.h"
-//#include "WebProcessPoolMessages.h"
-//#include "WebResourceLoadStatisticsStore.h"
-//#include "WebSWServerConnection.h"
-//#include "WebSWServerConnectionMessages.h"
-//#include "WebSWServerToContextConnection.h"
-//#include "WebSWServerToContextConnectionMessages.h"
 #include "WebSocketIdentifier.h"
 #include "WebsiteDataStoreParameters.h"
-//#include "DocumentStorageAccess.h"
 #include "HTTPCookieAcceptPolicy.h"
 #include "NetworkStorageSession.h"
 #include "ResourceLoadObserver.h"
 #include "ResourceRequest.h"
 #include "SameSiteInfo.h"
 #include "SecurityPolicy.h"
-
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-#include "WebPaymentCoordinatorProxyMessages.h"
-#endif
 
 #if ENABLE(LEGACY_CUSTOM_PROTOCOL_MANAGER)
 #include "LegacyCustomProtocolManager.h"
@@ -114,10 +97,6 @@ NetworkConnectionToWebProcess::NetworkConnectionToWebProcess(NetworkProcess& net
     // reply from the Network process, which would be unsafe.
     m_connection->setOnlySendMessagesAsDispatchWhenWaitingForSyncReplyWhenProcessingSuchAMessage(true);
     m_connection->open();
-
-#if ENABLE(SERVICE_WORKER)
-    establishSWServerConnection();
-#endif
 }
 
 NetworkConnectionToWebProcess::~NetworkConnectionToWebProcess()
@@ -140,10 +119,6 @@ NetworkConnectionToWebProcess::~NetworkConnectionToWebProcess()
 #if USE(LIBWEBRTC)
     if (m_rtcProvider)
         m_rtcProvider->close();
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    unregisterSWConnection();
 #endif
 }
 
@@ -220,30 +195,6 @@ void NetworkConnectionToWebProcess::didReceiveMessage(IPC::Connection& connectio
         cacheStorageConnection().didReceiveMessage(connection, decoder);
         return;
     }
-    
-#if ENABLE(SERVICE_WORKER)
-    if (decoder.messageReceiverName() == Messages::WebSWServerConnection::messageReceiverName()) {
-        if (m_swConnection)
-            m_swConnection->didReceiveMessage(connection, decoder);
-        return;
-    }
-    if (decoder.messageReceiverName() == Messages::WebSWServerToContextConnection::messageReceiverName()) {
-        if (m_swContextConnection)
-            m_swContextConnection->didReceiveMessage(connection, decoder);
-        return;
-    }
-
-    if (decoder.messageReceiverName() == Messages::ServiceWorkerFetchTask::messageReceiverName()) {
-        if (m_swContextConnection)
-            m_swContextConnection->didReceiveFetchTaskMessage(connection, decoder);
-        return;
-    }
-#endif
-
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    if (decoder.messageReceiverName() == Messages::WebPaymentCoordinatorProxy::messageReceiverName())
-        return paymentCoordinator().didReceiveMessage(connection, decoder);
-#endif
 
     WTFLogAlways("Unhandled network process message '%s'", description(decoder.messageName()));
     ASSERT_NOT_REACHED();
@@ -275,19 +226,6 @@ void NetworkConnectionToWebProcess::didReceiveSyncMessage(IPC::Connection& conne
         return;
     }
 
-#if ENABLE(SERVICE_WORKER)
-    if (decoder.messageReceiverName() == Messages::WebSWServerConnection::messageReceiverName()) {
-        if (m_swConnection)
-            m_swConnection->didReceiveSyncMessage(connection, decoder, reply);
-        return;
-    }
-#endif
-
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    if (decoder.messageReceiverName() == Messages::WebPaymentCoordinatorProxy::messageReceiverName())
-        return paymentCoordinator().didReceiveSyncMessage(connection, decoder, reply);
-#endif
-
     WTFLogAlways("Unhandled network process message '%s'", description(decoder.messageName()));
     ASSERT_NOT_REACHED();
 }
@@ -300,11 +238,7 @@ void NetworkConnectionToWebProcess::updateQuotaBasedOnSpaceUsageForTesting(const
 
 void NetworkConnectionToWebProcess::didClose(IPC::Connection& connection)
 {
-#if ENABLE(SERVICE_WORKER)
-    m_swContextConnection = nullptr;
-#else
     UNUSED_PARAM(connection);
-#endif
 
     // Protect ourself as we might be otherwise be deleted during this function.
     Ref<NetworkConnectionToWebProcess> protector(*this);
@@ -326,14 +260,6 @@ void NetworkConnectionToWebProcess::didClose(IPC::Connection& connection)
         m_rtcProvider->close();
         m_rtcProvider = nullptr;
     }
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    unregisterSWConnection();
-#endif
-
-#if ENABLE(APPLE_PAY_REMOTE_UI)
-    m_paymentCoordinator = nullptr;
 #endif
 }
 
@@ -379,29 +305,10 @@ NetworkSession* NetworkConnectionToWebProcess::networkSession()
     return networkProcess().networkSession(m_sessionID);
 }
 
-#if ENABLE(SERVICE_WORKER)
-std::unique_ptr<ServiceWorkerFetchTask> NetworkConnectionToWebProcess::createFetchTask(NetworkResourceLoader& loader, const ResourceRequest& request)
-{
-    return swConnection().createFetchTask(loader, request);
-}
-#endif
-
 void NetworkConnectionToWebProcess::scheduleResourceLoad(NetworkResourceLoadParameters&& loadParameters)
 {
     RELEASE_LOG_IF_ALLOWED(Loading, "scheduleResourceLoad: (parentPID=%d, pageProxyID=%" PRIu64 ", webPageID=%" PRIu64 ", frameID=%" PRIu64 ", resourceID=%" PRIu64 ")", loadParameters.parentPID, loadParameters.webPageProxyID.toUInt64(), loadParameters.webPageID.toUInt64(), loadParameters.webFrameID.toUInt64(), loadParameters.identifier);
 
-#if ENABLE(SERVICE_WORKER)
-    auto& server = m_networkProcess->swServerForSession(m_sessionID);
-    if (!server.isImportCompleted()) {
-        server.whenImportIsCompleted([this, protectedThis = makeRef(*this), loadParameters = WTFMove(loadParameters)]() mutable {
-            if (!m_networkProcess->webProcessConnection(webProcessIdentifier()))
-                return;
-            ASSERT(m_networkProcess->swServerForSession(m_sessionID).isImportCompleted());
-            scheduleResourceLoad(WTFMove(loadParameters));
-        });
-        return;
-    }
-#endif
     auto identifier = loadParameters.identifier;
     RELEASE_ASSERT(identifier);
     RELEASE_ASSERT(RunLoop::isMain());
@@ -409,11 +316,7 @@ void NetworkConnectionToWebProcess::scheduleResourceLoad(NetworkResourceLoadPara
 
     auto& loader = m_networkResourceLoaders.add(identifier, NetworkResourceLoader::create(WTFMove(loadParameters), *this)).iterator->value;
 
-#if ENABLE(SERVICE_WORKER)
-    loader->startWithServiceWorker();
-#else
     loader->start();
-#endif
 }
 
 void NetworkConnectionToWebProcess::performSynchronousLoad(NetworkResourceLoadParameters&& loadParameters, Messages::NetworkConnectionToWebProcess::PerformSynchronousLoad::DelayedReply&& reply)
@@ -873,53 +776,6 @@ size_t NetworkConnectionToWebProcess::findNetworkActivityTracker(ResourceLoadIde
         return item.resourceID == resourceID;
     });
 }
-    
-#if ENABLE(SERVICE_WORKER)
-void NetworkConnectionToWebProcess::unregisterSWConnection()
-{
-    if (m_swConnection)
-        m_swConnection->server().removeConnection(m_swConnection->identifier());
-}
-
-void NetworkConnectionToWebProcess::establishSWServerConnection()
-{
-    if (m_swConnection)
-        return;
-
-    auto& server = m_networkProcess->swServerForSession(m_sessionID);
-    auto connection = makeUnique<WebSWServerConnection>(m_networkProcess, server, m_connection.get(), m_webProcessIdentifier);
-
-    m_swConnection = makeWeakPtr(*connection);
-    server.addConnection(WTFMove(connection));
-}
-
-void NetworkConnectionToWebProcess::establishSWContextConnection(RegistrableDomain&& registrableDomain, CompletionHandler<void()>&& completionHandler)
-{
-    if (auto* server = m_networkProcess->swServerForSessionIfExists(m_sessionID))
-        m_swContextConnection = makeUnique<WebSWServerToContextConnection>(*this, WTFMove(registrableDomain), *server);
-    completionHandler();
-}
-
-void NetworkConnectionToWebProcess::closeSWContextConnection()
-{
-    m_swContextConnection = nullptr;
-}
-
-void NetworkConnectionToWebProcess::serverToContextConnectionNoLongerNeeded()
-{
-    RELEASE_LOG_IF_ALLOWED(ServiceWorker, "serverToContextConnectionNoLongerNeeded: WebProcess no longer useful for running service workers");
-    m_networkProcess->parentProcessConnection()->send(Messages::NetworkProcessProxy::WorkerContextConnectionNoLongerNeeded { webProcessIdentifier() }, 0);
-
-    m_swContextConnection = nullptr;
-}
-
-WebSWServerConnection& NetworkConnectionToWebProcess::swConnection()
-{
-    if (!m_swConnection)
-        establishSWServerConnection();
-    return *m_swConnection;
-}
-#endif
 
 void NetworkConnectionToWebProcess::createNewMessagePortChannel(const MessagePortIdentifier& port1, const MessagePortIdentifier& port2)
 {

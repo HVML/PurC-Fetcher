@@ -31,75 +31,16 @@
 
 namespace PurCFetcher {
 
-#if USE(AVFOUNDATION)
-bool DeprecatedGlobalSettings::gAVFoundationEnabled = true;
-bool DeprecatedGlobalSettings::gAVFoundationNSURLSessionEnabled = true;
-#endif
-
-#if USE(GSTREAMER)
-bool DeprecatedGlobalSettings::gGStreamerEnabled = true;
-#endif
-
 bool DeprecatedGlobalSettings::gMockScrollbarsEnabled = false;
 bool DeprecatedGlobalSettings::gUsesOverlayScrollbars = false;
 bool DeprecatedGlobalSettings::gMockScrollAnimatorEnabled = false;
 
-#if PLATFORM(WIN)
-bool DeprecatedGlobalSettings::gShouldUseHighResolutionTimers = true;
-#endif
-    
 bool DeprecatedGlobalSettings::gShouldRespectPriorityInCSSAttributeSetters = false;
 bool DeprecatedGlobalSettings::gLowPowerVideoAudioBufferSizeEnabled = false;
 bool DeprecatedGlobalSettings::gResourceLoadStatisticsEnabledEnabled = false;
 bool DeprecatedGlobalSettings::gAllowsAnySSLCertificate = false;
 
-#if PLATFORM(IOS_FAMILY)
-bool DeprecatedGlobalSettings::gNetworkDataUsageTrackingEnabled = false;
-bool DeprecatedGlobalSettings::gAVKitEnabled = false;
-bool DeprecatedGlobalSettings::gShouldOptOutOfNetworkStateObservation = false;
-bool DeprecatedGlobalSettings::gDisableScreenSizeOverride = false;
-#endif
 bool DeprecatedGlobalSettings::gManageAudioSession = false;
-
-#if PLATFORM(WIN)
-void DeprecatedGlobalSettings::setShouldUseHighResolutionTimers(bool shouldUseHighResolutionTimers)
-{
-    gShouldUseHighResolutionTimers = shouldUseHighResolutionTimers;
-}
-#endif
-
-#if USE(AVFOUNDATION)
-void DeprecatedGlobalSettings::setAVFoundationEnabled(bool enabled)
-{
-    if (gAVFoundationEnabled == enabled)
-        return;
-
-    gAVFoundationEnabled = enabled;
-    HTMLMediaElement::resetMediaEngines();
-}
-
-void DeprecatedGlobalSettings::setAVFoundationNSURLSessionEnabled(bool enabled)
-{
-    if (gAVFoundationNSURLSessionEnabled == enabled)
-        return;
-
-    gAVFoundationNSURLSessionEnabled = enabled;
-}
-#endif
-
-#if USE(GSTREAMER)
-void DeprecatedGlobalSettings::setGStreamerEnabled(bool enabled)
-{
-    if (gGStreamerEnabled == enabled)
-        return;
-
-    gGStreamerEnabled = enabled;
-
-#if ENABLE(VIDEO)
-    HTMLMediaElement::resetMediaEngines();
-#endif
-}
-#endif
 
 // It's very important that this setting doesn't change in the middle of a document's lifetime.
 // The Mac port uses this flag when registering and deregistering platform-dependent scrollbar
@@ -157,53 +98,9 @@ void DeprecatedGlobalSettings::setResourceLoadStatisticsEnabled(bool flag)
     gResourceLoadStatisticsEnabledEnabled = flag;
 }
 
-#if PLATFORM(IOS_FAMILY)
-void DeprecatedGlobalSettings::setAudioSessionCategoryOverride(unsigned sessionCategory)
-{
-    AudioSession::sharedSession().setCategoryOverride(static_cast<AudioSession::CategoryType>(sessionCategory));
-}
-
-unsigned DeprecatedGlobalSettings::audioSessionCategoryOverride()
-{
-    return AudioSession::sharedSession().categoryOverride();
-}
-
-void DeprecatedGlobalSettings::setNetworkDataUsageTrackingEnabled(bool trackingEnabled)
-{
-    gNetworkDataUsageTrackingEnabled = trackingEnabled;
-}
-
-bool DeprecatedGlobalSettings::networkDataUsageTrackingEnabled()
-{
-    return gNetworkDataUsageTrackingEnabled;
-}
-
-static String& sharedNetworkInterfaceNameGlobal()
-{
-    static NeverDestroyed<String> networkInterfaceName;
-    return networkInterfaceName;
-}
-
-void DeprecatedGlobalSettings::setNetworkInterfaceName(const String& networkInterfaceName)
-{
-    sharedNetworkInterfaceNameGlobal() = networkInterfaceName;
-}
-
-const String& DeprecatedGlobalSettings::networkInterfaceName()
-{
-    return sharedNetworkInterfaceNameGlobal();
-}
-#endif
-
 bool DeprecatedGlobalSettings::globalConstRedeclarationShouldThrow()
 {
-#if PLATFORM(MAC)
-    return !MacApplication::isIBooks();
-#elif PLATFORM(IOS_FAMILY)
-    return !IOSApplication::isIBooks();
-#else
     return true;
-#endif
 }
 
 void DeprecatedGlobalSettings::setAllowsAnySSLCertificate(bool allowAnySSLCertificate)

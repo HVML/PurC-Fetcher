@@ -61,16 +61,11 @@ NetworkLoadChecker::NetworkLoadChecker(NetworkProcess& networkProcess, NetworkRe
     , m_preflightPolicy(preflightPolicy)
     , m_referrer(WTFMove(referrer))
     , m_shouldCaptureExtraNetworkLoadMetrics(shouldCaptureExtraNetworkLoadMetrics)
-#if PLATFORM(COCOA)
-    , m_isHTTPSUpgradeEnabled(isHTTPSUpgradeEnabled)
-#endif
     , m_requestLoadType(requestLoadType)
     , m_schemeRegistry(schemeRegistry)
     , m_networkResourceLoader(makeWeakPtr(networkResourceLoader))
 {
-#if !PLATFORM(COCOA)
     UNUSED_PARAM(isHTTPSUpgradeEnabled);
-#endif
 
     m_isSameOriginRequest = isSameOrigin(m_url, m_origin.get());
     switch (options.credentials) {
@@ -209,40 +204,7 @@ auto NetworkLoadChecker::accessControlErrorForValidationHandler(String&& message
 
 void NetworkLoadChecker::applyHTTPSUpgradeIfNeeded(ResourceRequest&& request, CompletionHandler<void(ResourceRequest&&)>&& handler) const
 {
-#if PLATFORM(COCOA)
-    if (!m_isHTTPSUpgradeEnabled || m_requestLoadType != LoadType::MainFrame) {
-        handler(WTFMove(request));
-        return;
-    }
-
-    auto& url = request.url();
-
-    // Only upgrade http urls.
-    if (!url.protocolIs("http")) {
-        handler(WTFMove(request));
-        return;
-    }
-
-    auto& httpsUpgradeChecker = m_networkProcess->networkHTTPSUpgradeChecker();
-
-    // Do not wait for httpsUpgradeChecker to complete its setup.
-    if (!httpsUpgradeChecker.didSetupCompleteSuccessfully()) {
-        handler(WTFMove(request));
-        return;
-    }
-
-    httpsUpgradeChecker.query(url.host().toString(), m_sessionID, [request = WTFMove(request), handler = WTFMove(handler)] (bool foundHost) mutable {
-        if (foundHost) {
-            auto newURL = request.url();
-            newURL.setProtocol("https");
-            request.setURL(newURL);
-        }
-
-        handler(WTFMove(request));
-    });
-#else
     handler(WTFMove(request));
-#endif
 }
 
 void NetworkLoadChecker::checkRequest(ResourceRequest&& request, ContentSecurityPolicyClient* client, ValidationHandler&& handler)
@@ -252,19 +214,6 @@ void NetworkLoadChecker::checkRequest(ResourceRequest&& request, ContentSecurity
     applyHTTPSUpgradeIfNeeded(WTFMove(request), [this, weakThis = makeWeakPtr(*this), client, handler = WTFMove(handler), originalRequest = WTFMove(originalRequest)](auto&& request) mutable {
         if (!weakThis)
             return handler({ ResourceError { ResourceError::Type::Cancellation }});
-
-#if 0
-        if (auto* contentSecurityPolicy = this->contentSecurityPolicy()) {
-            if (this->isRedirected()) {
-                auto type = m_options.mode == FetchOptions::Mode::Navigate ? ContentSecurityPolicy::InsecureRequestType::Navigation : ContentSecurityPolicy::InsecureRequestType::Load;
-                contentSecurityPolicy->upgradeInsecureRequestIfNeeded(request, type);
-            }
-            if (!this->isAllowedByContentSecurityPolicy(request, client)) {
-                handler(this->accessControlErrorForValidationHandler("Blocked by Content Security Policy."_s));
-                return;
-            }
-        }
-#endif
 
 #if ENABLE(CONTENT_EXTENSIONS)
         this->processContentRuleListsForLoad(WTFMove(request), [this, weakThis = WTFMove(weakThis), handler = WTFMove(handler), originalRequest = WTFMove(originalRequest)](auto&& result) mutable {
@@ -301,47 +250,9 @@ void NetworkLoadChecker::continueCheckingRequestOrDoSyntheticRedirect(ResourceRe
 
 bool NetworkLoadChecker::isAllowedByContentSecurityPolicy(const ResourceRequest& request, PurCFetcher::ContentSecurityPolicyClient* client)
 {
-#if 0
-    auto* contentSecurityPolicy = this->contentSecurityPolicy();
-    contentSecurityPolicy->setClient(client);
-    auto clearContentSecurityPolicyClient = makeScopeExit([&] {
-        contentSecurityPolicy->setClient(nullptr);
-    });
-
-    auto redirectResponseReceived = isRedirected() ? ContentSecurityPolicy::RedirectResponseReceived::Yes : ContentSecurityPolicy::RedirectResponseReceived::No;
-    switch (m_options.destination) {
-    case FetchOptions::Destination::Worker:
-    case FetchOptions::Destination::Serviceworker:
-    case FetchOptions::Destination::Sharedworker:
-        return contentSecurityPolicy->allowChildContextFromSource(request.url(), redirectResponseReceived);
-    case FetchOptions::Destination::Script:
-        if (request.requester() == ResourceRequest::Requester::ImportScripts && !contentSecurityPolicy->allowScriptFromSource(request.url(), redirectResponseReceived))
-            return false;
-        // FIXME: Check CSP for non-importScripts() initiated loads.
-        return true;
-    case FetchOptions::Destination::EmptyString:
-        return contentSecurityPolicy->allowConnectToSource(request.url(), redirectResponseReceived);
-    case FetchOptions::Destination::Audio:
-    case FetchOptions::Destination::Document:
-    case FetchOptions::Destination::Embed:
-    case FetchOptions::Destination::Font:
-    case FetchOptions::Destination::Image:
-    case FetchOptions::Destination::Manifest:
-    case FetchOptions::Destination::Object:
-    case FetchOptions::Destination::Report:
-    case FetchOptions::Destination::Style:
-    case FetchOptions::Destination::Track:
-    case FetchOptions::Destination::Video:
-    case FetchOptions::Destination::Xslt:
-        // FIXME: Check CSP for these destinations.
-        return true;
-    }
-    ASSERT_NOT_REACHED();
-#else
     UNUSED_PARAM(request);
     UNUSED_PARAM(client);
     return true;
-#endif
 }
 
 void NetworkLoadChecker::continueCheckingRequest(ResourceRequest&& request, ValidationHandler&& handler)
@@ -475,16 +386,7 @@ bool NetworkLoadChecker::doesNotNeedCORSCheck(const URL& url) const
 
 ContentSecurityPolicy* NetworkLoadChecker::contentSecurityPolicy()
 {
-#if 0
-    if (!m_contentSecurityPolicy && m_cspResponseHeaders) {
-        // FIXME: Pass the URL of the protected resource instead of its origin.
-        m_contentSecurityPolicy = makeUnique<ContentSecurityPolicy>(URL { URL { }, m_origin->toString() });
-        m_contentSecurityPolicy->didReceiveHeaders(*m_cspResponseHeaders, String { m_referrer }, ContentSecurityPolicy::ReportParsingErrors::No);
-    }
-    return m_contentSecurityPolicy.get();
-#else
     return nullptr;
-#endif
 }
 
 #if ENABLE(CONTENT_EXTENSIONS)

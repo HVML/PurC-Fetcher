@@ -33,16 +33,10 @@
 #include "NetworkResourceLoader.h"
 #include "NetworkSessionCreationParameters.h"
 #include "PingLoad.h"
-//#include "WebPageProxy.h"
-//#include "WebPageProxyMessages.h"
-//#include "WebProcessProxy.h"
 #include "AdClickAttribution.h"
 #include "CookieJar.h"
 #include "ResourceRequest.h"
 
-#if PLATFORM(COCOA)
-#include "NetworkSessionCocoa.h"
-#endif
 #if USE(SOUP)
 #include "NetworkSessionSoup.h"
 #endif
@@ -55,9 +49,6 @@ using namespace PurCFetcher;
 
 std::unique_ptr<NetworkSession> NetworkSession::create(NetworkProcess& networkProcess, NetworkSessionCreationParameters&& parameters)
 {
-#if PLATFORM(COCOA)
-    return NetworkSessionCocoa::create(networkProcess, WTFMove(parameters));
-#endif
 #if USE(SOUP)
     return NetworkSessionSoup::create(networkProcess, WTFMove(parameters));
 #endif

@@ -39,11 +39,6 @@
 #include <wtf/RetainPtr.h>
 #include <wtf/WeakPtr.h>
 
-#if PLATFORM(COCOA)
-OBJC_CLASS NSProgress;
-OBJC_CLASS NSURLSessionDownloadTask;
-#endif
-
 namespace IPC {
 class DataReference;
 }
@@ -68,17 +63,11 @@ class Download : public IPC::MessageSender, public CanMakeWeakPtr<Download> {
     WTF_MAKE_NONCOPYABLE(Download); WTF_MAKE_FAST_ALLOCATED;
 public:
     Download(DownloadManager&, DownloadID, NetworkDataTask&, NetworkSession&, const String& suggestedFilename = { });
-#if PLATFORM(COCOA)
-    Download(DownloadManager&, DownloadID, NSURLSessionDownloadTask*, NetworkSession&, const String& suggestedFilename = { });
-#endif
 
     ~Download();
 
     void resume(const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&&);
     void cancel();
-#if PLATFORM(COCOA)
-    void publishProgress(const URL&, SandboxExtension::Handle&&);
-#endif
 
     DownloadID downloadID() const { return m_downloadID; }
     PAL::SessionID sessionID() const { return m_sessionID; }
@@ -116,10 +105,6 @@ private:
     RefPtr<SandboxExtension> m_sandboxExtension;
 
     RefPtr<NetworkDataTask> m_download;
-#if PLATFORM(COCOA)
-    RetainPtr<NSURLSessionDownloadTask> m_downloadTask;
-    RetainPtr<NSProgress> m_progress;
-#endif
     PAL::SessionID m_sessionID;
     String m_suggestedName;
     bool m_wasCanceled { false };

@@ -151,11 +151,6 @@ public:
 
 static String makeCachePath(const String& baseCachePath)
 {
-#if PLATFORM(MAC)
-    // Put development cache to a different directory to avoid affecting the system cache.
-    if (!AuxiliaryProcess::isSystemPurCFetcher())
-        return FileSystem::pathByAppendingComponent(baseCachePath, "Development"_s);
-#endif
     return baseCachePath;
 }
 

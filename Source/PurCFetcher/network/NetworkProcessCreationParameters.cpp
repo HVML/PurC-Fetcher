@@ -29,10 +29,6 @@
 #include "ArgumentCoders.h"
 #include "WebCoreArgumentCoders.h"
 
-#if PLATFORM(COCOA)
-#include "ArgumentCodersCF.h"
-#endif
-
 namespace PurCFetcher {
 
 NetworkProcessCreationParameters::NetworkProcessCreationParameters() = default;
@@ -40,22 +36,8 @@ NetworkProcessCreationParameters::NetworkProcessCreationParameters() = default;
 void NetworkProcessCreationParameters::encode(IPC::Encoder& encoder) const
 {
     encoder << cacheModel;
-#if PLATFORM(MAC) || PLATFORM(MACCATALYST)
-    encoder << uiProcessCookieStorageIdentifier;
-#endif
-#if PLATFORM(IOS_FAMILY)
-    encoder << cookieStorageDirectoryExtensionHandle;
-    encoder << containerCachesDirectoryExtensionHandle;
-    encoder << parentBundleDirectoryExtensionHandle;
-#endif
     encoder << shouldSuppressMemoryPressureHandler;
     encoder << urlSchemesRegisteredForCustomProtocols;
-#if PLATFORM(COCOA)
-    encoder << uiProcessBundleIdentifier;
-    encoder << uiProcessSDKVersion;
-    IPC::encode(encoder, networkATSContext.get());
-    encoder << storageAccessAPIEnabled;
-#endif
     encoder << defaultDataStoreParameters;
 #if USE(SOUP)
     encoder << cookieAcceptPolicy;
@@ -69,9 +51,6 @@ void NetworkProcessCreationParameters::encode(IPC::Encoder& encoder) const
     encoder << urlSchemesRegisteredAsLocal;
     encoder << urlSchemesRegisteredAsNoAccess;
 
-#if ENABLE(SERVICE_WORKER)
-    encoder << serviceWorkerRegistrationDirectory << serviceWorkerRegistrationDirectoryExtensionHandle << shouldDisableServiceWorkerProcessTerminationDelay;
-#endif
     encoder << shouldEnableITPDatabase;
     encoder << enableAdClickAttributionDebugMode;
     encoder << hstsStorageDirectory;
@@ -83,44 +62,10 @@ bool NetworkProcessCreationParameters::decode(IPC::Decoder& decoder, NetworkProc
     if (!decoder.decode(result.cacheModel))
         return false;
 
-#if PLATFORM(MAC) || PLATFORM(MACCATALYST)
-    if (!decoder.decode(result.uiProcessCookieStorageIdentifier))
-        return false;
-#endif
-#if PLATFORM(IOS_FAMILY)
-    Optional<SandboxExtension::Handle> cookieStorageDirectoryExtensionHandle;
-    decoder >> cookieStorageDirectoryExtensionHandle;
-    if (!cookieStorageDirectoryExtensionHandle)
-        return false;
-    result.cookieStorageDirectoryExtensionHandle = WTFMove(*cookieStorageDirectoryExtensionHandle);
-
-    Optional<SandboxExtension::Handle> containerCachesDirectoryExtensionHandle;
-    decoder >> containerCachesDirectoryExtensionHandle;
-    if (!containerCachesDirectoryExtensionHandle)
-        return false;
-    result.containerCachesDirectoryExtensionHandle = WTFMove(*containerCachesDirectoryExtensionHandle);
-
-    Optional<SandboxExtension::Handle> parentBundleDirectoryExtensionHandle;
-    decoder >> parentBundleDirectoryExtensionHandle;
-    if (!parentBundleDirectoryExtensionHandle)
-        return false;
-    result.parentBundleDirectoryExtensionHandle = WTFMove(*parentBundleDirectoryExtensionHandle);
-#endif
     if (!decoder.decode(result.shouldSuppressMemoryPressureHandler))
         return false;
     if (!decoder.decode(result.urlSchemesRegisteredForCustomProtocols))
         return false;
-#if PLATFORM(COCOA)
-    if (!decoder.decode(result.uiProcessBundleIdentifier))
-        return false;
-    if (!decoder.decode(result.uiProcessSDKVersion))
-        return false;
-    if (!IPC::decode(decoder, result.networkATSContext))
-        return false;
-    if (!decoder.decode(result.storageAccessAPIEnabled))
-        return false;
-#endif
-
     Optional<WebsiteDataStoreParameters> defaultDataStoreParameters;
     decoder >> defaultDataStoreParameters;
     if (!defaultDataStoreParameters)
@@ -146,20 +91,6 @@ bool NetworkProcessCreationParameters::decode(IPC::Decoder& decoder, NetworkProc
         return false;
     if (!decoder.decode(result.urlSchemesRegisteredAsNoAccess))
         return false;
-
-#if ENABLE(SERVICE_WORKER)
-    if (!decoder.decode(result.serviceWorkerRegistrationDirectory))
-        return false;
-    
-    Optional<SandboxExtension::Handle> serviceWorkerRegistrationDirectoryExtensionHandle;
-    decoder >> serviceWorkerRegistrationDirectoryExtensionHandle;
-    if (!serviceWorkerRegistrationDirectoryExtensionHandle)
-        return false;
-    result.serviceWorkerRegistrationDirectoryExtensionHandle = WTFMove(*serviceWorkerRegistrationDirectoryExtensionHandle);
-
-    if (!decoder.decode(result.shouldDisableServiceWorkerProcessTerminationDelay))
-        return false;
-#endif
 
     if (!decoder.decode(result.shouldEnableITPDatabase))
         return false;

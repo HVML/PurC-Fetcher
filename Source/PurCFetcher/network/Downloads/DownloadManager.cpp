@@ -61,11 +61,6 @@ void DownloadManager::startDownload(PAL::SessionID sessionID, DownloadID downloa
 void DownloadManager::dataTaskBecameDownloadTask(DownloadID downloadID, std::unique_ptr<Download>&& download)
 {
     ASSERT(m_pendingDownloads.contains(downloadID));
-    if (auto pendingDownload = m_pendingDownloads.take(downloadID)) {
-#if PLATFORM(COCOA)
-        pendingDownload->didBecomeDownload(download);
-#endif
-    }
     ASSERT(!m_downloads.contains(downloadID));
     m_downloadsAfterDestinationDecided.remove(downloadID);
     m_downloads.add(downloadID, WTFMove(download));
@@ -119,23 +114,12 @@ void DownloadManager::continueDecidePendingDownloadDestination(DownloadID downlo
 
 void DownloadManager::resumeDownload(PAL::SessionID sessionID, DownloadID downloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&& sandboxExtensionHandle)
 {
-#if !PLATFORM(COCOA)
     UNUSED_PARAM(sessionID);
     UNUSED_PARAM(downloadID);
     UNUSED_PARAM(resumeData);
     UNUSED_PARAM(path);
     UNUSED_PARAM(sandboxExtensionHandle);
     notImplemented();
-#else
-    auto* networkSession = m_client.networkSession(sessionID);
-    if (!networkSession)
-        return;
-    auto download = makeUnique<Download>(*this, downloadID, nullptr, *networkSession);
-
-    download->resume(resumeData, path, WTFMove(sandboxExtensionHandle));
-    ASSERT(!m_downloads.contains(downloadID));
-    m_downloads.add(downloadID, WTFMove(download));
-#endif
 }
 
 void DownloadManager::cancelDownload(DownloadID downloadID)
@@ -163,16 +147,6 @@ void DownloadManager::cancelDownload(DownloadID downloadID)
     if (pendingDownload)
         pendingDownload->cancel();
 }
-
-#if PLATFORM(COCOA)
-void DownloadManager::publishDownloadProgress(DownloadID downloadID, const URL& url, SandboxExtension::Handle&& sandboxExtensionHandle)
-{
-    if (auto* download = m_downloads.get(downloadID))
-        download->publishProgress(url, WTFMove(sandboxExtensionHandle));
-    else if (auto* pendingDownload = m_pendingDownloads.get(downloadID))
-        pendingDownload->publishProgress(url, WTFMove(sandboxExtensionHandle));
-}
-#endif // PLATFORM(COCOA)
 
 void DownloadManager::downloadFinished(Download& download)
 {

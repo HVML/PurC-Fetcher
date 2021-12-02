@@ -46,10 +46,6 @@
 #include <wtf/RunLoop.h>
 #include <wtf/text/StringBuilder.h>
 
-#if PLATFORM(COCOA)
-#include <notify.h>
-#endif
-
 namespace PurCFetcher {
 namespace NetworkCache {
 
@@ -92,20 +88,10 @@ RefPtr<Cache> Cache::open(NetworkProcess& networkProcess, const String& cachePat
     return adoptRef(*new Cache(networkProcess, cachePath, storage.releaseNonNull(), options, sessionID));
 }
 
-#if PLATFORM(GTK) || PLATFORM(WPE)
 static void dumpFileChanged(Cache* cache)
 {
     cache->dumpContentsToFile();
 }
-#endif
-
-
-#if PLATFORM(HBD)
-static void dumpFileChanged(Cache* cache)
-{
-    cache->dumpContentsToFile();
-}
-#endif
 
 Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref<Storage>&& storage, OptionSet<CacheOption> options, PAL::SessionID sessionID)
     : m_storage(WTFMove(storage))
@@ -114,27 +100,11 @@ Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref
     , m_storageDirectory(storageDirectory)
 {
     if (options.contains(CacheOption::RegisterNotify)) {
-#if PLATFORM(COCOA)
-        // Triggers with "notifyutil -p com.apple.PurCFetcher.Cache.dump".
-        int token;
-        notify_register_dispatch("com.apple.PurCFetcher.Cache.dump", &token, dispatch_get_main_queue(), ^(int) {
-            dumpContentsToFile();
-        });
-#endif
-#if PLATFORM(GTK) || PLATFORM(WPE)
         // Triggers with "touch $cachePath/dump".
         CString dumpFilePath = fileSystemRepresentation(pathByAppendingComponent(m_storage->basePathIsolatedCopy(), "dump"));
         GRefPtr<GFile> dumpFile = adoptGRef(g_file_new_for_path(dumpFilePath.data()));
         GFileMonitor* monitor = g_file_monitor_file(dumpFile.get(), G_FILE_MONITOR_NONE, nullptr, nullptr);
         g_signal_connect_swapped(monitor, "changed", G_CALLBACK(dumpFileChanged), this);
-#endif
-#if PLATFORM(HBD)
-        // Triggers with "touch $cachePath/dump".
-        CString dumpFilePath = fileSystemRepresentation(pathByAppendingComponent(m_storage->basePathIsolatedCopy(), "dump"));
-        GRefPtr<GFile> dumpFile = adoptGRef(g_file_new_for_path(dumpFilePath.data()));
-        GFileMonitor* monitor = g_file_monitor_file(dumpFile.get(), G_FILE_MONITOR_NONE, nullptr, nullptr);
-        g_signal_connect_swapped(monitor, "changed", G_CALLBACK(dumpFileChanged), this);
-#endif
     }
 }
 

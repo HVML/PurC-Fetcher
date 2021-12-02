@@ -22,8 +22,6 @@
 #if USE(SOUP)
 #include "ResourceRequest.h"
 
-//#include "BlobData.h"
-//#include "BlobRegistryImpl.h"
 #include "GUniquePtrSoup.h"
 #include "HTTPParsers.h"
 #include "MIMETypeRegistry.h"
@@ -34,41 +32,6 @@
 #include <wtf/text/WTFString.h>
 
 namespace PurCFetcher {
-
-#if 0
-static uint64_t appendEncodedBlobItemToSoupMessageBody(SoupMessage* soupMessage, const BlobDataItem& blobItem)
-{
-    switch (blobItem.type()) {
-    case BlobDataItem::Type::Data:
-        soup_message_body_append(soupMessage->request_body, SOUP_MEMORY_TEMPORARY, blobItem.data().data()->data() + blobItem.offset(), blobItem.length());
-        return blobItem.length();
-    case BlobDataItem::Type::File: {
-        if (!blobItem.file()->expectedModificationTime())
-            return 0;
-
-        auto fileModificationTime = FileSystem::getFileModificationTime(blobItem.file()->path());
-        if (!fileModificationTime)
-            return 0;
-
-        if (fileModificationTime->secondsSinceEpoch().secondsAs<time_t>() != blobItem.file()->expectedModificationTime()->secondsSinceEpoch().secondsAs<time_t>())
-            return 0;
-
-        if (auto buffer = SharedBuffer::createWithContentsOfFile(blobItem.file()->path())) {
-            if (buffer->isEmpty())
-                return 0;
-
-            GUniquePtr<SoupBuffer> soupBuffer(buffer->createSoupBuffer(blobItem.offset(), blobItem.length() == BlobDataItem::toEndOfFile ? 0 : blobItem.length()));
-            if (soupBuffer->length)
-                soup_message_body_append_buffer(soupMessage->request_body, soupBuffer.get());
-            return soupBuffer->length;
-        }
-        break;
-    }
-    }
-
-    return 0;
-}
-#endif
 
 void ResourceRequest::updateSoupMessageBody(SoupMessage* soupMessage) const
 {
@@ -87,7 +50,7 @@ void ResourceRequest::updateSoupMessageBody(SoupMessage* soupMessage) const
                 if (auto buffer = SharedBuffer::createWithContentsOfFile(fileData.filename)) {
                     if (buffer->isEmpty())
                         return;
-                    
+
                     GUniquePtr<SoupBuffer> soupBuffer(buffer->createSoupBuffer());
                     bodySize += buffer->size();
                     if (soupBuffer->length)

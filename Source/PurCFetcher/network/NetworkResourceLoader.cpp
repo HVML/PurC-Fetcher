@@ -630,23 +630,6 @@ bool NetworkResourceLoader::shouldInterruptLoadForCSPFrameAncestorsOrXFrameOptio
     if (PreviewConverter::supportsMIMEType(response.mimeType()))
         return false;
 #endif
-
-#if 0
-    auto url = response.url();
-    ContentSecurityPolicy contentSecurityPolicy { URL { url }, this };
-    contentSecurityPolicy.didReceiveHeaders(ContentSecurityPolicyResponseHeaders { response }, originalRequest().httpReferrer());
-    if (!contentSecurityPolicy.allowFrameAncestors(m_parameters.frameAncestorOrigins, url))
-        return true;
-
-    if (!contentSecurityPolicy.overridesXFrameOptions()) {
-        String xFrameOptions = m_response.httpHeaderField(HTTPHeaderName::XFrameOptions);
-        if (!xFrameOptions.isNull() && shouldInterruptLoadForXFrameOptions(xFrameOptions, response.url())) {
-//            String errorMessage = "Refused to display '" + response.url().stringCenterEllipsizedToLength() + "' in a frame because it set 'X-Frame-Options' to '" + xFrameOptions + "'.";
-//            send(Messages::WebPage::AddConsoleMessage { m_parameters.webFrameID,  MessageSource::Security, MessageLevel::Error, errorMessage, identifier() }, m_parameters.webPageID);
-            return true;
-        }
-    }
-#endif
     return false;
 }
 
@@ -921,12 +904,6 @@ void NetworkResourceLoader::willSendRedirectedRequest(ResourceRequest&& request,
     m_redirectResponse = redirectResponse;
 
     Optional<AdClickAttribution::Conversion> adClickConversion;
-#if 0
-    if (!sessionID().isEphemeral()) {
-        if (auto result = AdClickAttribution::parseConversionRequest(redirectRequest.url()))
-            adClickConversion = result.value();
-    }
-#endif
 
     auto maxAgeCap = validateCacheEntryForMaxAgeCapValidation(request, redirectRequest, redirectResponse);
     if (redirectResponse.source() == ResourceResponse::Source::Network && canUseCachedRedirect(request))

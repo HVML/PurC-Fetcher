@@ -100,10 +100,10 @@ Vector<SecurityOriginData> LocalStorageDatabaseTracker::databasesModifiedSince(W
 {
     Vector<SecurityOriginData> databaseOriginsModified;
     auto databaseOrigins = origins();
-    
+
     for (auto origin : databaseOrigins) {
         auto path = databasePath(origin);
-        
+
         auto modificationTime = SQLiteFileSystem::databaseModificationTime(path);
         if (!modificationTime)
             continue;
@@ -119,7 +119,7 @@ Vector<SecurityOriginData> LocalStorageDatabaseTracker::origins() const
 {
     Vector<SecurityOriginData> databaseOrigins;
     auto paths = FileSystem::listDirectory(localStorageDirectory(), "*.localstorage");
-    
+
     for (const auto& path : paths) {
         auto filename = FileSystem::pathGetFileName(path);
         auto originIdentifier = filename.substring(0, filename.length() - strlen(".localstorage"));
@@ -160,10 +160,6 @@ String LocalStorageDatabaseTracker::databasePath(const String& filename) const
             LOG_ERROR("Unable to create LocalStorage database path %s", m_localStorageDirectory.utf8().data());
         return String();
     }
-
-#if PLATFORM(IOS_FAMILY)
-    platformMaybeExcludeFromBackup();
-#endif
 
     return SQLiteFileSystem::appendDatabaseFileNameToPath(localStorageDirectory, filename);
 }

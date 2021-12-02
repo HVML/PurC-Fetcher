@@ -108,10 +108,6 @@ private:
     // IPC::MessageReceiver
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
 
-#if PLATFORM(COCOA)
-    void persistHTTPCookieAcceptPolicy(PurCFetcher::HTTPCookieAcceptPolicy);
-#endif
-
     HashMap<PAL::SessionID, WTF::Function<void ()>> m_legacyCookieObservers;
     HashMap<PAL::SessionID, HashSet<Observer*>> m_cookieObservers;
 

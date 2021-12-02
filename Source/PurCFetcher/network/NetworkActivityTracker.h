@@ -25,18 +25,6 @@
 
 #pragma once
 
-// FIXME: This should be in PlatformHave.h instead of here.
-// FIXME: Should be able to do this even without the Apple internal SDK.
-// FIXME: Is it correct to that we do not have this on tvOS?
-#if USE(APPLE_INTERNAL_SDK) && PLATFORM(COCOA) && !PLATFORM(APPLETV)
-#define HAVE_NW_ACTIVITY 1
-#endif
-
-#if HAVE(NW_ACTIVITY)
-#include <nw/private.h>
-#include <wtf/RetainPtr.h>
-#endif
-
 namespace PurCFetcher {
 
 class NetworkActivityTracker {
@@ -75,18 +63,6 @@ public:
     void setParent(NetworkActivityTracker&);
     void start();
     void complete(CompletionCode);
-
-#if HAVE(NW_ACTIVITY)
-    nw_activity_t getPlatformObject() { return m_networkActivity.get(); }
-#endif
-
-private:
-#if HAVE(NW_ACTIVITY)
-    Domain m_domain { Domain::Invalid };
-    Label m_label { Label::Invalid };
-    bool m_isCompleted { false };
-    RetainPtr<nw_activity_t> m_networkActivity;
-#endif
 };
 
 } // namespace PurCFetcher

@@ -177,14 +177,4 @@ void WebCookieManagerProxy::cookiesDidChange(PAL::SessionID sessionID)
         observer->cookiesDidChange();
 }
 
-#if 0
-void WebCookieManagerProxy::setHTTPCookieAcceptPolicy(PAL::SessionID, HTTPCookieAcceptPolicy policy, CompletionHandler<void()>&& callbackFunction)
-{
-}
-
-void WebCookieManagerProxy::getHTTPCookieAcceptPolicy(PAL::SessionID, CompletionHandler<void(HTTPCookieAcceptPolicy)>&& callbackFunction)
-{
-}
-#endif
-
 } // namespace PurCFetcher

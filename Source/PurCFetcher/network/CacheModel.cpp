@@ -165,12 +165,6 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
     case CacheModel::PrimaryWebBrowser: {
         uint64_t memorySize = ramSize() / MB;
 
-#if PLATFORM(IOS_FAMILY)
-        if (memorySize >= 1024)
-            urlCacheMemoryCapacity = 16 * MB;
-        else
-            urlCacheMemoryCapacity = 8 * MB;
-#else
         // Foundation memory cache capacity (in bytes)
         // (These values are small because PurCFetcher does most caching itself.)
         if (memorySize >= 1024)
@@ -181,7 +175,6 @@ void calculateURLCacheSizes(CacheModel cacheModel, uint64_t diskFreeSize, unsign
             urlCacheMemoryCapacity = 1 * MB;
         else
             urlCacheMemoryCapacity = 512 * KB;
-#endif
 
         // Disk cache capacity (in bytes)
         if (diskFreeSize >= 16384)

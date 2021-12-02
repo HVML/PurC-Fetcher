@@ -25,12 +25,7 @@
 
 #pragma once
 
-#if OS(WINDOWS)
-#include <winsock2.h>
-#include <ws2tcpip.h>
-#else
 #include <netinet/in.h>
-#endif
 
 #include <wtf/Forward.h>
 #include <wtf/Optional.h>

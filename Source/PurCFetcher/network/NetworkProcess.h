@@ -47,10 +47,6 @@
 #include "StorageQuotaManager.h"
 #include "PageIdentifier.h"
 #include "RegistrableDomain.h"
-#if ENABLE(SERVICE_WORKER)
-#include "ServiceWorkerIdentifier.h"
-#include "ServiceWorkerTypes.h"
-#endif
 #include <memory>
 #include <wtf/CrossThreadTask.h>
 #include <wtf/Function.h>
@@ -59,14 +55,6 @@
 #include <wtf/NeverDestroyed.h>
 #include <wtf/RetainPtr.h>
 #include <wtf/WeakPtr.h>
-
-#if PLATFORM(IOS_FAMILY)
-#include "WebSQLiteDatabaseTracker.h"
-#endif
-
-#if PLATFORM(COCOA)
-typedef struct OpaqueCFHTTPCookieStorage*  CFHTTPCookieStorageRef;
-#endif
 
 namespace IPC {
 class FormDataReference;
@@ -113,10 +101,6 @@ enum class WebsiteDataFetchOption : uint8_t;
 enum class WebsiteDataType : uint32_t;
 struct NetworkProcessCreationParameters;
 struct WebsiteDataStoreParameters;
-
-#if ENABLE(SERVICE_WORKER)
-class WebSWOriginStore;
-#endif
 
 namespace NetworkCache {
 enum class CacheOption : uint8_t;
@@ -173,11 +157,7 @@ public:
     PurCFetcher::NetworkStorageSession* storageSession(const PAL::SessionID&) const;
     PurCFetcher::NetworkStorageSession& defaultStorageSession() const;
     std::unique_ptr<PurCFetcher::NetworkStorageSession> newTestingSession(const PAL::SessionID&);
-#if PLATFORM(COCOA)
-    void ensureSession(const PAL::SessionID&, bool shouldUseTestingNetworkSession, const String& identifier, RetainPtr<CFHTTPCookieStorageRef>&&);
-#else
     void ensureSession(const PAL::SessionID&, bool shouldUseTestingNetworkSession, const String& identifier);
-#endif
 
     void processWillSuspendImminentlyForTestingSync(CompletionHandler<void()>&&);
     void prepareToSuspend(bool isSuspensionImminent, CompletionHandler<void()>&&);
@@ -191,10 +171,7 @@ public:
     void logDiagnosticMessageWithResult(WebPageProxyIdentifier, const String& message, const String& description, PurCFetcher::DiagnosticLoggingResultType, PurCFetcher::ShouldSample);
     void logDiagnosticMessageWithValue(WebPageProxyIdentifier, const String& message, const String& description, double value, unsigned significantFigures, PurCFetcher::ShouldSample);
 
-#if PLATFORM(COCOA)
-    RetainPtr<CFDataRef> sourceApplicationAuditData() const;
-#endif
-#if PLATFORM(COCOA) || USE(SOUP)
+#if USE(SOUP)
     void getHostNamesWithHSTSCache(PurCFetcher::NetworkStorageSession&, HashSet<String>&);
     void deleteHSTSCacheForHostNames(PurCFetcher::NetworkStorageSession&, const Vector<String>&);
     void clearHSTSCache(PurCFetcher::NetworkStorageSession&, WallTime modifiedSince);
@@ -301,26 +278,7 @@ public:
     void resetQuota(PAL::SessionID, CompletionHandler<void()>&&);
     void renameOriginInWebsiteData(PAL::SessionID, const URL&, const URL&, OptionSet<WebsiteDataType>, CompletionHandler<void()>&&);
 
-#if ENABLE(SERVICE_WORKER)
-    PurCFetcher::SWServer* swServerForSessionIfExists(PAL::SessionID sessionID) { return m_swServers.get(sessionID); }
-    PurCFetcher::SWServer& swServerForSession(PAL::SessionID);
-    void registerSWServerConnection(WebSWServerConnection&);
-    void unregisterSWServerConnection(WebSWServerConnection&);
-    
-    void forEachSWServer(const Function<void(PurCFetcher::SWServer&)>&);
-#endif
-
-#if PLATFORM(IOS_FAMILY)
-    bool parentProcessHasServiceWorkerEntitlement() const;
-    void disableServiceWorkerEntitlement();
-    void clearServiceWorkerEntitlementOverride(CompletionHandler<void()>&&);
-#else
     bool parentProcessHasServiceWorkerEntitlement() const { return true; }
-#endif
-
-#if PLATFORM(COCOA)
-    NetworkHTTPSUpgradeChecker& networkHTTPSUpgradeChecker();
-#endif
 
     const String& uiProcessBundleIdentifier() const { return m_uiProcessBundleIdentifier; }
 
@@ -370,7 +328,7 @@ private:
     void platformTerminate();
 
     void lowMemoryHandler(Critical);
-    
+
     void processDidTransitionToForeground();
     void processDidTransitionToBackground();
     void platformProcessDidTransitionToForeground();
@@ -417,9 +375,6 @@ private:
     void downloadRequest(PAL::SessionID, DownloadID, const PurCFetcher::ResourceRequest&, Optional<NavigatingToAppBoundDomain>, const String& suggestedFilename);
     void resumeDownload(PAL::SessionID, DownloadID, const IPC::DataReference& resumeData, const String& path, SandboxExtension::Handle&&);
     void cancelDownload(DownloadID);
-#if PLATFORM(COCOA)
-    void publishDownloadProgress(DownloadID, const URL&, SandboxExtension::Handle&&);
-#endif
     void continueWillSendRequest(DownloadID, PurCFetcher::ResourceRequest&&);
     void continueDecidePendingDownloadDestination(DownloadID, String destination, SandboxExtension::Handle&&, bool allowOverwrite);
     void applicationDidEnterBackground();
@@ -429,7 +384,7 @@ private:
     void setCacheModelSynchronouslyForTesting(CacheModel, CompletionHandler<void()>&&);
     void allowSpecificHTTPSCertificateForHost(const PurCFetcher::CertificateInfo&, const String& host);
     void setAllowsAnySSLCertificateForWebSocket(bool, CompletionHandler<void()>&&);
-    
+
     void syncAllCookies();
     void didSyncAllCookies();
 
@@ -448,7 +403,7 @@ private:
 #endif
 
     void platformSyncAllCookies(CompletionHandler<void()>&&);
-    
+
     void registerURLSchemeAsSecure(const String&) const;
     void registerURLSchemeAsBypassingContentSecurityPolicy(const String&) const;
     void registerURLSchemeAsLocal(const String&) const;
@@ -461,18 +416,6 @@ private:
     HashSet<PurCFetcher::SecurityOriginData> indexedDatabaseOrigins(const String& path);
     Ref<WebIDBServer> createWebIDBServer(PAL::SessionID);
     void setSessionStorageQuotaManagerIDBRootPath(PAL::SessionID, const String& idbRootPath);
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    void didCreateWorkerContextProcessConnection(const IPC::Attachment&);
-
-    void postMessageToServiceWorker(PAL::SessionID, PurCFetcher::ServiceWorkerIdentifier destination, PurCFetcher::MessageWithMessagePorts&&, const PurCFetcher::ServiceWorkerOrClientIdentifier& source, PurCFetcher::SWServerConnectionIdentifier);
-    
-    void disableServiceWorkerProcessTerminationDelay();
-    
-    WebSWOriginStore* existingSWOriginStoreForSession(PAL::SessionID) const;
-
-    void addServiceWorkerSession(PAL::SessionID, bool processTerminationDelayEnabled, String&& serviceWorkerRegistrationDirectory, const SandboxExtension::Handle&);
 #endif
 
     void postStorageTask(CrossThreadTask&&);
@@ -542,22 +485,8 @@ private:
 
     RefPtr<StorageManagerSet> m_storageManagerSet;
 
-#if PLATFORM(COCOA)
-    void platformInitializeNetworkProcessCocoa(const NetworkProcessCreationParameters&);
-    void setStorageAccessAPIEnabled(bool);
-
-    // FIXME: We'd like to be able to do this without the #ifdef, but WorkQueue + BinarySemaphore isn't good enough since
-    // multiple requests to clear the cache can come in before previous requests complete, and we need to wait for all of them.
-    // In the future using WorkQueue and a counting semaphore would work, as would WorkQueue supporting the libdispatch concept of "work groups".
-    dispatch_group_t m_clearCacheDispatchGroup { nullptr };
-#endif
-
 #if ENABLE(CONTENT_EXTENSIONS)
     NetworkContentRuleListManager m_networkContentRuleListManager;
-#endif
-
-#if PLATFORM(IOS_FAMILY)
-    WebSQLiteDatabaseTracker m_webSQLiteDatabaseTracker;
 #endif
 
     Ref<WorkQueue> m_storageTaskQueue { WorkQueue::create("com.apple.PurCFetcher.StorageTask") };
@@ -569,24 +498,11 @@ private:
 
     Deque<CrossThreadTask> m_storageTasks;
     Lock m_storageTaskMutex;
-    
-#if ENABLE(SERVICE_WORKER)
-    struct ServiceWorkerInfo {
-        String databasePath;
-        bool processTerminationDelayEnabled { true };
-    };
-    HashMap<PAL::SessionID, ServiceWorkerInfo> m_serviceWorkerInfo;
-    HashMap<PAL::SessionID, std::unique_ptr<PurCFetcher::SWServer>> m_swServers;
-#endif
-
-#if PLATFORM(COCOA)
-    std::unique_ptr<NetworkHTTPSUpgradeChecker> m_networkHTTPSUpgradeChecker;
-#endif
 
 #if ENABLE(RESOURCE_LOAD_STATISTICS)
     bool m_isITPDatabaseEnabled { false };
 #endif
-    
+
     Lock m_sessionStorageQuotaManagersLock;
     HashMap<PAL::SessionID, std::unique_ptr<SessionStorageQuotaManager>> m_sessionStorageQuotaManagers;
 

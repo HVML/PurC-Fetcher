@@ -48,11 +48,7 @@ DEFINE_ALLOCATOR_WITH_HEAP_IDENTIFIER(ResourceHandleInternal);
 typedef HashMap<AtomString, ResourceHandle::BuiltinConstructor> BuiltinResourceHandleConstructorMap;
 static BuiltinResourceHandleConstructorMap& builtinResourceHandleConstructorMap()
 {
-#if PLATFORM(IOS_FAMILY)
-    ASSERT(WebThreadIsLockedOrDisabled());
-#else
     ASSERT(isMainThread());
-#endif
     static NeverDestroyed<BuiltinResourceHandleConstructorMap> map;
     return map;
 }
@@ -198,9 +194,6 @@ bool ResourceHandle::hasAuthenticationChallenge() const
 
 void ResourceHandle::clearAuthentication()
 {
-#if PLATFORM(COCOA)
-    d->m_currentMacChallenge = nil;
-#endif
     d->m_currentWebChallenge.nullify();
 }
   
@@ -216,10 +209,6 @@ bool ResourceHandle::shouldContentEncodingSniff() const
 
 bool ResourceHandle::shouldContentSniffURL(const URL& url)
 {
-#if PLATFORM(COCOA)
-    if (shouldForceContentSniffing)
-        return true;
-#endif
     // We shouldn't content sniff file URLs as their MIME type should be established via their extension.
     return !url.protocolIs("file");
 }

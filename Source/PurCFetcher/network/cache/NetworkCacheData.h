@@ -31,10 +31,6 @@
 #include <wtf/ThreadSafeRefCounted.h>
 #include <wtf/text/WTFString.h>
 
-#if PLATFORM(COCOA)
-#include <wtf/OSObjectPtr.h>
-#endif
-
 #if USE(SOUP)
 #include "GRefPtrSoup.h"
 #endif
@@ -60,10 +56,6 @@ public:
     static Data empty();
     static Data adoptMap(FileSystem::MappedFileData&&, FileSystem::PlatformFileHandle);
 
-#if PLATFORM(COCOA)
-    enum class Backing { Buffer, Map };
-    Data(OSObjectPtr<dispatch_data_t>&&, Backing = Backing::Buffer);
-#endif
 #if USE(SOUP)
     Data(GRefPtr<SoupBuffer>&&, FileSystem::PlatformFileHandle fd = FileSystem::invalidPlatformFileHandle);
 #elif USE(CURL)
@@ -83,17 +75,10 @@ public:
 
     Data mapToFile(const String& path) const;
 
-#if PLATFORM(COCOA)
-    dispatch_data_t dispatchData() const { return m_dispatchData.get(); }
-#endif
-
 #if USE(SOUP)
     SoupBuffer* soupBuffer() const { return m_buffer.get(); }
 #endif
 private:
-#if PLATFORM(COCOA)
-    mutable OSObjectPtr<dispatch_data_t> m_dispatchData;
-#endif
 #if USE(SOUP)
     mutable GRefPtr<SoupBuffer> m_buffer;
     FileSystem::PlatformFileHandle m_fileDescriptor { FileSystem::invalidPlatformFileHandle };

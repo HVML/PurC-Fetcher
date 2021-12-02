@@ -33,10 +33,8 @@
 #include <wtf/RunLoop.h>
 #include <wtf/SHA1.h>
 
-#if !OS(WINDOWS)
 #include <sys/stat.h>
 #include <unistd.h>
-#endif
 
 namespace PurCFetcher {
 namespace NetworkCache {

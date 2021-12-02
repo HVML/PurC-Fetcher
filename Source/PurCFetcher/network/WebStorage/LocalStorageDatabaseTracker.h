@@ -72,15 +72,9 @@ private:
         CreateIfNonExistent,
         SkipIfNonExistent
     };
-    
+
     // It is not safe to use this member from a background thread, call localStorageDirectory() instead.
     const String m_localStorageDirectory;
-
-#if PLATFORM(IOS_FAMILY)
-    void platformMaybeExcludeFromBackup() const;
-
-    mutable bool m_hasExcludedFromBackup { false };
-#endif
 };
 
 template<class Encoder>
@@ -95,13 +89,13 @@ Optional<LocalStorageDatabaseTracker::OriginDetails> LocalStorageDatabaseTracker
     LocalStorageDatabaseTracker::OriginDetails result;
     if (!decoder.decode(result.originIdentifier))
         return WTF::nullopt;
-    
+
     if (!decoder.decode(result.creationTime))
         return WTF::nullopt;
-    
+
     if (!decoder.decode(result.modificationTime))
         return WTF::nullopt;
-    
+
     return result;
 }
 

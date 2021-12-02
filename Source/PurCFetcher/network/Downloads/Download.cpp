@@ -41,9 +41,6 @@
 #include "WebCoreArgumentCoders.h"
 #include "NotImplemented.h"
 
-#if PLATFORM(COCOA)
-#include "NetworkDataTaskCocoa.h"
-#endif
 
 #define RELEASE_LOG_IF_ALLOWED(fmt, ...) RELEASE_LOG_IF(isAlwaysOnLoggingAllowed(), Network, "%p - Download::" fmt, this, ##__VA_ARGS__)
 
@@ -63,22 +60,6 @@ Download::Download(DownloadManager& downloadManager, DownloadID downloadID, Netw
 
     m_downloadManager.didCreateDownload();
 }
-
-#if PLATFORM(COCOA)
-Download::Download(DownloadManager& downloadManager, DownloadID downloadID, NSURLSessionDownloadTask* download, NetworkSession& session, const String& suggestedName)
-    : m_downloadManager(downloadManager)
-    , m_downloadID(downloadID)
-    , m_client(downloadManager.client())
-    , m_downloadTask(download)
-    , m_sessionID(session.sessionID())
-    , m_suggestedName(suggestedName)
-    , m_testSpeedMultiplier(session.testSpeedMultiplier())
-{
-    ASSERT(m_downloadID.downloadID());
-
-    m_downloadManager.didCreateDownload();
-}
-#endif
 
 Download::~Download()
 {
@@ -182,14 +163,9 @@ uint64_t Download::messageSenderDestinationID() const
 
 bool Download::isAlwaysOnLoggingAllowed() const
 {
-#if PLATFORM(COCOA)
-    return m_sessionID.isAlwaysOnLoggingAllowed();
-#else
     return false;
-#endif
 }
 
-#if !PLATFORM(COCOA)
 void Download::platformCancelNetworkLoad()
 {
 }
@@ -197,7 +173,6 @@ void Download::platformCancelNetworkLoad()
 void Download::platformDestroyDownload()
 {
 }
-#endif
 
 } // namespace PurCFetcher
 

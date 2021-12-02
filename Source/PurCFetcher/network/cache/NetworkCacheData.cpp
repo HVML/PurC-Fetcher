@@ -29,11 +29,9 @@
 #include <fcntl.h>
 #include <wtf/CryptographicallyRandomNumber.h>
 
-#if !OS(WINDOWS)
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <unistd.h>
-#endif
 
 namespace PurCFetcher {
 namespace NetworkCache {
@@ -63,17 +61,11 @@ Data Data::mapToFile(const String& path) const
         return true;
     });
 
-#if OS(WINDOWS)
-    DWORD oldProtection;
-    VirtualProtect(map, m_size, FILE_MAP_READ, &oldProtection);
-    FlushViewOfFile(map, m_size);
-#else
     // Drop the write permission.
     mprotect(map, m_size, PROT_READ);
 
     // Flush (asynchronously) to file, turning this into clean memory.
     msync(map, m_size, MS_ASYNC);
-#endif
 
     return Data::adoptMap(WTFMove(mappedFile), handle);
 }

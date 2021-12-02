@@ -25,11 +25,7 @@
 
 #pragma once
 
-#if PLATFORM(COCOA)
-#include "ProtectionSpaceCocoa.h"
-#elif USE(CFURLCONNECTION)
-#include "ProtectionSpaceCFNet.h"
-#elif USE(CURL)
+#if USE(CURL)
 #include "ProtectionSpaceCurl.h"
 #else
 

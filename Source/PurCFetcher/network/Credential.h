@@ -28,10 +28,6 @@
 
 #include <wtf/Platform.h>
 
-#if PLATFORM(COCOA)
-#include "CredentialCocoa.h"
-#else
-
 #include "CredentialBase.h"
 
 namespace PurCFetcher {
@@ -55,7 +51,5 @@ public:
 };
 
 }
-
-#endif
 
 #endif // Credential_h

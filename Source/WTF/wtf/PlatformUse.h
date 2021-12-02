@@ -59,7 +59,7 @@
 #define USE_CA 1
 #endif
 
-#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(LINUX)
+#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(LINUX) || PLATFORM(COCOA)
 #define USE_GLIB 1
 #endif
 
@@ -85,7 +85,7 @@
 #endif
 
 #if PLATFORM(COCOA)
-#define USE_CF 1
+#define USE_CF 0
 #endif
 
 #if PLATFORM(COCOA) || (PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(LINUX))
@@ -93,7 +93,7 @@
 #endif
 
 #if PLATFORM(COCOA)
-#define USE_FOUNDATION 1
+#define USE_FOUNDATION 0
 #endif
 
 #if PLATFORM(MAC)
@@ -165,7 +165,7 @@
 #endif
 
 #if PLATFORM(COCOA)
-#define USE_AVFOUNDATION 1
+#define USE_AVFOUNDATION 0
 #endif
 
 #if PLATFORM(COCOA)
@@ -176,7 +176,7 @@
 #define USE_METAL 1
 #endif
 
-#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(LINUX)
+#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(LINUX) || PLATFORM(COCOA)
 #define USE_UNIX_DOMAIN_SOCKETS 1
 #endif
 

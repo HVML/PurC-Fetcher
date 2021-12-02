@@ -23,6 +23,8 @@
 
 #if USE(GLIB)
 
+#include <memory>
+
 #include <gio/gio.h>
 #include <utility>
 #include <wtf/Noncopyable.h>

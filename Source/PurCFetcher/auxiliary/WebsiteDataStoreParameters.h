@@ -54,20 +54,6 @@ struct WebsiteDataStoreParameters {
     Vector<PurCFetcher::Cookie> pendingCookies;
     NetworkSessionCreationParameters networkSessionParameters;
 
-#if ENABLE(INDEXED_DATABASE)
-    String indexedDatabaseDirectory;
-    SandboxExtension::Handle indexedDatabaseDirectoryExtensionHandle;
-#if PLATFORM(IOS_FAMILY)
-    SandboxExtension::Handle indexedDatabaseTempBlobDirectoryExtensionHandle;
-#endif
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    String serviceWorkerRegistrationDirectory;
-    SandboxExtension::Handle serviceWorkerRegistrationDirectoryExtensionHandle;
-    bool serviceWorkerProcessTerminationDelayEnabled { true };
-#endif
-
     String localStorageDirectory;
     SandboxExtension::Handle localStorageDirectoryExtensionHandle;
 

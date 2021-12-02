@@ -56,38 +56,11 @@ bool ShareableResource::Handle::decode(IPC::Decoder& decoder, Handle& handle)
     return true;
 }
 
-#if USE(CF)
-static void shareableResourceDeallocate(void *ptr, void *info)
-{
-    static_cast<ShareableResource*>(info)->deref(); // Balanced by ref() in createShareableResourceDeallocator()
-}
-    
-static CFAllocatorRef createShareableResourceDeallocator(ShareableResource* resource)
-{
-    CFAllocatorContext context = { 0,
-        resource,
-        NULL, // retain
-        NULL, // release
-        NULL, // copyDescription
-        NULL, // allocate
-        NULL, // reallocate
-        shareableResourceDeallocate,
-        NULL, // preferredSize
-    };
-
-    return CFAllocatorCreate(kCFAllocatorDefault, &context);
-}
-#endif
-
 RefPtr<SharedBuffer> ShareableResource::wrapInSharedBuffer()
 {
     ref(); // Balanced by deref when SharedBuffer is deallocated.
 
-#if USE(CF)
-    RetainPtr<CFAllocatorRef> deallocator = adoptCF(createShareableResourceDeallocator(this));
-    RetainPtr<CFDataRef> cfData = adoptCF(CFDataCreateWithBytesNoCopy(kCFAllocatorDefault, reinterpret_cast<const UInt8*>(data()), static_cast<CFIndex>(size()), deallocator.get()));
-    return SharedBuffer::create(cfData.get());
-#elif USE(SOUP)
+#if USE(SOUP)
     return SharedBuffer::wrapSoupBuffer(soup_buffer_new_with_owner(data(), size(), this, [](void* data) { static_cast<ShareableResource*>(data)->deref(); }));
 #else
     ASSERT_NOT_REACHED();

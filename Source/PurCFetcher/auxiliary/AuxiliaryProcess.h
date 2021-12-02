@@ -80,23 +80,9 @@ public:
 
     void setProcessSuppressionEnabled(bool);
 
-#if PLATFORM(COCOA)
-    void setApplicationIsDaemon();
-    void launchServicesCheckIn();
-    void setQOS(int latencyQOS, int throughputQOS);
-#endif
-
     IPC::Connection* parentProcessConnection() const { return m_connection.get(); }
 
     IPC::MessageReceiverMap& messageReceiverMap() { return m_messageReceiverMap; }
-
-#if PLATFORM(MAC)
-    static bool isSystemPurCFetcher();
-#endif
-    
-#if PLATFORM(COCOA)
-    bool parentProcessHasEntitlement(const char* entitlement);
-#endif
 
 protected:
     explicit AuxiliaryProcess();
@@ -113,14 +99,6 @@ protected:
     virtual void terminate();
 
     virtual void stopRunLoop();
-
-#if USE(APPKIT)
-    static void stopNSAppRunLoop();
-#endif
-    
-#if PLATFORM(MAC) && ENABLE(WEBPROCESS_NSRUNLOOP)
-    static void stopNSRunLoop();
-#endif
 
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
 
@@ -162,10 +140,6 @@ private:
     IPC::MessageReceiverMap m_messageReceiverMap;
 
     UserActivity m_processSuppressionDisabled;
-
-#if PLATFORM(COCOA)
-    OSObjectPtr<xpc_object_t> m_priorityBoostMessage;
-#endif
 };
 
 struct AuxiliaryProcessInitializationParameters {
@@ -175,9 +149,6 @@ struct AuxiliaryProcessInitializationParameters {
     IPC::Connection::Identifier connectionIdentifier;
     HashMap<String, String> extraInitializationData;
     AuxiliaryProcess::ProcessType processType;
-#if PLATFORM(COCOA)
-    OSObjectPtr<xpc_object_t> priorityBoostMessage;
-#endif
 };
 
 } // namespace PurCFetcher

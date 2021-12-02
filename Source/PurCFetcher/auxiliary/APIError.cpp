@@ -77,14 +77,6 @@ const WTF::String& Error::webKitDownloadErrorDomain()
 }
 #endif
 
-#if PLATFORM(GTK) || PLATFORM(HBD)
-const WTF::String& Error::webKitPrintErrorDomain()
-{
-    static NeverDestroyed<WTF::String> webKitErrorDomainString(MAKE_STATIC_STRING_IMPL("WebKitPrintError"));
-    return webKitErrorDomainString;
-}
-#endif
-
 void Error::encode(IPC::Encoder& encoder) const
 {
     encoder << platformError();

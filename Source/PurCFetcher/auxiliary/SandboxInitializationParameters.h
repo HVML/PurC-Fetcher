@@ -29,10 +29,6 @@
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
 
-#if PLATFORM(COCOA)
-OBJC_CLASS NSString;
-#endif
-
 namespace PurCFetcher {
 
 class SandboxInitializationParameters {
@@ -40,69 +36,8 @@ class SandboxInitializationParameters {
 public:
     SandboxInitializationParameters();
     ~SandboxInitializationParameters();
-
-#if PLATFORM(COCOA)
-    // Name must be a literal.
-    void addConfDirectoryParameter(const char* name, int confID);
-    void addPathParameter(const char* name, NSString *path);
-    void addPathParameter(const char* name, const char* path);
-    void addParameter(const char* name, const char* value);
-
-    const char* const* namedParameterArray() const;
-
-    size_t count() const;
-    const char* name(size_t index) const;
-    const char* value(size_t index) const;
-
-    enum class ProfileSelectionMode : uint8_t {
-        UseDefaultSandboxProfilePath,
-        UseOverrideSandboxProfilePath,
-        UseSandboxProfile
-    };
-
-    ProfileSelectionMode mode() const { return m_profileSelectionMode; }
-
-    void setOverrideSandboxProfilePath(const String& path)
-    {
-        m_profileSelectionMode = ProfileSelectionMode::UseOverrideSandboxProfilePath;
-        m_overrideSandboxProfilePathOrSandboxProfile = path;
-    }
-
-    const String& overrideSandboxProfilePath() const
-    {
-        ASSERT(m_profileSelectionMode == ProfileSelectionMode::UseOverrideSandboxProfilePath);
-        return m_overrideSandboxProfilePathOrSandboxProfile;
-    }
-
-    void setSandboxProfile(const String& profile)
-    {
-        m_profileSelectionMode = ProfileSelectionMode::UseSandboxProfile;
-        m_overrideSandboxProfilePathOrSandboxProfile = profile;
-    }
-
-    const String& sandboxProfile() const
-    {
-        ASSERT(m_profileSelectionMode == ProfileSelectionMode::UseSandboxProfile);
-        return m_overrideSandboxProfilePathOrSandboxProfile;
-    }
-
-    void setUserDirectorySuffix(const String& suffix) { m_userDirectorySuffix = suffix; }
-    const String& userDirectorySuffix() const { return m_userDirectorySuffix; }
-#endif
-
-private:
-#if PLATFORM(COCOA)
-    void appendPathInternal(const char* name, const char* path);
-
-    mutable Vector<const char*> m_namedParameters;
-    String m_userDirectorySuffix;
-
-    ProfileSelectionMode m_profileSelectionMode;
-    String m_overrideSandboxProfilePathOrSandboxProfile;
-#endif
 };
 
-#if !PLATFORM(COCOA)
 SandboxInitializationParameters::SandboxInitializationParameters()
 {
 }
@@ -110,7 +45,6 @@ SandboxInitializationParameters::SandboxInitializationParameters()
 SandboxInitializationParameters::~SandboxInitializationParameters()
 {
 }
-#endif
 
 } // namespace PurCFetcher
 

@@ -30,20 +30,7 @@
 #include <wtf/WeakPtr.h>
 #include <wtf/text/WTFString.h>
 
-#if !OS(WINDOWS)
 #include <unistd.h>
-#endif
-
-#if PLATFORM(IOS_FAMILY)
-#include <wtf/RetainPtr.h>
-
-OBJC_CLASS RBSAssertion;
-OBJC_CLASS WKRBSAssertionDelegate;
-
-#if !HAVE(RUNNINGBOARD_VISIBILITY_ASSERTIONS)
-OBJC_CLASS BKSProcessAssertion;
-#endif
-#endif // PLATFORM(IOS_FAMILY)
 
 namespace PurCFetcher {
 
@@ -77,44 +64,12 @@ public:
 
     bool isValid() const;
 
-#if PLATFORM(IOS_FAMILY)
-protected:
-    virtual void processAssertionWasInvalidated();
-#endif
-
 private:
     const ProcessAssertionType m_assertionType;
     const ProcessID m_pid;
-#if PLATFORM(IOS_FAMILY)
-    RetainPtr<RBSAssertion> m_rbsAssertion;
-    RetainPtr<WKRBSAssertionDelegate> m_delegate;
-#if !HAVE(RUNNINGBOARD_VISIBILITY_ASSERTIONS)
-    RetainPtr<BKSProcessAssertion> m_bksAssertion; // Legacy.
-#endif
-#endif
     Client* m_client { nullptr };
 };
 
-#if PLATFORM(IOS_FAMILY)
-
-class ProcessAndUIAssertion final : public ProcessAssertion {
-public:
-    ProcessAndUIAssertion(ProcessID, const String& reason, ProcessAssertionType);
-    ~ProcessAndUIAssertion();
-
-    void uiAssertionWillExpireImminently();
-
-private:
-    void processAssertionWasInvalidated() final;
-    void updateRunInBackgroundCount();
-
-    bool m_isHoldingBackgroundTask { false };
-};
-
-#else
-
 using ProcessAndUIAssertion = ProcessAssertion;
 
-#endif // PLATFORM(IOS_FAMILY)
-    
 } // namespace PurCFetcher

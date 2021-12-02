@@ -41,7 +41,6 @@
 #include <wtf/text/WTFString.h>
 
 namespace PurCFetcher {
-class LowPowerModeNotifier;
 class ResourceRequest;
 class SharedBuffer;
 }
@@ -148,9 +147,6 @@ enum class CacheOption : uint8_t {
     // In testing mode we try to eliminate sources of randomness. Cache does not shrink and there are no read timeouts.
     TestingMode = 1 << 0,
     RegisterNotify = 1 << 1,
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    SpeculativeRevalidation = 1 << 2,
-#endif
 };
 
 class Cache : public RefCounted<Cache> {
@@ -198,10 +194,6 @@ public:
 
     String recordsPathIsolatedCopy() const;
 
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    SpeculativeLoadManager* speculativeLoadManager() { return m_speculativeLoadManager.get(); }
-#endif
-
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
     void startAsyncRevalidationIfNeeded(const PurCFetcher::ResourceRequest&, const NetworkCache::Key&, std::unique_ptr<Entry>&&, const GlobalFrameID&, Optional<NavigatingToAppBoundDomain>);
 #endif
@@ -228,11 +220,6 @@ private:
 
     Ref<Storage> m_storage;
     Ref<NetworkProcess> m_networkProcess;
-
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    std::unique_ptr<PurCFetcher::LowPowerModeNotifier> m_lowPowerModeNotifier;
-    std::unique_ptr<SpeculativeLoadManager> m_speculativeLoadManager;
-#endif
 
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
     HashMap<Key, std::unique_ptr<AsyncRevalidation>> m_pendingAsyncRevalidations;

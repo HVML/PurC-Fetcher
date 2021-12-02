@@ -42,13 +42,7 @@ namespace PurCFetcher {
 
 RuntimeEnabledFeatures::RuntimeEnabledFeatures()
 {
-#if ENABLE(MEDIA_STREAM) && PLATFORM(COCOA)
-    m_isMediaDevicesEnabled = false;
-#endif
-#if PLATFORM(WATCHOS)
-    m_isWebSocketEnabled = false;
-#endif
-#if (PLATFORM(GTK) || PLATFORM(HBD)) && ENABLE(INPUT_TYPE_COLOR)
+#if ENABLE(INPUT_TYPE_COLOR)
     m_isInputTypeColorEnabled = true;
 #endif
 }

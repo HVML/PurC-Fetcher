@@ -43,9 +43,6 @@ PurCFetcher::ResourceError cannotShowURLError(const PurCFetcher::ResourceRequest
 PurCFetcher::ResourceError wasBlockedByRestrictionsError(const PurCFetcher::ResourceRequest&);
 PurCFetcher::ResourceError interruptedForPolicyChangeError(const PurCFetcher::ResourceRequest&);
 PurCFetcher::ResourceError failedCustomProtocolSyncLoad(const PurCFetcher::ResourceRequest&);
-#if ENABLE(CONTENT_FILTERING)
-PurCFetcher::ResourceError blockedByContentFilterError(const PurCFetcher::ResourceRequest&);
-#endif
 PurCFetcher::ResourceError cannotShowMIMETypeError(const PurCFetcher::ResourceResponse&);
 PurCFetcher::ResourceError fileDoesNotExistError(const PurCFetcher::ResourceResponse&);
 PurCFetcher::ResourceError pluginWillHandleLoadError(const PurCFetcher::ResourceResponse&);
@@ -55,12 +52,6 @@ PurCFetcher::ResourceError internalError(const URL&);
 PurCFetcher::ResourceError downloadNetworkError(const URL&, const WTF::String&);
 PurCFetcher::ResourceError downloadCancelledByUserError(const PurCFetcher::ResourceResponse&);
 PurCFetcher::ResourceError downloadDestinationError(const PurCFetcher::ResourceResponse&, const WTF::String&);
-#endif
-
-#if PLATFORM(GTK) || PLATFORM(HBD)
-PurCFetcher::ResourceError printError(const URL&, const WTF::String&);
-PurCFetcher::ResourceError printerNotFoundError(const URL&);
-PurCFetcher::ResourceError invalidPageRangeToPrint(const URL&);
 #endif
 
 } // namespace PurCFetcher

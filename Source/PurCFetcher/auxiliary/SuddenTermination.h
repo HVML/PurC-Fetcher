@@ -33,13 +33,8 @@ namespace PurCFetcher {
     // Once disabled via one or more more calls to disableSuddenTermination(), fast shutdown
     // is not valid until enableSuddenTermination() has been called an equal number of times.
     // On Mac, these are thin wrappers around Mac OS X functions of the same name.
-#if PLATFORM(MAC)
-    PURCFETCHER_EXPORT void disableSuddenTermination();
-    PURCFETCHER_EXPORT void enableSuddenTermination();
-#else
     inline void disableSuddenTermination() { }
     inline void enableSuddenTermination() { }
-#endif
 
     class SuddenTerminationDisabler {
         WTF_MAKE_FAST_ALLOCATED;

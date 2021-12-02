@@ -43,9 +43,6 @@ MainThreadSharedTimer& MainThreadSharedTimer::singleton()
     return instance;
 }
 
-#if USE(CF) || OS(WINDOWS)
-MainThreadSharedTimer::MainThreadSharedTimer() = default;
-#else
 MainThreadSharedTimer::MainThreadSharedTimer()
     : m_timer(RunLoop::main(), this, &MainThreadSharedTimer::fired)
 {
@@ -69,7 +66,6 @@ void MainThreadSharedTimer::stop()
 void MainThreadSharedTimer::invalidate()
 {
 }
-#endif
 
 void MainThreadSharedTimer::setFiredFunction(WTF::Function<void()>&& firedFunction)
 {

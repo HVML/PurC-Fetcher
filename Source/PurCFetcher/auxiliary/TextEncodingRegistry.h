@@ -46,8 +46,4 @@ bool shouldShowBackslashAsCurrencySymbolIn(const char* canonicalEncodingName);
 
 PURCFETCHER_EXPORT String defaultTextEncodingNameForSystemLanguage();
 
-#if PLATFORM(COCOA)
-PURCFETCHER_EXPORT CFStringEncoding webDefaultCFStringEncoding();
-#endif
-
 } // namespace PurCFetcher

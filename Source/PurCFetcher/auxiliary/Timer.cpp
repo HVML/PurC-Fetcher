@@ -36,10 +36,6 @@
 #include <wtf/MainThread.h>
 #include <wtf/Vector.h>
 
-#if PLATFORM(COCOA)
-#include <wtf/cocoa/RuntimeApplicationChecksCocoa.h>
-#endif
-
 namespace PurCFetcher {
 
 class TimerHeapReference;
@@ -243,13 +239,7 @@ private:
 
 static bool shouldSuppressThreadSafetyCheck()
 {
-#if PLATFORM(IOS_FAMILY)
-    return WebThreadIsEnabled() || applicationSDKVersion() < DYLD_IOS_VERSION_12_0;
-#elif PLATFORM(MAC)
-    return !isInWebProcess() && applicationSDKVersion() < DYLD_MACOSX_VERSION_10_14;
-#else
     return false;
-#endif
 }
 
 TimerBase::TimerBase()

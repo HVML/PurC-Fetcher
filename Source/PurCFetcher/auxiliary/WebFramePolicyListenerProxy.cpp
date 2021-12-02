@@ -30,7 +30,7 @@
 #include "APIWebsitePolicies.h"
 #include "SafeBrowsingWarning.h"
 #include "WebFrameProxy.h"
-#include "WebsiteDataStore.h"
+//#include "WebsiteDataStore.h"
 #include "WebsitePoliciesData.h"
 
 namespace PurCFetcher {

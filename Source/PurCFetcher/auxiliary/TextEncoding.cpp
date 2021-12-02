@@ -77,8 +77,13 @@ Vector<uint8_t> TextEncoding::encode(StringView string, UnencodableHandling hand
     // FIXME: What's the right place to do normalization?
     // It's a little strange to do it inside the encode function.
     // Perhaps normalization should be an explicit step done before calling encode.
+#if ENABLE(ICU)
     auto normalizedString = normalizedNFC(string);
     return newTextCodec(*this)->encode(normalizedString.view, handling);
+#else
+    UNUSED_PARAM(handling);
+    return { };
+#endif
 }
 
 const char* TextEncoding::domName() const

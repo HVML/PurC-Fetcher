@@ -29,7 +29,7 @@
 #include <array>
 #include <memory>
 #include "UnencodableHandling.h"
-#include <unicode/umachine.h>
+#include <wtf/text/UChar.h>
 #include <wtf/Forward.h>
 #include <wtf/Noncopyable.h>
 

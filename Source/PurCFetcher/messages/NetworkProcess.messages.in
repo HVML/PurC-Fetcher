@@ -51,19 +51,12 @@ messages -> NetworkProcess LegacyReceiver {
     DownloadRequest(PAL::SessionID sessionID, PurCFetcher::DownloadID downloadID, PurCFetcher::ResourceRequest request, enum:bool Optional<PurCFetcher::NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain, String suggestedFilename)
     ResumeDownload(PAL::SessionID sessionID, PurCFetcher::DownloadID downloadID, IPC::DataReference resumeData, String path, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle)
     CancelDownload(PurCFetcher::DownloadID downloadID)
-#if PLATFORM(COCOA)
-    PublishDownloadProgress(PurCFetcher::DownloadID downloadID, URL url, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle)
-#endif
     ApplicationDidEnterBackground()
     ApplicationWillEnterForeground()
 
     ContinueWillSendRequest(PurCFetcher::DownloadID downloadID, PurCFetcher::ResourceRequest request)
     ContinueDecidePendingDownloadDestination(PurCFetcher::DownloadID downloadID, String destination, PurCFetcher::SandboxExtension::Handle sandboxExtensionHandle, bool allowOverwrite)
 
-#if PLATFORM(COCOA)
-    SetQOS(int latencyQOS, int throughputQOS)
-    SetStorageAccessAPIEnabled(bool enabled)
-#endif
     SetAllowsAnySSLCertificateForWebSocket(bool enabled) -> () Synchronous
 
     SyncAllCookies()

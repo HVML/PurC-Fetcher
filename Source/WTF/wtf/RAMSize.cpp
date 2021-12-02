@@ -44,6 +44,7 @@ namespace WTF {
 static constexpr size_t ramSizeGuess = 512 * MB;
 #endif
 
+#if USE(SYSTEM_MALLOC)
 #if OS(DARWIN)
 static constexpr size_t availableMemoryGuess = 512 * MB;
 static size_t memorySizeAccordingToKernel()
@@ -68,6 +69,7 @@ static size_t memorySizeAccordingToKernel()
     return static_cast<size_t>(hostInfo.max_mem);
 #endif
 }
+#endif
 #endif
 
 static size_t computeRAMSize()

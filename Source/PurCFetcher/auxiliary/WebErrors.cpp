@@ -81,8 +81,8 @@ ResourceError pluginWillHandleLoadError(const ResourceResponse& response)
 
 ResourceError internalError(const URL& url)
 {
-    RELEASE_LOG_ERROR(Loading, "Internal error called");
-    RELEASE_LOG_STACKTRACE(Loading);
+    //RELEASE_LOG_ERROR(Loading, "Internal error called");
+    //RELEASE_LOG_STACKTRACE(Loading);
 
     return ResourceError(API::Error::webKitErrorDomain(), API::Error::General::Internal, url, WEB_UI_STRING("PurCFetcher encountered an internal error", "WebKitErrorInternal description"));
 }

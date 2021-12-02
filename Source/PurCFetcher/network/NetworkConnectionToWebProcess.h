@@ -167,7 +167,7 @@ private:
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&) override;
     void didClose(IPC::Connection&) override;
     void didReceiveInvalidMessage(IPC::Connection&, IPC::MessageName) override;
-    const char* connectionName(void) { return "NetworkConnectionToWebProcess"; };
+    const char* connectionName(void) override { return "NetworkConnectionToWebProcess"; };
 
     // Message handlers.
     void didReceiveNetworkConnectionToWebProcessMessage(IPC::Connection&, IPC::Decoder&);

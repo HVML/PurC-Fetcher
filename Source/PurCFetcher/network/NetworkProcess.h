@@ -345,7 +345,7 @@ private:
     void didReceiveMessage(IPC::Connection&, IPC::Decoder&) override;
     void didReceiveSyncMessage(IPC::Connection&, IPC::Decoder&, std::unique_ptr<IPC::Encoder>&) override;
     void didClose(IPC::Connection&) override;
-    const char* connectionName(void) { return "NetworkProcess"; };
+    const char* connectionName(void) override { return "NetworkProcess"; };
 
     // DownloadManager::Client
     void didCreateDownload() override;

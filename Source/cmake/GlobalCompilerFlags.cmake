@@ -112,7 +112,7 @@ if (COMPILER_IS_GCC_OR_CLANG)
     endif ()
 
     # Warnings to be enabled
-    PURCFETCHER_PREPEND_GLOBAL_COMPILER_FLAGS(-Wcast-align
+    PURCFETCHER_PREPEND_GLOBAL_COMPILER_FLAGS(#-Wcast-align
                                          -Wformat-security
                                          -Wmissing-format-attribute
                                          -Wpointer-arith

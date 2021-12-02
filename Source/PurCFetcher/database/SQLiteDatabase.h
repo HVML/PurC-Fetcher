@@ -21,7 +21,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #pragma once
@@ -62,12 +62,12 @@ public:
 
     PURCFETCHER_EXPORT bool executeCommand(const String&);
     bool returnsAtLeastOneResult(const String&);
-    
+
     PURCFETCHER_EXPORT bool tableExists(const String&);
     PURCFETCHER_EXPORT void clearAllTables();
     PURCFETCHER_EXPORT int runVacuumCommand();
     PURCFETCHER_EXPORT int runIncrementalVacuumCommand();
-    
+
     bool transactionInProgress() const { return m_transactionInProgress; }
 
     // Aborts the current database operation. This is thread safe.
@@ -78,9 +78,9 @@ public:
 
     void setBusyTimeout(int ms);
     void setBusyHandler(int(*)(void*, int));
-    
+
     void setFullsync(bool);
-    
+
     // This enables automatic WAL truncation via a commit hook that uses SQLITE_CHECKPOINT_TRUNCATE.
     // However, it shouldn't be used if you use a custom busy handler or timeout. This is because
     // SQLITE_CHECKPOINT_TRUNCATE will invoke the busy handler if it can't acquire the necessary
@@ -93,7 +93,7 @@ public:
     // setMaximumSize() will round the size down to the next smallest chunk if the passed size doesn't align.
     int64_t maximumSize();
     void setMaximumSize(int64_t);
-    
+
     // Gets the number of unused bytes in the database file.
     int64_t freeSpaceSize();
     int64_t totalSize();
@@ -104,18 +104,16 @@ public:
     // OFF - Calls return immediately after the data has been passed to disk
     enum SynchronousPragma { SyncOff = 0, SyncNormal = 1, SyncFull = 2 };
     void setSynchronous(SynchronousPragma);
-    
+
     PURCFETCHER_EXPORT int lastError();
     PURCFETCHER_EXPORT const char* lastErrorMsg();
-    
+
     sqlite3* sqlite3Handle() const
     {
-#if !PLATFORM(IOS_FAMILY)
         ASSERT(m_sharable || m_openingThread == &Thread::current() || !m_db);
-#endif
         return m_db;
     }
-    
+
     void setAuthorizer(DatabaseAuthorizer&);
 
     Lock& databaseMutex() { return m_lockingMutex; }
@@ -158,7 +156,7 @@ private:
 
     sqlite3* m_db { nullptr };
     int m_pageSize { -1 };
-    
+
     bool m_transactionInProgress { false };
 #if ENABLE_ASSERTS
     bool m_sharable { false };

@@ -37,10 +37,6 @@
 #include <sqlite3.h>
 #include <wtf/FileSystem.h>
 
-#if PLATFORM(IOS_FAMILY)
-#include <pal/spi/ios/SQLite3SPI.h>
-#endif
-
 namespace PurCFetcher {
 
 SQLiteFileSystem::SQLiteFileSystem()
@@ -91,15 +87,8 @@ bool SQLiteFileSystem::deleteDatabaseFile(const String& fileName)
     return !FileSystem::fileExists(fileName) && !FileSystem::fileExists(walFileName) && !FileSystem::fileExists(shmFileName);
 }
 
-#if PLATFORM(IOS_FAMILY)
-bool SQLiteFileSystem::truncateDatabaseFile(sqlite3* database)
-{
-    return sqlite3_file_control(database, 0, SQLITE_TRUNCATE_DATABASE, 0) == SQLITE_OK;
-}
-#endif
-    
 long long SQLiteFileSystem::getDatabaseFileSize(const String& fileName)
-{        
+{
     long long fileSize = 0;
     long long totalSize = 0;
 
@@ -124,13 +113,13 @@ Optional<WallTime> SQLiteFileSystem::databaseModificationTime(const String& file
 {
     return FileSystem::getFileModificationTime(fileName);
 }
-    
+
 String SQLiteFileSystem::computeHashForFileName(const String& fileName)
 {
     auto cryptoDigest = PAL::CryptoDigest::create(PAL::CryptoDigest::Algorithm::SHA_256);
     cryptoDigest->addBytes(fileName.utf8().data(), fileName.utf8().length());
     auto digest = cryptoDigest->computeHash();
-    
+
     // Convert digest to hex.
     char* start = 0;
     unsigned digestLength = digest.size();

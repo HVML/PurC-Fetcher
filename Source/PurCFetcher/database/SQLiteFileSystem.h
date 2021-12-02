@@ -82,13 +82,6 @@ public:
 
     PURCFETCHER_EXPORT static String computeHashForFileName(const String& fileName);
 
-#if PLATFORM(IOS_FAMILY)
-    // Truncates a database file. Used when MobileSafariSettings deletes a database file,
-    // since deleting the file nukes the POSIX file locks which would potentially cause Safari
-    // to corrupt the new db if it's running in the background.
-    static bool truncateDatabaseFile(sqlite3* database);
-#endif
-    
     static long long getDatabaseFileSize(const String& fileName);
     PURCFETCHER_EXPORT static Optional<WallTime> databaseCreationTime(const String& fileName);
     PURCFETCHER_EXPORT static Optional<WallTime> databaseModificationTime(const String& fileName);

@@ -31,7 +31,6 @@ auxiliary/ShareableResource.cpp
 auxiliary/SharedBuffer.cpp
 auxiliary/SharedMemory.cpp
 auxiliary/TextCodec.cpp
-auxiliary/TextCodecICU.cpp
 auxiliary/TextCodecLatin1.cpp
 auxiliary/TextCodecReplacement.cpp
 auxiliary/TextCodecUserDefined.cpp

@@ -53,8 +53,6 @@ public:
     const CachedResourceRequestInitiators& cachedResourceRequestInitiators() { return *m_cachedResourceRequestInitiators; }
     ThreadTimers& threadTimers() { return *m_threadTimers; }
 
-    ICUConverterWrapper& cachedConverterICU() { return *m_cachedConverterICU; }
-
 #if USE(WEB_THREAD)
     void setWebCoreThreadData();
 #endif
@@ -74,7 +72,6 @@ private:
 
     bool m_isInRemoveAllEventListeners { false };
 
-    std::unique_ptr<ICUConverterWrapper> m_cachedConverterICU;
     std::unique_ptr<MIMETypeRegistryThreadGlobalData> m_MIMETypeRegistryThreadGlobalData;
 
     PURCFETCHER_EXPORT friend ThreadGlobalData& threadGlobalData();

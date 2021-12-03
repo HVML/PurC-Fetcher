@@ -50,6 +50,10 @@
 #include <stdio.h>
 #include "LineWordsFilter.h"
 
+#ifndef BOV_WB_WORD_BOUNDARY
+#define BOV_WB_WORD_BOUNDARY        0x0100
+#endif
+
 namespace PurCFetcher {
 using namespace PurCFetcher;
 
@@ -73,7 +77,7 @@ Vector<String> LineWordsFilter::splitLine(String line, String)
     UCharBreaker breaker(source);
     const gunichar* gucharSource = breaker.getUChar();
     int gucharSourceLen = breaker.getUCharLen();
-    Uint16* breakOpps = breaker.getBreakOpps();
+    uint16_t* breakOpps = breaker.getBreakOpps();
 
     const gunichar* p = gucharSource;
     const gunichar* pEnd = gucharSource + gucharSourceLen; 

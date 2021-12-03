@@ -126,8 +126,8 @@ Vector<SecurityOriginData> LocalStorageDatabaseTracker::origins() const
         auto origin = SecurityOriginData::fromDatabaseIdentifier(originIdentifier);
         if (origin)
             databaseOrigins.append(origin.value());
-        else
-            RELEASE_LOG_ERROR(LocalStorageDatabaseTracker, "Unable to extract origin from path %s", path.utf8().data());
+//        else
+//            RELEASE_LOG_ERROR(LocalStorageDatabaseTracker, "Unable to extract origin from path %s", path.utf8().data());
     }
 
     return databaseOrigins;

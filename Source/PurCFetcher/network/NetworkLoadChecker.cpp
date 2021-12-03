@@ -212,6 +212,7 @@ void NetworkLoadChecker::checkRequest(ResourceRequest&& request, ContentSecurity
     ResourceRequest originalRequest = request;
 
     applyHTTPSUpgradeIfNeeded(WTFMove(request), [this, weakThis = makeWeakPtr(*this), client, handler = WTFMove(handler), originalRequest = WTFMove(originalRequest)](auto&& request) mutable {
+        UNUSED_PARAM(client);
         if (!weakThis)
             return handler({ ResourceError { ResourceError::Type::Cancellation }});
 

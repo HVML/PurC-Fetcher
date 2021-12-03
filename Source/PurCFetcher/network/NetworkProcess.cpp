@@ -115,7 +115,7 @@ static void callExitSoon(IPC::Connection*)
         // We use _exit here since the watchdog callback is called from another thread and we don't want
         // global destructors or atexit handlers to be called from this thread while the main thread is busy
         // doing its thing.
-        RELEASE_LOG_ERROR(IPC, "Exiting process early due to unacknowledged closed-connection");
+        //RELEASE_LOG_ERROR(IPC, "Exiting process early due to unacknowledged closed-connection");
         _exit(EXIT_FAILURE);
     });
 }
@@ -351,7 +351,7 @@ void NetworkProcess::initializeNetworkProcess(NetworkProcessCreationParameters&&
     for (auto& scheme : parameters.urlSchemesRegisteredAsNoAccess)
         registerURLSchemeAsNoAccess(scheme);
 
-    RELEASE_LOG(Process, "%p - NetworkProcess::initializeNetworkProcess: Presenting process = %d", this, PurCFetcher::presentingApplicationPID());
+    //RELEASE_LOG(Process, "%p - NetworkProcess::initializeNetworkProcess: Presenting process = %d", this, PurCFetcher::presentingApplicationPID());
 }
 
 void NetworkProcess::initializeConnection(IPC::Connection* connection)
@@ -2084,12 +2084,13 @@ void NetworkProcess::processWillSuspendImminentlyForTestingSync(CompletionHandle
 void NetworkProcess::prepareToSuspend(bool isSuspensionImminent, CompletionHandler<void()>&& completionHandler)
 {
     UNUSED_PARAM(isSuspensionImminent);
-    RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::prepareToSuspend(), isSuspensionImminent: %d", this, isSuspensionImminent);
+    //RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::prepareToSuspend(), isSuspensionImminent: %d", this, isSuspensionImminent);
 
     lowMemoryHandler(Critical::Yes);
 
     RefPtr<CallbackAggregator> callbackAggregator = CallbackAggregator::create([this, completionHandler = WTFMove(completionHandler)]() mutable {
-        RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::prepareToSuspend() Process is ready to suspend", this);
+        UNUSED_PARAM(this);
+        //RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::prepareToSuspend() Process is ready to suspend", this);
         completionHandler();
     });
 
@@ -2117,7 +2118,7 @@ void NetworkProcess::applicationWillEnterForeground()
 
 void NetworkProcess::processDidResume()
 {
-    RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::processDidResume()", this);
+    //RELEASE_LOG(ProcessSuspension, "%p - NetworkProcess::processDidResume()", this);
     resume();
 }
 

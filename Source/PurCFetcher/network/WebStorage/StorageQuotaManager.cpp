@@ -87,9 +87,9 @@ StorageQuotaManager::Decision StorageQuotaManager::requestSpaceOnBackgroundThrea
     // Block this thread until getting decsion for quota increase.
     BinarySemaphore semaphore;
     callOnMainThread([this, protectedThis = makeRef(*this), spaceRequested, &semaphore]() mutable {
-        RELEASE_LOG(Storage, "%p - StorageQuotaManager asks for quota increase %" PRIu64, this, spaceRequested);
+        //RELEASE_LOG(Storage, "%p - StorageQuotaManager asks for quota increase %" PRIu64, this, spaceRequested);
         m_quotaIncreaseRequester(m_quota, m_usage, spaceRequested, [this, protectedThis = WTFMove(protectedThis), &semaphore](Optional<uint64_t> newQuota) mutable {
-            RELEASE_LOG(Storage, "%p - StorageQuotaManager receives quota increase response %" PRIu64, this, newQuota ? *newQuota : 0);
+            //RELEASE_LOG(Storage, "%p - StorageQuotaManager receives quota increase response %" PRIu64, this, newQuota ? *newQuota : 0);
             ASSERT(isMainThread());
 
             if (newQuota)

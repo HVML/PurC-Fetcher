@@ -49,8 +49,10 @@
 #pragma once
 
 #include "NetworkDataTask.h"
+#if 0
 #include <minigui/common.h>
 #include <minigui/gdi.h>
+#endif
 
 namespace PurCFetcher {
 
@@ -90,7 +92,7 @@ public:
     const char* getText() { return m_text; }
     const gunichar* getUChar() { return m_uchar; }
     int getUCharLen() { return m_ucharLen; }
-    Uint16* getBreakOpps() { return m_breakOpps; }
+    uint16_t* getBreakOpps() { return m_breakOpps; }
     int getBreakOppsCount() { return m_breakOppsCount; }
 
 private:
@@ -100,7 +102,7 @@ private:
     const char* m_text;
     gunichar* m_uchar;
     glong m_ucharLen;
-    Uint16* m_breakOpps;
+    uint16_t* m_breakOpps;
     int m_breakOppsCount;
 };
 

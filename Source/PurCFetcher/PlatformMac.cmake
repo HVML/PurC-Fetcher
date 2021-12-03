@@ -1,11 +1,13 @@
 set(PurCFetcher_OUTPUT_NAME purc_fetcher)
 
+include_directories(/usr/local/opt/libgpg-error/include/)
+add_definitions(-Wno-deprecated-declarations)
+
 list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/ipc/unix"
     "${PURCFETCHER_DIR}/auxiliary/soup"
     "${PURCFETCHER_DIR}/network/soup"
     "${PURCFETCHER_DIR}/network/linux"
-    "${LIBGPGERROR_INCLUDE_DIR}"
 )
 
 list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES
@@ -24,6 +26,7 @@ list(APPEND PurCFetcher_SYSTEM_INCLUDE_DIRECTORIES
     ${GLIB_INCLUDE_DIRS}
     ${LIBSOUP_INCLUDE_DIRS}
     ${LIBGCRYPT_INCLUDE_DIR}
+    ${LIBGPGERROR_INCLUDE_DIR}
 )
 
 list(APPEND PurCFetcher_LIBRARIES
@@ -31,6 +34,7 @@ list(APPEND PurCFetcher_LIBRARIES
     ${GLIB_GOBJECT_LIBRARIES}
     ${GLIB_LIBRARIES}
     ${LIBSOUP_LIBRARIES}
+    ${PC_SQLITE3_LIBRARIES}
 )
 
 if (ENABLE_SOCKET_STREAM)

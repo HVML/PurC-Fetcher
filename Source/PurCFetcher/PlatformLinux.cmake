@@ -4,7 +4,7 @@ list(APPEND PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
     "${PURCFETCHER_DIR}/ipc/unix"
     "${PURCFETCHER_DIR}/auxiliary/soup"
     "${PURCFETCHER_DIR}/network/soup"
-    "${PURCFETCHER_DIR}/network/linux"
+    "${PURCFETCHER_DIR}/network/filter"
 )
 
 list(APPEND PurCFetcher_UNIFIED_SOURCE_LIST_FILES

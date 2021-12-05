@@ -54,6 +54,9 @@
 #include <minigui/gdi.h>
 #endif
 
+#define UCHAR_BREAK_WORD_BOUNDARY        0x0001
+#define UCHAR_BREAK_SENTENCE_BOUNDARY    0x0002
+
 namespace PurCFetcher {
 
 inline bool isSingleQuotes(UChar character)
@@ -83,6 +86,35 @@ public:
     Vector<String> splitUTF8(const char* source, const char* sourceEnd);
 };
 
+struct UCharBreakAttr
+{
+  guint is_line_break : 1;      /* Can break line in front of character */
+  guint is_mandatory_break : 1; /* Must break line in front of character */
+  guint is_char_break : 1;      /* Can break here when doing char wrap */
+  guint is_white : 1;           /* Whitespace character */
+  /* Cursor can appear in front of character (i.e. this is a grapheme
+   * boundary, or the first character in the text).
+   */
+  guint is_cursor_position : 1;
+  guint is_word_start : 1;      /* first character in a word */
+  guint is_word_end   : 1;      /* is first non-word char after a word */
+  /* There are two ways to divide sentences. The first assigns all
+   * intersentence whitespace/control/format chars to some sentence,
+   * so all chars are in some sentence; is_sentence_boundary denotes
+   * the boundaries there. The second way doesn't assign
+   * between-sentence spaces, etc. to any sentence, so
+   * is_sentence_start/is_sentence_end mark the boundaries of those
+   * sentences.
+   */
+  guint is_sentence_boundary : 1;
+  guint is_sentence_start : 1;  /* first character in a sentence */
+  guint is_sentence_end : 1;    /* first non-sentence char after a sentence */
+  guint backspace_deletes_character : 1;
+  guint is_expandable_space : 1;
+  guint is_word_boundary : 1;  /* is NOT in the middle of a word */
+};
+
+
 
 class UCharBreaker {
 public:
@@ -95,8 +127,12 @@ public:
     uint16_t* getBreakOpps() { return m_breakOpps; }
     int getBreakOppsCount() { return m_breakOppsCount; }
 
+    const struct UCharBreakAttr* getBreakAttrs() { return m_breakAttrs; }
+    int getBreakAttrsCount() { return m_breakAttrsCount; }
+
 private:
     void doUStrGetBreaks();
+    void genBreaks(const char* text, int length, struct UCharBreakAttr* attrs);
 
 private:
     const char* m_text;
@@ -104,6 +140,9 @@ private:
     glong m_ucharLen;
     uint16_t* m_breakOpps;
     int m_breakOppsCount;
+
+    struct UCharBreakAttr* m_breakAttrs;
+    int m_breakAttrsCount;
 };
 
 } // namespace PurCFetcher

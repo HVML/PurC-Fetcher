@@ -1645,8 +1645,6 @@ UCharBreaker::UCharBreaker(const char* text)
  : m_text(text)
  , m_uchar(NULL)
  , m_ucharLen(0)
- , m_breakOpps(NULL)
- , m_breakOppsCount(0)
  , m_breakAttrs(NULL)
  , m_breakAttrsCount(0)
 {
@@ -1656,9 +1654,6 @@ UCharBreaker::~UCharBreaker()
 {
     if (m_uchar)
         g_free(m_uchar);
-
-    if (m_breakOpps)
-        free(m_breakOpps);
 
     if (m_breakAttrs) {
         free(m_breakAttrs);
@@ -1674,17 +1669,13 @@ void UCharBreaker::doUStrGetBreaks()
     if (textLen <= 0)
         return;
 
-    m_breakOppsCount = textLen;
-    m_breakAttrs = (struct UCharBreakAttr*) calloc(m_breakOppsCount,
+    m_breakAttrsCount = textLen;
+    m_breakAttrs = (struct UCharBreakAttr*) calloc(m_breakAttrsCount,
             sizeof(struct UCharBreakAttr));
     m_uchar = g_utf8_to_ucs4_fast(m_text, -1, &m_ucharLen);
     if(!m_uchar || m_ucharLen <=0)
         return;
 
-// TODO : LINK MiniGUI
-#if 0
-    m_breakOppsCount = UStrGetBreaks(LANGCODE_unknown, CTR_NONE, WBR_NORMAL, LBP_NORMAL, m_uchar, m_ucharLen, &m_breakOpps);
-#endif
     genBreaks(m_text, textLen, m_breakAttrs);
 }
 

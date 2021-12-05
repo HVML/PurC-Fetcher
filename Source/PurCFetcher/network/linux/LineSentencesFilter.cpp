@@ -50,14 +50,6 @@
 #include <stdio.h>
 #include "LineSentencesFilter.h"
 
-#ifndef BOV_WB_WORD_BOUNDARY
-#define BOV_WB_WORD_BOUNDARY        0x0100
-#endif
-
-#ifndef BOV_SB_SENTENCE_BOUNDARY
-#define BOV_SB_SENTENCE_BOUNDARY    0x0010
-#endif
-
 namespace PurCFetcher {
 using namespace PurCFetcher;
 
@@ -84,7 +76,7 @@ Vector<String> LineSentencesFilter::splitLine(String line)
     UCharBreaker breaker(source);
     const gunichar* gucharSource = breaker.getUChar();
     int gucharSourceLen = breaker.getUCharLen();
-    uint16_t* breakOpps = breaker.getBreakOpps();
+    const struct UCharBreakAttr* breakAttrs = breaker.getBreakAttrs();
 
     const gunichar* p = gucharSource;
     const gunichar* pEnd = gucharSource + gucharSourceLen; 
@@ -114,7 +106,7 @@ Vector<String> LineSentencesFilter::splitLine(String line)
                 break;
         }
 
-        if (breakOpps[i] & BOV_SB_SENTENCE_BOUNDARY)
+        if (breakAttrs[i].is_sentence_boundary)
         {
             if (sb.length())
             {

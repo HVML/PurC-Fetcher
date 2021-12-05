@@ -50,11 +50,6 @@
 #include <stdio.h>
 #include "ColumnWordsFilter.h"
 
-
-#ifndef BOV_WB_WORD_BOUNDARY
-#define BOV_WB_WORD_BOUNDARY        0x0100
-#endif
-
 namespace PurCFetcher {
 using namespace PurCFetcher;
 
@@ -92,7 +87,7 @@ Vector<String> ColumnWordsFilter::splitLine(String line, String)
     UCharBreaker breaker(source);
     const gunichar* gucharSource = breaker.getUChar();
     int gucharSourceLen = breaker.getUCharLen();
-    uint16_t* breakOpps = breaker.getBreakOpps();
+    const struct UCharBreakAttr* breakAttrs = breaker.getBreakAttrs();
 
     const gunichar* p = gucharSource;
     const gunichar* pEnd = gucharSource + gucharSourceLen; 
@@ -119,14 +114,14 @@ Vector<String> ColumnWordsFilter::splitLine(String line, String)
                 break;
 
             default:
-                if (!(breakOpps[i] & BOV_WB_WORD_BOUNDARY))
+                if (!(breakAttrs[i].is_word_boundary))
                     save = true;
                 break;
         }
 
         if (save)
         {
-            if (breakOpps[i] & BOV_WB_WORD_BOUNDARY)
+            if (breakAttrs[i].is_word_boundary)
             {
                 if (sb.length())
                 {

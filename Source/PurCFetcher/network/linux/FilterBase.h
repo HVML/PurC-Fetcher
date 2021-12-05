@@ -124,8 +124,6 @@ public:
     const char* getText() { return m_text; }
     const gunichar* getUChar() { return m_uchar; }
     int getUCharLen() { return m_ucharLen; }
-    uint16_t* getBreakOpps() { return m_breakOpps; }
-    int getBreakOppsCount() { return m_breakOppsCount; }
 
     const struct UCharBreakAttr* getBreakAttrs() { return m_breakAttrs; }
     int getBreakAttrsCount() { return m_breakAttrsCount; }
@@ -138,8 +136,6 @@ private:
     const char* m_text;
     gunichar* m_uchar;
     glong m_ucharLen;
-    uint16_t* m_breakOpps;
-    int m_breakOppsCount;
 
     struct UCharBreakAttr* m_breakAttrs;
     int m_breakAttrsCount;

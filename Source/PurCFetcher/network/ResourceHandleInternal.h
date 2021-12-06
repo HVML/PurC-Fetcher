@@ -20,7 +20,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #pragma once
@@ -32,11 +32,6 @@
 #include "ResourceRequest.h"
 #include "Timer.h"
 
-#if USE(CFURLCONNECTION)
-#include "ResourceHandleCFURLConnectionDelegate.h"
-#include <pal/spi/cf/CFNetworkSPI.h>
-#endif
-
 #if USE(CURL)
 #include "CurlRequest.h"
 #include "SynchronousLoaderClient.h"
@@ -44,14 +39,6 @@
 #include <wtf/MonotonicTime.h>
 #endif
 
-#if PLATFORM(COCOA)
-OBJC_CLASS NSURLAuthenticationChallenge;
-OBJC_CLASS NSURLConnection;
-#endif
-
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-typedef const struct __CFURLStorageSession* CFURLStorageSessionRef;
-#endif
 
 // The allocations and releases in ResourceHandleInternal are
 // Cocoa-exception-free (either simple Foundation classes or
@@ -73,9 +60,6 @@ public:
         , m_defersLoading(defersLoading)
         , m_shouldContentSniff(shouldContentSniff)
         , m_shouldContentEncodingSniff(shouldContentEncodingSniff)
-#if USE(CFURLCONNECTION)
-        , m_currentRequest(request)
-#endif
         , m_failureTimer(*loader, &ResourceHandle::failureTimerFired)
     {
         const URL& url = m_firstRequest.url();
@@ -83,7 +67,7 @@ public:
         m_password = url.password();
         m_firstRequest.removeCredentials();
     }
-    
+
     ~ResourceHandleInternal();
 
     ResourceHandleClient* client() { return m_client; }
@@ -97,32 +81,17 @@ public:
     // Suggested credentials for the current redirection step.
     String m_user;
     String m_password;
-    
+
     Credential m_initialCredential;
-    
+
     int status { 0 };
 
     bool m_defersLoading;
     bool m_shouldContentSniff;
     bool m_shouldContentEncodingSniff;
-#if USE(CFURLCONNECTION)
-    RetainPtr<CFURLConnectionRef> m_connection;
-    ResourceRequest m_currentRequest;
-    RefPtr<ResourceHandleCFURLConnectionDelegate> m_connectionDelegate;
-#endif
-#if PLATFORM(COCOA)
-    RetainPtr<NSURLConnection> m_connection;
-    RetainPtr<id> m_delegate;
-#endif
-#if PLATFORM(COCOA)
-    bool m_startWhenScheduled { false };
-#endif
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-    RetainPtr<CFURLStorageSessionRef> m_storageSession;
-#endif
 #if USE(CURL)
     std::unique_ptr<CurlResourceHandleDelegate> m_delegate;
-    
+
     bool m_cancelled { false };
     unsigned m_redirectCount { 0 };
     unsigned m_authFailureCount { 0 };
@@ -130,12 +99,6 @@ public:
     RefPtr<CurlRequest> m_curlRequest;
     RefPtr<SynchronousLoaderMessageQueue> m_messageQueue;
     MonotonicTime m_startTime;
-#endif
-
-#if PLATFORM(COCOA)
-    // We need to keep a reference to the original challenge to be able to cancel it.
-    // It is almost identical to m_currentWebChallenge.nsURLAuthenticationChallenge(), but has a different sender.
-    NSURLAuthenticationChallenge *m_currentMacChallenge { nil };
 #endif
 
     AuthenticationChallenge m_currentWebChallenge;

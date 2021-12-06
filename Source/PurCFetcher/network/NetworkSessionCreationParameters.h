@@ -39,11 +39,6 @@
 #include "CurlProxySettings.h"
 #endif
 
-#if PLATFORM(COCOA)
-extern "C" CFStringRef const WebKit2HTTPProxyDefaultsKey;
-extern "C" CFStringRef const WebKit2HTTPSProxyDefaultsKey;
-#endif
-    
 namespace PurCFetcher {
 
 enum class AllowsCellularAccess : bool { No, Yes };
@@ -51,24 +46,10 @@ enum class AllowsCellularAccess : bool { No, Yes };
 struct NetworkSessionCreationParameters {
     void encode(IPC::Encoder&) const;
     static Optional<NetworkSessionCreationParameters> decode(IPC::Decoder&);
-    
+
     PAL::SessionID sessionID { PAL::SessionID::defaultSessionID() };
     String boundInterfaceIdentifier;
     AllowsCellularAccess allowsCellularAccess { AllowsCellularAccess::Yes };
-#if PLATFORM(COCOA)
-    RetainPtr<CFDictionaryRef> proxyConfiguration;
-    String sourceApplicationBundleIdentifier;
-    String sourceApplicationSecondaryIdentifier;
-    bool shouldLogCookieInformation { false };
-    Seconds loadThrottleLatency;
-    URL httpProxy;
-    URL httpsProxy;
-#endif
-#if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-    String alternativeServiceDirectory;
-    SandboxExtension::Handle alternativeServiceDirectoryExtensionHandle;
-    bool http3Enabled { false };
-#endif
 #if USE(SOUP)
     String cookiePersistentStoragePath;
     SoupCookiePersistentStorageType cookiePersistentStorageType { SoupCookiePersistentStorageType::Text };
@@ -92,7 +73,7 @@ struct NetworkSessionCreationParameters {
     bool allowsServerPreconnect { true };
     bool requiresSecureHTTPSProxyConnection { false };
     bool preventsSystemHTTPProxyAuthentication { false };
-    
+
     ResourceLoadStatisticsParameters resourceLoadStatisticsParameters;
 };
 

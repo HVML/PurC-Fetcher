@@ -25,8 +25,9 @@
 
 #pragma once
 
+#include "fetcher-messages-basic.h"
+
 #include "ResourceLoadStatisticsParameters.h"
-#include "NetworkStorageSession.h"
 #include "SessionID.h"
 #include <wtf/Seconds.h>
 #include <wtf/URL.h>

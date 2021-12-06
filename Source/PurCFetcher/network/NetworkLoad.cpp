@@ -90,12 +90,7 @@ void NetworkLoad::cancel()
 
 static inline void updateRequest(ResourceRequest& currentRequest, const ResourceRequest& newRequest)
 {
-#if PLATFORM(COCOA)
-    currentRequest.updateFromDelegatePreservingOldProperties(newRequest.nsURLRequest(HTTPBodyUpdatePolicy::DoNotUpdateHTTPBody));
-#else
-    // FIXME: Implement ResourceRequest::updateFromDelegatePreservingOldProperties. See https://bugs.webkit.org/show_bug.cgi?id=126127.
     currentRequest.updateFromDelegatePreservingOldProperties(newRequest);
-#endif
 }
 
 void NetworkLoad::updateRequestAfterRedirection(PurCFetcher::ResourceRequest& newRequest) const

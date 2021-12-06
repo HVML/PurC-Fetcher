@@ -172,20 +172,6 @@ void FormData::appendBlob(const URL& blobURL)
     m_lengthInBytes = WTF::nullopt;
 }
 
-static Vector<uint8_t> normalizeStringData(TextEncoding& encoding, const String& value)
-{
-    return normalizeLineEndingsToCRLF(encoding.encode(value, UnencodableHandling::Entities));
-}
-
-void FormData::appendMultiPartStringValue(const String& string, Vector<char>& header, TextEncoding& encoding)
-{
-    FormDataBuilder::finishMultiPartHeader(header);
-    appendData(header.data(), header.size());
-
-    auto normalizedStringData = normalizeStringData(encoding, string);
-    appendData(normalizedStringData.data(), normalizedStringData.size());
-}
-
 Vector<char> FormData::flatten() const
 {
     // Concatenate all the byte arrays, but omit any files.

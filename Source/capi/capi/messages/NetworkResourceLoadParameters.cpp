@@ -111,17 +111,6 @@ void NetworkResourceLoadParameters::encode(IPC::Encoder& encoder) const
     encoder << parentFrameID;
     encoder << crossOriginAccessControlCheckEnabled;
 
-#if ENABLE(SERVICE_WORKER)
-    encoder << serviceWorkersMode;
-    encoder << serviceWorkerRegistrationIdentifier;
-    encoder << httpHeadersToKeep;
-#endif
-
-#if ENABLE(CONTENT_EXTENSIONS)
-    encoder << mainDocumentURL;
-    encoder << userContentControllerIdentifier;
-#endif
-    
     encoder << isNavigatingToAppBoundDomain;
 }
 
@@ -131,7 +120,7 @@ Optional<NetworkResourceLoadParameters> NetworkResourceLoadParameters::decode(IP
 
     if (!decoder.decode(result.identifier))
         return WTF::nullopt;
-        
+
     Optional<WebPageProxyIdentifier> webPageProxyID;
     decoder >> webPageProxyID;
     if (!webPageProxyID)
@@ -262,7 +251,7 @@ Optional<NetworkResourceLoadParameters> NetworkResourceLoadParameters::decode(IP
     if (!pageHasResourceLoadClient)
         return WTF::nullopt;
     result.pageHasResourceLoadClient = *pageHasResourceLoadClient;
-    
+
     Optional<Optional<FrameIdentifier>> parentFrameID;
     decoder >> parentFrameID;
     if (!parentFrameID)
@@ -274,37 +263,6 @@ Optional<NetworkResourceLoadParameters> NetworkResourceLoadParameters::decode(IP
     if (!crossOriginAccessControlCheckEnabled)
         return WTF::nullopt;
     result.crossOriginAccessControlCheckEnabled = *crossOriginAccessControlCheckEnabled;
-    
-#if ENABLE(SERVICE_WORKER)
-    Optional<ServiceWorkersMode> serviceWorkersMode;
-    decoder >> serviceWorkersMode;
-    if (!serviceWorkersMode)
-        return WTF::nullopt;
-    result.serviceWorkersMode = *serviceWorkersMode;
-
-    Optional<Optional<ServiceWorkerRegistrationIdentifier>> serviceWorkerRegistrationIdentifier;
-    decoder >> serviceWorkerRegistrationIdentifier;
-    if (!serviceWorkerRegistrationIdentifier)
-        return WTF::nullopt;
-    result.serviceWorkerRegistrationIdentifier = *serviceWorkerRegistrationIdentifier;
-
-    Optional<OptionSet<HTTPHeadersToKeepFromCleaning>> httpHeadersToKeep;
-    decoder >> httpHeadersToKeep;
-    if (!httpHeadersToKeep)
-        return WTF::nullopt;
-    result.httpHeadersToKeep = WTFMove(*httpHeadersToKeep);
-#endif
-
-#if ENABLE(CONTENT_EXTENSIONS)
-    if (!decoder.decode(result.mainDocumentURL))
-        return WTF::nullopt;
-
-    Optional<Optional<UserContentControllerIdentifier>> userContentControllerIdentifier;
-    decoder >> userContentControllerIdentifier;
-    if (!userContentControllerIdentifier)
-        return WTF::nullopt;
-    result.userContentControllerIdentifier = *userContentControllerIdentifier;
-#endif
 
     Optional<Optional<NavigatingToAppBoundDomain>> isNavigatingToAppBoundDomain;
     decoder >> isNavigatingToAppBoundDomain;
@@ -314,5 +272,5 @@ Optional<NetworkResourceLoadParameters> NetworkResourceLoadParameters::decode(IP
 
     return result;
 }
-    
+
 } // namespace PurCFetcher

@@ -23,14 +23,6 @@
 #include <wtf/RetainPtr.h>
 #include <wtf/text/WTFString.h>
 
-#if PLATFORM(COCOA)
-#include <wtf/SchedulePair.h>
-#endif
-
-#if PLATFORM(COCOA)
-OBJC_CLASS NSOperationQueue;
-#endif
-
 #if USE(SOUP)
 typedef struct _SoupSession SoupSession;
 #endif
@@ -49,18 +41,7 @@ public:
 
     virtual bool shouldClearReferrerOnHTTPSToHTTPRedirect() const = 0;
 
-#if PLATFORM(COCOA)
-    virtual bool localFileContentSniffingEnabled() const = 0; // FIXME: Reconcile with ResourceHandle::forceContentSniffing().
-    virtual SchedulePairHashSet* scheduledRunLoopPairs() const { return 0; }
-    virtual RetainPtr<CFDataRef> sourceApplicationAuditData() const = 0;
-    virtual ResourceError blockedError(const ResourceRequest&) const = 0;
-#endif
-
     virtual String sourceApplicationIdentifier() const { return emptyString(); }
-
-#if PLATFORM(WIN)
-    virtual ResourceError blockedError(const ResourceRequest&) const = 0;
-#endif
 
 protected:
     NetworkingContext() = default;

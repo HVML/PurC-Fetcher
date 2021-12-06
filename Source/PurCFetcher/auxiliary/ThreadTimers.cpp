@@ -33,10 +33,6 @@
 #include "Timer.h"
 #include <wtf/MainThread.h>
 
-#if PLATFORM(IOS_FAMILY)
-#include "WebCoreThread.h"
-#endif
-
 namespace PurCFetcher {
 
 // Fire timers for this length of time, and then quit to let the run loop process user input events.

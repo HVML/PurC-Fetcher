@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016 Canon Inc.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted, provided that the following conditions
@@ -28,8 +29,7 @@
 
 #pragma once
 
-#include "DocumentIdentifier.h"
-#include "ReferrerPolicy.h"
+#include "fetcher-messages-basic.h"
 #include <wtf/Markable.h>
 #include <wtf/text/WTFString.h>
 

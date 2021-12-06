@@ -65,7 +65,7 @@ void PendingDownload::willSendRedirectedRequest(PurCFetcher::ResourceRequest&&, 
 {
     send(Messages::DownloadProxy::WillSendRequest(WTFMove(redirectRequest), WTFMove(redirectResponse)));
 };
-    
+
 void PendingDownload::continueWillSendRequest(PurCFetcher::ResourceRequest&& newRequest)
 {
     m_networkLoad->continueWillSendRequest(WTFMove(newRequest));
@@ -78,26 +78,11 @@ void PendingDownload::cancel()
     send(Messages::DownloadProxy::DidCancel({ }));
 }
 
-#if PLATFORM(COCOA)
-void PendingDownload::publishProgress(const URL& url, SandboxExtension::Handle&& sandboxExtension)
-{
-    ASSERT(!m_progressURL.isValid());
-    m_progressURL = url;
-    m_progressSandboxExtension = WTFMove(sandboxExtension);
-}
-
-void PendingDownload::didBecomeDownload(const std::unique_ptr<Download>& download)
-{
-    if (m_progressURL.isValid())
-        download->publishProgress(m_progressURL, WTFMove(m_progressSandboxExtension));
-}
-#endif // PLATFORM(COCOA)
-
 void PendingDownload::didFailLoading(const PurCFetcher::ResourceError& error)
 {
     send(Messages::DownloadProxy::DidFail(error, { }));
 }
-    
+
 IPC::Connection* PendingDownload::messageSenderConnection() const
 {
     return m_parentProcessConnection.get();
@@ -114,5 +99,5 @@ uint64_t PendingDownload::messageSenderDestinationID() const
 {
     return m_networkLoad->pendingDownloadID().downloadID();
 }
-    
+
 }

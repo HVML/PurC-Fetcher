@@ -26,11 +26,10 @@
 
 #pragma once
 
-#include "CacheValidation.h"
+#include "fetcher-messages-basic.h"
 #include "CertificateInfo.h"
 #include "HTTPHeaderMap.h"
 #include "NetworkLoadMetrics.h"
-#include "ParsedContentRange.h"
 #include <wtf/Box.h>
 #include <wtf/EnumTraits.h>
 #include <wtf/Markable.h>
@@ -152,7 +151,6 @@ public:
     PURCFETCHER_EXPORT Optional<Seconds> age() const;
     PURCFETCHER_EXPORT Optional<WallTime> expires() const;
     PURCFETCHER_EXPORT Optional<WallTime> lastModified() const;
-    const ParsedContentRange& contentRange() const;
 
     enum class Source : uint8_t { Unknown, Network, DiskCache, DiskCacheAfterValidation, MemoryCache, MemoryCacheAfterValidation, ServiceWorker, ApplicationCache, DOMCache, InspectorOverride };
     static constexpr unsigned bitWidthOfSource = 4;
@@ -251,7 +249,6 @@ private:
     mutable Markable<WallTime, WallTime::MarkableTraits> m_date;
     mutable Markable<WallTime, WallTime::MarkableTraits> m_expires;
     mutable Markable<WallTime, WallTime::MarkableTraits> m_lastModified;
-    mutable ParsedContentRange m_contentRange;
     mutable CacheControlDirectives m_cacheControlDirectives;
 
     mutable bool m_haveParsedCacheControlHeader : 1;

@@ -48,9 +48,6 @@
 #include "NetworkDataTaskRsql.h"
 #endif
 
-#if PLATFORM(COCOA)
-#include "NetworkDataTaskCocoa.h"
-#endif
 #if USE(SOUP)
 #include "NetworkDataTaskSoup.h"
 #endif
@@ -82,10 +79,6 @@ Ref<NetworkDataTask> NetworkDataTask::create(NetworkSession& session, NetworkDat
     }
 #endif
 
-#if PLATFORM(COCOA)
-    // FIXME: Just pass parameters to the NetworkDataTaskCocoa constructor.
-    return NetworkDataTaskCocoa::create(session, client, parameters.request, parameters.webFrameID, parameters.webPageID, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.shouldPreconnectOnly, parameters.isMainFrameNavigation, parameters.isMainResourceNavigationForAnyFrame, parameters.networkActivityTracker, parameters.isNavigatingToAppBoundDomain, parameters.shouldRelaxThirdPartyCookieBlocking);
-#endif
 #if USE(SOUP)
     return NetworkDataTaskSoup::create(session, client, parameters.request, parameters.webFrameID, parameters.webPageID, parameters.storedCredentialsPolicy, parameters.contentSniffingPolicy, parameters.contentEncodingSniffingPolicy, parameters.shouldClearReferrerOnHTTPSToHTTPRedirect, parameters.isMainFrameNavigation);
 #endif

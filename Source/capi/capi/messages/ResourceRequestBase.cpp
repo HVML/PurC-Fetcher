@@ -27,11 +27,9 @@
 #include "ResourceRequestBase.h"
 
 #include "HTTPHeaderNames.h"
-#include "PublicSuffix.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
 #include "SecurityOrigin.h"
-#include "SecurityPolicy.h"
 #include <wtf/PointerComparison.h>
 
 namespace PurCFetcher {
@@ -403,8 +401,6 @@ void ResourceRequestBase::setExistingHTTPReferrerToOriginString()
 {
     if (!hasHTTPReferrer())
         return;
-
-//    setHTTPHeaderField(HTTPHeaderName::Referer, SecurityPolicy::referrerToOriginString(httpReferrer()));
 }
     
 void ResourceRequestBase::clearHTTPReferrer()

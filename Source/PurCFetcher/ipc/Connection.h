@@ -45,12 +45,6 @@
 #include <wtf/WorkQueue.h>
 #include <wtf/text/CString.h>
 
-#if OS(DARWIN) && !USE(UNIX_DOMAIN_SOCKETS)
-#include <mach/mach_port.h>
-#include <wtf/OSObjectPtr.h>
-#include <wtf/spi/darwin/XPCSPI.h>
-#endif
-
 #if USE(GLIB)
 #include <wtf/glib/GSocketMonitor.h>
 #endif
@@ -139,34 +133,6 @@ public:
     };
 
     static Connection::SocketPair createPlatformConnection(unsigned options = SetCloexecOnClient | SetCloexecOnServer);
-#elif OS(DARWIN)
-    struct Identifier {
-        Identifier()
-        {
-        }
-
-        Identifier(mach_port_t port)
-            : port(port)
-        {
-        }
-
-        Identifier(mach_port_t port, OSObjectPtr<xpc_connection_t> xpcConnection)
-            : port(port)
-            , xpcConnection(WTFMove(xpcConnection))
-        {
-        }
-
-        mach_port_t port { MACH_PORT_NULL };
-        OSObjectPtr<xpc_connection_t> xpcConnection;
-    };
-    static bool identifierIsValid(Identifier identifier) { return MACH_PORT_VALID(identifier.port); }
-    xpc_connection_t xpcConnection() const { return m_xpcConnection.get(); }
-    Optional<audit_token_t> getAuditToken();
-    pid_t remoteProcessID() const;
-#elif OS(WINDOWS)
-    typedef HANDLE Identifier;
-    static bool createServerAndClientIdentifiers(Identifier& serverIdentifier, Identifier& clientIdentifier);
-    static bool identifierIsValid(Identifier identifier) { return !!identifier; }
 #endif
 
     static Ref<Connection> createServerConnection(Identifier, Client&);
@@ -184,7 +150,7 @@ public:
     void setOnlySendMessagesAsDispatchWhenWaitingForSyncReplyWhenProcessingSuchAMessage(bool);
     void setShouldExitOnSyncMessageSendFailure(bool);
 
-    // The set callback will be called on the connection work queue when the connection is closed, 
+    // The set callback will be called on the connection work queue when the connection is closed,
     // before didCall is called on the client thread. Must be called before the connection is opened.
     // In the future we might want a more generic way to handle sync or async messages directly
     // on the work queue, for example if we want to handle them on some other thread we could avoid
@@ -208,14 +174,14 @@ public:
     template<typename T> bool send(T&& message, uint64_t destinationID, OptionSet<SendOption> sendOptions = { }); // Thread-safe.
     template<typename T> bool sendSync(T&& message, typename T::Reply&& reply, uint64_t destinationID, Seconds timeout = Seconds::infinity(), OptionSet<SendSyncOption> sendSyncOptions = { }); // Main thread only.
     template<typename T> bool waitForAndDispatchImmediately(uint64_t destinationID, Seconds timeout, OptionSet<WaitForOption> waitForOptions = { }); // Main thread only.
-    
+
     // Thread-safe.
     template<typename T, typename C, typename U>
     void sendWithAsyncReply(T&& message, C&& completionHandler, ObjectIdentifier<U> destinationID = { }, OptionSet<SendOption> sendOptions = { })
     {
         sendWithAsyncReply<T, C>(WTFMove(message), WTFMove(completionHandler), destinationID.toUInt64(), sendOptions);
     }
-    
+
     // Thread-safe.
     template<typename T, typename U>
     bool send(T&& message, ObjectIdentifier<U> destinationID, OptionSet<SendOption> sendOptions = { })
@@ -229,7 +195,7 @@ public:
     {
         return sendSync<T>(WTFMove(message), WTFMove(reply), destinationID.toUInt64(), timeout, sendSyncOptions);
     }
-    
+
     // Main thread only.
     template<typename T, typename U>
     bool waitForAndDispatchImmediately(ObjectIdentifier<U> destinationID, Seconds timeout, OptionSet<WaitForOption> waitForOptions = { })
@@ -251,16 +217,7 @@ public:
 
     Identifier identifier() const;
 
-#if PLATFORM(COCOA)
-    bool kill();
-    void terminateSoon(Seconds);
-#endif
-
     bool isValid() const { return m_isValid; }
-
-#if HAVE(QOS_CLASSES)
-    void setShouldBoostMainThreadOnSyncMessage(bool b) { m_shouldBoostMainThreadOnSyncMessage = b; }
-#endif
 
     uint64_t installIncomingSyncMessageCallback(WTF::Function<void()>&&);
     void uninstallIncomingSyncMessageCallback(uint64_t);
@@ -276,9 +233,9 @@ private:
     Connection(Identifier, bool isServer, Client&);
     void platformInitialize(Identifier);
     void platformInvalidate();
-    
+
     std::unique_ptr<Decoder> waitForMessage(MessageName, uint64_t destinationID, Seconds timeout, OptionSet<WaitForOption>);
-    
+
     std::unique_ptr<Decoder> waitForSyncReply(uint64_t syncRequestID, MessageName, Seconds timeout, OptionSet<SendSyncOption>);
 
     bool dispatchMessageToWorkQueueReceiver(std::unique_ptr<Decoder>&);
@@ -296,7 +253,7 @@ private:
     void sendOutgoingMessages();
     bool sendOutgoingMessage(std::unique_ptr<Encoder>);
     void connectionDidClose();
-    
+
     // Called on the listener thread.
     void dispatchOneIncomingMessage();
     void dispatchIncomingMessages();
@@ -314,10 +271,6 @@ private:
     void didReceiveSyncReply(OptionSet<SendSyncOption>);
 
     Seconds timeoutRespectingIgnoreTimeoutsForTesting(Seconds) const;
-
-#if PLATFORM(COCOA)
-    bool sendMessage(std::unique_ptr<MachMessage>);
-#endif
 
     class MessagesThrottler {
         WTF_MAKE_FAST_ALLOCATED;
@@ -372,7 +325,7 @@ private:
     // Outgoing messages.
     Lock m_outgoingMessagesMutex;
     Deque<std::unique_ptr<Encoder>> m_outgoingMessages;
-    
+
     Condition m_waitForMessageCondition;
     Lock m_waitForMessageMutex;
 
@@ -392,11 +345,6 @@ private:
     RefPtr<WorkQueue> m_incomingSyncMessageCallbackQueue;
     uint64_t m_nextIncomingSyncMessageCallbackID { 0 };
 
-#if HAVE(QOS_CLASSES)
-    pthread_t m_mainThread { 0 };
-    bool m_shouldBoostMainThreadOnSyncMessage { false };
-#endif
-
 #if USE(UNIX_DOMAIN_SOCKETS)
     // Called on the connection queue.
     void readyReadHandler();
@@ -412,54 +360,6 @@ private:
     GSocketMonitor m_readSocketMonitor;
     GSocketMonitor m_writeSocketMonitor;
 #endif
-#if PLATFORM(PLAYSTATION)
-    RefPtr<WTF::Thread> m_socketMonitor;
-#endif
-#elif OS(DARWIN)
-    // Called on the connection queue.
-    void receiveSourceEventHandler();
-    void initializeSendSource();
-    void resumeSendSource();
-    void cancelReceiveSource();
-
-    mach_port_t m_sendPort { MACH_PORT_NULL };
-    dispatch_source_t m_sendSource { nullptr };
-
-    mach_port_t m_receivePort { MACH_PORT_NULL };
-    dispatch_source_t m_receiveSource { nullptr };
-
-    std::unique_ptr<MachMessage> m_pendingOutgoingMachMessage;
-    bool m_isInitializingSendSource { false };
-
-    OSObjectPtr<xpc_connection_t> m_xpcConnection;
-    bool m_wasKilled { false };
-#elif OS(WINDOWS)
-    // Called on the connection queue.
-    void readEventHandler();
-    void writeEventHandler();
-    void invokeReadEventHandler();
-    void invokeWriteEventHandler();
-
-    class EventListener {
-    public:
-        void open(Function<void()>&&);
-        void close();
-
-        OVERLAPPED& state() { return m_state; }
-
-    private:
-        static void callback(void*, BOOLEAN);
-
-        OVERLAPPED m_state;
-        HANDLE m_waitHandle { INVALID_HANDLE_VALUE };
-        Function<void()> m_handler;
-    };
-
-    Vector<uint8_t> m_readBuffer;
-    EventListener m_readListener;
-    std::unique_ptr<Encoder> m_pendingWriteEncoder;
-    EventListener m_writeListener;
-    HANDLE m_connectionPipe { INVALID_HANDLE_VALUE };
 #endif
 };
 

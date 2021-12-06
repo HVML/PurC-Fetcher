@@ -90,15 +90,6 @@ public:
     static const WTF::String& webKitDownloadErrorDomain();
 #endif
 
-#if PLATFORM(GTK) || PLATFORM(HBD)
-    enum Print {
-        Generic = 599,
-        PrinterNotFound = 500,
-        InvalidPageRange = 501
-    };
-    static const WTF::String& webKitPrintErrorDomain();
-#endif
-
     const WTF::String& domain() const { return m_platformError.domain(); }
     int errorCode() const { return m_platformError.errorCode(); }
     const WTF::String& failingURL() const { return m_platformError.failingURL().string(); }

@@ -1,5 +1,4 @@
 set_property(DIRECTORY . PROPERTY FOLDER "fetcher_capi")
-include(MyMacros.cmake)
 
 set(fetcher_capi_PRIVATE_INCLUDE_DIRECTORIES
     "${CMAKE_BINARY_DIR}"
@@ -43,7 +42,6 @@ set(fetcher_capi_SOURCES
     capi/messages/HTTPHeaderMap.cpp
     capi/messages/HTTPHeaderNames.cpp
     capi/messages/FormData.cpp
-    capi/messages/NetworkActivityTracker.cpp
     capi/messages/WebsiteDataStoreParameters.cpp
     capi/messages/NetworkSessionCreationParameters.cpp
     capi/messages/NetworkResourceLoadParameters.cpp
@@ -58,24 +56,15 @@ set(fetcher_capi_SOURCES
     capi/messages/soup/ResourceErrorSoup.cpp
     capi/messages/soup/URLSoup.cpp
 
-    capi/fetcher.cpp
+    capi/fetcher.c
     capi/fetcher-local.cpp
     capi/fetcher-remote.cpp
     capi/fetcher-process.cpp
     capi/fetcher-session.cpp
-    capi/fetcher-msg.c
-    capi/fetcher-conn.c
 )
 
 set(fetcher_capi_PUBLIC_HEADERS
     capi/fetcher.h
-    capi/fetcher-msg.h
-    capi/fetcher-conn.h
-    capi/fetcher-http-header-name.h
-    capi/fetcher-network-load-priority.h
-    capi/fetcher-resource-response-source.h
-    capi/fetcher-resource-response-type.h
-    capi/fetcher-resource-response-tainting.h
 )
 
 set(fetcher_capi_LIBRARIES
@@ -118,7 +107,6 @@ set(fetcher_capi_MSG_IN_FILES
     msg/msg-create-network-connection-to-web-process-reply
     msg/msg-did-receive-response
 )
-GENERATE_MSG_SOURCES(fetcher_capi_SOURCES "${fetcher_capi_MSG_IN_FILES}")
 
 set(fetcher_capi_INTERFACE_LIBRARIES fetcher_capi)
 set(fetcher_capi_INTERFACE_INCLUDE_DIRECTORIES ${fetcher_capi_FRAMEWORK_HEADERS_DIR})

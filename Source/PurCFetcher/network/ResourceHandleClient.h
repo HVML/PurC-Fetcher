@@ -20,7 +20,7 @@
  * PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY
  * OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
- * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
 #pragma once
@@ -28,18 +28,6 @@
 #include <wtf/CompletionHandler.h>
 #include <wtf/Forward.h>
 #include <wtf/Ref.h>
-
-#if USE(CFURLCONNECTION)
-#include <pal/spi/cf/CFNetworkSPI.h>
-#endif
-
-#if PLATFORM(IOS_FAMILY) || USE(CFURLCONNECTION)
-#include <wtf/RetainPtr.h>
-#endif
-
-#if PLATFORM(COCOA)
-OBJC_CLASS NSCachedURLResponse;
-#endif
 
 namespace PurCFetcher {
 class AuthenticationChallenge;
@@ -66,7 +54,7 @@ public:
 
     virtual void didReceiveData(ResourceHandle*, const char*, unsigned, int /*encodedDataLength*/) { }
     PURCFETCHER_EXPORT virtual void didReceiveBuffer(ResourceHandle*, Ref<SharedBuffer>&&, int encodedDataLength);
-    
+
     virtual void didFinishLoading(ResourceHandle*) { }
     virtual void didFail(ResourceHandle*, const ResourceError&) { }
     virtual void wasBlocked(ResourceHandle*) { }
@@ -82,23 +70,9 @@ public:
     PURCFETCHER_EXPORT virtual void canAuthenticateAgainstProtectionSpaceAsync(ResourceHandle*, const ProtectionSpace&, CompletionHandler<void(bool)>&&) = 0;
 #endif
 
-#if USE(CFURLCONNECTION)
-    virtual void willCacheResponseAsync(ResourceHandle*, CFCachedURLResponseRef response, CompletionHandler<void(CFCachedURLResponseRef)>&& completionHandler) { completionHandler(response); }
-#elif PLATFORM(COCOA)
-    virtual void willCacheResponseAsync(ResourceHandle*, NSCachedURLResponse *response, CompletionHandler<void(NSCachedURLResponse *)>&& completionHandler) { completionHandler(response); }
-#endif
-
     virtual bool shouldUseCredentialStorage(ResourceHandle*) { return false; }
     virtual void didReceiveAuthenticationChallenge(ResourceHandle*, const AuthenticationChallenge&) { }
     virtual void receivedCancellation(ResourceHandle*, const AuthenticationChallenge&) { }
-
-#if PLATFORM(IOS_FAMILY) || USE(CFURLCONNECTION)
-    virtual RetainPtr<CFDictionaryRef> connectionProperties(ResourceHandle*) { return nullptr; }
-#endif
-
-#if PLATFORM(WIN) && USE(CFURLCONNECTION)
-    virtual bool shouldCacheResponse(ResourceHandle*, CFCachedURLResponseRef) { return true; }
-#endif
 };
 
 }

@@ -27,14 +27,14 @@
 
 #if ENABLE(LINK_PURC_FETCHER)
 
-#include "fetcher-remote.h"
+#include "fetcher-internal.h"
+#include "fetcher-messages-basic.h"
 
 #include "WebCoreArgumentCoders.h"
 #include "SharedBufferDataReference.h"
 #include "Connection.h"
 #include "MessageReceiverMap.h"
 #include "ProcessLauncher.h"
-#include "ProcessIdentifier.h"
 #include "FormDataReference.h"
 
 #include <wtf/ProcessID.h>

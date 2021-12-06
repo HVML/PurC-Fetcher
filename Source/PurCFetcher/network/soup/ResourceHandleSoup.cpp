@@ -51,9 +51,7 @@
 #include <libsoup/soup.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#if !COMPILER(MSVC)
 #include <unistd.h>
-#endif
 #include <wtf/CompletionHandler.h>
 #include <wtf/FileSystem.h>
 #include <wtf/glib/GRefPtr.h>

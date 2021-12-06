@@ -80,14 +80,8 @@ URL SecurityOrigin::extractInnerURL(const URL& url)
 
 static RefPtr<SecurityOrigin> getCachedOrigin(const URL& url)
 {
-#if 0
-    if (url.protocolIsBlob())
-        return ThreadableBlobRegistry::getCachedOrigin(url);
-    return nullptr;
-#else
     UNUSED_PARAM(url);
     return nullptr;
-#endif
 }
 
 static bool shouldTreatAsUniqueOrigin(const URL& url)
@@ -370,11 +364,9 @@ bool SecurityOrigin::canDisplay(const URL& url) const
 
     if (url.pathEnd() > maximumURLSize)
         return false;
-    
-#if !PLATFORM(IOS_FAMILY) && !ENABLE(BUBBLEWRAP_SANDBOX)
+
     if (m_data.protocol == "file" && url.isLocalFile() && !FileSystem::filesHaveSameVolume(m_filePath, url.fileSystemPath()))
         return false;
-#endif
 
     if (isFeedWithNestedProtocolInHTTPFamily(url))
         return true;
@@ -463,11 +455,7 @@ bool SecurityOrigin::isMatchingRegistrableDomainSuffix(const String& domainSuffi
     if (domainSuffix.length() == host().length())
         return true;
 
-#if ENABLE(PUBLIC_SUFFIX_LIST)
-    return !isPublicSuffix(domainSuffix);
-#else
     return true;
-#endif
 }
 
 void SecurityOrigin::grantLoadLocalResources()

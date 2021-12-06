@@ -36,7 +36,6 @@
 #include "NetworkSession.h"
 #include "CacheValidation.h"
 #include "HTTPHeaderNames.h"
-#include "LowPowerModeNotifier.h"
 #include "NetworkStorageSession.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"
@@ -46,10 +45,6 @@
 #include <wtf/NeverDestroyed.h>
 #include <wtf/RunLoop.h>
 #include <wtf/text/StringBuilder.h>
-
-#if PLATFORM(COCOA)
-#include <notify.h>
-#endif
 
 namespace PurCFetcher {
 namespace NetworkCache {
@@ -93,20 +88,10 @@ RefPtr<Cache> Cache::open(NetworkProcess& networkProcess, const String& cachePat
     return adoptRef(*new Cache(networkProcess, cachePath, storage.releaseNonNull(), options, sessionID));
 }
 
-#if PLATFORM(GTK) || PLATFORM(WPE)
 static void dumpFileChanged(Cache* cache)
 {
     cache->dumpContentsToFile();
 }
-#endif
-
-
-#if PLATFORM(HBD)
-static void dumpFileChanged(Cache* cache)
-{
-    cache->dumpContentsToFile();
-}
-#endif
 
 Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref<Storage>&& storage, OptionSet<CacheOption> options, PAL::SessionID sessionID)
     : m_storage(WTFMove(storage))
@@ -114,44 +99,12 @@ Cache::Cache(NetworkProcess& networkProcess, const String& storageDirectory, Ref
     , m_sessionID(sessionID)
     , m_storageDirectory(storageDirectory)
 {
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    if (options.contains(CacheOption::SpeculativeRevalidation)) {
-        m_lowPowerModeNotifier = makeUnique<PurCFetcher::LowPowerModeNotifier>([this](bool isLowPowerModeEnabled) {
-            ASSERT(WTF::RunLoop::isMain());
-            if (isLowPowerModeEnabled)
-                m_speculativeLoadManager = nullptr;
-            else {
-                ASSERT(!m_speculativeLoadManager);
-                m_speculativeLoadManager = makeUnique<SpeculativeLoadManager>(*this, m_storage.get());
-            }
-        });
-        if (!m_lowPowerModeNotifier->isLowPowerModeEnabled())
-            m_speculativeLoadManager = makeUnique<SpeculativeLoadManager>(*this, m_storage.get());
-    }
-#endif
-
     if (options.contains(CacheOption::RegisterNotify)) {
-#if PLATFORM(COCOA)
-        // Triggers with "notifyutil -p com.apple.PurCFetcher.Cache.dump".
-        int token;
-        notify_register_dispatch("com.apple.PurCFetcher.Cache.dump", &token, dispatch_get_main_queue(), ^(int) {
-            dumpContentsToFile();
-        });
-#endif
-#if PLATFORM(GTK) || PLATFORM(WPE)
         // Triggers with "touch $cachePath/dump".
         CString dumpFilePath = fileSystemRepresentation(pathByAppendingComponent(m_storage->basePathIsolatedCopy(), "dump"));
         GRefPtr<GFile> dumpFile = adoptGRef(g_file_new_for_path(dumpFilePath.data()));
         GFileMonitor* monitor = g_file_monitor_file(dumpFile.get(), G_FILE_MONITOR_NONE, nullptr, nullptr);
         g_signal_connect_swapped(monitor, "changed", G_CALLBACK(dumpFileChanged), this);
-#endif
-#if PLATFORM(HBD)
-        // Triggers with "touch $cachePath/dump".
-        CString dumpFilePath = fileSystemRepresentation(pathByAppendingComponent(m_storage->basePathIsolatedCopy(), "dump"));
-        GRefPtr<GFile> dumpFile = adoptGRef(g_file_new_for_path(dumpFilePath.data()));
-        GFileMonitor* monitor = g_file_monitor_file(dumpFile.get(), G_FILE_MONITOR_NONE, nullptr, nullptr);
-        g_signal_connect_swapped(monitor, "changed", G_CALLBACK(dumpFileChanged), this);
-#endif
     }
 }
 
@@ -332,31 +285,6 @@ static StoreDecision makeStoreDecision(const PurCFetcher::ResourceRequest& origi
     return StoreDecision::Yes;
 }
 
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-static bool inline canRequestUseSpeculativeRevalidation(const PurCFetcher::ResourceRequest& request)
-{
-    if (request.isConditional())
-        return false;
-
-    if (request.requester() == PurCFetcher::ResourceRequest::Requester::XHR || request.requester() == PurCFetcher::ResourceRequest::Requester::Fetch)
-        return false;
-
-    switch (request.cachePolicy()) {
-    case PurCFetcher::ResourceRequestCachePolicy::ReturnCacheDataElseLoad:
-    case PurCFetcher::ResourceRequestCachePolicy::ReturnCacheDataDontLoad:
-    case PurCFetcher::ResourceRequestCachePolicy::ReloadIgnoringCacheData:
-        return false;
-    case PurCFetcher::ResourceRequestCachePolicy::UseProtocolCachePolicy:
-    case PurCFetcher::ResourceRequestCachePolicy::RefreshAnyCacheData:
-        return true;
-    case PurCFetcher::ResourceRequestCachePolicy::DoNotUseAnyCache:
-        ASSERT_NOT_REACHED();
-        return false;
-    }
-    return false;
-}
-#endif
-
 #if ENABLE(NETWORK_CACHE_STALE_WHILE_REVALIDATE)
 void Cache::startAsyncRevalidationIfNeeded(const PurCFetcher::ResourceRequest& request, const NetworkCache::Key& key, std::unique_ptr<Entry>&& entry, const GlobalFrameID& frameID, Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain)
 {
@@ -400,30 +328,11 @@ void Cache::retrieve(const PurCFetcher::ResourceRequest& request, const GlobalFr
     info.startTime = MonotonicTime::now();
     info.priority = priority;
 
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    bool canUseSpeculativeRevalidation = m_speculativeLoadManager && canRequestUseSpeculativeRevalidation(request);
-    if (canUseSpeculativeRevalidation)
-        m_speculativeLoadManager->registerLoad(frameID, request, storageKey, isNavigatingToAppBoundDomain);
-#endif
-
     auto retrieveDecision = makeRetrieveDecision(request);
     if (retrieveDecision != RetrieveDecision::Yes) {
         completeRetrieve(WTFMove(completionHandler), nullptr, info);
         return;
     }
-
-#if ENABLE(NETWORK_CACHE_SPECULATIVE_REVALIDATION)
-    if (canUseSpeculativeRevalidation && m_speculativeLoadManager->canRetrieve(storageKey, request, frameID)) {
-        m_speculativeLoadManager->retrieve(storageKey, [networkProcess = makeRef(networkProcess()), request, completionHandler = WTFMove(completionHandler), info = WTFMove(info), sessionID = m_sessionID](std::unique_ptr<Entry> entry) mutable {
-            info.wasSpeculativeLoad = true;
-            if (entry && PurCFetcher::verifyVaryingRequestHeaders(networkProcess->storageSession(sessionID), entry->varyingRequestHeaders(), request))
-                completeRetrieve(WTFMove(completionHandler), WTFMove(entry), info);
-            else
-                completeRetrieve(WTFMove(completionHandler), nullptr, info);
-        });
-        return;
-    }
-#endif
 
     m_storage->retrieve(storageKey, priority, [this, protectedThis = makeRef(*this), request, completionHandler = WTFMove(completionHandler), info = WTFMove(info), storageKey, networkProcess = makeRef(networkProcess()), sessionID = m_sessionID, frameID, isNavigatingToAppBoundDomain](auto record, auto timings) mutable {
         info.storageTimings = timings;

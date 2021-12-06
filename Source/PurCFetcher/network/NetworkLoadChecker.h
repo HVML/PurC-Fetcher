@@ -154,10 +154,6 @@ private:
     bool m_checkContentExtensions { false };
     bool m_shouldCaptureExtraNetworkLoadMetrics { false };
 
-#if PLATFORM(COCOA)
-    bool m_isHTTPSUpgradeEnabled { false };
-#endif
-
     PurCFetcher::NetworkLoadInformation m_loadInformation;
 
     LoadType m_requestLoadType;

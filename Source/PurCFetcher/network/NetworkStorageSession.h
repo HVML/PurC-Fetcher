@@ -38,11 +38,6 @@
 #include <wtf/WallTime.h>
 #include <wtf/text/WTFString.h>
 
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-#include <pal/spi/cf/CFNetworkSPI.h>
-#include <wtf/RetainPtr.h>
-#endif
-
 #if USE(SOUP)
 #include <wtf/Function.h>
 #include <wtf/glib/GRefPtr.h>
@@ -56,13 +51,6 @@ typedef struct _SoupCookieJar SoupCookieJar;
 
 #ifdef __OBJC__
 #include <objc/objc.h>
-#endif
-
-#if PLATFORM(COCOA)
-#include "CookieStorageObserver.h"
-OBJC_CLASS NSArray;
-OBJC_CLASS NSHTTPCookie;
-OBJC_CLASS NSMutableSet;
 #endif
 
 namespace PurCFetcher {
@@ -109,21 +97,7 @@ public:
     PURCFETCHER_EXPORT NSHTTPCookieStorage *nsCookieStorage() const;
 #endif
 
-#if PLATFORM(COCOA)
-    PURCFETCHER_EXPORT ~NetworkStorageSession();
-#endif
-
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-    PURCFETCHER_EXPORT static RetainPtr<CFURLStorageSessionRef> createCFStorageSessionForIdentifier(CFStringRef identifier);
-    enum class IsInMemoryCookieStore : bool { No, Yes };
-    PURCFETCHER_EXPORT NetworkStorageSession(PAL::SessionID, RetainPtr<CFURLStorageSessionRef>&&, RetainPtr<CFHTTPCookieStorageRef>&&, IsInMemoryCookieStore = IsInMemoryCookieStore::No);
-    PURCFETCHER_EXPORT explicit NetworkStorageSession(PAL::SessionID);
-
-    // May be null, in which case a Foundation default should be used.
-    CFURLStorageSessionRef platformSession() { return m_platformSession.get(); }
-    PURCFETCHER_EXPORT RetainPtr<CFHTTPCookieStorageRef> cookieStorage() const;
-    PURCFETCHER_EXPORT static void setStorageAccessAPIEnabled(bool);
-#elif USE(SOUP)
+#if USE(SOUP)
     PURCFETCHER_EXPORT explicit NetworkStorageSession(PAL::SessionID);
     ~NetworkStorageSession();
 
@@ -205,16 +179,6 @@ public:
 #endif
 
 private:
-#if PLATFORM(COCOA)
-    enum IncludeHTTPOnlyOrNot { DoNotIncludeHTTPOnly, IncludeHTTPOnly };
-    std::pair<String, bool> cookiesForSession(const URL& firstParty, const SameSiteInfo&, const URL&, Optional<FrameIdentifier>, Optional<PageIdentifier>, IncludeHTTPOnlyOrNot, IncludeSecureCookies, ShouldAskITP, ShouldRelaxThirdPartyCookieBlocking) const;
-    NSArray *httpCookies(CFHTTPCookieStorageRef) const;
-    NSArray *httpCookiesForURL(CFHTTPCookieStorageRef, NSURL *firstParty, const Optional<SameSiteInfo>&, NSURL *) const;
-    NSArray *cookiesForURL(const URL& firstParty, const SameSiteInfo&, const URL&, Optional<FrameIdentifier>, Optional<PageIdentifier>, ShouldAskITP, ShouldRelaxThirdPartyCookieBlocking) const;
-    void setHTTPCookiesForURL(CFHTTPCookieStorageRef, NSArray *cookies, NSURL *, NSURL *mainDocumentURL, const SameSiteInfo&) const;
-    void deleteHTTPCookie(CFHTTPCookieStorageRef, NSHTTPCookie *) const;
-#endif
-
 #if HAVE(COOKIE_CHANGE_LISTENER_API)
     void registerCookieChangeListenersIfNecessary();
     void unregisterCookieChangeListenersIfNecessary();
@@ -222,11 +186,7 @@ private:
 
     PAL::SessionID m_sessionID;
 
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-    RetainPtr<CFURLStorageSessionRef> m_platformSession;
-    RetainPtr<CFHTTPCookieStorageRef> m_platformCookieStorage;
-    bool m_isInMemoryCookieStore { false };
-#elif USE(SOUP)
+#if USE(SOUP)
     static void cookiesDidChange(NetworkStorageSession*);
 
     GRefPtr<SoupCookieJar> m_cookieStorage;
@@ -263,19 +223,8 @@ private:
     HashSet<RegistrableDomain> m_appBoundDomains;
 #endif
 
-#if PLATFORM(COCOA)
-public:
-    CookieStorageObserver& cookieStorageObserver() const;
-
-private:
-    mutable std::unique_ptr<CookieStorageObserver> m_cookieStorageObserver;
-#endif
     static bool m_processMayUseCookieAPI;
 };
-
-#if PLATFORM(COCOA) || USE(CFURLCONNECTION)
-PURCFETCHER_EXPORT CFURLStorageSessionRef createPrivateStorageSession(CFStringRef identifier);
-#endif
 
 }
 

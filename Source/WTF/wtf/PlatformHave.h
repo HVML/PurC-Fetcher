@@ -200,7 +200,7 @@
 #endif
 
 #if OS(DARWIN) && __has_include(<mach/mach_exc.defs>) && !PLATFORM(GTK) && !PLATFORM(LINUX)
-#define HAVE_MACH_EXCEPTIONS 1
+#define HAVE_MACH_EXCEPTIONS 0
 #endif
 
 #if PLATFORM(MAC)
@@ -272,7 +272,7 @@
 #endif
 
 #if !defined(HAVE_QOS_CLASSES) && PLATFORM(COCOA)
-#define HAVE_QOS_CLASSES 1
+#define HAVE_QOS_CLASSES 0
 #endif
 
 #if PLATFORM(COCOA)
@@ -292,7 +292,7 @@
 #endif
 
 #if PLATFORM(MAC)
-#define HAVE_NS_ACTIVITY 1
+#define HAVE_NS_ACTIVITY 0
 #endif
 
 #if PLATFORM(COCOA)
@@ -320,7 +320,7 @@
 #endif
 
 #if PLATFORM(MAC) || PLATFORM(IOS) || PLATFORM(MACCATALYST)
-#define HAVE_SEC_KEY_PROXY 1
+#define HAVE_SEC_KEY_PROXY 0
 #endif
 
 /* FIXME: Should this be enabled or IOS_FAMILY, not just IOS? */
@@ -528,7 +528,7 @@
 #endif
 
 #if (PLATFORM(MAC) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101600) || (PLATFORM(IOS_FAMILY) && __IPHONE_OS_VERSION_MIN_REQUIRED >= 140000)
-#define HAVE_COOKIE_CHANGE_LISTENER_API 1
+#define HAVE_COOKIE_CHANGE_LISTENER_API 0
 #endif
 
 #if (PLATFORM(MAC) && __MAC_OS_X_VERSION_MIN_REQUIRED >= 101500) || PLATFORM(IOS_FAMILY)

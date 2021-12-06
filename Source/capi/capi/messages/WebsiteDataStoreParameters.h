@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2017 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -28,7 +29,6 @@
 #include "NetworkSessionCreationParameters.h"
 #include "SandboxExtension.h"
 #include "Cookie.h"
-#include "StorageQuotaManager.h"
 #include "SessionID.h"
 #include <wtf/Vector.h>
 #include <wtf/text/WTFString.h>
@@ -41,11 +41,6 @@ class Encoder;
 namespace PurCFetcher {
 
 struct WebsiteDataStoreParameters {
-    WebsiteDataStoreParameters() = default;
-    WebsiteDataStoreParameters(WebsiteDataStoreParameters&&) = default;
-    WebsiteDataStoreParameters& operator=(WebsiteDataStoreParameters&&) = default;
-    ~WebsiteDataStoreParameters();
-
     void encode(IPC::Encoder&) const;
     static Optional<WebsiteDataStoreParameters> decode(IPC::Decoder&);
 
@@ -54,28 +49,14 @@ struct WebsiteDataStoreParameters {
     Vector<PurCFetcher::Cookie> pendingCookies;
     NetworkSessionCreationParameters networkSessionParameters;
 
-#if ENABLE(INDEXED_DATABASE)
-    String indexedDatabaseDirectory;
-    SandboxExtension::Handle indexedDatabaseDirectoryExtensionHandle;
-#if PLATFORM(IOS_FAMILY)
-    SandboxExtension::Handle indexedDatabaseTempBlobDirectoryExtensionHandle;
-#endif
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    String serviceWorkerRegistrationDirectory;
-    SandboxExtension::Handle serviceWorkerRegistrationDirectoryExtensionHandle;
-    bool serviceWorkerProcessTerminationDelayEnabled { true };
-#endif
-
     String localStorageDirectory;
     SandboxExtension::Handle localStorageDirectoryExtensionHandle;
 
     String cacheStorageDirectory;
     SandboxExtension::Handle cacheStorageDirectoryExtensionHandle;
 
-    uint64_t perOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultQuota() };
-    uint64_t perThirdPartyOriginStorageQuota { PurCFetcher::StorageQuotaManager::defaultThirdPartyQuota() };
+    uint64_t perOriginStorageQuota { 1000 * MB };
+    uint64_t perThirdPartyOriginStorageQuota { 100 * MB };
 };
 
 } // namespace PurCFetcher

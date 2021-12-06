@@ -27,7 +27,7 @@
 #ifndef ResourceRequest_h
 #define ResourceRequest_h
 
-#include "PageIdentifier.h"
+#include "fetcher-messages-basic.h"
 #include "ResourceRequestBase.h"
 #include "URLSoup.h"
 
@@ -82,9 +82,6 @@ namespace PurCFetcher {
             updateFromSoupRequest(soupRequest);
         }
 
-        void updateFromDelegatePreservingOldProperties(const ResourceRequest& delegateProvidedRequest) { *this = delegateProvidedRequest; }
-
-        bool acceptEncoding() const { return m_acceptEncoding; }
         void setAcceptEncoding(bool acceptEncoding) { m_acceptEncoding = acceptEncoding; }
 
         void updateSoupMessageHeaders(SoupMessageHeaders*) const;
@@ -113,8 +110,6 @@ namespace PurCFetcher {
         SoupMessageFlags m_soupFlags;
         Optional<uint64_t> m_initiatingPageID;
 
-        void updateSoupMessageMembers(SoupMessage*) const;
-        void updateSoupMessageBody(SoupMessage*) const;
         void doUpdatePlatformRequest() { }
         void doUpdateResourceRequest() { }
         void doUpdatePlatformHTTPBody() { }
@@ -173,25 +168,6 @@ bool ResourceRequest::decodeWithPlatformData(Decoder& decoder)
     m_acceptEncoding = acceptEncoding;
 
     return true;
-}
-
-inline SoupMessagePriority toSoupMessagePriority(ResourceLoadPriority priority)
-{
-    switch (priority) {
-    case ResourceLoadPriority::VeryLow:
-        return SOUP_MESSAGE_PRIORITY_VERY_LOW;
-    case ResourceLoadPriority::Low:
-        return SOUP_MESSAGE_PRIORITY_LOW;
-    case ResourceLoadPriority::Medium:
-        return SOUP_MESSAGE_PRIORITY_NORMAL;
-    case ResourceLoadPriority::High:
-        return SOUP_MESSAGE_PRIORITY_HIGH;
-    case ResourceLoadPriority::VeryHigh:
-        return SOUP_MESSAGE_PRIORITY_VERY_HIGH;
-    }
-
-    ASSERT_NOT_REACHED();
-    return SOUP_MESSAGE_PRIORITY_VERY_LOW;
 }
 
 } // namespace PurCFetcher

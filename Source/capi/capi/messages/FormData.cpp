@@ -2,6 +2,7 @@
  * Copyright (C) 2004, 2006, 2008, 2011 Apple Inc. All rights reserved.
  * Copyright (C) 2009 Google Inc. All rights reserved.
  * Copyright (C) 2012 Digia Plc. and/or its subsidiary(-ies)
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * This library is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Library General Public
@@ -22,7 +23,6 @@
 #include "config.h"
 #include "FormData.h"
 
-#include "FormDataBuilder.h"
 #include "SharedBuffer.h"
 #include <wtf/FileSystem.h>
 #include <wtf/text/LineEnding.h>
@@ -213,7 +213,7 @@ FormDataForUpload FormData::prepareForUpload()
         fileData->filename = generatedFilename;
         generatedFiles.append(WTFMove(generatedFilename));
     }
-    
+
     return { *this, WTFMove(generatedFiles) };
 }
 

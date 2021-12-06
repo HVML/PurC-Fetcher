@@ -1126,7 +1126,10 @@ bool NetworkDataTaskSoup::shouldAllowHSTSPolicySetting() const
     //  "Limit HSTS State to the Hostname, or the Top Level Domain + 1"
     return isTopLevelNavigation()
         || m_currentRequest.url().host() == m_currentRequest.firstPartyForCookies().host()
-        || isPublicSuffix(m_currentRequest.url().host().toStringWithoutCopying());
+#if ENABLE(PUBLIC_SUFFIX_LIST)
+        || isPublicSuffix(m_currentRequest.url().host().toStringWithoutCopying())
+#endif
+        ;
 }
 
 bool NetworkDataTaskSoup::shouldAllowHSTSProtocolUpgrade() const

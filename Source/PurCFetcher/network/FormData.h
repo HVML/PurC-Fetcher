@@ -29,7 +29,6 @@
 namespace PurCFetcher {
 
 class SharedBuffer;
-class TextEncoding;
 
 struct FormDataElement {
     struct EncodedFileData;
@@ -248,8 +247,6 @@ public:
 private:
     FormData();
     FormData(const FormData&);
-
-    void appendMultiPartStringValue(const String&, Vector<char>& header, TextEncoding&);
 
     Vector<FormDataElement> m_elements;
 

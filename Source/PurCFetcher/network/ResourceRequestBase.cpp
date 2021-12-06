@@ -37,13 +37,9 @@
 
 namespace PurCFetcher {
 
-#if PLATFORM(IOS_FAMILY) || USE(CFURLCONNECTION)
-double ResourceRequestBase::s_defaultTimeoutInterval = INT_MAX;
-#else
 // Will use NSURLRequest default timeout unless set to a non-zero value with setDefaultTimeoutInterval().
 // For libsoup the timeout enabled with integer milliseconds. We set 0 as the default value to avoid integer overflow.
 double ResourceRequestBase::s_defaultTimeoutInterval = 0;
-#endif
 
 inline const ResourceRequest& ResourceRequestBase::asResourceRequest() const
 {
@@ -392,7 +388,7 @@ void ResourceRequestBase::setHTTPReferrer(const String& httpReferrer)
     // https://w3c.github.io/webappsec-referrer-policy/#determine-requests-referrer
     constexpr size_t maxLength = 4096;
     if (httpReferrer.length() > maxLength) {
-        RELEASE_LOG(Loading, "Truncating HTTP referer");
+        //RELEASE_LOG(Loading, "Truncating HTTP referer");
         String origin = SecurityOrigin::create(URL(URL(), httpReferrer))->toString();
         if (origin.length() <= maxLength)
             setHTTPHeaderField(HTTPHeaderName::Referer, origin);
@@ -731,15 +727,6 @@ void ResourceRequestBase::updateResourceRequest(HTTPBodyUpdatePolicy bodyPolicy)
     }
 }
 
-#if !PLATFORM(COCOA) && !USE(CFURLCONNECTION) && !USE(SOUP)
-unsigned initializeMaximumHTTPConnectionCountPerHost()
-{
-    // This is used by the loader to control the number of issued parallel load requests. 
-    // Four seems to be a common default in HTTP frameworks.
-    return 4;
-}
-#endif
-
 void ResourceRequestBase::setCachePartition(const String& cachePartition)
 {
 #if ENABLE(CACHE_PARTITIONING)
@@ -753,20 +740,11 @@ void ResourceRequestBase::setCachePartition(const String& cachePartition)
 
 String ResourceRequestBase::partitionName(const String& domain)
 {
-#if ENABLE(PUBLIC_SUFFIX_LIST)
-    if (domain.isNull())
-        return emptyString();
-    String highLevel = topPrivatelyControlledDomain(domain);
-    if (highLevel.isNull())
-        return emptyString();
-    return highLevel;
-#else
     UNUSED_PARAM(domain);
 #if ENABLE(CACHE_PARTITIONING)
 #error Cache partitioning requires PUBLIC_SUFFIX_LIST
 #endif
     return emptyString();
-#endif
 }
 
 }

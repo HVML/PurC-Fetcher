@@ -29,7 +29,10 @@
 #include <array>
 #include <memory>
 #include "UnencodableHandling.h"
+#if ENABLE(ICU)
 #include <unicode/umachine.h>
+#endif
+#include <wtf/text/UChar.h>
 #include <wtf/Forward.h>
 #include <wtf/Noncopyable.h>
 

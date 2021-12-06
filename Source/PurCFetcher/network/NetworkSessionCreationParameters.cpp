@@ -28,10 +28,6 @@
 
 #include "ArgumentCoders.h"
 
-#if PLATFORM(COCOA)
-#include "ArgumentCodersCF.h"
-#endif
-
 #if USE(CURL)
 #include "WebCoreArgumentCoders.h"
 #endif
@@ -43,20 +39,6 @@ void NetworkSessionCreationParameters::encode(IPC::Encoder& encoder) const
     encoder << sessionID;
     encoder << boundInterfaceIdentifier;
     encoder << allowsCellularAccess;
-#if PLATFORM(COCOA)
-    IPC::encode(encoder, proxyConfiguration.get());
-    encoder << sourceApplicationBundleIdentifier;
-    encoder << sourceApplicationSecondaryIdentifier;
-    encoder << shouldLogCookieInformation;
-    encoder << loadThrottleLatency;
-    encoder << httpProxy;
-    encoder << httpsProxy;
-#endif
-#if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-    encoder << alternativeServiceDirectory;
-    encoder << alternativeServiceDirectoryExtensionHandle;
-    encoder << http3Enabled;
-#endif
 #if USE(SOUP)
     encoder << cookiePersistentStoragePath;
     encoder << cookiePersistentStorageType;
@@ -88,69 +70,16 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> sessionID;
     if (!sessionID)
         return WTF::nullopt;
-    
+
     Optional<String> boundInterfaceIdentifier;
     decoder >> boundInterfaceIdentifier;
     if (!boundInterfaceIdentifier)
         return WTF::nullopt;
-    
+
     Optional<AllowsCellularAccess> allowsCellularAccess;
     decoder >> allowsCellularAccess;
     if (!allowsCellularAccess)
         return WTF::nullopt;
-    
-#if PLATFORM(COCOA)
-    RetainPtr<CFDictionaryRef> proxyConfiguration;
-    if (!IPC::decode(decoder, proxyConfiguration))
-        return WTF::nullopt;
-    
-    Optional<String> sourceApplicationBundleIdentifier;
-    decoder >> sourceApplicationBundleIdentifier;
-    if (!sourceApplicationBundleIdentifier)
-        return WTF::nullopt;
-    
-    Optional<String> sourceApplicationSecondaryIdentifier;
-    decoder >> sourceApplicationSecondaryIdentifier;
-    if (!sourceApplicationSecondaryIdentifier)
-        return WTF::nullopt;
-
-    Optional<bool> shouldLogCookieInformation;
-    decoder >> shouldLogCookieInformation;
-    if (!shouldLogCookieInformation)
-        return WTF::nullopt;
-    
-    Optional<Seconds> loadThrottleLatency;
-    decoder >> loadThrottleLatency;
-    if (!loadThrottleLatency)
-        return WTF::nullopt;
-    
-    Optional<URL> httpProxy;
-    decoder >> httpProxy;
-    if (!httpProxy)
-        return WTF::nullopt;
-
-    Optional<URL> httpsProxy;
-    decoder >> httpsProxy;
-    if (!httpsProxy)
-        return WTF::nullopt;
-#endif
-
-#if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-    Optional<String> alternativeServiceDirectory;
-    decoder >> alternativeServiceDirectory;
-    if (!alternativeServiceDirectory)
-        return WTF::nullopt;
-
-    Optional<SandboxExtension::Handle> alternativeServiceDirectoryExtensionHandle;
-    decoder >> alternativeServiceDirectoryExtensionHandle;
-    if (!alternativeServiceDirectoryExtensionHandle)
-        return WTF::nullopt;
-    
-    Optional<bool> http3Enabled;
-    decoder >> http3Enabled;
-    if (!http3Enabled)
-        return WTF::nullopt;
-#endif
 
 #if USE(SOUP)
     Optional<String> cookiePersistentStoragePath;
@@ -180,7 +109,7 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> networkCacheDirectory;
     if (!networkCacheDirectory)
         return WTF::nullopt;
-    
+
     Optional<SandboxExtension::Handle> networkCacheDirectoryExtensionHandle;
     decoder >> networkCacheDirectoryExtensionHandle;
     if (!networkCacheDirectoryExtensionHandle)
@@ -200,17 +129,17 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> dataConnectionServiceType;
     if (!dataConnectionServiceType)
         return WTF::nullopt;
-    
+
     Optional<bool> fastServerTrustEvaluationEnabled;
     decoder >> fastServerTrustEvaluationEnabled;
     if (!fastServerTrustEvaluationEnabled)
         return WTF::nullopt;
-    
+
     Optional<bool> networkCacheSpeculativeValidationEnabled;
     decoder >> networkCacheSpeculativeValidationEnabled;
     if (!networkCacheSpeculativeValidationEnabled)
         return WTF::nullopt;
-    
+
     Optional<bool> shouldUseTestingNetworkSession;
     decoder >> shouldUseTestingNetworkSession;
     if (!shouldUseTestingNetworkSession)
@@ -225,7 +154,7 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> testSpeedMultiplier;
     if (!testSpeedMultiplier)
         return WTF::nullopt;
-    
+
     Optional<bool> suppressesConnectionTerminationOnSystemChange;
     decoder >> suppressesConnectionTerminationOnSystemChange;
     if (!suppressesConnectionTerminationOnSystemChange)
@@ -240,7 +169,7 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> requiresSecureHTTPSProxyConnection;
     if (!requiresSecureHTTPSProxyConnection)
         return WTF::nullopt;
-    
+
     Optional<bool> preventsSystemHTTPProxyAuthentication;
     decoder >> preventsSystemHTTPProxyAuthentication;
     if (!preventsSystemHTTPProxyAuthentication)
@@ -250,25 +179,11 @@ Optional<NetworkSessionCreationParameters> NetworkSessionCreationParameters::dec
     decoder >> resourceLoadStatisticsParameters;
     if (!resourceLoadStatisticsParameters)
         return WTF::nullopt;
-    
+
     return {{
         *sessionID
         , WTFMove(*boundInterfaceIdentifier)
         , WTFMove(*allowsCellularAccess)
-#if PLATFORM(COCOA)
-        , WTFMove(proxyConfiguration)
-        , WTFMove(*sourceApplicationBundleIdentifier)
-        , WTFMove(*sourceApplicationSecondaryIdentifier)
-        , WTFMove(*shouldLogCookieInformation)
-        , WTFMove(*loadThrottleLatency)
-        , WTFMove(*httpProxy)
-        , WTFMove(*httpsProxy)
-#endif
-#if HAVE(CFNETWORK_ALTERNATIVE_SERVICE)
-        , WTFMove(*alternativeServiceDirectory)
-        , WTFMove(*alternativeServiceDirectoryExtensionHandle)
-        , WTFMove(*http3Enabled)
-#endif
 #if USE(SOUP)
         , WTFMove(*cookiePersistentStoragePath)
         , WTFMove(*cookiePersistentStorageType)

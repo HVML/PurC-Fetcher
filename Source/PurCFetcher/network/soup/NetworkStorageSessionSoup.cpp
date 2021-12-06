@@ -46,9 +46,6 @@
 #include <wtf/glib/GUniquePtr.h>
 
 #if USE(LIBSECRET)
-#if !PLATFORM(HBD)
-#include "GRefPtrGtk.h"
-#endif 
 #include <glib/gi18n-lib.h>
 #define SECRET_WITH_UNSTABLE 1
 #define SECRET_API_SUBJECT_TO_CHANGE 1

@@ -26,7 +26,6 @@
 #include "config.h"
 #include "AuxiliaryProcess.h"
 
-//#include "ContentWorldShared.h"
 #include "Logging.h"
 #include "SandboxInitializationParameters.h"
 #include "SessionID.h"
@@ -66,10 +65,6 @@ void AuxiliaryProcess::initialize(const AuxiliaryProcessInitializationParameters
     Process::setIdentifier(*parameters.processIdentifier);
 
     platformInitialize();
-
-#if PLATFORM(COCOA)
-    m_priorityBoostMessage = parameters.priorityBoostMessage;
-#endif
 
     initializeProcess(parameters);
 
@@ -177,12 +172,10 @@ void AuxiliaryProcess::stopRunLoop()
     platformStopRunLoop();
 }
 
-#if !PLATFORM(COCOA)
 void AuxiliaryProcess::platformStopRunLoop()
 {
     RunLoop::main().stop();
 }
-#endif
 
 void AuxiliaryProcess::terminate()
 {
@@ -201,33 +194,12 @@ Optional<std::pair<IPC::Connection::Identifier, IPC::Attachment>> AuxiliaryProce
 #if USE(UNIX_DOMAIN_SOCKETS)
     IPC::Connection::SocketPair socketPair = IPC::Connection::createPlatformConnection();
     return std::make_pair(socketPair.server, IPC::Attachment { socketPair.client });
-#elif OS(DARWIN)
-    // Create the listening port.
-    mach_port_t listeningPort = MACH_PORT_NULL;
-    auto kr = mach_port_allocate(mach_task_self(), MACH_PORT_RIGHT_RECEIVE, &listeningPort);
-    if (kr != KERN_SUCCESS) {
-        RELEASE_LOG_ERROR(Process, "AuxiliaryProcess::createIPCConnectionPair: Could not allocate mach port, error %x", kr);
-        CRASH();
-    }
-    if (!MACH_PORT_VALID(listeningPort)) {
-        RELEASE_LOG_ERROR(Process, "AuxiliaryProcess::createIPCConnectionPair: Could not allocate mach port, returned port was invalid");
-        CRASH();
-    }
-    return std::make_pair(IPC::Connection::Identifier { listeningPort }, IPC::Attachment { listeningPort, MACH_MSG_TYPE_MAKE_SEND });
-#elif OS(WINDOWS)
-    IPC::Connection::Identifier serverIdentifier, clientIdentifier;
-    if (!IPC::Connection::createServerAndClientIdentifiers(serverIdentifier, clientIdentifier)) {
-        LOG_ERROR("Failed to create server and client identifiers");
-        CRASH();
-    }
-    return std::make_pair(serverIdentifier, IPC::Attachment { clientIdentifier });
 #else
     notImplemented();
     return { };
 #endif
 }
 
-#if !PLATFORM(COCOA)
 void AuxiliaryProcess::platformInitialize()
 {
 }
@@ -248,7 +220,5 @@ void AuxiliaryProcess::didReceiveMemoryPressureEvent(bool isCritical)
     MemoryPressureHandler::singleton().triggerMemoryPressureEvent(isCritical);
 }
 #endif
-
-#endif // !PLATFORM(COCOA)
 
 } // namespace PurCFetcher

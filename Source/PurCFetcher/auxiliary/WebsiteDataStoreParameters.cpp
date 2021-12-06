@@ -27,7 +27,6 @@
 #include "WebsiteDataStoreParameters.h"
 
 #include "WebCoreArgumentCoders.h"
-//#include "WebsiteDataStore.h"
 
 namespace PurCFetcher {
 
@@ -41,17 +40,6 @@ void WebsiteDataStoreParameters::encode(IPC::Encoder& encoder) const
     encoder << uiProcessCookieStorageIdentifier;
     encoder << cookieStoragePathExtensionHandle;
     encoder << pendingCookies;
-
-#if ENABLE(INDEXED_DATABASE)
-    encoder << indexedDatabaseDirectory << indexedDatabaseDirectoryExtensionHandle;
-#if PLATFORM(IOS_FAMILY)
-    encoder << indexedDatabaseTempBlobDirectoryExtensionHandle;
-#endif
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    encoder << serviceWorkerRegistrationDirectory << serviceWorkerRegistrationDirectoryExtensionHandle << serviceWorkerProcessTerminationDelayEnabled;
-#endif
 
     encoder << localStorageDirectory << localStorageDirectoryExtensionHandle;
 
@@ -88,48 +76,6 @@ Optional<WebsiteDataStoreParameters> WebsiteDataStoreParameters::decode(IPC::Dec
     if (!pendingCookies)
         return WTF::nullopt;
     parameters.pendingCookies = WTFMove(*pendingCookies);
-
-#if ENABLE(INDEXED_DATABASE)
-    Optional<String> indexedDatabaseDirectory;
-    decoder >> indexedDatabaseDirectory;
-    if (!indexedDatabaseDirectory)
-        return WTF::nullopt;
-    parameters.indexedDatabaseDirectory = WTFMove(*indexedDatabaseDirectory);
-    
-    Optional<SandboxExtension::Handle> indexedDatabaseDirectoryExtensionHandle;
-    decoder >> indexedDatabaseDirectoryExtensionHandle;
-    if (!indexedDatabaseDirectoryExtensionHandle)
-        return WTF::nullopt;
-    parameters.indexedDatabaseDirectoryExtensionHandle = WTFMove(*indexedDatabaseDirectoryExtensionHandle);
-
-#if PLATFORM(IOS_FAMILY)
-    Optional<SandboxExtension::Handle> indexedDatabaseTempBlobDirectoryExtensionHandle;
-    decoder >> indexedDatabaseTempBlobDirectoryExtensionHandle;
-    if (!indexedDatabaseTempBlobDirectoryExtensionHandle)
-        return WTF::nullopt;
-    parameters.indexedDatabaseTempBlobDirectoryExtensionHandle = WTFMove(*indexedDatabaseTempBlobDirectoryExtensionHandle);
-#endif
-#endif
-
-#if ENABLE(SERVICE_WORKER)
-    Optional<String> serviceWorkerRegistrationDirectory;
-    decoder >> serviceWorkerRegistrationDirectory;
-    if (!serviceWorkerRegistrationDirectory)
-        return WTF::nullopt;
-    parameters.serviceWorkerRegistrationDirectory = WTFMove(*serviceWorkerRegistrationDirectory);
-    
-    Optional<SandboxExtension::Handle> serviceWorkerRegistrationDirectoryExtensionHandle;
-    decoder >> serviceWorkerRegistrationDirectoryExtensionHandle;
-    if (!serviceWorkerRegistrationDirectoryExtensionHandle)
-        return WTF::nullopt;
-    parameters.serviceWorkerRegistrationDirectoryExtensionHandle = WTFMove(*serviceWorkerRegistrationDirectoryExtensionHandle);
-    
-    Optional<bool> serviceWorkerProcessTerminationDelayEnabled;
-    decoder >> serviceWorkerProcessTerminationDelayEnabled;
-    if (!serviceWorkerProcessTerminationDelayEnabled)
-        return WTF::nullopt;
-    parameters.serviceWorkerProcessTerminationDelayEnabled = WTFMove(*serviceWorkerProcessTerminationDelayEnabled);
-#endif
 
     Optional<String> localStorageDirectory;
     decoder >> localStorageDirectory;

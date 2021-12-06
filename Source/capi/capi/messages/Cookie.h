@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2009 Joseph Pecoraro. All rights reserved.
  * Copyright (C) 2017-2018 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -31,58 +32,13 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-#ifdef __OBJC__
-#include <objc/objc.h>
-#endif
-
-#if USE(SOUP)
-typedef struct _SoupCookie SoupCookie;
-#endif
-
 namespace PurCFetcher {
 
 struct Cookie {
     Cookie() = default;
-    Cookie(WTF::HashTableDeletedValueType)
-        : name(WTF::HashTableDeletedValue)
-    {
-    }
 
     template<class Encoder> void encode(Encoder&) const;
     template<class Decoder> static Optional<Cookie> decode(Decoder&);
-
-    PURCFETCHER_EXPORT bool operator==(const Cookie&) const;
-    PURCFETCHER_EXPORT unsigned hash() const;
-
-#ifdef __OBJC__
-    PURCFETCHER_EXPORT Cookie(NSHTTPCookie *);
-    PURCFETCHER_EXPORT operator NSHTTPCookie *() const;
-#elif USE(SOUP)
-    explicit Cookie(SoupCookie*);
-    SoupCookie* toSoupCookie() const;
-#endif
-
-    bool isNull() const
-    {
-        return name.isNull()
-            && value.isNull()
-            && domain.isNull()
-            && path.isNull()
-            && !created
-            && !expires
-            && !httpOnly
-            && !secure
-            && !session
-            && comment.isNull()
-            && commentURL.isNull();
-    }
-    
-    bool isKeyEqual(const Cookie& otherCookie) const
-    {
-        return name == otherCookie.name
-            && domain == otherCookie.domain
-            && path == otherCookie.path;
-    }
 
     String name;
     String value;
@@ -100,19 +56,6 @@ struct Cookie {
 
     enum class SameSitePolicy { None, Lax, Strict };
     SameSitePolicy sameSite { SameSitePolicy::None };
-};
-
-struct CookieHash {
-    static unsigned hash(const Cookie& key)
-    {
-        return key.hash();
-    }
-
-    static bool equal(const Cookie& a, const Cookie& b)
-    {
-        return a == b;
-    }
-    static const bool safeToCompareToEmptyOrDeleted = false;
 };
 
 template<class Encoder>
@@ -169,18 +112,6 @@ Optional<Cookie> Cookie::decode(Decoder& decoder)
 }
 
 namespace WTF {
-    template<typename T> struct DefaultHash;
-    template<> struct DefaultHash<PurCFetcher::Cookie> {
-        typedef PurCFetcher::CookieHash Hash;
-    };
-    template<> struct HashTraits<PurCFetcher::Cookie> : GenericHashTraits<PurCFetcher::Cookie> {
-        static PurCFetcher::Cookie emptyValue() { return { }; }
-        static void constructDeletedValue(PurCFetcher::Cookie& slot) { slot = PurCFetcher::Cookie(WTF::HashTableDeletedValue); }
-        static bool isDeletedValue(const PurCFetcher::Cookie& slot) { return slot.name.isHashTableDeletedValue(); }
-
-        static const bool hasIsEmptyValueFunction = true;
-        static bool isEmptyValue(const PurCFetcher::Cookie& slot) { return slot.isNull(); }
-    };
     template<> struct EnumTraits<PurCFetcher::Cookie::SameSitePolicy> {
     using values = EnumValues<
         PurCFetcher::Cookie::SameSitePolicy,

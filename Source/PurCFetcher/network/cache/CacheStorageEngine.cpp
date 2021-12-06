@@ -475,7 +475,7 @@ void Engine::writeFile(const String& filename, NetworkCache::Data&& data, PurCFe
 
             auto callback = m_pendingWriteCallbacks.take(identifier);
             if (error) {
-                RELEASE_LOG_ERROR(CacheStorage, "CacheStorage::Engine::writeFile failed with error %d", error);
+                //RELEASE_LOG_ERROR(CacheStorage, "CacheStorage::Engine::writeFile failed with error %d", error);
 
                 callback(Error::WriteDisk);
                 return;
@@ -506,7 +506,8 @@ void Engine::readFile(const String& filename, CompletionHandler<void(const Netwo
         }
 
         channel->read(0, std::numeric_limits<size_t>::max(), nullptr, [this, weakThis = WTFMove(weakThis), identifier](const Data& data, int error) mutable {
-            RELEASE_LOG_ERROR_IF(error, CacheStorage, "CacheStorage::Engine::readFile failed with error %d", error);
+            UNUSED_PARAM(error);
+//            RELEASE_LOG_ERROR_IF(error, CacheStorage, "CacheStorage::Engine::readFile failed with error %d", error);
 
             // FIXME: We should do the decoding in the background thread.
             ASSERT(RunLoop::isMain());

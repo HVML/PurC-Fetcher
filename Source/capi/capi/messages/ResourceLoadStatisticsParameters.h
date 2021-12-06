@@ -25,10 +25,13 @@
 
 #pragma once
 
+#include "fetcher-messages-basic.h"
+
 #include "ArgumentCoders.h"
 #include "SandboxExtension.h"
-#include "NetworkStorageSession.h"
 #include "RegistrableDomain.h"
+
+#include <wtf/HashSet.h>
 #include <wtf/text/WTFString.h>
 
 namespace PurCFetcher {

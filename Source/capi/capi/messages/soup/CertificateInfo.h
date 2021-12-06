@@ -26,10 +26,12 @@
 
 #pragma once
 
-#include "CertificateInfoBase.h"
-#include "NotImplemented.h"
 #include <libsoup/soup.h>
+
+#include <wtf/Optional.h>
+#include <wtf/Seconds.h>
 #include <wtf/Vector.h>
+#include <wtf/text/WTFString.h>
 #include <wtf/glib/GRefPtr.h>
 #include <wtf/persistence/PersistentCoders.h>
 #include <wtf/persistence/PersistentDecoder.h>
@@ -40,8 +42,16 @@ namespace PurCFetcher {
 class ResourceError;
 class ResourceResponse;
 
-class CertificateInfo  : public CertificateInfoBase {
+class CertificateInfo {
 public:
+    struct SummaryInfo {
+        String subject;
+        Seconds validFrom;
+        Seconds validUntil;
+        Vector<String> dnsNames;
+        Vector<String> ipAddresses;
+    };
+
     CertificateInfo();
     explicit CertificateInfo(const PurCFetcher::ResourceResponse&);
     explicit CertificateInfo(const PurCFetcher::ResourceError&);
@@ -53,9 +63,9 @@ public:
     GTlsCertificateFlags tlsErrors() const { return m_tlsErrors; }
     void setTLSErrors(GTlsCertificateFlags tlsErrors) { m_tlsErrors = tlsErrors; }
 
-    bool containsNonRootSHA1SignedCertificate() const { notImplemented(); return false; }
+    bool containsNonRootSHA1SignedCertificate() const { return false; }
 
-    Optional<SummaryInfo> summaryInfo() const { notImplemented(); return WTF::nullopt; }
+    Optional<SummaryInfo> summaryInfo() const { return WTF::nullopt; }
 
     bool isEmpty() const { return !m_certificate; }
 

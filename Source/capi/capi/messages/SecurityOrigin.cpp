@@ -29,7 +29,6 @@
 #include "config.h"
 #include "SecurityOrigin.h"
 
-#include "PublicSuffix.h"
 #include <wtf/FileSystem.h>
 #include <wtf/MainThread.h>
 #include <wtf/NeverDestroyed.h>

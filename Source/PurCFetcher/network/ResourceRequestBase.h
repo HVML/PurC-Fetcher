@@ -185,9 +185,8 @@ public:
     PURCFETCHER_EXPORT void setSystemPreviewInfo(const SystemPreviewInfo&);
 #endif
 
-#if !PLATFORM(COCOA)
     bool encodingRequiresPlatformData() const { return true; }
-#endif
+
     template<class Encoder> void encodeWithoutPlatformData(Encoder&) const;
     template<class Decoder> WARN_UNUSED_RETURN bool decodeWithoutPlatformData(Decoder&);
 
@@ -275,11 +274,6 @@ bool equalIgnoringHeaderFields(const ResourceRequestBase&, const ResourceRequest
 
 inline bool operator==(const ResourceRequest& a, const ResourceRequest& b) { return ResourceRequestBase::equal(a, b); }
 inline bool operator!=(ResourceRequest& a, const ResourceRequest& b) { return !(a == b); }
-
-PURCFETCHER_EXPORT unsigned initializeMaximumHTTPConnectionCountPerHost();
-#if PLATFORM(IOS_FAMILY)
-PURCFETCHER_EXPORT void initializeHTTPConnectionSettingsOnStartup();
-#endif
 
 template<class Encoder>
 ALWAYS_INLINE void ResourceRequestBase::encodeBase(Encoder& encoder) const

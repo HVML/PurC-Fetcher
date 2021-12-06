@@ -54,12 +54,7 @@ public:
     void continueWillSendRequest(PurCFetcher::ResourceRequest&&);
     void cancel();
 
-#if PLATFORM(COCOA)
-    void publishProgress(const URL&, SandboxExtension::Handle&&);
-    void didBecomeDownload(const std::unique_ptr<Download>&);
-#endif
-
-private:    
+private:
     // NetworkLoadClient.
     void didSendData(unsigned long long, unsigned long long) override { }
     bool isSynchronous() const override { return false; }
@@ -78,11 +73,6 @@ private:
     std::unique_ptr<NetworkLoad> m_networkLoad;
     RefPtr<IPC::Connection> m_parentProcessConnection;
     bool m_isAllowedToAskUserForCredentials;
-
-#if PLATFORM(COCOA)
-    URL m_progressURL;
-    SandboxExtension::Handle m_progressSandboxExtension;
-#endif
 };
 
 }

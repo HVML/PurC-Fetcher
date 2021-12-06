@@ -28,7 +28,7 @@
 #include "HTTPParsers.h"
 #include "MIMETypeRegistry.h"
 #include "URLSoup.h"
-#include <unicode/uset.h>
+//#include <unicode/uset.h>
 #include <wtf/text/CString.h>
 #include <wtf/text/WTFString.h>
 
@@ -109,6 +109,7 @@ static String sanitizeFilename(const String& filename)
     if (result.isEmpty())
         return result;
 
+#if 0
     // Replace control, formatting and dangerous characters in filenames.
     static USet* illegalCharacterSet = nullptr;
     if (!illegalCharacterSet) {
@@ -126,6 +127,7 @@ static String sanitizeFilename(const String& filename)
     }
     for (auto character : illegalCharactersInFilename)
         result = result.replace(character, '_');
+#endif
 
     return result;
 }

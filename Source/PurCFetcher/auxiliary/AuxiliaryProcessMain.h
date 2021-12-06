@@ -25,8 +25,6 @@
 
 #pragma once
 
-#if !PLATFORM(COCOA)
-
 #include "AuxiliaryProcess.h"
 #include <wtf/RunLoop.h>
 
@@ -75,4 +73,3 @@ int AuxiliaryProcessMain(int argc, char** argv)
 
 } // namespace PurCFetcher
 
-#endif // !PLATFORM(COCOA)

@@ -82,9 +82,6 @@ static const URLSchemesMap& allBuiltinSchemes()
         // Other misc schemes that the LegacySchemeRegistry doesn't know about.
         static const char* const otherSchemes[] = {
             "webkit-fake-url",
-#if PLATFORM(MAC)
-            "safari-extension",
-#endif
 #if USE(QUICK_LOOK)
             QLPreviewProtocol,
 #endif
@@ -114,9 +111,6 @@ static const URLSchemesMap& builtinLocalURLSchemes()
     ASSERT(schemeRegistryLock.isHeld());
     static const auto schemes = makeNeverDestroyed(URLSchemesMap {
         "file",
-#if PLATFORM(COCOA)
-        "applewebdata",
-#endif
     });
     return schemes;
 }
@@ -143,14 +137,10 @@ const Vector<String>& builtinSecureSchemes()
         "about",
         "data",
         "wss",
-#if PLATFORM(GTK) || PLATFORM(WPE) || PLATFORM(HBD)
         "resource",
-#endif
-#if PLATFORM(HBD)
         "lcmd",
         "lsql",
         "rsql",
-#endif
     });
     return schemes;
 }
@@ -253,11 +243,7 @@ static URLSchemesMap& schemesAllowingDatabaseAccessInPrivateBrowsing()
 const Vector<String>& builtinCORSEnabledSchemes()
 {
     ASSERT(isMainThread());
-#if PLATFORM(HBD)
     static const auto schemes = makeNeverDestroyed(Vector<String> { "http", "https", "lcmd", "lsql", "rsql"});
-#else
-    static const auto schemes = makeNeverDestroyed(Vector<String> { "http", "https" });
-#endif
     return schemes;
 }
 
@@ -505,12 +491,7 @@ bool LegacySchemeRegistry::shouldPartitionCacheForURLScheme(const String& scheme
 bool LegacySchemeRegistry::isUserExtensionScheme(const String& scheme)
 {
     // FIXME: Remove this once Safari has adopted WKWebViewConfiguration._corsDisablingPatterns
-#if PLATFORM(MAC)
-    if (scheme == "safari-extension")
-        return true;
-#else
     UNUSED_PARAM(scheme);
-#endif
     return false;
 }
 

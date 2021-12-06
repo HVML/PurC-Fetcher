@@ -29,7 +29,6 @@
 
 #include "CachedResourceRequestInitiators.h"
 #include "MIMETypeRegistry.h"
-#include "TextCodecICU.h"
 #include "ThreadTimers.h"
 #include <wtf/MainThread.h>
 #include <wtf/ThreadSpecific.h>
@@ -44,7 +43,6 @@ ThreadGlobalData::ThreadGlobalData()
 #ifndef NDEBUG
     , m_isMainThread(isMainThread())
 #endif
-    , m_cachedConverterICU(makeUnique<ICUConverterWrapper>())
 {
     // This constructor will have been called on the main thread before being called on
     // any other thread, and is only called once per thread - this makes this a convenient
@@ -57,8 +55,6 @@ ThreadGlobalData::~ThreadGlobalData() = default;
 
 void ThreadGlobalData::destroy()
 {
-    m_cachedConverterICU = nullptr;
-
     m_threadTimers = nullptr;
 }
 

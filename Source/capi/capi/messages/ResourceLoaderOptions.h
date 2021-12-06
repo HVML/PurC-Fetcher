@@ -30,17 +30,26 @@
 
 #pragma once
 
+#include "fetcher-messages-basic.h"
+
 #include "ContentSecurityPolicyResponseHeaders.h"
-#include "CrossOriginAccessControl.h"
 #include "FetchOptions.h"
 #include "HTTPHeaderNames.h"
-#include "StoredCredentialsPolicy.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/HashSet.h>
 #include <wtf/Vector.h>
+#include <wtf/OptionSet.h>
 #include <wtf/text/WTFString.h>
 
 namespace PurCFetcher {
+
+enum class HTTPHeadersToKeepFromCleaning : uint8_t {
+    ContentType = 1 << 0,
+    Referer = 1 << 1,
+    Origin = 1 << 2,
+    UserAgent = 1 << 3,
+    AcceptEncoding = 1 << 4
+};
 
 enum class SendCallbackPolicy : uint8_t {
     SendCallbacks,
@@ -260,6 +269,17 @@ template<> struct EnumTraits<PurCFetcher::ServiceWorkersMode> {
         PurCFetcher::ServiceWorkersMode::All,
         PurCFetcher::ServiceWorkersMode::None,
         PurCFetcher::ServiceWorkersMode::Only
+    >;
+};
+
+template<> struct EnumTraits<PurCFetcher::HTTPHeadersToKeepFromCleaning> {
+    using values = EnumValues<
+        PurCFetcher::HTTPHeadersToKeepFromCleaning,
+        PurCFetcher::HTTPHeadersToKeepFromCleaning::ContentType,
+        PurCFetcher::HTTPHeadersToKeepFromCleaning::Referer,
+        PurCFetcher::HTTPHeadersToKeepFromCleaning::Origin,
+        PurCFetcher::HTTPHeadersToKeepFromCleaning::UserAgent,
+        PurCFetcher::HTTPHeadersToKeepFromCleaning::AcceptEncoding
     >;
 };
 

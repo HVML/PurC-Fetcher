@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2010-2019 Apple Inc. All rights reserved.
  * Copyright (C) 2020-2021 Beijing FMSoft Technologies Co., Ltd.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -26,8 +27,9 @@
 
 #pragma once
 
+#include "fetcher-messages-basic.h"
+
 #include "Connection.h"
-#include "ProcessIdentifier.h"
 #include <wtf/HashMap.h>
 #include <wtf/ProcessID.h>
 #include <wtf/RefPtr.h>
@@ -45,8 +47,6 @@ public:
         virtual ~Client() { }
 
         virtual void didFinishLaunching(ProcessLauncher*, IPC::Connection::Identifier) = 0;
-        virtual bool shouldConfigureJSCForTesting() const { return false; }
-        virtual bool isJITEnabled() const { return true; }
     };
 
     enum class ProcessType {

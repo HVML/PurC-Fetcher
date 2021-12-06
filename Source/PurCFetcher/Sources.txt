@@ -31,7 +31,6 @@ auxiliary/ShareableResource.cpp
 auxiliary/SharedBuffer.cpp
 auxiliary/SharedMemory.cpp
 auxiliary/TextCodec.cpp
-auxiliary/TextCodecICU.cpp
 auxiliary/TextCodecLatin1.cpp
 auxiliary/TextCodecReplacement.cpp
 auxiliary/TextCodecUserDefined.cpp
@@ -68,6 +67,9 @@ network/NetworkConnectionToWebProcess.cpp
 network/NetworkContentRuleListManager.cpp
 network/NetworkCORSPreflightChecker.cpp
 network/NetworkDataTask.cpp
+network/NetworkDataTaskLcmd.cpp
+network/NetworkDataTaskLsql.cpp
+network/NetworkDataTaskRsql.cpp
 network/NetworkHTTPSUpgradeChecker.cpp
 network/NetworkLoadChecker.cpp
 network/NetworkLoad.cpp

@@ -26,7 +26,9 @@
 #pragma once
 
 #include "TextCodec.h"
+#if ENABLE(ICU)
 #include <unicode/utf8.h>
+#endif
 #include <wtf/text/LChar.h>
 
 namespace PurCFetcher {

@@ -25,10 +25,9 @@
 #include "config.h"
 
 #include "fetcher-process.h"
-#include "fetcher-message.h"
+#include "fetcher-messages.h"
 
 #include "NetworkProcessCreationParameters.h"
-#include "NetworkProcessMessages.h"
 
 #include <wtf/RunLoop.h>
 

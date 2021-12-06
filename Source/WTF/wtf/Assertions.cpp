@@ -76,7 +76,7 @@ WTF_ATTRIBUTE_PRINTF(1, 0) static String createWithFormatAndArguments(const char
 
     ALLOW_NONLITERAL_FORMAT_BEGIN
 
-#if USE(CF) && !OS(WINDOWS)
+#if 0 //USE(CF) && !OS(WINDOWS)
     if (strstr(format, "%@")) {
         auto cfFormat = adoptCF(CFStringCreateWithCString(kCFAllocatorDefault, format, kCFStringEncodingUTF8));
         auto result = adoptCF(CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, nullptr, cfFormat.get(), args));
@@ -463,7 +463,6 @@ void WTFLog(WTFLogChannel* channel, const char* format, ...)
 
 void WTFLogVerboseLinux(const char* file, int line, const char* function, WTFLogChannel* channel, const char* format, ...)
 {
-#if PLATFORM(LINUX)
     va_list args;
     va_start(args, format);
 
@@ -474,7 +473,6 @@ void WTFLogVerboseLinux(const char* file, int line, const char* function, WTFLog
     va_end(args);
 
     printCallSite(file, line, function);
-#endif
 }
 
 void WTFLogVerbose(const char* file, int line, const char* function, WTFLogChannel* channel, const char* format, ...)

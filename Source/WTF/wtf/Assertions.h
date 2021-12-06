@@ -97,7 +97,8 @@ extern "C" void _ReadWriteBarrier(void);
 #endif
 
 #ifndef RELEASE_LOG_DISABLED
-#define RELEASE_LOG_DISABLED !(USE(OS_LOG) || USE(JOURNALD))
+//#define RELEASE_LOG_DISABLED !(USE(OS_LOG) || USE(JOURNALD))
+#define RELEASE_LOG_DISABLED 1
 #endif
 
 #ifndef VERBOSE_RELEASE_LOG

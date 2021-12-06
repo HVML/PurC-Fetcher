@@ -29,18 +29,6 @@
 #include <wtf/RetainPtr.h>
 #include "Timer.h"
 
-#if PLATFORM(IOS_FAMILY)
-OBJC_CLASS WebNetworkStateObserver;
-#endif
-
-#if PLATFORM(MAC)
-typedef const struct __SCDynamicStore * SCDynamicStoreRef;
-#endif
-
-#if PLATFORM(WIN)
-#include <windows.h>
-#endif
-
 namespace PurCFetcher {
 
 class NetworkStateNotifier {
@@ -62,11 +50,6 @@ private:
     void updateStateSoon();
     void startObserving();
 
-#if PLATFORM(WIN)
-    void registerForAddressChange();
-    static void CALLBACK addressChangeCallback(void*, BOOLEAN timedOut);
-#endif
-
 #if USE(GLIB)
     static void networkChangedCallback(NetworkStateNotifier*);
 #endif
@@ -74,19 +57,6 @@ private:
     Optional<bool> m_isOnLine;
     Vector<WTF::Function<void(bool)>> m_listeners;
     Timer m_updateStateTimer;
-
-#if PLATFORM(IOS_FAMILY)
-    RetainPtr<WebNetworkStateObserver> m_observer;
-#endif
-
-#if PLATFORM(MAC)
-    RetainPtr<SCDynamicStoreRef> m_store;
-#endif
-
-#if PLATFORM(WIN)
-    HANDLE m_waitHandle;
-    OVERLAPPED m_overlapped;
-#endif
 };
 
 } // namespace PurCFetcher

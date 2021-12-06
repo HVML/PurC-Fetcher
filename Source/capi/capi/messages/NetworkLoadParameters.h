@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2015 Apple Inc. All rights reserved.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -25,15 +26,10 @@
 
 #pragma once
 
-#include "NetworkActivityTracker.h"
-#include "PolicyDecision.h"
-#include "WebPageProxyIdentifier.h"
-#include "FrameIdentifier.h"
-#include "PageIdentifier.h"
+#include "fetcher-messages-basic.h"
 #include "ResourceLoaderOptions.h"
 #include "ResourceRequest.h"
 #include "SecurityOrigin.h"
-#include "ShouldRelaxThirdPartyCookieBlocking.h"
 #include <wtf/EnumTraits.h>
 #include <wtf/ProcessID.h>
 
@@ -62,7 +58,6 @@ public:
     bool isMainResourceNavigationForAnyFrame { false };
     PurCFetcher::ShouldRelaxThirdPartyCookieBlocking shouldRelaxThirdPartyCookieBlocking { PurCFetcher::ShouldRelaxThirdPartyCookieBlocking::No };
     PreconnectOnly shouldPreconnectOnly { PreconnectOnly::No };
-    Optional<NetworkActivityTracker> networkActivityTracker;
     Optional<NavigatingToAppBoundDomain> isNavigatingToAppBoundDomain { NavigatingToAppBoundDomain::No };
 };
 

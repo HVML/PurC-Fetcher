@@ -30,25 +30,10 @@
 #include <wtf/RefPtr.h>
 #include <wtf/ThreadSafeRefCounted.h>
 
-#if PLATFORM(COCOA)
-#include "WKFoundation.h"
-#ifdef __OBJC__
-#include "WKObject.h"
-#endif
-#endif
-
-#define DELEGATE_REF_COUNTING_TO_COCOA PLATFORM(COCOA)
-
-#if DELEGATE_REF_COUNTING_TO_COCOA
-OBJC_CLASS NSObject;
-#endif
-
 namespace API {
 
 class Object
-#if !DELEGATE_REF_COUNTING_TO_COCOA
     : public ThreadSafeRefCounted<Object>
-#endif
 {
 public:
     enum class Type {
@@ -223,41 +208,12 @@ public:
 
     virtual Type type() const = 0;
 
-#if DELEGATE_REF_COUNTING_TO_COCOA
-#ifdef __OBJC__
-    template<typename T, typename... Args>
-    static void constructInWrapper(NSObject <WKObject> *wrapper, Args&&... args)
-    {
-        Object* object = new (&wrapper._apiObject) T(std::forward<Args>(args)...);
-        object->m_wrapper = wrapper;
-    }
-#endif
-
-    NSObject *wrapper() const { return m_wrapper; }
-
-    void ref() const;
-    void deref() const;
-#endif // DELEGATE_REF_COUNTING_TO_COCOA
-
     static void* wrap(API::Object*);
     static API::Object* unwrap(void*);
-
-#if PLATFORM(COCOA) && defined(__OBJC__)
-    static API::Object& fromWKObjectExtraSpace(id <WKObject>);
-#endif
 
 protected:
     Object();
 
-#if DELEGATE_REF_COUNTING_TO_COCOA
-    static void* newObject(size_t, Type);
-
-private:
-    // Derived classes must override operator new and call newObject().
-    void* operator new(size_t) = delete;
-
-    NSObject *m_wrapper;
-#endif // DELEGATE_REF_COUNTING_TO_COCOA
 };
 
 template <Object::Type ArgumentType>
@@ -278,13 +234,8 @@ protected:
 
     Type type() const override { return APIType; }
 
-#if DELEGATE_REF_COUNTING_TO_COCOA
-    void* operator new(size_t size) { return newObject(size, APIType); }
-    void* operator new(size_t, void* value) { return value; }
-#endif
 };
 
-#if !DELEGATE_REF_COUNTING_TO_COCOA
 inline void* Object::wrap(API::Object* object)
 {
     return static_cast<void*>(object);
@@ -294,7 +245,6 @@ inline API::Object* Object::unwrap(void* object)
 {
     return static_cast<API::Object*>(object);
 }
-#endif
 
 } // namespace Object
 
@@ -471,4 +421,3 @@ template<> struct EnumTraits<API::Object::Type> {
 
 } // namespace WTF
 
-#undef DELEGATE_REF_COUNTING_TO_COCOA

@@ -39,8 +39,6 @@
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
 
-static const auto databaseUpdateInterval = 1_s;
-
 static const int maximumItemsToUpdate = 100;
 
 namespace PurCFetcher {

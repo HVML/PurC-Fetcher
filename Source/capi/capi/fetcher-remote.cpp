@@ -27,11 +27,15 @@
 
 #include "config.h"
 
-#include "fetcher-remote.h"
+#include "fetcher-internal.h"
 #include "fetcher-process.h"
 
 #if ENABLE(LINK_PURC_FETCHER)
 
+struct pcfetcher_remote {
+    struct pcfetcher base;
+    PcFetcherProcess* process;
+};
 
 struct pcfetcher* pcfetcher_remote_init(size_t max_conns, size_t cache_quota)
 {

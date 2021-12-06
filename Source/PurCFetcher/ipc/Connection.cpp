@@ -25,9 +25,8 @@
 
 #include "config.h"
 #include "Connection.h"
-
-//#include "Logging.h"
 #include "MessageFlags.h"
+
 #include <memory>
 #include <wtf/HashSet.h>
 #include <wtf/Lock.h>
@@ -36,20 +35,11 @@
 #include <wtf/text/WTFString.h>
 #include <wtf/threads/BinarySemaphore.h>
 
-#if PLATFORM(COCOA)
-#include "MachMessage.h"
-#endif
-
 #if USE(UNIX_DOMAIN_SOCKETS)
 #include "UnixMessage.h"
 #endif
 
 namespace IPC {
-
-#if PLATFORM(COCOA)
-// The IPC connection gets killed if the incoming message queue reaches 50000 messages before the main thread has a chance to dispatch them.
-const size_t maxPendingIncomingMessagesKillingThreshold { 50000 };
-#endif
 
 std::atomic<unsigned> UnboundedSynchronousIPCScope::unboundedSynchronousIPCCount = 0;
 
@@ -274,11 +264,6 @@ Connection::Connection(Identifier identifier, bool isServer, Client& client)
     allConnections().add(m_uniqueID, this);
 
     platformInitialize(identifier);
-
-#if HAVE(QOS_CLASSES)
-    ASSERT(pthread_main_np());
-    m_mainThread = pthread_self();
-#endif
 }
 
 Connection::~Connection()
@@ -405,7 +390,7 @@ void Connection::setDidCloseOnConnectionWorkQueueCallback(DidCloseOnConnectionWo
 {
     ASSERT(!m_isConnected);
 
-    m_didCloseOnConnectionWorkQueueCallback = callback;    
+    m_didCloseOnConnectionWorkQueueCallback = callback;
 }
 
 void Connection::invalidate()
@@ -416,7 +401,7 @@ void Connection::invalidate()
         // Someone already called invalidate().
         return;
     }
-    
+
     m_isValid = false;
 
     m_connectionQueue->dispatch([protectedThis = makeRef(*this)]() mutable {
@@ -468,7 +453,7 @@ bool Connection::sendMessage(std::unique_ptr<Encoder> encoder, OptionSet<SendOpt
         auto locker = holdLock(m_outgoingMessagesMutex);
         m_outgoingMessages.append(WTFMove(encoder));
     }
-    
+
     // FIXME: We should add a boolean flag so we don't call this when work has already been scheduled.
     m_connectionQueue->dispatch([protectedThis = makeRef(*this)]() mutable {
         protectedThis->sendOutgoingMessages();
@@ -619,27 +604,27 @@ std::unique_ptr<Decoder> Connection::sendSyncMessage(uint64_t syncRequestID, std
     return reply;
 }
 
-std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, MessageName messageName, Seconds timeout, OptionSet<SendSyncOption> sendSyncOptions)
+std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, MessageName, Seconds timeout, OptionSet<SendSyncOption> sendSyncOptions)
 {
     timeout = timeoutRespectingIgnoreTimeoutsForTesting(timeout);
     MonotonicTime absoluteTime = MonotonicTime::now() + timeout;
 
     willSendSyncMessage(sendSyncOptions);
-    
+
     bool timedOut = false;
     while (!timedOut) {
         // First, check if we have any messages that we need to process.
         SyncMessageState::singleton().dispatchMessages();
-        
+
         {
             LockHolder locker(m_syncReplyStateMutex);
 
             // Second, check if there is a sync reply at the top of the stack.
             ASSERT(!m_pendingSyncReplies.isEmpty());
-            
+
             PendingSyncReply& pendingSyncReply = m_pendingSyncReplies.last();
             ASSERT_UNUSED(syncRequestID, pendingSyncReply.syncRequestID == syncRequestID);
-            
+
             // We found the sync reply, or the connection was closed.
             if (pendingSyncReply.didReceiveReply || !m_shouldWaitForSyncReplies) {
                 didReceiveSyncReply(sendSyncOptions);
@@ -652,7 +637,7 @@ std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, Me
         // If that happens, we need to stop waiting, or we'll hang since we won't get
         // any more incoming messages.
         if (!isValid()) {
-            RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Connection no longer valid, id = %" PRIu64, syncRequestID);
+            //RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Connection no longer valid, id = %" PRIu64, syncRequestID);
             didReceiveSyncReply(sendSyncOptions);
             return nullptr;
         }
@@ -662,12 +647,6 @@ std::unique_ptr<Decoder> Connection::waitForSyncReply(uint64_t syncRequestID, Me
         // Notably, it can continue to process accessibility requests, which are on the main thread.
         timedOut = !SyncMessageState::singleton().wait(absoluteTime);
     }
-
-#if OS(DARWIN)
-    RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Timed-out while waiting for reply for %{public}s from process %d, id = %" PRIu64, description(messageName), remoteProcessID(), syncRequestID);
-#else
-    RELEASE_LOG_ERROR(IPC, "Connection::waitForSyncReply: Timed-out while waiting for reply for %s, id = %" PRIu64, description(messageName), syncRequestID);
-#endif
 
     didReceiveSyncReply(sendSyncOptions);
 
@@ -725,13 +704,6 @@ void Connection::processIncomingMessage(std::unique_ptr<Decoder> message)
 
     if (dispatchMessageToThreadReceiver(message))
         return;
-
-#if HAVE(QOS_CLASSES)
-    if (message->isSyncMessage() && m_shouldBoostMainThreadOnSyncMessage) {
-        pthread_override_t override = pthread_override_qos_class_start_np(m_mainThread, Thread::adjustedQOSClass(QOS_CLASS_USER_INTERACTIVE), 0);
-        message->setQOSClassOverride(override);
-    }
-#endif
 
     if (message->isSyncMessage()) {
         auto locker = holdLock(m_incomingSyncMessageCallbackMutex);
@@ -805,7 +777,7 @@ bool Connection::hasIncomingSyncMessage()
         if (message->isSyncMessage())
             return true;
     }
-    
+
     return false;
 }
 
@@ -952,19 +924,6 @@ void Connection::enqueueIncomingMessage(std::unique_ptr<Decoder> incomingMessage
     {
         auto locker = holdLock(m_incomingMessagesMutex);
 
-#if PLATFORM(COCOA)
-        if (m_wasKilled)
-            return;
-
-        if (m_incomingMessages.size() >= maxPendingIncomingMessagesKillingThreshold) {
-            if (kill()) {
-                RELEASE_LOG_ERROR(IPC, "%p - Connection::enqueueIncomingMessage: Over %zu incoming messages have been queued without the main thread processing them, killing the connection as the remote process seems to be misbehaving", this, maxPendingIncomingMessagesKillingThreshold);
-                m_incomingMessages.clear();
-            }
-            return;
-        }
-#endif
-
         m_incomingMessages.append(WTFMove(incomingMessage));
 
         if (m_incomingMessagesThrottler && m_incomingMessages.size() != 1)
@@ -1054,7 +1013,7 @@ void Connection::dispatchMessage(std::unique_ptr<Decoder> message)
     }
 
     m_inDispatchMessageCount++;
-    
+
     bool isDispatchingMessageWhileWaitingForSyncReply = (message->shouldDispatchMessageWhenWaitingForSyncReply() == ShouldDispatchWhenWaitingForSyncReply::Yes)
         || (message->shouldDispatchMessageWhenWaitingForSyncReply() == ShouldDispatchWhenWaitingForSyncReply::YesDuringUnboundedIPC && UnboundedSynchronousIPCScope::hasOngoingUnboundedSyncIPC());
 
@@ -1159,10 +1118,7 @@ void Connection::dispatchIncomingMessages()
         // messages to process to make sure we give the main run loop a chance to process other events.
         messagesToProcess = m_incomingMessagesThrottler->numberOfMessagesToProcess(m_incomingMessages.size());
         if (messagesToProcess < m_incomingMessages.size()) {
-            RELEASE_LOG_ERROR(IPC, "%p - Connection::dispatchIncomingMessages: IPC throttling was triggered (has %zu pending incoming messages, will only process %zu before yielding)", this, m_incomingMessages.size(), messagesToProcess);
-#if PLATFORM(COCOA)
-            RELEASE_LOG_ERROR(IPC, "%p - Connection::dispatchIncomingMessages: first IPC message in queue is %{public}s", this, description(message->messageName()));
-#endif
+            //RELEASE_LOG_ERROR(IPC, "%p - Connection::dispatchIncomingMessages: IPC throttling was triggered (has %zu pending incoming messages, will only process %zu before yielding)", this, m_incomingMessages.size(), messagesToProcess);
         }
 
         // Re-schedule ourselves *before* we dispatch the messages because we want to process follow-up messages if the client

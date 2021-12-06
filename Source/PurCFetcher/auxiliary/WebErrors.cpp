@@ -69,13 +69,6 @@ ResourceError failedCustomProtocolSyncLoad(const ResourceRequest& request)
     return ResourceError(errorDomainWebKitInternal, 0, request.url(), WEB_UI_STRING("Error handling synchronous load with custom protocol", "Custom protocol synchronous load failure description"));
 }
 
-#if ENABLE(CONTENT_FILTERING)
-ResourceError blockedByContentFilterError(const ResourceRequest& request)
-{
-    return ResourceError(API::Error::webKitPolicyErrorDomain(), API::Error::Policy::FrameLoadBlockedByContentFilter, request.url(), WEB_UI_STRING("The URL was blocked by a content filter", "WebKitErrorFrameLoadBlockedByContentFilter description"));
-}
-#endif
-
 ResourceError cannotShowMIMETypeError(const ResourceResponse& response)
 {
     return ResourceError(API::Error::webKitPolicyErrorDomain(), API::Error::Policy::CannotShowMIMEType, response.url(), WEB_UI_STRING("Content with specified MIME type can’t be shown", "WebKitErrorCannotShowMIMEType description"));
@@ -88,13 +81,12 @@ ResourceError pluginWillHandleLoadError(const ResourceResponse& response)
 
 ResourceError internalError(const URL& url)
 {
-    RELEASE_LOG_ERROR(Loading, "Internal error called");
-    RELEASE_LOG_STACKTRACE(Loading);
+    //RELEASE_LOG_ERROR(Loading, "Internal error called");
+    //RELEASE_LOG_STACKTRACE(Loading);
 
     return ResourceError(API::Error::webKitErrorDomain(), API::Error::General::Internal, url, WEB_UI_STRING("PurCFetcher encountered an internal error", "WebKitErrorInternal description"));
 }
 
-#if !PLATFORM(COCOA)
 ResourceError cancelledError(const ResourceRequest& request)
 {
     return ResourceError(API::Error::webKitNetworkErrorDomain(), API::Error::Network::Cancelled, request.url(), WEB_UI_STRING("Load request cancelled", "Load request cancelled"));
@@ -104,6 +96,5 @@ ResourceError fileDoesNotExistError(const ResourceResponse& response)
 {
     return ResourceError(API::Error::webKitNetworkErrorDomain(), API::Error::Network::FileDoesNotExist, response.url(), WEB_UI_STRING("File does not exist", "The requested file doesn't exist"));
 }
-#endif
 
 } // namespace PurCFetcher

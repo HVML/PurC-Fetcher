@@ -29,10 +29,6 @@
 #include "NetworkStorageSession.h"
 #include <wtf/URL.h>
 
-#if PLATFORM(IOS_FAMILY)
-#include "WebCoreThread.h"
-#endif
-
 namespace PurCFetcher {
 
 static String originStringFromURL(const URL& url)
@@ -187,7 +183,6 @@ void CredentialStorage::clearCredentials()
     m_pathToDefaultProtectionSpaceMap.clear();
 }
 
-#if !PLATFORM(COCOA)
 HashSet<SecurityOriginData> CredentialStorage::originsWithSessionCredentials()
 {
     return { };
@@ -200,6 +195,5 @@ void CredentialStorage::removeSessionCredentialsWithOrigins(const Vector<Securit
 void CredentialStorage::clearSessionCredentials()
 {
 }
-#endif
 
 } // namespace PurCFetcher

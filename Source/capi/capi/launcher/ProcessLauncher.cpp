@@ -1,6 +1,7 @@
 /*
  * Copyright (C) 2010, 2012 Apple Inc. All rights reserved.
  * Copyright (C) 2020~2021 Beijing FMSoft Technologies Co., Ltd.
+ * Copyright (C) 2021 FMSoft <https://www.fmsoft.cn>
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -53,7 +54,7 @@ static String getExecutablePath()
     return { };
 }
 
-static String findWebKitProcess(const char* processName)
+static String findPurCProcess(const char* processName)
 {
     static const char* execDirectory = g_getenv("FETCHER_EXEC_PATH");
     if (execDirectory) {
@@ -74,7 +75,7 @@ static String findWebKitProcess(const char* processName)
 
 String executablePathOfFetcherProcess()
 {
-    return findWebKitProcess("fetcher");
+    return findPurCProcess("fetcher");
 }
 
 ProcessLauncher::ProcessLauncher(Client* client, LaunchOptions&& launchOptions)

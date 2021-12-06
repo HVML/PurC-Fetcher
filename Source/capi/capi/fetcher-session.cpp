@@ -25,13 +25,11 @@
 #include "config.h"
 
 #include "fetcher-session.h"
-#include "fetcher-message.h"
+#include "fetcher-messages.h"
 
 #include "NetworkResourceLoadParameters.h"
-#include "NetworkConnectionToWebProcessMessages.h"
-#include "NetworkResourceLoaderMessages.h"
-#include "WebResourceLoaderMessages.h"
 #include "ResourceError.h"
+#include "ResourceResponse.h"
 
 #include <wtf/RunLoop.h>
 

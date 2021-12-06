@@ -27,10 +27,7 @@
 #include "config.h"
 #include "ResourceResponseBase.h"
 
-#include "CacheValidation.h"
 #include "HTTPHeaderNames.h"
-#include "MIMETypeRegistry.h"
-#include "ParsedContentRange.h"
 #include "ResourceResponse.h"
 #include <wtf/MathExtras.h>
 #include <wtf/StdLibExtras.h>

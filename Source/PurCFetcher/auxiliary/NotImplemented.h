@@ -29,27 +29,14 @@
 
 #include <wtf/Assertions.h>
 
-#if PLATFORM(GTK) || PLATFORM(HBD)
-    #define suppressNotImplementedWarning() getenv("DISABLE_NI_WARNING")
-#else
-    #define suppressNotImplementedWarning() false
-#endif
+#define suppressNotImplementedWarning() getenv("DISABLE_NI_WARNING")
 
 #if LOG_DISABLED
     #define notImplemented() ((void)0)
-    #define notImplementedHBD() ((void)0)
 #else
 namespace PurCFetcher {
 PURCFETCHER_EXPORT WTFLogChannel* notImplementedLoggingChannel();
 }
-
-#define notImplementedHBD() do { \
-        static bool havePrintedd = false; \
-        if (!havePrintedd) { \
-            WTFLogVerboseHBD(__FILE__, __LINE__, WTF_PRETTY_FUNCTION, PurCFetcher::notImplementedLoggingChannel(), "UNIMPLEMENTED: "); \
-            havePrintedd = true; \
-        } \
-    } while (0)
 
 #define notImplemented() do { \
         static bool havePrinted = false; \

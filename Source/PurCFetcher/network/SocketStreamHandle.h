@@ -40,11 +40,7 @@ struct CookieRequestHeaderFieldProxy;
 class SocketStreamHandleClient;
 
 typedef struct {
-#if PLATFORM(COCOA)
-    RetainPtr<CFDataRef> sourceApplicationAuditData;
-#else
     void *empty { nullptr };
-#endif
 } SourceApplicationAuditToken;
 
 class SocketStreamHandle : public ThreadSafeRefCounted<SocketStreamHandle, WTF::DestructionThread::Main> {

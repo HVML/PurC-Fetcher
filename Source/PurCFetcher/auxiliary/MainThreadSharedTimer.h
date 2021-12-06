@@ -28,10 +28,7 @@
 
 #include "SharedTimer.h"
 #include <wtf/Forward.h>
-
-#if !USE(CF) && !OS(WINDOWS)
 #include <wtf/RunLoop.h>
-#endif
 
 namespace PurCFetcher {
 
@@ -53,9 +50,7 @@ private:
     MainThreadSharedTimer();
 
     WTF::Function<void()> m_firedFunction;
-#if !USE(CF) && !OS(WINDOWS)
     RunLoop::Timer<MainThreadSharedTimer> m_timer;
-#endif
 };
 
 } // namespace PurCFetcher

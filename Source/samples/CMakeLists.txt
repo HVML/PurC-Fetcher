@@ -1,2 +1,4 @@
 add_subdirectory(fetcher)
-#add_subdirectory(control)
+if (PurC_FOUND)
+    add_subdirectory(control)
+endif ()

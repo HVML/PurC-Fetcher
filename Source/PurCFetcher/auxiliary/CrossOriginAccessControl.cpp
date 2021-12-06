@@ -31,6 +31,7 @@
 #include "HTTPHeaderNames.h"
 #include "HTTPParsers.h"
 #include "LegacySchemeRegistry.h"
+#include "RegistrableDomain.h"
 #include "ResourceError.h"
 #include "ResourceRequest.h"
 #include "ResourceResponse.h"

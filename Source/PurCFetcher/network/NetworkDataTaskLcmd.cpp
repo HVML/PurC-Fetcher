@@ -287,8 +287,8 @@ void NetworkDataTaskLcmd::runCmdInner()
                 sb.append(cmdLine);
             }
         }
-
-        command = (const char*)sb.toString().characters8();
+        const CString& tmp = sb.toString().utf8();
+        command = (const char*)tmp.data();
     }
 
 	FILE* fp = popen(command, "r");

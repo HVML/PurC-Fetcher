@@ -281,7 +281,7 @@ void NetworkDataTaskRsql::runCmdInner()
         sb.append("Failed to connect to database:");
         sb.append(mysql_error(&m_mysql));
         m_errorMsg = sb.toString();
-        printf("Failed to connect to database: %s\n", m_errorMsg.characters8());
+//        printf("Failed to connect to database: %s\n", m_errorMsg.characters8());
         return;
     }
 

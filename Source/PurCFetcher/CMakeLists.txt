@@ -30,13 +30,13 @@ set(PurCFetcher_PRIVATE_INCLUDE_DIRECTORIES
 
 # TODO: List the headers should be installed to system here.
 set(PurCFetcher_INSTALLED_HEADERS
-    "${PurCFetcher_DERIVED_SOURCES_DIR}/purc_fetcher_version.h"
-    "${PurCFetcher_DERIVED_SOURCES_DIR}/purc_fetcher_features.h"
-    "${PURCFETCHER_DIR}/include/purc_fetcher_macros.h"
-    "${PURCFETCHER_DIR}/include/purc_fetcher_errors.h"
-    "${PURCFETCHER_DIR}/include/purc_fetcher_utils.h"
-    "${PURCFETCHER_DIR}/include/purc_fetcher_ports.h"
-    "${PURCFETCHER_DIR}/include/purc_fetcher.h"
+    #"${PurCFetcher_DERIVED_SOURCES_DIR}/purc_fetcher_version.h"
+    #"${PurCFetcher_DERIVED_SOURCES_DIR}/purc_fetcher_features.h"
+    #"${PURCFETCHER_DIR}/include/purc_fetcher_macros.h"
+    #"${PURCFETCHER_DIR}/include/purc_fetcher_errors.h"
+    #"${PURCFETCHER_DIR}/include/purc_fetcher_utils.h"
+    #"${PURCFETCHER_DIR}/include/purc_fetcher_ports.h"
+    #"${PURCFETCHER_DIR}/include/purc_fetcher.h"
 )
 
 # TODO: List the directorires which do not contain any platform-dependent C source files

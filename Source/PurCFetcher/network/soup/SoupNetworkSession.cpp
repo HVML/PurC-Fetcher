@@ -115,6 +115,8 @@ static AllowedCertificatesMap& allowedCertificates()
     return certificates;
 }
 
+#define CACHE_STORAGE_DIR  "/tmp/fetcher/cache"
+
 SoupNetworkSession::SoupNetworkSession(PAL::SessionID sessionID)
     : m_soupSession(adoptGRef(soup_session_new()))
     , m_sessionID(sessionID)
@@ -150,9 +152,14 @@ SoupNetworkSession::SoupNetworkSession(PAL::SessionID sessionID)
         setupProxy();
     setupLogger();
     setupHSTSEnforcer();
+    setupCache("/tmp/fetcher/cache");
 }
 
-SoupNetworkSession::~SoupNetworkSession() = default;
+SoupNetworkSession::~SoupNetworkSession()
+{
+    soup_cache_flush(m_soupCache.get());
+    soup_cache_dump(m_soupCache.get());
+}
 
 void SoupNetworkSession::setupLogger()
 {
@@ -362,6 +369,18 @@ void SoupNetworkSession::allowSpecificHTTPSCertificateForHost(const CertificateI
 {
     allowedCertificates().add(host, HostTLSCertificateSet()).iterator->value.add(certificateInfo.certificate());
 }
+
+void SoupNetworkSession::setupCache(const char* path)
+{
+    if (!path) {
+        return;
+    }
+    m_soupCache = adoptGRef(soup_cache_new(path, SOUP_CACHE_SINGLE_USER));
+    soup_cache_load(m_soupCache.get());
+    soup_cache_set_max_size(m_soupCache.get(), G_MAXUINT);
+    soup_session_add_feature(m_soupSession.get(), SOUP_SESSION_FEATURE(m_soupCache.get()));
+}
+
 
 } // namespace PurCFetcher
 

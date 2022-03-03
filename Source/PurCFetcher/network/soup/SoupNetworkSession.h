@@ -78,8 +78,10 @@ public:
 
 private:
     void setupLogger();
+    void setupCache(const char* path);
 
     GRefPtr<SoupSession> m_soupSession;
+    GRefPtr<SoupCache> m_soupCache;
     PAL::SessionID m_sessionID;
 };
 

@@ -52,11 +52,14 @@
 #include <libsecret/secret.h>
 #endif
 
+#define COOKIE_STORAGE_FILE_NAME  "/tmp/fetcher/cookies"
+
 namespace PurCFetcher {
 
 NetworkStorageSession::NetworkStorageSession(PAL::SessionID sessionID)
     : m_sessionID(sessionID)
-    , m_cookieStorage(adoptGRef(soup_cookie_jar_new()))
+    //, m_cookieStorage(adoptGRef(soup_cookie_jar_new()))
+    , m_cookieStorage(adoptGRef(soup_cookie_jar_text_new(COOKIE_STORAGE_FILE_NAME, false)))
 {
     soup_cookie_jar_set_accept_policy(m_cookieStorage.get(), SOUP_COOKIE_JAR_ACCEPT_NO_THIRD_PARTY);
     g_signal_connect_swapped(m_cookieStorage.get(), "changed", G_CALLBACK(cookiesDidChange), this);

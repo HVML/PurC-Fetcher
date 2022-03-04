@@ -52,6 +52,8 @@ public:
 
     void setCookiePersistentStorage(const String& storagePath, SoupCookiePersistentStorageType);
 
+    void flushCache();
+
 private:
     void clearCredentials() final;
 

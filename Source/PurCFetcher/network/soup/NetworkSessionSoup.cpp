@@ -97,4 +97,9 @@ void NetworkSessionSoup::clearCredentials()
 #endif
 }
 
+void NetworkSessionSoup::flushCache()
+{
+    m_networkSession->flushCache();
+}
+
 } // namespace PurCFetcher

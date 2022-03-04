@@ -157,8 +157,7 @@ SoupNetworkSession::SoupNetworkSession(PAL::SessionID sessionID)
 
 SoupNetworkSession::~SoupNetworkSession()
 {
-    soup_cache_flush(m_soupCache.get());
-    soup_cache_dump(m_soupCache.get());
+    flushCache();
 }
 
 void SoupNetworkSession::setupLogger()
@@ -267,6 +266,12 @@ void SoupNetworkSession::clearHSTSCache(WallTime modifiedSince)
 #endif
 }
 
+void SoupNetworkSession::flushCache()
+{
+    soup_cache_flush(m_soupCache.get());
+    soup_cache_dump(m_soupCache.get());
+}
+
 static inline bool stringIsNumeric(const char* str)
 {
     while (*str) {
@@ -275,28 +280,6 @@ static inline bool stringIsNumeric(const char* str)
         str++;
     }
     return true;
-}
-
-// Old versions of PurCFetcher created this cache.
-void SoupNetworkSession::clearOldSoupCache(const String& cacheDirectory)
-{
-    CString cachePath = FileSystem::fileSystemRepresentation(cacheDirectory);
-    GUniquePtr<char> cacheFile(g_build_filename(cachePath.data(), "soup.cache2", nullptr));
-    if (!g_file_test(cacheFile.get(), G_FILE_TEST_IS_REGULAR))
-        return;
-
-    GUniquePtr<GDir> dir(g_dir_open(cachePath.data(), 0, nullptr));
-    if (!dir)
-        return;
-
-    while (const char* name = g_dir_read_name(dir.get())) {
-        if (!g_str_has_prefix(name, "soup.cache") && !stringIsNumeric(name))
-            continue;
-
-        GUniquePtr<gchar> filename(g_build_filename(cachePath.data(), name, nullptr));
-        if (g_file_test(filename.get(), G_FILE_TEST_IS_REGULAR))
-            g_unlink(filename.get());
-    }
 }
 
 void SoupNetworkSession::setupProxy()
@@ -376,9 +359,9 @@ void SoupNetworkSession::setupCache(const char* path)
         return;
     }
     m_soupCache = adoptGRef(soup_cache_new(path, SOUP_CACHE_SINGLE_USER));
-    soup_cache_load(m_soupCache.get());
     soup_cache_set_max_size(m_soupCache.get(), G_MAXUINT);
     soup_session_add_feature(m_soupSession.get(), SOUP_SESSION_FEATURE(m_soupCache.get()));
+    soup_cache_load(m_soupCache.get());
 }
 
 

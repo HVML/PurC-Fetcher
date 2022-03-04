@@ -60,8 +60,6 @@ public:
     static void setHSTSPersistentStorage(const CString& hstsStorageDirectory);
     void setupHSTSEnforcer();
 
-    static void clearOldSoupCache(const String& cacheDirectory);
-
     static void setProxySettings(const SoupNetworkProxySettings&);
     void setupProxy();
 
@@ -75,6 +73,7 @@ public:
     void getHostNamesWithHSTSCache(HashSet<String>&);
     void deleteHSTSCacheForHostNames(const Vector<String>&);
     void clearHSTSCache(WallTime);
+    void flushCache();
 
 private:
     void setupLogger();

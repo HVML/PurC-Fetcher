@@ -13,7 +13,9 @@ int main(int argc, char** argv)
     (void)argv;
 
     const char* def_url = "https://hybridos.fmsoft.cn";
-    purc_instance_extra_info info = {0, 0};
+    purc_instance_extra_info info;
+    info.enable_remote_fetcher = true;
+
     purc_init ("cn.fmsoft.hybridos.sample", "pcfetcher", &info);
 
     RunLoop::initializeMain();

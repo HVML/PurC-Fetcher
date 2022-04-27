@@ -13,18 +13,11 @@ int main(int argc, char** argv)
     (void)argv;
 
     const char* def_url = "https://hybridos.fmsoft.cn";
-    purc_instance_extra_info info;
-    info.enable_remote_fetcher = true;
-
+    purc_instance_extra_info info = {};
     purc_init ("cn.fmsoft.hybridos.sample", "pcfetcher", &info);
-
-    RunLoop::initializeMain();
-    AtomString::init();
-    WTF::RefCountedBase::enableThreadingChecksGlobally();
 
     const char* url = argv[1] ? argv[1] : def_url;
 
-    pcfetcher_init(10, 1024);
     struct pcfetcher_resp_header resp_header;
     purc_rwstream_t resp = pcfetcher_request_sync(
         url,
@@ -47,18 +40,20 @@ int main(int argc, char** argv)
         char* buf = (char*)purc_rwstream_get_mem_buffer_ex(resp, &sz_content,
                 &sz_buffer, false);
         fprintf(stderr, "buffer size=%ld\n", sz_buffer);
-        fprintf(stderr, "body size=%ld|buflen=%ld\n", sz_content,
-                buf ? strlen(buf) : 0);
+        fprintf(stderr, "body size=%ld|buflen=%ld|buf=%s\n", sz_content,
+                buf ? strlen(buf) : 0, buf);
+        fprintf(stderr, "buf p=%s\n", buf);
         fprintf(stderr, "%s\n", buf ? buf : NULL);
+        purc_rwstream_destroy(resp);
+    }
+
+    if (resp_header.mime_type) {
+        free(resp_header.mime_type);
     }
     fprintf(stderr, ".................body end\n");
     fprintf(stderr, "....................................\n");
 
-//    RunLoop::run();
-
-    pcfetcher_term();
     purc_cleanup();
-
 
     return 0;
 }

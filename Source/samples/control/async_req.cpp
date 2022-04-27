@@ -1,6 +1,5 @@
-
+#include "purc/purc.h"
 #include "capi/fetcher.h"
-
 #include <wtf/RunLoop.h>
 
 #include <stdio.h>
@@ -35,10 +34,14 @@ void async_response_handler(
         fprintf(stderr, "body size=%ld|buflen=%ld\n", sz_content,
                 buf ? strlen(buf) : 0);
         fprintf(stderr, "%s\n", buf ? buf : NULL);
+        purc_rwstream_destroy(resp);
     }
     fprintf(stderr, ".................body end\n");
-    fprintf(stderr, "....................................\n");
-    RunLoop::main().stop();
+    fprintf(stderr, "....................................request_id=%p\n", request_id);
+    if (request_id != PURC_VARIANT_INVALID) {
+        purc_variant_unref(request_id);
+    }
+    RunLoop::current().stop();
 }
 
 
@@ -47,18 +50,12 @@ int main(int argc, char** argv)
     (void)argc;
     (void)argv;
 
-    purc_instance_extra_info info;
-    info.enable_remote_fetcher = true;
+    purc_instance_extra_info info = {};
     purc_init ("cn.fmsoft.hybridos.sample", "pcfetcher", &info);
-
-    RunLoop::initializeMain();
-    AtomString::init();
-    WTF::RefCountedBase::enableThreadingChecksGlobally();
 
     url = argv[1] ? argv[1] : def_url;
 
-    pcfetcher_init(10, 1024);
-    pcfetcher_request_async(
+    purc_variant_t req_id = pcfetcher_request_async(
                 url,
                 PCFETCHER_REQUEST_METHOD_GET,
                 NULL,
@@ -66,10 +63,11 @@ int main(int argc, char** argv)
                 async_response_handler,
                 NULL);
 
-    RunLoop::run();
+    if (req_id != PURC_VARIANT_INVALID) {
+        RunLoop::run();
+    }
     fprintf(stderr, "....................................after runloop\n");
 
-    pcfetcher_term();
     purc_cleanup();
 
     return 0;

@@ -1,78 +1,105 @@
-# Copyright (C) 2020 Beijing FMSoft Technologies Co., Ltd.
-# 
-# This program is free software: you can redistribute it and/or modify
-# it under the terms of the GNU Lesser General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-# 
-# This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU Lesser General Public License for more details.
-# 
-# You should have received a copy of the GNU Lesser General Public License
-# along with this program.  If not, see <https://www.gnu.org/licenses/>.
-# 
-# Or,
-# 
-# As this component is a program released under LGPLv3, which claims
-# explicitly that the program could be modified by any end user
-# even if the program is conveyed in non-source form on the system it runs.
-# Generally, if you distribute this program in embedded devices,
-# you might not satisfy this condition. Under this situation or you can
-# not accept any condition of LGPLv3, you need to get a commercial license
-# from FMSoft, along with a patent license for the patents owned by FMSoft.
-# 
-# If you have got a commercial/patent license of this program, please use it
-# under the terms and conditions of the commercial license.
-# 
-# For more information about the commercial license and patent license,
-# please refer to
-# <https://hybridos.fmsoft.cn/blog/hybridos-licensing-policy/>.
-# 
-# Also note that the LGPLv3 license does not apply to any entity in the
-# Exception List published by Beijing FMSoft Technologies Co., Ltd.
-# 
-# If you are or the entity you represent is listed in the Exception List,
-# the above open source or free software license does not apply to you
-# or the entity you represent. Regardless of the purpose, you should not
-# use the software in any way whatsoever, including but not limited to
-# downloading, viewing, copying, distributing, compiling, and running.
-# If you have already downloaded it, you MUST destroy all of its copies.
-# 
-# The Exception List is published by FMSoft and may be updated
-# from time to time. For more information, please see
-# <https://www.fmsoft.cn/exception-list>.
+# Copyright (C) 2021 Beijing FMSoft Technologies Co., Ltd.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1.  Redistributions of source code must retain the above copyright
+#     notice, this list of conditions and the following disclaimer.
+# 2.  Redistributions in binary form must reproduce the above copyright
+#     notice, this list of conditions and the following disclaimer in the
+#     documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDER AND ITS CONTRIBUTORS ``AS
+# IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
+# THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR ITS
+# CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
+# EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
+# PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
+# OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+# WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
+# OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+# ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+#[=======================================================================[.rst:
+FindPurC
+--------------
+
+Find PurC headers and libraries.
+
+Imported Targets
+^^^^^^^^^^^^^^^^
+
+``PurC::PurC``
+  The PurC library, if found.
+
+Result Variables
+^^^^^^^^^^^^^^^^
+
+This will define the following variables in your project:
+
+``PurC_FOUND``
+  true if (the requested version of) PurC is available.
+``PurC_VERSION``
+  the version of PurC.
+``PurC_LIBRARIES``
+  the libraries to link against to use PurC.
+``PurC_INCLUDE_DIRS``
+  where to find the PurC headers.
+``PurC_COMPILE_OPTIONS``
+  this should be passed to target_compile_options(), if the
+  target is not used for linking
+
+#]=======================================================================]
+
+# TODO: Remove when cmake_minimum_version bumped to 3.14.
 
 find_package(PkgConfig QUIET)
 pkg_check_modules(PC_PURC QUIET purc)
+set(PurC_COMPILE_OPTIONS ${PC_PURC_CFLAGS_OTHER})
+set(PurC_VERSION ${PC_PURC_VERSION})
 
-set(PURC_DEFINITIONS ${PC_PURC_CFLAGS_OTHER})
-set(PURC_VERSION "${PC_PURC_VERSION}")
-
-find_path(PURC_INCLUDE_DIR
+find_path(PurC_INCLUDE_DIR
     NAMES purc/purc.h
-    HINTS ${PC_PURC_INCLUDEDIR}
-          ${PC_PURC_INCLUDE_DIRS}
-    PATH_SUFFIXES purc
+    HINTS ${PC_PURC_INCLUDEDIR} ${PC_PURC_INCLUDE_DIR}
 )
 
-find_library(PURC_LIBRARIES
-    NAMES purc
-    HINTS ${PC_PURC_LIBDIR}
-          ${PC_PURC_LIBRARY_DIRS}
+find_library(PurC_LIBRARY
+    NAMES ${PurC_NAMES} purc
+    HINTS ${PC_PURC_LIBDIR} ${PC_PURC_LIBRARY_DIRS}
 )
 
-set(PURC_INCLUDE_DIRS ${PURC_INCLUDE_DIR})
+if (PurC_INCLUDE_DIR AND NOT PurC_VERSION)
+    if (EXISTS "${PurC_INCLUDE_DIR}/purc/purc-version.h")
+        file(STRINGS ${PurC_INCLUDE_DIR}/purc/purc-version.h _ver_line
+            REGEX "^#define PURC_VERSION_STRING  *\"[0-9]+\\.[0-9]+\\.[0-9]+\""
+            LIMIT_COUNT 1)
+        string(REGEX MATCH "[0-9]+\\.[0-9]+\\.[0-9]+"
+            PurC_VERSION "${_ver_line}")
+        unset(_ver_line)
+    endif ()
+endif ()
 
 include(FindPackageHandleStandardArgs)
-FIND_PACKAGE_HANDLE_STANDARD_ARGS(PurC
-        REQUIRED_VARS PURC_INCLUDE_DIRS PURC_LIBRARIES
-        VERSION_VAR   PURC_VERSION)
-
-# show the PURC_INCLUDE_DIR and PURC_LIBRARIES variables only in the advanced view
-mark_as_advanced(
-    PURC_INCLUDE_DIR
-    PURC_INCLUDE_DIRS
-    PURC_LIBRARIES
+find_package_handle_standard_args(PurC
+    FOUND_VAR PurC_FOUND
+    REQUIRED_VARS PurC_LIBRARY PurC_INCLUDE_DIR
+    VERSION_VAR PurC_VERSION
 )
+
+if (PurC_LIBRARY AND NOT TARGET PurC::PurC)
+    add_library(PurC::PurC UNKNOWN IMPORTED GLOBAL)
+    set_target_properties(PurC::PurC PROPERTIES
+        IMPORTED_LOCATION "${PurC_LIBRARY}"
+        INTERFACE_COMPILE_OPTIONS "${PurC_COMPILE_OPTIONS}"
+        INTERFACE_INCLUDE_DIRECTORIES "${PurC_INCLUDE_DIR}"
+    )
+endif ()
+
+mark_as_advanced(PurC_INCLUDE_DIR PurC_LIBRARIES)
+
+if (PurC_FOUND)
+    set(PURC_LIBRARIES ${PurC_LIBRARY})
+    set(PURC_INCLUDE_DIRS ${PurC_INCLUDE_DIR})
+endif ()
+

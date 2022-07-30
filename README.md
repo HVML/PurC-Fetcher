@@ -1,15 +1,34 @@
 # PurC Fetcher
 
-`PurC Fetcher` is a data fetcher for the PurC.
-
+PurC Fetcher is a remote data fetcher for PurC.
 
 - [Source Tree of PurC Fetcher](#source-tree-of-purc-fetcher)
 - [Building](#building)
-   + [Commands](#commands)
 - [Authors and Contributors](#authors-and-contributors)
 - [Copying](#copying)
 - [Tradmarks](#tradmarks)
 
+## Introduction
+
+This software is a part of HVML project.
+
+PurC Fetcher runs as a standalone process to fetch data from the given remote URLs for your C/C++ program.
+It is derived from WebKit.
+
+If you want your HVML program can fetch data from a remote URLs, you need build and install this software to your system.
+
+Note that, although PurC Fetcher runs as a proxy for PurC, you can use PurC Fetcher for your any generic C/C++ program.
+
+Currently, PurC Fetcher only runs on Linux system.
+It is possible to run it on macOS, but we did not test it yet.
+We encourage everyone to port PurC Fetcher to other platforms, such as Windows, Android, iOS, etc.
+
+Note that, PurC Fetcher depends on glib 2.44+, gio, and libsoup.
+
+For more information about HVML, you can visit the following URLs:
+
+- <https://github.com/HVML>, or
+- <https://hvml.fmsoft.cn>
 
 ## Source Tree of PurC Fetcher
 
@@ -38,9 +57,7 @@ The source tree of PurC Fetcher contains the following modules:
 
 ## Building
 
-### Commands
-
-To build:
+To build PurC Fetcher, run the following commands in the root of the source tree:
 
 ```
 rm -rf build && cmake -DCMAKE_BUILD_TYPE=Debug -DPORT=Linux -B build && cmake --build build
@@ -52,7 +69,7 @@ rm -rf build && cmake -DCMAKE_BUILD_TYPE=Debug -DPORT=Linux -B build && cmake --
 
 ## Copying
 
-Copyright (C) 2021 FMSoft (<https://www.fmsoft.cn>)
+Copyright (C) 2021, 2022 FMSoft (<https://www.fmsoft.cn>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by

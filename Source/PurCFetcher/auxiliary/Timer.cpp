@@ -145,6 +145,7 @@ inline void swap(TimerHeapReference a, TimerHeapReference b)
 
 // ----------------
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
 // Class to represent iterators in the heap when calling the standard library heap algorithms.
 // Uses a custom pointer and reference type that update indices for pointers in the heap.
 class TimerHeapIterator : public std::iterator<std::random_access_iterator_tag, RefPtr<ThreadTimerHeapItem>, ptrdiff_t, TimerHeapPointer, TimerHeapReference> {
@@ -188,6 +189,7 @@ private:
 
     RefPtr<ThreadTimerHeapItem>* m_pointer;
 };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
 inline bool operator==(TimerHeapIterator a, TimerHeapIterator b) { return a.m_pointer == b.m_pointer; }
 inline bool operator!=(TimerHeapIterator a, TimerHeapIterator b) { return a.m_pointer != b.m_pointer; }

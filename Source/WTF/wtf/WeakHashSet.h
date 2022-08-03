@@ -39,6 +39,7 @@ template<typename Counter> struct HashTraits<Ref<WeakPtrImpl<Counter>>> : RefHas
     }
 };
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
 template<typename T, typename Counter = EmptyCounter>
 class WeakHashSet final {
     WTF_MAKE_FAST_ALLOCATED;
@@ -154,6 +155,7 @@ public:
 private:
     WeakPtrImplSet m_set;
 };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
 template<typename MapFunction, typename T>
 struct Mapper<MapFunction, const WeakHashSet<T> &, void> {

@@ -106,6 +106,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
 
     typedef enum { HashItemKnownGood } HashItemKnownGoodTag;
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
     template<typename Key, typename Value, typename Extractor, typename HashFunctions, typename Traits, typename KeyTraits>
     class HashTableConstIterator : public std::iterator<std::forward_iterator_tag, Value, std::ptrdiff_t, const Value*, const Value&> {
         WTF_MAKE_FAST_ALLOCATED;
@@ -302,6 +303,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
 
         explicit operator bool() const { return isNewEntry; }
     };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
     // HashTableCapacityForSize computes the upper power of two capacity to hold the size parameter.
     // This is done at compile time to initialize the HashTraits.
@@ -344,6 +346,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
         static_assert(!static_cast<unsigned>(value >> 31), "HashTableNoCapacityOverflow");
     };
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
     template<typename Key, typename Value, typename Extractor, typename HashFunctions, typename Traits, typename KeyTraits>
     class HashTable {
     public:
@@ -580,6 +583,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
         static constexpr int deletedCountOffset = -4;
         static constexpr unsigned metadataSize = 4 * sizeof(unsigned);
 
+ALLOW_ARRAY_BOUNDS_BEGIN
         unsigned tableSize() const { return m_table ? reinterpret_cast_ptr<unsigned*>(m_table)[tableSizeOffset] : 0; }
         void setTableSize(unsigned size) const { ASSERT(m_table); reinterpret_cast_ptr<unsigned*>(m_table)[tableSizeOffset] = size; }
         unsigned tableSizeMask() const { ASSERT(m_table); return m_table ? reinterpret_cast_ptr<unsigned*>(m_table)[tableSizeMaskOffset] : 0; }
@@ -588,6 +592,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
         void setKeyCount(unsigned count) const { ASSERT(m_table); reinterpret_cast_ptr<unsigned*>(m_table)[keyCountOffset] = count; }
         unsigned deletedCount() const { ASSERT(m_table); return reinterpret_cast_ptr<unsigned*>(m_table)[deletedCountOffset]; }
         void setDeletedCount(unsigned count) const { ASSERT(m_table); reinterpret_cast_ptr<unsigned*>(m_table)[deletedCountOffset] = count; }
+ALLOW_ARRAY_BOUNDS_END
 
         ValueType* m_table { nullptr };
 
@@ -627,6 +632,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
         key ^= (key >> 20);
         return key;
     }
+ALLOW_DEPRECATED_DECLARATIONS_END
 
 #if !ENABLE_ASSERTS
 
@@ -1560,6 +1566,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
 
     // iterator adapters
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
     template<typename HashTableType, typename ValueType> struct HashTableConstIteratorAdapter : public std::iterator<std::forward_iterator_tag, ValueType, std::ptrdiff_t, const ValueType*, const ValueType&> {
         HashTableConstIteratorAdapter() {}
         HashTableConstIteratorAdapter(const typename HashTableType::const_iterator& impl) : m_impl(impl) {}
@@ -1592,6 +1599,7 @@ DECLARE_ALLOCATOR_WITH_HEAP_IDENTIFIER(HashTable);
 
         typename HashTableType::iterator m_impl;
     };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
     template<typename T, typename U>
     inline bool operator==(const HashTableConstIteratorAdapter<T, U>& a, const HashTableConstIteratorAdapter<T, U>& b)

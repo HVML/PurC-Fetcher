@@ -387,6 +387,7 @@ struct __any_backup_storage_required<Variant<_Types...> >{
 template<typename ... _Types>
 union __variant_data;
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
 template<typename _Type,bool=std::is_literal_type<_Type>::value>
 struct __variant_storage{
     typedef _Type __type;
@@ -405,6 +406,7 @@ struct __variant_storage{
     }
     static void __destroy(__type&){}
 };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
 template<typename _Type>
 struct __storage_wrapper{

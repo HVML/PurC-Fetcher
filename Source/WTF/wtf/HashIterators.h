@@ -40,6 +40,7 @@ namespace WTF {
     template<typename HashTableType, typename ValueType> struct HashTableConstIteratorAdapter;
     template<typename HashTableType, typename ValueType> struct HashTableIteratorAdapter;
 
+ALLOW_DEPRECATED_DECLARATIONS_BEGIN
     template<typename HashTableType, typename KeyType, typename MappedType> struct HashTableConstIteratorAdapter<HashTableType, KeyValuePair<KeyType, MappedType>> : public std::iterator<std::forward_iterator_tag, KeyValuePair<KeyType, MappedType>, std::ptrdiff_t, const KeyValuePair<KeyType, MappedType>*, const KeyValuePair<KeyType, MappedType>&> {
     private:
         typedef KeyValuePair<KeyType, MappedType> ValueType;
@@ -170,6 +171,7 @@ namespace WTF {
 
         Iterator m_impl;
     };
+ALLOW_DEPRECATED_DECLARATIONS_END
 
     template<typename T, typename U, typename V>
         inline bool operator==(const HashTableConstKeysIterator<T, U, V>& a, const HashTableConstKeysIterator<T, U, V>& b)

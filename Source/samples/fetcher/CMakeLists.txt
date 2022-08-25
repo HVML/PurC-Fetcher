@@ -2,25 +2,25 @@ include(GlobalCommon)
 include(target/PurCFetcher)
 
 # fetcher
-PURCFETCHER_EXECUTABLE_DECLARE(purc_fetcher)
+PURCFETCHER_EXECUTABLE_DECLARE(purcfetcher)
 
-list(APPEND purc_fetcher_PRIVATE_INCLUDE_DIRECTORIES
+list(APPEND purcfetcher_PRIVATE_INCLUDE_DIRECTORIES
     ${PURCFETCHER_DIR}/include
     ${PurCFetcher_DERIVED_SOURCES_DIR}
 )
 
-PURCFETCHER_EXECUTABLE(purc_fetcher)
+PURCFETCHER_EXECUTABLE(purcfetcher)
 
-set(purc_fetcher_SOURCES
+set(purcfetcher_SOURCES
     fetcher.cpp
 )
 
-set(purc_fetcher_LIBRARIES
+set(purcfetcher_LIBRARIES
     PurCFetcher::PurCFetcher
     pthread
 )
 
-#PURCFETCHER_COMPUTE_SOURCES(purc_fetcher)
-PURCFETCHER_FRAMEWORK(purc_fetcher)
+#PURCFETCHER_COMPUTE_SOURCES(purcfetcher)
+PURCFETCHER_FRAMEWORK(purcfetcher)
 
-install(TARGETS purc_fetcher DESTINATION "${LIBEXEC_INSTALL_DIR}")
+install(TARGETS purcfetcher DESTINATION "${LIBEXEC_INSTALL_DIR}")

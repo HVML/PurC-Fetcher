@@ -1,0 +1,5 @@
+hvml-purc-fetcher (0.0.1-1) unstable; urgency=medium
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- lichenggang <lichenggang@uniontech.com>  Thu, 25 Aug 2022 17:18:20 +0800

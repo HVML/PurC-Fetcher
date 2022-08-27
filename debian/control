@@ -1,0 +1,16 @@
+Source: hvml-purc-fetcher
+Section: libs
+Priority: optional
+Maintainer: Vincent Wei <vincent@minigui.org>
+Build-Depends: debhelper (>= 11), cmake, libgcrypt20-dev, ruby-dev, openjdk-11-jdk, libsqlite3-dev
+Standards-Version: 4.1.3
+Homepage: https://github.com/HVML/hvml-purc-fetcher
+
+Package: hvml-purc-fetcher
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: DOM Ruler is a library to maintain a DOM tree
+ DOM Ruler is a library to maintain a DOM tree, lay out and stylize 
+ the DOM elements by using CSS (Cascaded Style Sheets). 
+ It integrates LibCSS (MIT licensed), LibParserUtils (MIT licensed) 
+ and LibWapcaplet (MIT licensed) from open source community.

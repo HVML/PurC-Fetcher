@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: dom-ruler
-Source: https://github.com/HVML/hvml-purc-fetcher
+Source: https://github.com/HVML/PurC-Fetcher 
 
 Files: *
 Copyright: 2021, 2022 FMSoft Technologies

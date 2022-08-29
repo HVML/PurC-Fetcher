@@ -1,8 +1,9 @@
 build/
 
-# local .vimrc
+# local .vimrc .vscode
 .vimrc
 *.swp
+.vscode
 
 .build/
 
